@@ -1,0 +1,28 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+   <button *ngIf="!isAuthorized" [routerLink]="['login']">
+    Login
+   </button>
+  
+   <!-- <button *ngIf="isAuthorized" (click)="logout()">
+    Logout
+   </button> -->
+  <div *ngIf="isAuthorized">
+      <app-nav-bar></app-nav-bar>
+  </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="header"></div>
+      <div><router-outlet></router-outlet></div>
+      <div *ngIf="isUser">
+        <app-home-page></app-home-page>
+      </div>
+      <div *ngIf="isAdmin">
+        <app-home-page-admin></app-home-page-admin>
+      </div>
+    </mat-drawer-content>
+</mat-drawer-container>
+
+
+
+

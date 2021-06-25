@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="borderPhoto">
+        <img src="/assets/img/photo.png" alt="photo">
+    </div>
+    <div>
+        <button *ngIf="isAdmin" mat-icon-button class="peopleIcon" [routerLink]="['admin', 'stafflist']">
+            <img src="/assets/img/people.png" alt="">
+        </button>
+        <button *ngIf="isUser" mat-icon-button class="peopleIcon" [routerLink]="['user', 'stafflist']">
+            <img src="/assets/img/people.png" alt="">
+        </button>
+    </div>
+    <div>
+        <button mat-icon-button class="bagIcon" routerLink = "/calendar">
+            <img class="bagIcon_top" src="/assets/img/bag1.png" alt=""><br>
+            <img class="bagIcon_bottom"src="/assets/img/bag2.png" alt="">
+        </button>
+    </div>
+</div>
