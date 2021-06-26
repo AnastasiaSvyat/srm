@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { Role } from '../model/role';
 import { AuthService } from '../services/auth.service';
+import { routes } from '../routing/childLoad.module';
 
 
 @Component({
@@ -19,8 +20,15 @@ export class CheckInComponent implements OnInit {
   ngOnInit(): void {
   }
     login(role:Role){
+      console.log(role);
+      
       this.authService.login(role);
-      this.router.navigate(['/']);
+      if(role == 'User'){
+        this.router.navigate(['/profileUser']);
+      }
+      else if(role == 'Admin'){
+        this.router.navigate(['/profileAdmin']);
+      }
     } 
    
 

@@ -1,5 +1,8 @@
 <div class="container">
-    <div class="borderPhoto">
+    <div *ngIf="isUser" [routerLink]="['profileUser']" class="borderPhoto">
+        <img src="/assets/img/photo.png" alt="photo">
+    </div>
+    <div *ngIf="isAdmin" [routerLink]="['profileAdmin']" class="borderPhoto">
         <img src="/assets/img/photo.png" alt="photo">
     </div>
     <div>
@@ -11,7 +14,11 @@
         </button>
     </div>
     <div>
-        <button mat-icon-button class="bagIcon" routerLink = "/calendar">
+        <button mat-icon-button *ngIf="isUser" class="bagIcon" [routerLink]="['user', 'calendar']">
+            <img class="bagIcon_top" src="/assets/img/bag1.png" alt=""><br>
+            <img class="bagIcon_bottom"src="/assets/img/bag2.png" alt="">
+        </button>
+        <button mat-icon-button *ngIf="isAdmin" class="bagIcon" [routerLink]="['admin', 'calendar']">
             <img class="bagIcon_top" src="/assets/img/bag1.png" alt=""><br>
             <img class="bagIcon_bottom"src="/assets/img/bag2.png" alt="">
         </button>

@@ -1,0 +1,46 @@
+
+.container {
+    width: 398px;
+    height: 591px;
+    background-color: #FFFFFF;
+   
+}
+
+h2{
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    color: #263238;
+    padding-top: 24px;
+}
+mat-form-field {
+    background-color: #ECEFF1;
+    width: 325px;
+    height: 48px;
+    margin-left: 37px;
+    margin-top: 40px;
+}
+.typeBox{
+    margin-top: 10px;
+}
+.btn{
+    width: 155px;
+    height: 48px;
+}
+.btnCancel{
+    background-color: none;
+    border: 1px solid #546E7A;
+    color: #546E7A;
+}
+.btnAdd{
+    background-color: #546E7A;
+    color: white;
+    border: none;
+}
+.bntBox{
+    display: flex;
+    margin-top: 56px;
+    flex-direction: row;
+    justify-content: space-around;
+
+}

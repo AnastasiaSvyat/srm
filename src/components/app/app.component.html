@@ -14,12 +14,6 @@
   <mat-drawer-content>
     <div class="header"></div>
       <div><router-outlet></router-outlet></div>
-      <div *ngIf="isUser">
-        <app-home-page></app-home-page>
-      </div>
-      <div *ngIf="isAdmin">
-        <app-home-page-admin></app-home-page-admin>
-      </div>
     </mat-drawer-content>
 </mat-drawer-container>
 

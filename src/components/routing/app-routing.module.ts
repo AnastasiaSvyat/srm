@@ -16,7 +16,10 @@ const routes: Routes = [
   {
     path: '',
     children: [
-   
+      // {
+      //   path: '',
+      //   component: HomePageComponent
+      // },
 
       {
         path: 'staffList',
@@ -32,7 +35,16 @@ const routes: Routes = [
     component: CheckInComponent
   },
   {
+    path: 'profileUser',
+    component: HomePageComponent
+  },
+  {
+    path: 'profileAdmin',
+    component: HomePageAdminComponent
+  },
+  {
     path: 'user',
+    // component:HomePageComponent,
     canLoad: [AppRoutingGuard],
     canActivate: [AppRoutingGuard],
     data: {
@@ -40,7 +52,8 @@ const routes: Routes = [
         Role.User,
       ]
     },
-    loadChildren: () => import('../staff-list/routinstafflist.module').then(m => m.RoutinstafflistModule)
+    loadChildren: () => import('./childLoadRouting.module').then(m => m.RoutinstafflistModule),
+
 
 
   },
@@ -53,7 +66,7 @@ const routes: Routes = [
         Role.Admin,
       ]
     },
-    loadChildren: () => import('../staff-list/routinstafflist.module').then(m => m.RoutinstafflistModule)
+    loadChildren: () => import('./childLoadRouting.module').then(m => m.RoutinstafflistModule)
 
 
   },

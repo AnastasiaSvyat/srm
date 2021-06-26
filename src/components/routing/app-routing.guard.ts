@@ -14,8 +14,7 @@ export class AppRoutingGuard implements CanActivate {
   ){}
 
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean>| Promise<boolean>  | boolean  {
+    route: ActivatedRouteSnapshot): Observable<boolean>| Promise<boolean>  | boolean  {
       if (!this.authService.isAuthorized()) {
         this.router.navigate(['login']);
         return false;

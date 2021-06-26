@@ -16,8 +16,10 @@ import { HomePageComponent } from '../home-page/home-page.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { HomePageAdminComponent } from '../home-page-admin/home-page-admin.component';
-import { RouterModule, Routes } from '@angular/router';
-import { CalendarComponent } from '../calendar/calendar.component';
+import {MatIconModule} from '@angular/material/icon';
+import { AddEventComponent } from '../add-event/add-event.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -31,11 +33,14 @@ import { CalendarComponent } from '../calendar/calendar.component';
     HomePageComponent,
     NavBarComponent,
     HomePageAdminComponent,
-    CalendarComponent,
+    AddEventComponent
+    
   ],
   imports: [
     MatFormFieldModule,
+    MatIconModule,
     BrowserModule,
+    MatDialogModule,
     AppRoutingModule,
     MatSidenavModule, 
     BrowserModule,
@@ -47,7 +52,7 @@ import { CalendarComponent } from '../calendar/calendar.component';
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    // RouterModule.forRoot(userRoutes)
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
