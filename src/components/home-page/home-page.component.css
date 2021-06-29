@@ -68,13 +68,7 @@ mat-drawer{
 .footer_right{
     margin-left: 16px;
 }
-.btnStyle{
-    background-color: #546E7A;
-    color: white;
-    text-align: center;
-    font-style: 18px;
-    height: 48px;
-}
+
 .btnOpen{
     width: 155px;
     margin-top: 92px;

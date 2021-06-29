@@ -5,15 +5,11 @@ h2{
     text-align: center;
     margin-top: 24px;
 }
-mat-form-field {
+mat-form-field{
     background-color: #ECEFF1;
     width: 325px;
     height: 48px;
-    margin-top: 42px;
     
-}
-.typeBox{
-    margin-top: 10px;
 }
 .btnStyle{
     width: 155px;
@@ -24,6 +20,9 @@ mat-form-field {
     border: 1px solid #546E7A;
     color: #546E7A;
     height: 48px;
+}
+.calendar{
+    margin-top: 43px;
 
 }
 .bntBox{

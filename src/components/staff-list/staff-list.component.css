@@ -1,0 +1,12 @@
+.btnStyle{
+    width: 155px;
+}
+.example-button-row{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 24px;
+    margin-top: 16px;
+}
+table {
+    width: 100%;
+  }

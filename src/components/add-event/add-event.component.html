@@ -1,36 +1,33 @@
-<div class="container">
-    <div mat-dialog-content >
-       <h2 mat-dialog-title>Add event</h2>
-          <mat-dialog-content>
-            <mat-form-field class="example-form-field typeBox">
-                <mat-label>Type</mat-label>
-                <mat-select>
-                    <mat-option value="option1">Public holiday</mat-option>
-                    <mat-option value="option2">Corporate event</mat-option>
-                  </mat-select>
-            </mat-form-field>
-            <mat-form-field class="example-form-field" >
-                <mat-label>Date</mat-label>
-                <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-form-field" >
-                <mat-label>Name</mat-label>
-                <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-form-field" >
-                <mat-label>Description</mat-label>
-                <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
-            </mat-form-field>
-            
-       <div class="bntBox">
-           <div>
-                <button class="btn btnCancel">Cancel</button>
+<h2 mat-dialog-title>Add event</h2>
+<div class = "nn"mat-dialog-content>
+    <mat-form-field class="example-form-field typeBox">
+        <mat-label>Type</mat-label>
+        <mat-select>
+            <mat-option value="option1">Public holiday</mat-option>
+            <mat-option value="option2">Corporate event</mat-option>
+          </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="year" ></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="example-form-field" >
+        <mat-label>Name</mat-label>
+        <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
+    </mat-form-field>
+    <mat-form-field class="example-form-field" >
+        <mat-label>Description</mat-label>
+        <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
+    </mat-form-field>
+        <div class="bntBox">
+            <div class="example-button-row">
+                <button (click) = 'onNoClick()' class="btnStyle  btnCancel" mat-stroked-button>Cancel</button>
             </div>
-            <div>
-                <button class="btn btnAdd">Add</button>
+            <div class="example-button-row">
+                <button class="btn btnStyle" mat-stroked-button>Add</button>
             </div>
         </div>
-      </mat-dialog-content>
-    </div>
-    
 </div>
+
+

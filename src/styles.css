@@ -2,3 +2,11 @@
     margin: 0;
     box-sizing: border-box;
 }
+.btn{
+    background-color: #546E7A;
+    color: white;
+    text-align: center;
+    font-style: 18px;
+    height: 48px;
+    border: none;
+}
