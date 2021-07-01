@@ -10,3 +10,20 @@
     height: 48px;
     border: none;
 }
+.example-container {
+    width: 100%;
+    height: 100vh;
+}
+.navbar{
+    width: 72px;
+    background-color: #37474F;
+}
+.header{
+    width: 100%;
+    height: 56px;
+    background-color: #CFD8DC;
+}
+table{
+    width: 100%;
+    height: 100vh;
+}

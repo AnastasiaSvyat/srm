@@ -1,0 +1,25 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer class="navbar" mode="side" opened>
+       <app-admin-nav-bar></app-admin-nav-bar>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div class="header"></div>
+      <div class="container">
+        <div class="container_left">
+            <div class="infoBlock colorBlock"></div>
+                <div class="example-button-row content colorBlock btnBottom">
+                    <button (click) = 'addEvent()' class="btnStyle btn" mat-stroked-button>ADD EVENT</button>
+                </div>
+                <div class="content colorBlock"></div>
+                <div class="content colorBlock"></div>
+        </div>
+                    <div class="example-button-row container_right btnBottom  colorBlock">
+                        <button (click) = 'addTask()' class="btnStyle btn" mat-stroked-button>ADD TASK</button>
+                    </div>
+    </div>
+    
+    </mat-drawer-content>
+  </mat-drawer-container>
+  <div><router-outlet></router-outlet></div> 
+
+<!-- <div><router-outlet></router-outlet></div>  -->

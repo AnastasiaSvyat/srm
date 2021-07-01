@@ -1,0 +1,55 @@
+.container,.footer{
+    display: flex;
+    width: 100%;
+}
+.container_left{
+    width: 993px;
+    height: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+.colorBlock{
+    background-color: #ECEFF1;
+}
+.infoBlock,.footer_left{
+    width: 961px;
+    height: 95px;
+    margin-left: 16px;
+}
+.content_top{
+    height: 106px;
+}
+.content_bottom{
+    height: 151px;
+}
+.content_top,.content_bottom{
+    width: 309px;
+    margin-top: 16px;
+    margin-left: 16px;
+}
+.container_right,.footer_right{
+    width: 359px;
+    height: 600px;
+    margin-top: 24px;
+    display: flex;
+    align-items: flex-end;
+}
+.btnEdit{
+    width: 100%;
+}
+.footer{
+    height: 204px;
+}
+.footer_left,.footer_right{
+    height: 179px;
+    margin-top: 16px;
+}
+.footer_right{
+    margin-left: 16px;
+}
+.btnOpen{
+    width: 155px;
+    margin-top: 92px;
+    margin-left: 767px;
+}

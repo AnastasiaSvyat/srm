@@ -1,0 +1,9 @@
+<div class="loginBox" *ngIf="!isAuthorized">
+  <div>
+      <button  (click) = "login(Role.User)" class="loginBox_user" mat-raised-button>User</button>
+  </div>
+  <div>
+      <button (click) = "login(Role.Admin)" class="loginBox_admin" mat-raised-button>Admin</button>
+  </div>
+</div>
+<div><router-outlet></router-outlet></div> 

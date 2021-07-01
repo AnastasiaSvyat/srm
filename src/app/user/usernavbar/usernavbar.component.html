@@ -1,0 +1,19 @@
+<div class="container">
+    <div >
+        <button mat-icon-button class="borderPhoto" [routerLink]="['/user']" >
+            <img src="/assets/img/photo.png" alt="photo">
+        </button>
+    </div>
+    <div>
+        <button mat-icon-button class="peopleIcon" [routerLink]="['/user', 'stafflist']">
+            <img src="/assets/img/people.png" alt="">
+        </button>
+    </div>
+    <div>
+        <button (click) = 'kk()' mat-icon-button class="bagIcon" [routerLink]="['/user', 'calendar']">
+            <img class="bagIcon_top" src="/assets/img/bag1.png" alt=""><br>
+            <img class="bagIcon_bottom"src="/assets/img/bag2.png" alt="">
+        </button>
+    </div>
+</div>
+<div><router-outlet></router-outlet></div> 
