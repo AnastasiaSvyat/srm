@@ -12,13 +12,15 @@ const routes: Routes = [
       {
         path: 'user',
         loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+        canLoad: [AppRoutingGuard],
+        canActivate: [AppRoutingGuard],
       },
 
       {
         path: 'admin',
         loadChildren: () => import('../app/admin/admin.module').then(m => m.AdminModule),
         canLoad: [AppRoutingGuard],
-    canActivate: [AppRoutingGuard],
+        canActivate: [AppRoutingGuard],
       },
       {
         path: '',

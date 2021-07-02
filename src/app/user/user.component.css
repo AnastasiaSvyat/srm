@@ -1,16 +1,9 @@
-.container,.footer{
-    display: flex;
-    width: 100%;
-}
 .container_left{
     width: 993px;
     height: 40px;
     display: flex;
     flex-wrap: wrap;
     margin-top: 24px;
-}
-.colorBlock{
-    background-color: #ECEFF1;
 }
 .infoBlock,.footer_left{
     width: 961px;
