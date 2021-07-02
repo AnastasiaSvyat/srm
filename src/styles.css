@@ -70,3 +70,12 @@
     width: 100%;
     display: flex;
 }
+.mt48{
+    margin-top: 48px;
+}
+.btnAddLeft{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 24px;
+    margin-top: 16px;
+}

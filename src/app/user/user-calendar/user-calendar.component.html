@@ -1,10 +1,23 @@
 <mat-drawer-container class="example-container">
     <mat-drawer class="navbar" mode="side" opened>
-       <app-usernavbar></app-usernavbar>
+        <app-usernavbar></app-usernavbar>
     </mat-drawer>
     <mat-drawer-content>
       <div class="header"></div>
-      
+    <div class="container">
+          <div class="leftBox">
+                <mat-card class=" leftBox_top colorBlock demo-inline-calendar-card">
+                    <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
+                </mat-card>
+              <div class="leftBox_bottom colorBlock">
+                <!-- <p>Selected date: {{selected}}</p> -->
+              </div>
+          </div>
+          <div class="rightBox colorBlock">
+             
+          </div>
+      </div>
     </mat-drawer-content>
   </mat-drawer-container>
   <div><router-outlet></router-outlet></div> 
+

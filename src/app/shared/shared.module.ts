@@ -13,6 +13,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {CdkTableModule} from '@angular/cdk/table';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -46,7 +47,8 @@ import {CdkTableModule} from '@angular/cdk/table';
     MatNativeDateModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule
   ]
 })
 export class SharedModule { }

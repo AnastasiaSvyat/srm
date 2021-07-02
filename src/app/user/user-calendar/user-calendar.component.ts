@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-calendar.component.css']
 })
 export class UserCalendarComponent implements OnInit {
-
+  selected!: Date | null;
+  
   constructor() { }
 
   ngOnInit(): void {

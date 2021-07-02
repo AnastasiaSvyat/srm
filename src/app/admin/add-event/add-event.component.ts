@@ -11,7 +11,9 @@ export class AddEventComponent implements OnInit {
   constructor(
   
     public dialogRef: MatDialogRef<AddEventComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AdminComponent
+    @Inject(MAT_DIALOG_DATA) public data: AdminComponent,
+
+
   ) { }
 
   ngOnInit(): void {

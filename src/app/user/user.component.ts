@@ -11,10 +11,6 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  kk(){
-    console.log('h');
-    
-  }
 
 
 }
