@@ -1,4 +1,4 @@
-<h2  class="styleh2" mat-dialog-title>Add event</h2>
+<h2  class="styleh2 mt24" mat-dialog-title>Add event</h2>
 <div mat-dialog-content>
     <mat-form-field class="example-form-field  typeBox">
         <mat-label>Type</mat-label>
@@ -20,7 +20,7 @@
         <mat-label>Description</mat-label>
         <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
     </mat-form-field>
-        <div class="bntBox">
+        <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
             <div class="example-button-row">
                 <button (click) = 'onNoClick()' class="btnStyle  btnCancel" mat-stroked-button>Cancel</button>
             </div>

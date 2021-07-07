@@ -1,0 +1,56 @@
+.btn{
+    background-color: #546E7A;
+    color: white;
+    text-align: center;
+    font-style: 18px;
+    height: 48px;
+    border: none;
+}
+.navbar{
+    width: 72px;
+    background-color: #37474F;
+}
+.header{
+    height: 56px;
+    background-color: #CFD8DC;
+}
+.styleh2{
+    font-size: 20px;
+    font-weight: 500;
+    color: #263238;
+    text-align: center;
+}
+
+.example-form-field,.styleform{
+    background-color: #ECEFF1;
+    width: 325px;
+    height: 48px;
+    margin-top: 40px;
+}
+.btnStyle{
+    width: 155px;
+}
+.btnCancel{
+    background-color: none;
+    border: 1px solid #546E7A;
+    color: #546E7A;
+    height: 48px;
+
+}
+.bntBox{
+    margin-top: 50px;
+}
+
+.colorBlock{
+    background-color: #ECEFF1;
+}
+.borderPhoto{
+    border: 3px solid white ;
+    border-radius: 50%;
+    width: 49px;
+    height: 49px;
+}
+.size{
+    width: 60px;
+    height: 60px;
+}

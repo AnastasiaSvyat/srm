@@ -1,38 +1,4 @@
-.example-container {
-    width: 100%;
-    height: 100vh;
-}
-.header{
-    width: 100%;
-    height: 56px;
-    background-color: #CFD8DC;
-}
-.containerHeigh{
-    height: 820px;
-}
-.container_left,.container_right{
-    width: 993px;
-    flex-wrap: wrap;
-    margin-top: 24px;
-}
-
-.infoBlock,.content{
-    width: 961px;
-    height: 95px;
-    margin-left: 16px;
-}
-.content{
-    width: 309px;
-    height: 689px;
-}
-.container_right{
-    width: 359px;
-    height: 800px;
-}
-.btnStyle{
-   width: 100%;
-}
-.btnBottom{
-    display: flex;
-    align-items: flex-end;
+.sizeDashboardImg{
+    width: 29px;
+    height: 28px;
 }

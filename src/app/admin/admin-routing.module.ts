@@ -4,12 +4,19 @@ import { AdminComponent } from './admin.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminStaffListComponent } from './admin-staff-list/admin-staff-list.component';
 import { AdminCalendarComponent } from './admin-calendar/admin-calendar.component';
+import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 
 export const routes: Routes = [
-  { path: '', component: AdminComponent },
+  { path: '', component: AdminComponent , children: [
+    { path: 'stafflist', component: AdminStaffListComponent },
+    { path: 'calendar', component: AdminCalendarComponent },
+    { path: 'dashboardAdmin', component: DashboardAdminComponent },
+    { path: '', redirectTo:'dashboardAdmin', pathMatch:'full'},
+    { path: '**', redirectTo:'dashboardAdmin' ,},
+
+  ]},
   
-  { path: 'stafflist', component: AdminStaffListComponent },
-  { path: 'calendar', component: AdminCalendarComponent },
+ 
 
 ];
 

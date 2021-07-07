@@ -43,7 +43,7 @@ export class AdminStaffListComponent implements OnInit {
   addUser(){
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
-      // height :'791px',
+      height :'791px',
   });
 }
 displayedColumns: string[] = ['name','position', 'birth','phone','email','skype'];

@@ -1,34 +1,28 @@
-<mat-drawer-container class="example-container">
+<mat-drawer-container class="example-container w100 h100">
     <mat-drawer class="navbar" mode="side" opened>
-       <app-usernavbar></app-usernavbar>
+        <div fxLayout="column" fxLayoutAlign="space-evenly center"  class="mt76">
+            <div class="borderPhoto mt20">
+                <button mat-icon-button class="borderPhoto" [routerLink]="['/user', 'dashboardUser']" >
+                    <img class="h100pr" src="/assets/img/photo.png" alt="photo">
+                </button>
+            </div>
+            <div class="mt20">
+                <button mat-icon-button class="size" [routerLink]="['/user', 'stafflist']">
+                    <img src="/assets/img/people.png" alt="">
+                </button>
+            </div>
+            <div class="mt20">
+                <button  mat-icon-button class="size" [routerLink]="['/user', 'calendar']">
+                    <img class="bagIcon_top" src="/assets/img/bag.png" alt=""><br>
+                </button>
+            </div>
+        </div>
     </mat-drawer>
     <mat-drawer-content>
-      <div class="header"></div>
-      
-        <div class="container">
-        <div class="container_left">
-            <div class="infoBlock colorBlock"></div>
-            <div class="content_top colorBlock"></div>
-            <div class="content_top colorBlock"></div>
-            <div class="content_top colorBlock"></div>
-            <div class="content_bottom colorBlock"></div>
-            <div class="content_bottom colorBlock"></div>
-            <div class="content_bottom colorBlock"></div>
-        </div>
-        <div class="example-button-row container_right colorBlock">
-            <button class="btnEdit btn" mat-stroked-button>EDIT</button>
-        </div>
-    </div>
-    <div class="footer container">
-        <div class="example-button-row footer_left colorBlock">
-            <button class="btnOpen btn" mat-stroked-button>OPEN FILE</button>
-        </div>
-        <div class="example-button-row footer_right colorBlock">
-            <button class="btnEdit btn" mat-stroked-button>ADD NEW</button>
-        </div>
-    </div>
-
-
+      <div class="header w100"></div>
+      <router-outlet></router-outlet>
     </mat-drawer-content>
-  </mat-drawer-container> 
+</mat-drawer-container> 
    
+
+  

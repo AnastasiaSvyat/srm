@@ -1,8 +1,5 @@
 .loginBox{
-    display: flex;
     height: 650px;
-    align-items: center;
-    justify-content: space-around;
 }
 .loginBox_user,.loginBox_admin{
     background-color: rgb(148, 187, 206);

@@ -1,0 +1,10 @@
+.container_left,.container_right{
+    margin-top: 24px;
+}
+.content{
+    height: 689px;
+    margin-bottom: 20px;
+}
+.container_right{
+    height: 800px;
+}

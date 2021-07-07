@@ -1,25 +1,26 @@
-<mat-drawer-container class="example-container">
-    <mat-drawer class="navbar" mode="side" opened>
-       <app-admin-nav-bar></app-admin-nav-bar>
-    </mat-drawer>
-    <mat-drawer-content>
-      <div class="header"></div>
-      <div class="container containerHeigh">
-        <div class="container_left container">
-            <div class="infoBlock colorBlock"></div>
-                <div class="example-button-row content colorBlock btnBottom">
-                    <button (click) = 'addEvent()' class="btnStyle btn" mat-stroked-button>ADD EVENT</button>
-                </div>
-                <div class="content colorBlock"></div>
-                <div class="content colorBlock"></div>
-        </div>
-                    <div class="example-button-row container_right btnBottom  colorBlock">
-                        <button (click) = 'addTask()' class="btnStyle btn" mat-stroked-button>ADD TASK</button>
-                    </div>
-    </div>
-    
-    </mat-drawer-content>
-  </mat-drawer-container>
-  <div><router-outlet></router-outlet></div> 
-
-<!-- <div><router-outlet></router-outlet></div>  -->
+<mat-drawer-container class="example-container w100 h100">
+  <mat-drawer class="navbar" mode="side" opened>
+    <div  fxLayout="column" fxLayoutAlign="space-evenly center"  class="mt76">
+      <div class="mt20">
+          <button mat-icon-button [routerLink]="['/admin', 'dashboardAdmin']" >
+              <img class="sizeDashboardImg"  src="/assets/img/dashboardImg.png" alt="photo">
+          </button>
+      </div>
+      <div class="mt20">
+          <button mat-icon-button class="size" [routerLink]="['/admin', 'stafflist']">
+              <img src="/assets/img/people.png" alt="">
+          </button>
+      </div>
+      <div class="mt20">
+          <button  mat-icon-button class="size" [routerLink]="['/admin', 'calendar']">
+              <img src="/assets/img/bag.png" alt=""><br>
+          </button>
+      </div>
+  </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="header w100"></div>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+ 

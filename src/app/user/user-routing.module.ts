@@ -6,11 +6,22 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserStaffListComponent } from './user-staff-list/user-staff-list.component';
 import { UserCalendarComponent } from './user-calendar/user-calendar.component';
 import { AppRoutingGuard } from 'src/app/routing/app-routing.guard';
+import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
 
 export const routes: Routes = [
-  { path: 'stafflist', component: UserStaffListComponent ,},
-  { path: 'calendar', component: UserCalendarComponent ,},
-  { path: '', component: UserComponent },
+  { path: '', component: UserComponent, children: [
+    { path: 'stafflist', component: UserStaffListComponent ,},
+    { path: 'calendar', component: UserCalendarComponent ,},
+    { path: 'dashboardUser', component: DashboardUserComponent ,},
+    { path: '', redirectTo:'dashboardUser', pathMatch:'full'},
+    { path: '**', redirectTo:'dashboardUser' ,},
+
+    
+
+
+  ] },
+
+  
   
 
 

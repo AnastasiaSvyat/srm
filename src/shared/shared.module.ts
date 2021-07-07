@@ -14,6 +14,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {CdkTableModule} from '@angular/cdk/table';
 import { MatCardModule } from '@angular/material/card';
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 
@@ -32,9 +33,11 @@ import { MatCardModule } from '@angular/material/card';
     MatNativeDateModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    FlexLayoutModule
   ],
   exports:[
+    FlexLayoutModule,
     MatFormFieldModule,
     CdkTableModule,
     MatTableModule,
