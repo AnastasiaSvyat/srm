@@ -1,22 +1,22 @@
 <h2  class="styleh2 mt24" mat-dialog-title>Add event</h2>
 <div mat-dialog-content>
-    <mat-form-field class="example-form-field  typeBox">
+    <mat-form-field class=" colorBlock example-form-field  typeBox">
         <mat-label>Type</mat-label>
         <mat-select>
             <mat-option value="option1">Public holiday</mat-option>
             <mat-option value="option2">Corporate event</mat-option>
           </mat-select>
     </mat-form-field>
-    <mat-form-field class = "styleform" >
+    <mat-form-field class = " colorBlock styleform" >
         <input matInput [matDatepicker]="picker" placeholder="Choose a date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker startView="year" ></mat-datepicker>
     </mat-form-field>
-    <mat-form-field class="example-form-field" >
+    <mat-form-field class=" colorBlock example-form-field" >
         <mat-label>Name</mat-label>
         <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
     </mat-form-field>
-    <mat-form-field class="example-form-field" >
+    <mat-form-field class="colorBlock example-form-field" >
         <mat-label>Description</mat-label>
         <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
     </mat-form-field>

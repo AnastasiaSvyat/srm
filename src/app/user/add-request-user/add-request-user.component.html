@@ -1,0 +1,43 @@
+<h2 class="styleh2 mt24" mat-dialog-title>Create request</h2>
+<div mat-dialog-content>
+<mat-form-field class="colorBlock example-form-field">
+  <mat-label>Type</mat-label>
+        <mat-select>
+            <mat-option value="option1">One</mat-option>
+            <mat-option value="option2">Two</mat-option>
+          </mat-select>
+    </mat-form-field>
+    <div  fxLayout="row" fxLayoutAlign="space-between center" >
+        <div>
+            <mat-form-field class = " colorBlock mt44 calendarStyle" >
+                <input matInput [matDatepicker]="picker" placeholder="Start day">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="year" ></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class = "colorBlock mr25 mt44 calendarStyle" >
+                <input matInput [matDatepicker]="picker" placeholder="End day">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="year" ></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <mat-form-field class="colorBlock example-form-field description" >
+        <mat-label>Description</mat-label>
+        <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
+    </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="space-around center"  class="mt50">
+            <div class="example-button-row">
+                <button (click) = "onNoClick()" class="btnStyle btnCancel" mat-stroked-button>Cancel</button>
+            </div>
+            <div class="example-button-row">
+                <button class="btn btnStyle" mat-stroked-button>Send</button>
+            </div>
+        </div>
+</div>
+
+
+
+
+

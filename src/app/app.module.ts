@@ -16,11 +16,13 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { AddRequestUserComponent } from './user/add-request-user/add-request-user.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    AddRequestUserComponent,
     
    
   ],

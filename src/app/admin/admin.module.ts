@@ -10,6 +10,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 // import { FlexLayoutModule } from '@angular/flex-layout';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
+import { MsgAdminComponent } from './msg-admin/msg-admin.component';
 
 
 
@@ -23,6 +24,7 @@ import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.compo
     AddEventComponent,
     AddUserComponent,
     AddTaskComponent,
+    MsgAdminComponent
 
     
   ],

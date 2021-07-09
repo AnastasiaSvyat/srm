@@ -21,12 +21,6 @@
     text-align: center;
 }
 
-.example-form-field,.styleform{
-    background-color: #ECEFF1;
-    width: 325px;
-    height: 48px;
-    margin-top: 40px;
-}
 .btnStyle{
     width: 155px;
 }
@@ -35,7 +29,6 @@
     border: 1px solid #546E7A;
     color: #546E7A;
     height: 48px;
-
 }
 .bntBox{
     margin-top: 50px;
@@ -44,6 +37,12 @@
 .colorBlock{
     background-color: #ECEFF1;
 }
+.example-form-field,.styleform{
+    width: 325px;
+    height: 48px;
+    margin-top: 40px;
+}
+
 .borderPhoto{
     border: 3px solid white ;
     border-radius: 50%;
@@ -53,4 +52,12 @@
 .size{
     width: 60px;
     height: 60px;
+}
+.msgIcon{
+    margin-top: 360px;
+}
+.calendarStyle{
+    height: 48px;
+    width: 154px;
+    
 }
