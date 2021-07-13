@@ -6,7 +6,7 @@ import { AddTaskComponent } from '../add-task/add-task.component';
 @Component({
   selector: 'app-dashboard-admin',
   templateUrl: './dashboard-admin.component.html',
-  styleUrls: ['./dashboard-admin.component.css']
+  styleUrls: ['./dashboard-admin.component.scss']
 })
 export class DashboardAdminComponent implements OnInit {
 

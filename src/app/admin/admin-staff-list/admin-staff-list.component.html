@@ -1,35 +1,35 @@
-<div fxLayout="row" fxLayoutAlign="end none" class="example-button-row mt16 btnAddLeft">
-  <button class="btn btnStyle "(click) = 'addUser()'mat-stroked-button>ADD USER</button>
+<div class="admin-staff-container">
+  <div fxLayout="row" fxLayoutAlign="end none" class="example-button-row mt16 btnAddLeft">
+    <button class="btn w155 "(click)='addUser()'mat-stroked-button>ADD USER</button>
+  </div>
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8 table w100 h100 mt16">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> EMPLOYEE </mat-header-cell >
+      <mat-cell *matCellDef="let element">  
+          <img src={{element.photo}} alt="">{{element.name}} 
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef> POSITION </mat-header-cell >
+      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="birth">
+      <mat-header-cell *matHeaderCellDef> BIRTH DATE </mat-header-cell >
+      <mat-cell *matCellDef="let element"> {{element.birth}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef> PHONE </mat-header-cell >
+      <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell >
+      <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="skype">
+      <mat-header-cell *matHeaderCellDef> SKYPE </mat-header-cell >
+      <mat-cell *matCellDef="let element"> {{element.skype}} </mat-cell>
+    </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 </div>
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8 table w100 h100 mt16">
-  <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef> EMPLOYEE </mat-header-cell >
-    <mat-cell *matCellDef="let element">  
-        <img src={{element.photo}} alt="">{{element.name}} 
-    </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="position">
-    <mat-header-cell *matHeaderCellDef> POSITION </mat-header-cell >
-    <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="birth">
-    <mat-header-cell *matHeaderCellDef> BIRTH DATE </mat-header-cell >
-    <mat-cell *matCellDef="let element"> {{element.birth}} </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="phone">
-    <mat-header-cell *matHeaderCellDef> PHONE </mat-header-cell >
-    <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="email">
-    <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell >
-    <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="skype">
-    <mat-header-cell *matHeaderCellDef> SKYPE </mat-header-cell >
-    <mat-cell *matCellDef="let element"> {{element.skype}} </mat-cell>
-  </ng-container>
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
-      
-     

@@ -1,50 +1,48 @@
-<h2 class="styleh2 mt24" mat-dialog-title>Add user</h2>
-<div class="addPhoto">
-    <a href="#">add photo</a>
-</div>
-<div mat-dialog-content>
-    <mat-form-field class="colorBlock example-form-field calendar" >
-        <mat-label>Name</mat-label>
-        <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
-    </mat-form-field>
-    <mat-form-field class=" colorBlock example-form-field typeBox">
-        <mat-label>Position</mat-label>
-        <mat-select>
-            <mat-option value="option1">One</mat-option>
-            <mat-option value="option2">Two</mat-option>
-          </mat-select>
-    </mat-form-field>
-    <mat-form-field class="colorBlock styleform" class="styleform">
-        <mat-label>Birthday</mat-label>
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker startView="year" ></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field class="colorBlock example-form-field calendar" >
-        <mat-label>Salary</mat-label>
-        <textarea placeholder="Enter salary..." formControlName="description" name="description" matInput></textarea>
-    </mat-form-field>
-    <mat-form-field class="colorBlock example-form-field calendar" >
-        <mat-label>Phone</mat-label>
-        <textarea placeholder="Enter phone..." formControlName="description" name="description" matInput></textarea>
-    </mat-form-field>
-    <mat-form-field class="colorBlock example-form-field calendar" >
-        <mat-label>Email</mat-label>
-        <textarea placeholder="Enter email..." formControlName="description" name="description" matInput></textarea>
-    </mat-form-field>
-    <div class="addCV">
-        <a href="#">Add CV</a>
+<div class="form-container">
+    <h2 class="mt24" mat-dialog-title>Add user</h2>
+    <div class="addPhoto">
+        <a href="#">add photo</a>
     </div>
-        <div fxLayout="row" fxLayoutAlign="space-around center"  class="mt50">
-            <div class="example-button-row">
-                <button (click) = "onNoClick()" class="btnStyle btnCancel" mat-stroked-button>Cancel</button>
+        <div mat-dialog-content>
+            <mat-form-field>
+            <mat-label>Name</mat-label>
+                <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
+            </mat-form-field>
+            <mat-form-field class="typeBox">
+                <mat-label>Position</mat-label>
+                    <mat-select>
+                        <mat-option value="option1">One</mat-option>
+                        <mat-option value="option2">Two</mat-option>
+                    </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Birthday</mat-label>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="year" ></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Salary</mat-label>
+                <textarea placeholder="Enter salary..." formControlName="description" name="description" matInput></textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Phone</mat-label>
+                <textarea placeholder="Enter phone..." formControlName="description" name="description" matInput></textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <textarea placeholder="Enter email..." formControlName="description" name="description" matInput></textarea>
+            </mat-form-field>
+            <div class="addCV">
+                <a href="#">Add CV</a>
             </div>
-            <div class="example-button-row">
-                <button class="btn btnStyle" mat-stroked-button>Add</button>
+            <div fxLayout="row" fxLayoutAlign="space-around center"  class="mt50">
+                <div>
+                    <button (click)="onNoClick()" class="w155 btnCancel" mat-stroked-button>Cancel</button>
+                </div>
+                <div>
+                    <button class="btn w155" mat-stroked-button>Add</button>
+                </div>
             </div>
         </div>
 </div>
-
-
-
-

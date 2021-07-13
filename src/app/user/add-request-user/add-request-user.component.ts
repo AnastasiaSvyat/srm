@@ -6,7 +6,7 @@ import { MsgUserComponent } from '../msg-user/msg-user.component';
 @Component({
   selector: 'app-add-request-user',
   templateUrl: './add-request-user.component.html',
-  styleUrls: ['./add-request-user.component.css']
+  styleUrls: ['./add-request-user.component.scss']
 })
 export class AddRequestUserComponent implements OnInit {
 

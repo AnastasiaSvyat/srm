@@ -28,7 +28,7 @@ const STAFFLIST: StaffList[] = [
 @Component({
   selector: 'app-user-staff-list',
   templateUrl: './user-staff-list.component.html',
-  styleUrls: ['./user-staff-list.component.css']
+  styleUrls: ['./user-staff-list.component.scss']
 })
 export class UserStaffListComponent implements OnInit {
 

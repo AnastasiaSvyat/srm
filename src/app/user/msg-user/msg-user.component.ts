@@ -5,7 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 @Component({
   selector: 'app-msg-user',
   templateUrl: './msg-user.component.html',
-  styleUrls: ['./msg-user.component.css']
+  styleUrls: ['./msg-user.component.scss']
 })
 export class MsgUserComponent implements OnInit {
 
