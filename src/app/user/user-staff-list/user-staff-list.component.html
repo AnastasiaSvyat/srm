@@ -1,4 +1,5 @@
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8 table w100 h100">
+<div class="user-stafflist-container">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8 table w100 h100">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> EMPLOYEE </mat-header-cell>
         <mat-cell *matCellDef="let element">  
@@ -27,7 +28,5 @@
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
-      
-      
-
+  </mat-table>
+</div>

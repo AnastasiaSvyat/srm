@@ -17,17 +17,9 @@ export const routes: Routes = [
     { path: 'messageUser', component: MsgUserComponent ,},
     { path: '', redirectTo:'dashboardUser', pathMatch:'full'},
     { path: '**', redirectTo:'dashboardUser' ,},
-
-    
-
-
-  ] },
-
-  
-  
-
-
+  ]},
 ];
+
 @NgModule({
   declarations: [],
   imports: [
@@ -36,4 +28,5 @@ export const routes: Routes = [
   ],
   exports: [RouterModule]
 })
+
 export class UserRoutingModule { }

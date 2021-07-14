@@ -17,9 +17,6 @@ export const routes: Routes = [
     { path: '**', redirectTo:'dashboardAdmin' ,},
 
   ]},
-  
- 
-
 ];
 
 @NgModule({

@@ -9,24 +9,21 @@ import { AddTaskComponent } from '../add-task/add-task.component';
   styleUrls: ['./dashboard-admin.component.scss']
 })
 export class DashboardAdminComponent implements OnInit {
-
+  
   constructor(public dialog: MatDialog,) { }
 
-  ngOnInit(): void {
-  }
-  addEvent(){
+  ngOnInit(): void {}
+
+  addEvent(): void {
     const dialogRef = this.dialog.open(AddEventComponent, {
       width: '398px',
       height :'591px',
-  });
+    });
   }
-  addTask(){
+  addTask(): void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '398px',
       height :'361px',
-  });
-  
+    });
   }
-  
-
 }

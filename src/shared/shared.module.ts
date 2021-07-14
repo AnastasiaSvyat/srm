@@ -16,8 +16,6 @@ import {CdkTableModule} from '@angular/cdk/table';
 import { MatCardModule } from '@angular/material/card';
 import {FlexLayoutModule} from "@angular/flex-layout";
 
-
-
 @NgModule({
   declarations: [],
   imports: [

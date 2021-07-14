@@ -8,12 +8,8 @@ import { AdminStaffListComponent } from './admin-staff-list/admin-staff-list.com
 import { AddEventComponent } from './add-event/add-event.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AddTaskComponent } from './add-task/add-task.component';
-// import { FlexLayoutModule } from '@angular/flex-layout';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { MsgAdminComponent } from './msg-admin/msg-admin.component';
-
-
-
 
 @NgModule({
   declarations: [
@@ -25,16 +21,12 @@ import { MsgAdminComponent } from './msg-admin/msg-admin.component';
     AddUserComponent,
     AddTaskComponent,
     MsgAdminComponent
-
-    
   ],
   imports: [
     CommonModule,
     SharedModule,
     AdminRoutingModule,
-    // FlexLayoutModule
-    
-
   ]
 })
+
 export class AdminModule { }

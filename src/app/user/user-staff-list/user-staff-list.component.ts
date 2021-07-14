@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 export interface StaffList {
   photo:string;
   name: string;
@@ -9,8 +10,6 @@ export interface StaffList {
   skype:string;
 
 }
-
-
 const STAFFLIST: StaffList[] = [
     {photo: '/assets/img/people.png', name: 'Hellen Miky', position: 'Designer', birth: '24/12/95',phone:'+38 (063) 652 99 55',email:'hellenmiky@gmail.com',skype:'hellenmiky'},
     {photo: '/assets/img/people.png', name: 'Hellen Miky', position: 'Designer', birth: '24/12/95',phone:'+38 (063) 652 99 55',email:'hellenmiky@gmail.com',skype:'hellenmiky'},
@@ -30,6 +29,7 @@ const STAFFLIST: StaffList[] = [
   templateUrl: './user-staff-list.component.html',
   styleUrls: ['./user-staff-list.component.scss']
 })
+
 export class UserStaffListComponent implements OnInit {
 
   constructor() { }
@@ -37,7 +37,6 @@ export class UserStaffListComponent implements OnInit {
   ngOnInit(): void {
   }
  
-displayedColumns: string[] = ['name','position', 'birth','phone','email','skype'];
-dataSource = STAFFLIST;
-
+  displayedColumns: string[] = ['name','position', 'birth','phone','email','skype'];
+  dataSource = STAFFLIST;
 }

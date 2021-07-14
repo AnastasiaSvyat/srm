@@ -11,17 +11,12 @@ export class AdminCalendarComponent implements OnInit {
   selected!: Date | null;
   constructor( public dialog: MatDialog, ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   
-  addEvent(){
+  addEvent() : void {
     const dialogRef = this.dialog.open(AddEventComponent, {
       width: '398px',
       height :'591px',
-  });
-  
-  
-    
+    });
   }
-  
 }
