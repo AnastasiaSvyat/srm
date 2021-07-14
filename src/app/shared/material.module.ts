@@ -1,5 +1,5 @@
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA , NO_ERRORS_SCHEMA} from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
@@ -14,11 +14,12 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {CdkTableModule} from '@angular/cdk/table';
 import { MatCardModule } from '@angular/material/card';
-import {FlexLayoutModule} from "@angular/flex-layout";
+
 
 @NgModule({
   declarations: [],
   imports: [
+    CommonModule,
     MatFormFieldModule,
     CdkTableModule,
     MatTableModule,
@@ -32,10 +33,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MatSortModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    FlexLayoutModule
   ],
   exports:[
-    FlexLayoutModule,
     MatFormFieldModule,
     CdkTableModule,
     MatTableModule,
@@ -52,4 +51,4 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MatCardModule
   ]
 })
-export class SharedModule { }
+export class MaterialModule { }

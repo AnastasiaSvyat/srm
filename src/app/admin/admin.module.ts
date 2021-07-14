@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminCalendarComponent } from './admin-calendar/admin-calendar.component';
 import { AdminStaffListComponent } from './admin-staff-list/admin-staff-list.component';
