@@ -5,7 +5,7 @@ import { AddEventComponent } from '../add-event/add-event.component';
 @Component({
   selector: 'app-admin-calendar',
   templateUrl: './admin-calendar.component.html',
-  styleUrls: ['./admin-calendar.component.css']
+  styleUrls: ['./admin-calendar.component.scss']
 })
 export class AdminCalendarComponent implements OnInit {
   selected!: Date | null;

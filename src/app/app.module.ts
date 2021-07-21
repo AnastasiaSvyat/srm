@@ -15,12 +15,16 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-import { CdkTableModule} from '@angular/cdk/table';
+import {FlexLayoutModule} from "@angular/flex-layout";
+import { AddRequestUserComponent } from './user/add-request-user/add-request-user.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    AddRequestUserComponent,
+    
+   
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
@@ -28,9 +32,10 @@ import { CdkTableModule} from '@angular/cdk/table';
    
   ],
   imports: [
+    
     MatFormFieldModule,
-    CdkTableModule,
     MatTableModule,
+    FlexLayoutModule,
     MatIconModule,
     BrowserModule,
     MatDialogModule,
@@ -44,7 +49,8 @@ import { CdkTableModule} from '@angular/cdk/table';
     MatNativeDateModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-<div class="loginBox" *ngIf="!isAuthorized">
+<div  fxLayout="row" fxLayoutAlign="space-around center"  class="loginBox" *ngIf="!isAuthorized">
   <div>
       <button  (click) = "login(Role.User)" class="loginBox_user" mat-raised-button>User</button>
   </div>
