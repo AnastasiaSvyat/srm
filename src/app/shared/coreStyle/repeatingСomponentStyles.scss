@@ -4,13 +4,14 @@
     text-align: center;
     font-style: 18px;
     border: none;
+    height: 48px;
 }
 .navbar{
     width: 72px;
     background-color: #37474F;
 }
 .header{
-    height: 56px;
+    height: 3.5rem;
     background-color: #CFD8DC;
 }
 .colorBlock{
@@ -20,6 +21,23 @@
     width: 60px;
     height: 60px;
 }
-.msgIcon{
-    margin-top: 360px;
+.leftBox_top{
+    height: 17.5rem;
+}
+.leftBox_bottom{
+    height: 27.125rem;
+}
+.rightBox{
+    height: 46.18rem;
+}
+h2{
+    font-size: 20px;
+    font-weight: 500;
+    color: #263238;
+    text-align: center;
+}
+.btnCancel{
+    background-color: none;
+    border: 1px solid #546E7A;
+    color: #546E7A;
 }
