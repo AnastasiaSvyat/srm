@@ -23,16 +23,12 @@ import { AddRequestUserComponent } from './user/add-request-user/add-request-use
   declarations: [
     AppComponent,
     AddRequestUserComponent,
-    
-   
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
     NO_ERRORS_SCHEMA,
-   
   ],
   imports: [
-    
     MatFormFieldModule,
     MatTableModule,
     FlexLayoutModule,
@@ -50,7 +46,6 @@ import { AddRequestUserComponent } from './user/add-request-user/add-request-use
     MatSortModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    
   ],
   providers: [],
   bootstrap: [AppComponent]

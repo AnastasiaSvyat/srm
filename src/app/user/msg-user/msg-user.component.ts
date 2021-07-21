@@ -11,16 +11,12 @@ export class MsgUserComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
  
-  
-
-
   ngOnInit(): void {
   }
-  addRequest( ){
+  addRequest(): void {
     const dialogRef = this.dialog.open(AddRequestUserComponent, {
       width: '398px',
       height :'516px',
-  });
-}
-
+    });
+  }
 }

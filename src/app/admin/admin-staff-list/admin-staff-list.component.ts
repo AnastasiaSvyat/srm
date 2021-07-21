@@ -38,14 +38,15 @@ export class AdminStaffListComponent implements OnInit {
 
   constructor(public dialog: MatDialog ) { }
 
-  ngOnInit(): void {
-  }
-  addUser(){
+  ngOnInit(): void {}
+  
+  addUser(): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       height :'791px',
   });
 }
+
 displayedColumns: string[] = ['name','position', 'birth','phone','email','skype'];
 dataSource = STAFFLIST;
 }

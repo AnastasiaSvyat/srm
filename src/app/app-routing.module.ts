@@ -27,24 +27,14 @@ const routes: Routes = [
         redirectTo: '',
         pathMatch: 'full'
       },
-     
- 
-
-
-      
     ]
   },
- 
-  
- 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [
-    // AppRoutingGuard,
-    // AuthService
-  ]
+  providers: []
 })
+
 export class AppRoutingModule { }

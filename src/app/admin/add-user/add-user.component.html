@@ -1,6 +1,6 @@
 <div class="form-container">
     <h2 class="mt24" mat-dialog-title>Add user</h2>
-    <div class="addPhoto">
+    <div class="addPhoto-box">
         <a href="#">add photo</a>
     </div>
         <div mat-dialog-content>
@@ -8,7 +8,7 @@
             <mat-label>Name</mat-label>
                 <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
             </mat-form-field>
-            <mat-form-field class="typeBox">
+            <mat-form-field>
                 <mat-label>Position</mat-label>
                     <mat-select>
                         <mat-option value="option1">One</mat-option>
@@ -33,15 +33,15 @@
                 <mat-label>Email</mat-label>
                 <textarea placeholder="Enter email..." formControlName="description" name="description" matInput></textarea>
             </mat-form-field>
-            <div class="addCV">
+            <div class="addCV-box">
                 <a href="#">Add CV</a>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-around center"  class="mt50">
                 <div>
-                    <button (click)="onNoClick()" class="w155 btnCancel" mat-stroked-button>Cancel</button>
+                    <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
                 </div>
                 <div>
-                    <button class="btn w155" mat-stroked-button>Add</button>
+                    <button class="btn h48 w155" mat-stroked-button>Add</button>
                 </div>
             </div>
         </div>
