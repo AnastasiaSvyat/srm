@@ -23,10 +23,10 @@ export class AppComponent {
   
   login(role:Role): void {
     this.authService.login(role);
-      if(role == 'User'){
+      if(role === 'User'){
         this.router.navigate(['user']);
       }
-      else if(role == 'Admin'){
+      else if(role === 'Admin'){
         this.router.navigate(['admin']);
       }
     } 

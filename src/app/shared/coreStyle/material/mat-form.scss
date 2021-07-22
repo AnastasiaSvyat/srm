@@ -1,21 +1,13 @@
-.form-container{
-    h2{
-        font-size: 20px;
-        font-weight: 500;
-        color: #263238;
-        text-align: center;
-    }
-    mat-form-field{
+.add-event-container,
+.add-task-container,
+.add-user-container,
+.add-request-container{
+   mat-form-field{
         width: 325px;
         height: 48px;
         margin-top: 40px;
     }
     .mat-form-field-flex{
         background-color: #ECEFF1;
-    }
-    .btnCancel{
-        background-color: none;
-        border: 1px solid #546E7A;
-        color: #546E7A;
     }
 }
