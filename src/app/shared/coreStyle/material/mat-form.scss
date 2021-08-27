@@ -1,0 +1,14 @@
+.add-event-container,
+.add-task-container,
+.add-user-container,
+.add-request-container,
+.loginBox{
+   mat-form-field{
+        width: 325px;
+        height: 48px;
+        margin-top: 40px;
+    }
+    .mat-form-field-flex{
+        background-color: #ECEFF1;
+    }
+}

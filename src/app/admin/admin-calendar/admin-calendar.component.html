@@ -1,0 +1,16 @@
+<div class="calendar-container">
+  <div fxLayout="row" fxLayoutAlign="end none" class="mr24 mt16 btnAddLeft">
+    <button class="btn h48 w155" (click)='addEvent()'mat-stroked-button>ADD EVENT</button>
+  </div>
+  <div fxLayout='row' class="mb29 mt16">
+    <div fxFlex='23%' class="ml48">
+      <mat-card class=" leftBox_top colorBlock demo-inline-calendar-card">
+        <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
+      </mat-card>
+      <div class="leftBox_bottom mt24 colorBlock">
+        <!-- <p>Selected date: {{selected}}</p> -->
+      </div>
+    </div>
+    <div fxFlex='70%' class="rightBox ml24 colorBlock"></div>
+  </div>
+</div>
