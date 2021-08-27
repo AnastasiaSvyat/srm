@@ -32,7 +32,7 @@ export class AppComponent {
     return this.crudService.isAuthorized();
   }
   
-  login(): void {
+  loginEmployee(): void {
     console.log(this.employeeLoginForm.value);
     
     this.crudService.Login(this.employeeLoginForm.value)

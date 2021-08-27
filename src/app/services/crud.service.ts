@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Employee } from './Eployee';
+import { Employee } from './Employee';
 import { Role } from '../model/role';
 import { User } from '../model/user';
 
@@ -19,6 +19,8 @@ export class CrudService {
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
   private user!:User 
   constructor(private httpClient: HttpClient) { }
+  
+  
   isAuthorized(){
     return !!this.user
   }
@@ -28,8 +30,8 @@ export class CrudService {
   checkRole(role: Role) {
     this.user = {role : role}
   }
-  //Login
-
+  
+  //Login Employee
   Login(employee: Employee): Observable<{token:string}> {
     let API_URL = `${this.REST_API}/login`;
     return this.httpClient.post<{token:string}>(API_URL,employee)

@@ -12,7 +12,7 @@ import { CrudService } from 'src/app/services/crud.service';
 })
 export class AddUserComponent implements OnInit {
   
-  employeeForm: FormGroup;
+  addEmployeeForm: FormGroup;
   
   constructor(
     private crudService: CrudService,  
@@ -21,7 +21,7 @@ export class AddUserComponent implements OnInit {
     public dialogRef: MatDialogRef<AddUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AdminComponent
 ) { 
-  this.employeeForm = this.formBuilder.group({
+  this.addEmployeeForm = this.formBuilder.group({
     name: [''],
     email: [''],
     password: [''],
@@ -40,7 +40,7 @@ export class AddUserComponent implements OnInit {
     this.dialogRef.close();
   }
   addEmplyee(): void{
-    this.crudService.AddEmployee(this.employeeForm.value)
+    this.crudService.AddEmployee(this.addEmployeeForm.value)
     .subscribe(() => {
         console.log('Data added successfully!')
       }, (err) => {
