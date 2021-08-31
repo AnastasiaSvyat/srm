@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Employee } from './Employee';
 import { Role } from '../model/role';
 import { User } from '../model/user';
+import { Employee } from '../model/Employee';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,8 @@ export class CrudService {
   
   //Login Employee
   Login(employee: Employee): Observable<{token:string}> {
+    console.log(employee);
+    
     let API_URL = `${this.REST_API}/login`;
     return this.httpClient.post<{token:string}>(API_URL,employee)
   }

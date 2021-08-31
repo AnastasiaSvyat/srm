@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Role } from './model/role';
 import { CrudService } from './services/crud.service';
 import { FormGroup, FormBuilder } from "@angular/forms";
+import { MaterialService } from './services/material.service';
 
 
 @Component({
@@ -33,16 +34,21 @@ export class AppComponent {
   }
   
   loginEmployee(): void {
-    console.log(this.employeeLoginForm.value);
     
     this.crudService.Login(this.employeeLoginForm.value)
       .subscribe((res) => {
+        console.log(res);
+        
         const loginEmploee = JSON.parse(JSON.stringify(res))
          this.crudService.checkRole(loginEmploee.role);
-          if(loginEmploee.role === 'User'){
+          if(loginEmploee.role === 'user'){
               this.router.navigate(['user']);
-          }else if(loginEmploee.role === 'Admin'){
+          }else if(loginEmploee.role === 'admin'){
               this.router.navigate(['admin']);
-          }})
+          }},error =>{
+              MaterialService.toast(error.error.massage);
+              console.warn(error)
+              
+          })
   } 
 }
