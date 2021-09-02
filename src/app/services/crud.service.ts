@@ -49,7 +49,7 @@ export class CrudService {
   }
 
   // Get all objects
-  GetAllEmployee() {
+  GetStaff() {
     return this.httpClient.get(`${this.REST_API}`);
   }
 

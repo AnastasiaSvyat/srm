@@ -4,6 +4,7 @@ import { Role } from './model/role';
 import { CrudService } from './services/crud.service';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { MaterialService } from './services/material.service';
+import { Employee } from './model/Employee';
 
 
 @Component({
@@ -13,10 +14,11 @@ import { MaterialService } from './services/material.service';
 })
 
 export class AppComponent {
-  user!:boolean
+  user!:Employee
   admin!:boolean
   Role = Role;
   employeeLoginForm!: FormGroup;
+
   
   constructor(private router: Router,
     public formBuilder: FormBuilder,
@@ -38,13 +40,14 @@ export class AppComponent {
     this.crudService.Login(this.employeeLoginForm.value)
       .subscribe((res) => {
         console.log(res);
-        
         const loginEmploee = JSON.parse(JSON.stringify(res))
-         this.crudService.checkRole(loginEmploee.role);
+        this.user = loginEmploee
+        console.log(this.user);
+        this.crudService.checkRole(loginEmploee.role);
           if(loginEmploee.role === 'user'){
               this.router.navigate(['user']);
           }else if(loginEmploee.role === 'admin'){
-              this.router.navigate(['admin']);
+              this.router.navigate(['admin',{user:this.user}]);
           }},error =>{
               MaterialService.toast(error.error.massage);
               console.warn(error)

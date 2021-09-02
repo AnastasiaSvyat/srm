@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Employee } from '../model/Employee';
 
 
 @Component({
@@ -7,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-
-  constructor() { }
+user!:any
+constructor() {
+ }
 
   ngOnInit(): void {
+    // console.log(this.user);
+  
+    
   }
  
 

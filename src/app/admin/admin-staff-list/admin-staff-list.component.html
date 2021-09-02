@@ -2,7 +2,7 @@
   <div fxLayout="row" fxLayoutAlign="end none" class="mr24 mt16 btnAddLeft">
     <button class="btn w155"(click)='addUser()'mat-stroked-button>ADD USER</button>
   </div>
-  <mat-table [dataSource]="dataSource" class="mat-elevation-z8 table w100 h100 mt16">
+  <mat-table [dataSource]="StaffList" class="mat-elevation-z8 table w100 h100 mt16">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> EMPLOYEE </mat-header-cell>
       <mat-cell *matCellDef="let element">  
@@ -15,6 +15,18 @@
     </ng-container>
     <ng-container matColumnDef="birth">
       <mat-header-cell *matHeaderCellDef> BIRTH DATE </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.birth}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="salary">
+      <mat-header-cell *matHeaderCellDef> SALARY </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.salary}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="firstDay">
+      <mat-header-cell *matHeaderCellDef> FIRST DAY </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.birth}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="lastPerf">
+      <mat-header-cell *matHeaderCellDef> LAST PERFORMANCE </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.birth}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="phone">

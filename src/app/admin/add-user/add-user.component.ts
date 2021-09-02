@@ -1,10 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, NgZone, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AdminComponent } from '../admin.component';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
 import { CrudService } from 'src/app/services/crud.service';
 import { MaterialService } from 'src/app/services/material.service';
+import { Employee } from 'src/app/model/Employee';
 
 @Component({
   selector: 'app-add-user',
@@ -15,11 +16,10 @@ export class AddUserComponent implements OnInit {
   
   addEmployeeForm!: FormGroup;
 
-
+staff!:Employee[]
   constructor(
     private crudService: CrudService,  
     public formBuilder: FormBuilder,
-    private router: Router,
     public dialogRef: MatDialogRef<AddUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AdminComponent
 ) { 
@@ -51,14 +51,19 @@ export class AddUserComponent implements OnInit {
   }
   addEmplyee(): void{
     console.log(this.addEmployeeForm.value);
-    
     this.crudService.AddEmployee(this.addEmployeeForm.value)
-    .subscribe(() => {
-        console.log('Data added successfully!')
-        this.dialogRef.close();
+    .subscribe((res) => {
+      console.log(res);
+     
+      
+      MaterialService.toast("Congratulations! User has been added!")
+      // this.crudService.GetStaff()
+      this.dialogRef.close();
       }, (err) => {
         console.log(err);
-        alert('This email is already taken. Try another one.')
+        MaterialService.toast("This email is already taken. Try another one.")
     });
   }
 }
+3381777
+3381625
