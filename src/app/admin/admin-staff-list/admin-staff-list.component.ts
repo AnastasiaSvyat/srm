@@ -36,31 +36,23 @@ export class AdminStaffListComponent implements OnInit {
     private router: Router ) { }
 
   ngOnInit(): void {
-    
-    this.crudService.GetStaff()
-    .subscribe((res) => {
-      console.log(res);
-      this.StaffList = res
-    });
+    this.getStaff()
   }
   
   addUser(): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       height :'791px',
-
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('close');
-    this.crudService.GetStaff()
-    .subscribe((res) => {
-      console.log(res);
-      this.StaffList = res
     });
-
+  dialogRef.afterClosed().subscribe(result => {
+    this.getStaff()
   });
-
+}
+getStaff(){
+  this.crudService.GetStaff()
+  .subscribe((res) => {
+    this.StaffList = res
+  });
 }
 
-displayedColumns: string[] = ['name','position', 'birth','salary','firstDay','lastPerf','phone','email'];
-}
+displayedColumns: string[] = ['name','position', 'birth','salary','firstDay','lastPerf','phone','email']}

@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
 import { CrudService } from 'src/app/services/crud.service';
 import { MaterialService } from 'src/app/services/material.service';
-import { Employee } from 'src/app/model/Employee';
 
 @Component({
   selector: 'app-add-user',
@@ -16,7 +15,7 @@ export class AddUserComponent implements OnInit {
   
   addEmployeeForm!: FormGroup;
 
-staff!:Employee[]
+
   constructor(
     private crudService: CrudService,  
     public formBuilder: FormBuilder,
@@ -52,12 +51,8 @@ staff!:Employee[]
   addEmplyee(): void{
     console.log(this.addEmployeeForm.value);
     this.crudService.AddEmployee(this.addEmployeeForm.value)
-    .subscribe((res) => {
-      console.log(res);
-     
-      
+    .subscribe(() => {
       MaterialService.toast("Congratulations! User has been added!")
-      // this.crudService.GetStaff()
       this.dialogRef.close();
       }, (err) => {
         console.log(err);
@@ -65,5 +60,3 @@ staff!:Employee[]
     });
   }
 }
-3381777
-3381625
