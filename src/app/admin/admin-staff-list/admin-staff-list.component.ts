@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { AddUserComponent } from '../add-user/add-user.component';
 import {MatDialog} from '@angular/material/dialog';
-import { CrudService } from 'src/app/services/crud.service';
+import { CrudService } from 'src/app/services/crud/crud.service';
 import { Router } from '@angular/router';
 
 

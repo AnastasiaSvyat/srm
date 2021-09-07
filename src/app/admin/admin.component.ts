@@ -9,12 +9,15 @@ import { Employee } from '../model/Employee';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-user!:any
-constructor() {
+employee!:Employee;
+constructor(private route :Router) {
+  this.employee = history.state.data
+  console.log(history.state.data);
  }
 
   ngOnInit(): void {
-    // console.log(this.user);
+    
+    console.log(this.employee);
   
     
   }

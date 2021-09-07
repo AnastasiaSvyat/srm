@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Route, Router , CanLoad} from '@angular/router';
 import { Observable } from 'rxjs';
 import { Role } from '../model/role'
-import { CrudService } from '../services/crud.service';
+import { AuthService } from '../services/auth/auth.service';
+import { CrudService } from '../services/crud/crud.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +11,21 @@ import { CrudService } from '../services/crud.service';
 export class AppRoutingGuard implements CanActivate {
   constructor(
     private router: Router,
-    private crudService: CrudService,
+    private authService: AuthService
 
 
   ){}
 
   canActivate(
     route: ActivatedRouteSnapshot): Observable<boolean>| Promise<boolean>  | boolean  {
-      if (!this.crudService.isAuthorized()) {
+      if (!this.authService.isAuthorized()) {
         this.router.navigate(['']);
         return false;
     }
     return true;
   }
   canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.crudService.isAuthorized()) {
+    if (!this.authService.isAuthorized()) {
         return false;
     }
     return true;

@@ -9,8 +9,10 @@ import { AddTaskComponent } from '../add-task/add-task.component';
   styleUrls: ['./dashboard-admin.component.scss']
 })
 export class DashboardAdminComponent implements OnInit {
-  
-  constructor(public dialog: MatDialog,) { }
+  employee:any = [] 
+  constructor(public dialog: MatDialog) {
+    this.employee = history.state.data
+  }
 
   ngOnInit(): void {}
 

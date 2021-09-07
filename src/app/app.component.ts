@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Role } from './model/role';
-import { CrudService } from './services/crud.service';
+import { CrudService } from './services/crud/crud.service';
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { MaterialService } from './services/material.service';
 import { Employee } from './model/Employee';
+import { AuthService } from './services/auth/auth.service';
 
 
 @Component({
@@ -22,9 +23,8 @@ export class AppComponent {
   
   constructor(private router: Router,
     public formBuilder: FormBuilder,
-     private crudService: CrudService
-
-     ) { 
+    private authService : AuthService
+  ){ 
        this.employeeLoginForm = this.formBuilder.group({
         email: [''],
         password: [''],
@@ -32,22 +32,23 @@ export class AppComponent {
      }
  
   get isAuthorized() {
-    return this.crudService.isAuthorized();
+    return this.authService.isAuthorized();
   }
   
   loginEmployee(): void {
     
-    this.crudService.Login(this.employeeLoginForm.value)
+    this.authService.Login(this.employeeLoginForm.value)
       .subscribe((res) => {
         console.log(res);
         const loginEmploee = JSON.parse(JSON.stringify(res))
         this.user = loginEmploee
         console.log(this.user);
-        this.crudService.checkRole(loginEmploee.role);
+        this.authService.checkRole(loginEmploee.role);
           if(loginEmploee.role === 'user'){
               this.router.navigate(['user']);
           }else if(loginEmploee.role === 'admin'){
-              this.router.navigate(['admin',{user:this.user}]);
+            console.log(this.user);
+            this.router.navigate(['admin'], {state: {data: this.user}});
           }},error =>{
               MaterialService.toast(error.error.massage);
               console.warn(error)

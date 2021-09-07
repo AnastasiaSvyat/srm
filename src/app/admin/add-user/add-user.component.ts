@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AdminComponent } from '../admin.component';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
-import { CrudService } from 'src/app/services/crud.service';
+import { CrudService } from 'src/app/services/crud/crud.service';
 import { MaterialService } from 'src/app/services/material.service';
 
 @Component({
