@@ -1,13 +1,51 @@
 <div class="user-dashboard-container">
     <div fxLayout='row'>
         <div fxLayout='row wrap' fxFlex='73' class="container_left mt24">
-            <div fxFlex='96%' class="ml16 h96 colorBlock"></div>
-            <div fxFlex='31%' class="content_top mt16 ml16 colorBlock"></div>
-            <div fxFlex='31%' class="content_top mt16 ml16 colorBlock"></div>
-            <div fxFlex='31%' class="content_top mt16 ml16 colorBlock"></div>
-            <div fxFlex='31%' class="content_bottom mt16 ml16 colorBlock"></div>
-            <div fxFlex='31%' class="content_bottom mt16 ml16 colorBlock"></div>
-            <div fxFlex='31%' class="content_bottom mt16 ml16 colorBlock"></div>
+            <div fxLayout='row' fxFlex='96%' class="h95 ml16 colorBlock">
+                <div class="photo ml16">PHOTO</div>
+                <div class="ml16 pt28 ">
+                    <p class="fs18 mb0 ">{{employee.name}}</p>
+                    <p class="fs14 fontColorGrey">{{employee.position}}</p>
+                </div>
+                <div class="ml80 pt32 ">
+                    <div class="fs14 mb0"><span class="fontColorGrey">Phone:</span>  {{employee.phone}}</div>
+                    <div class="fs14 mb0"><span class="fontColorGrey">Email:</span>  {{employee.email}}</div>
+                </div>
+                <div class="ml80 pt32 ">
+                    <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>  {{employee.birthday | date:'shortDate' }}</div>
+                </div>
+            </div> 
+            <div fxFlex='31%' class="content_top mt16 ml16 colorBlock">
+                <div class="mt24 ml24">
+                    <p class="fs18 fontColorGrey">Salary</p>
+                    <p class="fs36">{{employee.salary}}$</p>
+                </div>
+            </div>
+            <div fxFlex='31%' class="content_top mt16 ml16 colorBlock">
+                <div class="mt24 ml24">
+                    <p class="fs18 fontColorGrey">First day</p>
+                </div>
+            </div>
+            <div fxFlex='31%' class="content_top mt16 ml16 colorBlock">
+                <div class="mt24 ml24">
+                    <p class="fs18 fontColorGrey">Last performance</p>
+                </div>
+            </div>
+            <div fxFlex='31%' class="content_bottom mt16 ml16 colorBlock">
+                <div class="mt24 ml24">
+                    <p class="fs18 fontColorGrey">Planned vacation</p>
+                </div>
+            </div>
+            <div fxFlex='31%' class="content_bottom mt16 ml16 colorBlock">
+                <div class="mt24 ml24">
+                    <p class="fs18 fontColorGrey">Vacation days left</p>
+                </div>
+            </div>
+            <div fxFlex='31%' class="content_bottom mt16 ml16 colorBlock">
+                <div class="mt24 ml24">
+                    <p class="fs18 fontColorGrey">Events this.month</p>
+                </div>
+            </div>
         </div>
         <div fxFlex='27%'  fxLayout="row" fxLayoutAlign=" end" class="container_right mt24 colorBlock">
             <button class="w100 h48 btn" mat-stroked-button>EDIT</button>
@@ -15,6 +53,7 @@
     </div>
     <div fxLayout='row'>
         <div fxFlex='73%'  class="mt16 h11r colorBlock" fxLayout="row" fxLayoutAlign="end end">
+
             <button class="btnOpen-dashboard-user w155 h48 btn" mat-stroked-button>OPEN FILE</button>
         </div>
         <div fxFlex='27%'  fxLayout="row" fxLayoutAlign=" end" class="h11r ml16 mt16 colorBlock">

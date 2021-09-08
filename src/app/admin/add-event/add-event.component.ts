@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { EventService } from 'src/app/services/event/event.service';
 import { AdminComponent } from '../admin.component';
+import { MaterialService } from 'src/app/services/material/material.service';
 
 @Component({
   selector: 'app-add-event',
@@ -9,13 +12,46 @@ import { AdminComponent } from '../admin.component';
 })
 
 export class AddEventComponent implements OnInit {
-
+  
+  eventForm!: FormGroup;
+  createEvent!:any
   constructor(public dialogRef: MatDialogRef<AddEventComponent>,
-            @Inject(MAT_DIALOG_DATA) public data: AdminComponent) { }
+            @Inject(MAT_DIALOG_DATA) public data: AdminComponent,
+            private eventService: EventService,  
+            public formBuilder: FormBuilder,
 
-  ngOnInit(): void {}
+           ) { }
+
+  ngOnInit(): void {
+    this.eventForm = new FormGroup({
+      name: new FormControl('',[Validators.required]),
+      type: new FormControl('',[Validators.required]),
+      date: new FormControl('',[Validators.required]),
+      description: new FormControl('',[Validators.required])
+    })
+  }
+  get name() { return this.eventForm.get('name')!; }
+  get type() { return this.eventForm.get('type')!; }
+  get date() { return this.eventForm.get('date')!; }
+  get description() { return this.eventForm.get('description')!; }
   
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  addEvent(): void{
+    console.log(this.eventForm.value);
+    this.eventService.AddEvent(this.eventForm.value)
+    .subscribe((res) => {
+      MaterialService.toast("Congratulations! Event has been added!")
+      this.dialogRef.close();
+      this.createEvent = res
+      console.log(this.createEvent);
+      
+    }, (err) => {
+      MaterialService.toast("This event is already exists. Try another one.")
+      console.log(err);
+    });
+   
   }
 }

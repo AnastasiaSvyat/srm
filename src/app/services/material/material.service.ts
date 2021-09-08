@@ -1,7 +1,5 @@
-// import { Injectable } from '@angular/core';
 
 declare var M:any;
-
 
 export class MaterialService {
 

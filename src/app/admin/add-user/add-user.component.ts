@@ -1,10 +1,9 @@
 import { Component, Inject, NgZone, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AdminComponent } from '../admin.component';
-import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
-import { CrudService } from 'src/app/services/crud/crud.service';
-import { MaterialService } from 'src/app/services/material.service';
+import { EmployeeService } from 'src/app/services/employee/employee.service';
+import { MaterialService } from 'src/app/services/material/material.service';
 
 @Component({
   selector: 'app-add-user',
@@ -17,7 +16,7 @@ export class AddUserComponent implements OnInit {
 
 
   constructor(
-    private crudService: CrudService,  
+    private employeeService: EmployeeService,  
     public formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<AddUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AdminComponent
@@ -50,7 +49,7 @@ export class AddUserComponent implements OnInit {
   }
   addEmplyee(): void{
     console.log(this.addEmployeeForm.value);
-    this.crudService.AddEmployee(this.addEmployeeForm.value)
+    this.employeeService.AddEmployee(this.addEmployeeForm.value)
     .subscribe(() => {
       MaterialService.toast("Congratulations! User has been added!")
       this.dialogRef.close();

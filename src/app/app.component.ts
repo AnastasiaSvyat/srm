@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Role } from './model/role';
-import { CrudService } from './services/crud/crud.service';
 import { FormGroup, FormBuilder } from "@angular/forms";
-import { MaterialService } from './services/material.service';
+import { MaterialService } from './services/material/material.service';
 import { Employee } from './model/Employee';
 import { AuthService } from './services/auth/auth.service';
 
@@ -46,9 +45,11 @@ export class AppComponent {
         this.authService.checkRole(loginEmploee.role);
           if(loginEmploee.role === 'user'){
               this.router.navigate(['user']);
+            this.router.navigate(['user'], {state: {data: this.user}});
+
           }else if(loginEmploee.role === 'admin'){
             console.log(this.user);
-            this.router.navigate(['admin'], {state: {data: this.user}});
+            this.router.navigate(['/admin','dashboardAdmin'], {state: {data: this.user}});
           }},error =>{
               MaterialService.toast(error.error.massage);
               console.warn(error)

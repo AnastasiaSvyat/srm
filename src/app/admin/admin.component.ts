@@ -12,6 +12,10 @@ export class AdminComponent implements OnInit {
 employee!:Employee;
 constructor(private route :Router) {
   this.employee = history.state.data
+  let { redirect } = window.history.state;
+  redirect = this.employee
+  console.log(redirect);
+
   console.log(history.state.data);
  }
 

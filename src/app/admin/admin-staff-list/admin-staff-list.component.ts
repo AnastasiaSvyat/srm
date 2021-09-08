@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { AddUserComponent } from '../add-user/add-user.component';
 import {MatDialog} from '@angular/material/dialog';
-import { CrudService } from 'src/app/services/crud/crud.service';
+import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { Router } from '@angular/router';
 
 
@@ -31,9 +31,7 @@ export class AdminStaffListComponent implements OnInit {
   user!:any;
   StaffList:any = []
   constructor(public dialog: MatDialog,
-    private crudService:CrudService,
-    private ngZone: NgZone,
-    private router: Router ) { }
+    private employeeService:EmployeeService){ }
 
   ngOnInit(): void {
     this.getStaff()
@@ -49,7 +47,7 @@ export class AdminStaffListComponent implements OnInit {
   });
 }
 getStaff(){
-  this.crudService.GetStaff()
+  this.employeeService.GetStaff()
   .subscribe((res) => {
     this.StaffList = res
   });

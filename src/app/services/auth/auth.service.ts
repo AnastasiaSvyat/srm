@@ -2,20 +2,20 @@ import { Injectable } from '@angular/core';
 import { User } from '../../model/user';
 import { Role } from '../../model/role';
 import { Employee } from 'src/app/model/Employee';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // Node/Express API
   REST_API: string = 'http://localhost:8000/api';
-
-  // Http Header
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+  
   private user!:User 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    
+   }
   
   
   isAuthorized(){
@@ -28,7 +28,6 @@ export class AuthService {
     this.user = {role : role}
   }
   
-  //Login Employee
   Login(employee: Employee): Observable<{token:string}> {
     console.log(employee);
     
