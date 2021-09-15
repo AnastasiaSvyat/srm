@@ -1,11 +1,14 @@
 export class Employee {
-    _id!: String;
-    name!: String;
-    email!: String;
-    position!: String;
-    birthday!: String;
-    salary!: Number;
-    password!: Number;
-    token!: String;
-    role!: String;
+    _id!: string;
+    name!: string;
+    email!: string;
+    position!: string;
+    birthday!: string;
+    salary!: number;
+    password!: number;
+    token!: string;
+    role!: string;
+    info!:Array<string>;
+    file!:Array<any>;
+    toDoList!:Array<string>;
 }

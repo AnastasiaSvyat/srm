@@ -1,25 +1,14 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AddUserComponent } from '../add-user/add-user.component';
 import {MatDialog} from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { Router } from '@angular/router';
-
-
-// export interface StaffList {
-//   photo:string;
-//   name: string;
-//   position: string;
-//   birth:string;
-//   phone:string;
-//   email:string;
-//   lastPref:string;
-//   firstDay:string
-
-// }
-
-
-
-
+import { SearchName } from 'src/app/model/SearchName';
+import { MatTableDataSource } from '@angular/material/table';
+import { StaffList } from 'src/app/user/user-staff-list/user-staff-list.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Employee } from 'src/app/model/Employee';
 
 
 @Component({
@@ -28,13 +17,64 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin-staff-list.component.scss']
 })
 export class AdminStaffListComponent implements OnInit {
-  user!:any;
-  StaffList:any = []
-  constructor(public dialog: MatDialog,
-    private employeeService:EmployeeService){ }
+
+  staffList: Employee[] = [];
+  currentEmployee: SearchName = {};
+  currentIndex = -1;
+  name = '';
+
+
+  page = 1;
+  count = 0;
+  pageSize = 10;
+  pageSizes = [3, 6, 9];
+
+  constructor(private employeeService: EmployeeService,public dialog: MatDialog,) { }
 
   ngOnInit(): void {
-    this.getStaff()
+    this.retrieveStaff();
+  }
+
+  getRequestParams(searchName: string, page: number, pageSize: number): any {
+    let params: any = {};
+    if(searchName){
+      params[`name`] = searchName;
+    }
+    if(page){
+      params[`page`] = page - 1;
+    }
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+    return params;
+  }
+
+  displayedColumns: string[] = ['name','position', 'birth','salary','firstDay','lastPerf','phone','email']
+
+  retrieveStaff(): void {
+    const params = this.getRequestParams(this.name, this.page, this.pageSize);
+
+    this.employeeService.getAll(params)
+    .subscribe(
+      response => {
+        const { staffList, totalItems } = response;
+        this.staffList = staffList;
+        this.count = totalItems;
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+  handlePageChange(event: number): void {
+    this.page = event;
+    this.retrieveStaff();
+  }
+  
+  setActiveEmployee(employee: Employee, index: number): void {
+    this.currentEmployee = employee;
+    this.currentIndex = index;
   }
   
   addUser(): void {
@@ -43,14 +83,22 @@ export class AdminStaffListComponent implements OnInit {
       height :'791px',
     });
   dialogRef.afterClosed().subscribe(result => {
-    this.getStaff()
+    this.retrieveStaff();
   });
-}
-getStaff(){
-  this.employeeService.GetStaff()
-  .subscribe((res) => {
-    this.StaffList = res
-  });
+  }
+  
+  searchName(): void {
+    this.page = 1;
+    this.retrieveStaff();
+  }
 }
 
-displayedColumns: string[] = ['name','position', 'birth','salary','firstDay','lastPerf','phone','email']}
+
+
+
+
+
+
+
+
+

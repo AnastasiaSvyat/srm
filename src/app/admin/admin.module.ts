@@ -10,7 +10,6 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { MsgAdminComponent } from './msg-admin/msg-admin.component';
-
 @NgModule({
   declarations: [
     AdminComponent,
@@ -20,7 +19,7 @@ import { MsgAdminComponent } from './msg-admin/msg-admin.component';
     AddEventComponent,
     AddUserComponent,
     AddTaskComponent,
-    MsgAdminComponent
+    MsgAdminComponent,
   ],
   imports: [
     CommonModule,

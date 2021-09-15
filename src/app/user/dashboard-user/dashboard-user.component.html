@@ -47,17 +47,35 @@
                 </div>
             </div>
         </div>
-        <div fxFlex='27%'  fxLayout="row" fxLayoutAlign=" end" class="container_right mt24 colorBlock">
-            <button class="w100 h48 btn" mat-stroked-button>EDIT</button>
+        <div fxFlex='25%' fxLayout="column" fxLayoutAlign="space-between start" class="container_right mt24 colorBlock">
+            <div class="mt24 ml24">
+                <p class="fs24">About me</p>
+            </div>
+            <div *ngFor = "let info of employee.info let i = index;">
+                <div class="ml24 mt16">
+                    <p class="fs18 fontColorGrey">Some info</p>
+                    <p class="fs14">{{info.info}}</p>
+                </div>
+            </div>
+            <div class="w100">
+                <button (click) = "addNewInfo()" class="w100 h48 btn" mat-stroked-button>EDIT</button>
+            </div>
         </div>
     </div>
     <div fxLayout='row'>
         <div fxFlex='73%'  class="mt16 h11r colorBlock" fxLayout="row" fxLayoutAlign="end end">
-
             <button class="btnOpen-dashboard-user w155 h48 btn" mat-stroked-button>OPEN FILE</button>
         </div>
-        <div fxFlex='27%'  fxLayout="row" fxLayoutAlign=" end" class="h11r ml16 mt16 colorBlock">
-            <button class="w100 h48 btn" mat-stroked-button>ADD NEW</button>
+        <div fxFlex='25%' fxLayout="column" fxLayoutAlign="space-between start" class="h11r ml16 mt16 colorBlock">
+            <div class="mt24 ml24">
+                <p class="fs24">CVs</p>
+            </div>
+                <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                <div class="file-upload">{{fileName || "No file uploaded yet."}}</div> 
+                <div class="w100">
+                    <button (click)="fileUpload.click()" type="file" class="w100 h48 btn" mat-stroked-button>ADD NEW</button>
+                </div>
+           
         </div>
     </div>
 </div>

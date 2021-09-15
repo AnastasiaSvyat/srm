@@ -22,6 +22,13 @@ export class EmployeeService {
       )
   }
 
+  // AddEmployeeInfo(employee: Employee): Observable<any> {
+  //   let API_URL = `${this.REST_API}/add-employee`;
+  //   return this.httpClient.post(API_URL, employee)
+  //     .pipe(
+  //       catchError(this.handleError)
+  //     )
+  // }
   GetStaff() {
     return this.httpClient.get(`${this.REST_API}`);
   }
@@ -50,7 +57,9 @@ export class EmployeeService {
         catchError(this.handleError)
       )
   }
-
+  getAll(params: any): Observable<any> {
+    return this.httpClient.get<any>(this.REST_API, { params });
+  }
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
@@ -61,6 +70,9 @@ export class EmployeeService {
     }
     console.log(errorMessage);
     return throwError(errorMessage);
+  }
+  getFiles(): Observable<any> {
+    return this.httpClient.get(`${this.REST_API}/files`);
   }
 
 }

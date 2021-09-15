@@ -15,20 +15,22 @@ export class DashboardAdminComponent implements OnInit {
   employee:any = []
   events!:any
   empBirth!:any
-  
+  task:any = []
+  getId!:any;
+
   constructor(public dialog: MatDialog,
     private service:DataEmployeeService,
     private eventService: EventService,
     private emploeeService:EmployeeService ) {
   }
-
+  
   ngOnInit(): void {
     this.service.data.subscribe(res => {
       this.employee = res
     });
     this.getEvent()
-    this.getEmployee()
-
+    this.getId = this.employee.userId
+    this.emploeeService.GetStaff()
   }
  
   addEvent(): void {
@@ -40,22 +42,24 @@ export class DashboardAdminComponent implements OnInit {
       this.getEvent()
     });
   }
+  
   addTask(): void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '398px',
       height :'361px',
     });
+    dialogRef.afterClosed().subscribe(result => {
+      this.emploeeService.GetEmployee(this.getId)
+      .subscribe((res) => {
+        this.employee = res
+      })
+    });
   }
+  
   getEvent(){
     this.eventService.GetAllEvents()
     .subscribe((res) => {
         this.events = res
-    });
-  }
-  getEmployee(){
-    this.emploeeService.GetStaff()
-    .subscribe((res) => {
-        this.empBirth = res
     });
   }
 }

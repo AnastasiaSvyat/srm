@@ -16,6 +16,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import { MatCardModule } from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [],
@@ -37,6 +38,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSortModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatPaginatorModule
   ],
   exports:[
     MatFormFieldModule,
@@ -55,7 +57,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSortModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatCardModule
+    MatCardModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule { }
