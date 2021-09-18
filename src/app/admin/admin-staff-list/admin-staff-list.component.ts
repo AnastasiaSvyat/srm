@@ -1,11 +1,10 @@
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AddUserComponent } from '../add-user/add-user.component';
 import {MatDialog} from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { Router } from '@angular/router';
 import { SearchName } from 'src/app/model/SearchName';
 import { MatTableDataSource } from '@angular/material/table';
-import { StaffList } from 'src/app/user/user-staff-list/user-staff-list.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Employee } from 'src/app/model/Employee';
@@ -60,7 +59,6 @@ export class AdminStaffListComponent implements OnInit {
         const { staffList, totalItems } = response;
         this.staffList = staffList;
         this.count = totalItems;
-        console.log(response);
       },
       error => {
         console.log(error);

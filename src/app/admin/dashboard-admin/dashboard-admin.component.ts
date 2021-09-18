@@ -17,6 +17,7 @@ export class DashboardAdminComponent implements OnInit {
   empBirth!:any
   task:any = []
   getId!:any;
+  isChecked:boolean = false;
 
   constructor(public dialog: MatDialog,
     private service:DataEmployeeService,
@@ -31,8 +32,16 @@ export class DashboardAdminComponent implements OnInit {
     this.getEvent()
     this.getId = this.employee.userId
     this.emploeeService.GetStaff()
+    
   }
- 
+  
+ onChange($event:any){
+   const id = $event.target.value
+   const isChecked = $event.target.checked
+console.log(id,isChecked);
+
+
+ }
   addEvent(): void {
     const dialogRef = this.dialog.open(AddEventComponent, {
       width: '398px',

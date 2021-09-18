@@ -39,11 +39,16 @@
     </div>
     <div fxFlex='26%'  fxLayout="column" fxLayoutAlign="space-between start" class="mt24 container_right colorBlock">
         <div class="fs24 ml24 mt24">ToDoList</div>
-        <div   *ngFor = "let task of employee.toDoList">
-            <div class="mt24">
-                <span class="fontColorGrey fs14">{{task.date | date:'shortDate' }}     </span>
-                <span class="fs14">      {{task.toDoList}}</span>
-            </div><br>
+        <div *ngFor = "let task of employee.toDoList; let i = index">
+            <div class="ml24">
+                <label>
+                  <input type="checkbox" [checked] = "task.select" [value] = "i"
+                  (change) ="onChange($event)"/>
+                    <span class="fontColorGrey fs14">{{task.date | date:'shortDate' }}     </span>
+                    <span class="fs14">      {{task.toDoList}}</span>
+                </label>
+            </div>
+            <br>
         </div>
         <div class="w100">
             <button (click)='addTask()' class="w100 btn h48" mat-stroked-button>ADD TASK</button>
