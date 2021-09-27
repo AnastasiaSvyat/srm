@@ -38,17 +38,14 @@ export class AppComponent {
     
     this.authService.Login(this.employeeLoginForm.value)
       .subscribe((res) => {
-        console.log(res);
         const loginEmploee = JSON.parse(JSON.stringify(res))
         this.user = loginEmploee
-        console.log(this.user);
         this.authService.checkRole(loginEmploee.role);
           if(loginEmploee.role === 'user'){
               this.router.navigate(['user']);
             this.router.navigate(['user'], {state: {data: this.user}});
 
           }else if(loginEmploee.role === 'admin'){
-            console.log(this.user);
             this.router.navigate(['/admin','dashboardAdmin'], {state: {data: this.user}});
           }},error =>{
               MaterialService.toast(error.error.massage);

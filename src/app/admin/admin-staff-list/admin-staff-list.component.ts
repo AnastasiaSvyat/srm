@@ -53,7 +53,7 @@ export class AdminStaffListComponent implements OnInit {
   retrieveStaff(): void {
     const params = this.getRequestParams(this.name, this.page, this.pageSize);
 
-    this.employeeService.getAll(params)
+    this.employeeService.getStaffListPagination(params)
     .subscribe(
       response => {
         const { staffList, totalItems } = response;
