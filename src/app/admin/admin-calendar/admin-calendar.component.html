@@ -5,9 +5,11 @@
   <div fxLayout='row' class="mb29 mt16">
     <div fxFlex='23%' class="ml48">
       <mat-card class="colorBlock">
-        <mat-calendar (selectedChange)="addEventt($event)"></mat-calendar>
+        <mat-calendar 
+        [selected]="selectedDate" 
+        (selectedChange)="onSelect($event)">
+        </mat-calendar>
       </mat-card>
-      <p>Selected date: {{selected}}</p>
     <div class="leftBox_bottom mt24 colorBlock">
       <div fxLayout="row" fxLayoutAlign="start start" class="ml24 pt28">
         <div class="fs24">Today</div>
@@ -59,3 +61,8 @@
     </div>
   </div>
 </div>
+
+  
+    
+
+  

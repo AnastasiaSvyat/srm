@@ -13,7 +13,6 @@ import * as moment from 'moment';
   styleUrls: ['./admin-calendar.component.scss']
 })
 export class AdminCalendarComponent implements OnInit {
-  selected!: any;
   today!:any
   events!:any
   employee!:any
@@ -24,7 +23,9 @@ export class AdminCalendarComponent implements OnInit {
   birthTodayBool!:boolean
   birthToday:any = []
   
+  selectedDate = new Date();
 
+  DayAndDate!: string;
   constructor( public dialog: MatDialog,
     private eventService: EventService,
     private employeeService: EmployeeService,
@@ -32,28 +33,24 @@ export class AdminCalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onSelect(this.selectedDate);
     this.today = new Date()
     this.getEvent()
     this.getEmployee()
-    this.selected= new Date()
-    console.log(this.selected);
-    
   }
-  addEventt($event:any) {
-    this.selected = $event
-    console.log($event);
+
+  onSelect(event:any) {
+    this.selectedDate = event;
     this.getEmployee()
     this.getEvent()
-    
-  
   }
-  
+
  getEmployee(){
   this.employeeService.GetStaff()
   .subscribe((res) => {
     this.employee = res
     this.employee.forEach((employeeBirth:any) => {
-      if(<any>moment(this.selected).format('MMDD') == <any>moment(employeeBirth.birthday).format('MMDD')){
+      if(<any>moment(this.selectedDate).format('MMDD') == <any>moment(employeeBirth.birthday).format('MMDD')){
       this.birthToday.push(employeeBirth)
       this.birthTodayBool = true
       }else{
@@ -69,7 +66,7 @@ export class AdminCalendarComponent implements OnInit {
     .subscribe((res) => {
       this.events = res
       this.events.forEach((eventsToday:any) => {
-        if(<any>moment(this.selected).format('MMDD') == <any>moment(eventsToday.date).format('MMDD')){
+        if(<any>moment(this.selectedDate).format('MMDD') == <any>moment(eventsToday.date).format('MMDD')){
         this.eventsToday.push(eventsToday)
         this.eventsTodayBool = true
         console.log(this.eventsToday);
@@ -78,7 +75,7 @@ export class AdminCalendarComponent implements OnInit {
           this.eventsToday = []  
           this.eventsTodayBool = false
         }
-        if(<any>moment(this.selected).format('MM') == <any>moment(eventsToday.date).format('MM')){
+        if(<any>moment(this.selectedDate).format('MM') == <any>moment(eventsToday.date).format('MM')){
           this.eventsMonth.push(eventsToday)
           this.eventsMonthBool = true;
         }else{
