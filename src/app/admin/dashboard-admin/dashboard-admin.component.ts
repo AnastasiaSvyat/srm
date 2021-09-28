@@ -29,12 +29,14 @@ export class DashboardAdminComponent implements OnInit {
   haveEventMonth!:boolean
   idCheckBox!:any
   deleteArr:any = []
-
+  today!:any
+  eventsToday:any = []
 
   constructor(public dialog: MatDialog,
     private service:DataEmployeeService,
     private eventService: EventService,
     private emploeeService:EmployeeService ) {
+      
   }
  
 
@@ -46,42 +48,25 @@ ngOnInit(): void {
     this.getEmployee()
     this.getId = this.employee.userId
     this.emploeeService.GetStaff()
-    
+    this.today = new Date()
   }
 
 onChange($event:any,task:any){
-  console.log(task);
-  
-   this.idCheckBox = $event.target.value
-   this.isChecked = $event.target.checked
-   console.log(this.idCheckBox);
-   console.log(this.isChecked);
-   if(this.isChecked){
-     this.deleteArr.push(task)
-   }
-   else{
+  this.idCheckBox = $event.target.value
+  this.isChecked = $event.target.checked
+  if(this.isChecked){
+    this.deleteArr.push(task)
+  }else{
     this.deleteArr.splice(task.id, 1);
-   }
-   console.log(this.deleteArr);
-   
+  }
 }
 
 delete() {
-  console.log(this.idCheckBox);
-  console.log(this.isChecked);
-
-  
-    this.deleteArr.forEach((element:any,i:any) => {
-      console.log(element);
-
-      console.log(element.id);
-      
-      this.emploeeService.deleteEmployee(element.id).subscribe((res) => {
-        this.employee.toDoList.splice(element, 1);
-      })
-    });
-    
-  
+  this.deleteArr.forEach((element:any,i:any) => {
+  this.emploeeService.deleteEmployee(element.id).subscribe((res) => {
+      this.employee.toDoList.splice(element, 1);
+  })
+  });
 }
   
 addEvent(): void {
@@ -92,7 +77,7 @@ addEvent(): void {
     dialogRef.afterClosed().subscribe(result => {
       this.getEvent()
     });
-  }
+}
   
 addTask(): void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
@@ -105,27 +90,26 @@ addTask(): void {
         this.employee = res
       })
     });
-
-  }
+}
   
 getEvent(){
     this.eventService.GetAllEvents()
     .subscribe((res) => {
         this.events = res
         console.log(this.events);
-        
         const today = new Date()
           this.events.sort(function(a:any,b:any){
             return (<any>moment(today).format('MMDD') - <any>moment(b.date).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.date).format('MMDD'))
           })
     });
-  }
+}
 
 getEmployee(){
     this.emploeeService.GetStaff()
     .subscribe((res) => {
         this.staff = res
         this.getStaffBirthdayTodayOrMonth()
+        this.getEventTodayOrMonth()
         const today = new Date()
         this.staff.sort(function(a:any,b:any){
           return (<any>moment(today).format('MMDD') - <any>moment(b.birthday).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.birthday).format('MMDD'))
@@ -134,16 +118,15 @@ getEmployee(){
 }
 
 getStaffBirthdayTodayOrMonth(){
-    const today = new Date()
-    this.staff.forEach((employeeBirth:any) => {
-    if(<any>moment(today).format('MMDD') == <any>moment(employeeBirth.birthday).format('MMDD')){
+this.staff.forEach((employeeBirth:any) => {
+    if(<any>moment(this.today).format('MMDD') == <any>moment(employeeBirth.birthday).format('MMDD')){
      this.haveBirthToday = true;
       this.todayBirth.push(employeeBirth)
     }else{
      this.haveBirthToday = false;
      this.todayBirth = [];
     }
-    if(<any>moment(today).format('MM') == <any>moment(employeeBirth.birthday).format('MM')){
+    if(<any>moment(this.today).format('MM') == <any>moment(employeeBirth.birthday).format('MM')){
       this.monthBirth.push(employeeBirth)
       this.haveBirthMonth = true;
     }else{
@@ -152,23 +135,24 @@ getStaffBirthdayTodayOrMonth(){
     }
   });
 }
+
 getEventTodayOrMonth(){
-  const today = new Date()
-  this.staff.forEach((employeeBirth:any) => {
-  if(<any>moment(today).format('MMDD') == <any>moment(employeeBirth.birthday).format('MMDD')){
+  this.events.forEach((eventToday:any) => {
+  if(<any>moment(this.today).format('MMDD') == <any>moment(eventToday.date).format('MMDD')){
    this.haveEventToday = true;
-    this.todayEvent.push(employeeBirth)
+   this.todayEvent.push(eventToday)
   }else{
    this.haveEventToday = false;
    this.todayEvent = [];
   }
-  if(<any>moment(today).format('MM') == <any>moment(employeeBirth.birthday).format('MM')){
-    this.monthEvent.push(employeeBirth)
+  if(<any>moment(this.today).format('MM') == <any>moment(eventToday.date).format('MM')){
+    this.monthEvent.push(eventToday)
     this.haveEventMonth = true;
   }else{
-    this.monthEvent = false;
-    this.monthBirth = []
+    this.haveEventMonth = false;
+    this.monthEvent = []
   }
+  
 });
 }
 }

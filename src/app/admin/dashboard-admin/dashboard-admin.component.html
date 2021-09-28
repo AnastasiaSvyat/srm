@@ -18,7 +18,7 @@
             <div class="fs24 ml24 mt24">Events</div>
             <div class="h100 bmt24" fxLayout="column"  fxLayoutAlign="space-between start">
                 <div class="ml24" >
-                    <div>
+                    <div class="mt24">
                         <p class="fontColorGrey fs18 mt16">Today</p>
                         <div *ngIf = "!haveEventToday">
                             <span class="fontColorGrey fs14">No event today</span>
@@ -49,12 +49,11 @@
                     <button (click)='addEvent()' class="w100 n btn h48" mat-stroked-button>ADD EVENT</button>
                 </div>
             </div>
-            
         </div>
         <div  fxFlex='31%' class="dashboard-content mt16 ml16 colorBlock">
             <div class="fs24 ml24 mt24">Birthdays</div>
             <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start" >
-                <div class="mt16">
+                <div class="mt24">
                     <p class="fontColorGrey fs18 mt16">Today</p>
                     <div *ngIf = "!haveBirthToday">
                         <span class="fontColorGrey fs14">No birthday today</span>
@@ -86,11 +85,6 @@
             <div class="fs24 ml24 mt24">Vacations</div>
         </div>
     </div>
-
-
-
-
-
     <div fxFlex='26%'  fxLayout="column" fxLayoutAlign="space-between start" class="mt24 container_right colorBlock">
         <div class="fs24 ml24 mt24">ToDoList</div>
         <div *ngFor = "let task of employee.toDoList; let i = index">

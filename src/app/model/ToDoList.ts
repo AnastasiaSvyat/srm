@@ -1,8 +1,7 @@
 export class ToDoList {
     _id!: String;
-    name!: String;
+    toDoList!: String;
     date!: String;
-    type!: String;
-    description!: String;
+   
     
 }

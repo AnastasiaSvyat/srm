@@ -4,13 +4,58 @@
   </div>
   <div fxLayout='row' class="mb29 mt16">
     <div fxFlex='23%' class="ml48">
-      <mat-card class=" leftBox_top colorBlock demo-inline-calendar-card">
-        <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
+      <mat-card class="colorBlock">
+        <mat-calendar (selectedChange)="addEventt($event)"></mat-calendar>
       </mat-card>
-      <div class="leftBox_bottom mt24 colorBlock">
-        <!-- <p>Selected date: {{selected}}</p> -->
+      <p>Selected date: {{selected}}</p>
+    <div class="leftBox_bottom mt24 colorBlock">
+      <div fxLayout="row" fxLayoutAlign="start start" class="ml24 pt28">
+        <div class="fs24">Today</div>
+        <div class="fs14 ml8 mt3 fontColorGrey">{{today | date:'dd.MM.yy'}} </div>
+      </div>
+      <div class="ml24" *ngIf = "birthTodayBool || eventsTodayBool" >
+        <div class="mt14" *ngFor = "let birth of birthToday">
+          {{birth.name}} birthday
+        </div>
+        <div class="mt14" *ngFor = "let eventToday of eventsToday">
+          {{eventToday.name }} - {{eventToday.type}}
+        </div>
+      </div>
+      <div class="ml24 fontColorGrey" *ngIf = "!birthTodayBool && !eventsTodayBool" >
+          <div>No events today</div>
       </div>
     </div>
-    <div fxFlex='70%' class="rightBox ml24 colorBlock"></div>
+    </div>
+    <div fxFlex='70%' class="rightBox ml24 colorBlock">
+      <div class="ml24 pt28 fs24">Planned events</div>
+      <div class="ml24" >
+        <div>
+            <p class="fontColorGrey fs18 mt16">Today</p>
+            <div *ngIf = "!eventsTodayBool">
+                <span class="fontColorGrey fs14">No event today</span>
+            </div>
+            <div *ngIf = "eventsTodayBool">
+                <div *ngFor = "let item of eventsToday">     
+                    <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
+                    <span class="fs14">      {{item.name}}</span>
+                </div>
+            </div>
+        </div>
+        <div *ngIf = "eventsMonthBool" class="mt16">
+            <p class="fontColorGrey fs18 mt16">This month</p>
+            <div *ngFor = "let item of eventsMonth">     
+                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
+                <span class="fs14">      {{item.name}}</span>
+            </div>
+        </div>
+        <div class="mt16">
+            <p class="fontColorGrey fs18 mt16">Later</p>
+            <div *ngFor = "let item of events">     
+                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
+                <span class="fs14">      {{item.name}}</span>
+            </div>
+        </div>
+    </div><br>
+    </div>
   </div>
 </div>
