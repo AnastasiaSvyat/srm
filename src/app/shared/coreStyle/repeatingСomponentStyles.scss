@@ -21,11 +21,9 @@
     width: 60px;
     height: 60px;
 }
-.leftBox_top{
-    height: 17.5rem;
-}
+
 .leftBox_bottom{
-    height: 27.125rem;
+    height: 21.3rem;
 }
 .rightBox{
     height: 46.18rem;
@@ -40,4 +38,13 @@ h2{
     background-color: none;
     border: 1px solid #546E7A;
     color: #546E7A;
+}
+.photo{
+    height: 82px;
+    width: 82px;
+    border-radius: 50%;
+    background: rgb(163, 245, 218);
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 6px;
 }

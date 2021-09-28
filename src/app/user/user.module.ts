@@ -7,6 +7,7 @@ import { UserStaffListComponent } from './user-staff-list/user-staff-list.compon
 import { UserCalendarComponent } from './user-calendar/user-calendar.component';
 import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
 import { MsgUserComponent } from './msg-user/msg-user.component';
+import { AddInfoUserComponent } from './add-info-user/add-info-user.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MsgUserComponent } from './msg-user/msg-user.component';
     UserStaffListComponent,
     UserCalendarComponent,
     DashboardUserComponent,
-    MsgUserComponent
+    MsgUserComponent,
+    AddInfoUserComponent
   ],
   imports: [
     CommonModule,
