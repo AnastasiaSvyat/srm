@@ -13,7 +13,7 @@ import * as moment from 'moment';
   styleUrls: ['./admin-calendar.component.scss']
 })
 export class AdminCalendarComponent implements OnInit {
-  today!:any
+  today = new Date()
   events!:any
   employee!:any
   eventsMonth:any = []
@@ -22,10 +22,13 @@ export class AdminCalendarComponent implements OnInit {
   eventsToday:any = []
   birthTodayBool!:boolean
   birthToday:any = []
-  
   selectedDate = new Date();
+  eventsPlannedTodayBool = false;
+  eventsPlannedMonthBool = false;
+  eventsPlannedMonth!:any;
+  eventsPlannedToday!:any;
 
-  DayAndDate!: string;
+  
   constructor( public dialog: MatDialog,
     private eventService: EventService,
     private employeeService: EmployeeService,
@@ -34,15 +37,17 @@ export class AdminCalendarComponent implements OnInit {
 
   ngOnInit(): void {
     this.onSelect(this.selectedDate);
-    this.today = new Date()
     this.getEvent()
     this.getEmployee()
-  }
+    this.getEventInPlanned()
+}
 
   onSelect(event:any) {
     this.selectedDate = event;
     this.getEmployee()
     this.getEvent()
+    console.log(this.today);
+    
   }
 
  getEmployee(){
@@ -60,6 +65,32 @@ export class AdminCalendarComponent implements OnInit {
     })
   })
  } 
+
+ getEventInPlanned(){
+  this.eventService.GetAllEvents()
+    .subscribe((res) => {
+      this.events = res
+      this.events.forEach((events:any) => {
+        
+        if(<any>moment(this.today).format('MMDD') == <any>moment(events.date).format('MMDD')){
+        this.eventsPlannedToday.push(events)
+        this.eventsPlannedTodayBool = true
+        console.log(this.eventsPlannedToday);
+        
+        }else{
+          this.eventsPlannedToday = []  
+          this.eventsPlannedTodayBool = false
+        }
+        if(<any>moment(this.today).format('MM') == <any>moment(events.date).format('MM')){
+          this.eventsPlannedMonth.push(events)
+          this.eventsPlannedMonthBool = true;
+        }else{
+          this.eventsPlannedMonthBool = false;
+          this.eventsPlannedMonth = []
+        }
+      })
+    })
+ }
 
   getEvent(){
     this.eventService.GetAllEvents()
