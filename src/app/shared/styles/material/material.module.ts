@@ -17,6 +17,8 @@ import { MatCardModule } from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [],
@@ -38,7 +40,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSortModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatMenuModule
   ],
   exports:[
     MatFormFieldModule,
@@ -58,7 +61,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatMenuModule
   ]
 })
 export class MaterialModule { }
