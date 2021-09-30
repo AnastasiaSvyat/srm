@@ -1,7 +1,5 @@
 export class ToDoList {
     _id!: String;
-    toDoList!: String;
+    task!: String;
     date!: String;
-   
-    
 }

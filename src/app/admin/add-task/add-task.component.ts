@@ -4,7 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ToDoList } from 'src/app/model/ToDoList';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
+import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
 import { AdminComponent } from '../admin.component';
+import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
 
 @Component({
   selector: 'app-add-task',
@@ -18,8 +20,10 @@ export class AddTaskComponent implements OnInit {
   public employee: any;
 
   todo!:ToDoList
-  constructor( public dialogRef: MatDialogRef<AddTaskComponent>,
+  constructor( public dialogRef: MatDialogRef<AddTaskComponent,DashboardAdminComponent>,
+    @Inject(MAT_DIALOG_DATA) public dataTask: DashboardAdminComponent,
     private service:DataEmployeeService,
+    private taskService:ToDoListService,
     private emoloyeeService: EmployeeService ) { 
       this.service.data.subscribe(value => {
         this.employee = value
@@ -30,10 +34,8 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {
     this.getId = this.employee.userId
     this.infoAboutUserForm = new FormGroup({
-      id: new FormControl(Math.floor(Math.random() * (999999 - 100000)) + 100000),
-      toDoList: new FormControl('',[Validators.required]),
-      date: new FormControl('',[Validators.required]),
-
+      task: new FormControl(this.dataTask.task,[Validators.required]),
+      date: new FormControl(this.dataTask.date,[Validators.required]),
     })
     this.getInfo()
 }
@@ -46,21 +48,5 @@ export class AddTaskComponent implements OnInit {
       .subscribe(value => {
         this.employee = value
       });
-  }
-
-  addToDoList(): any {
-this.todo = this.infoAboutUserForm.value
-console.log(this.todo);
-
-    this.employee.toDoList.push(this.todo)
-    this.emoloyeeService.updateEmployee(this.getId, this.employee)
-    .subscribe((res) => {
-      console.log(res);
-      
-      this.dialogRef.close();
-      this.employee = res
-    }, (err) => {
-        console.log(err);
-    });
   }
 }
