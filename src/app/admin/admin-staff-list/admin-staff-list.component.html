@@ -44,9 +44,9 @@
       <mat-header-cell *matHeaderCellDef> POSITION </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="birth">
+    <ng-container matColumnDef="birthday">
       <mat-header-cell *matHeaderCellDef> BIRTH DATE </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.birth}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.birthday | date:"dd.mm.yy"}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="salary">
       <mat-header-cell *matHeaderCellDef> SALARY </mat-header-cell>
@@ -68,9 +68,17 @@
       <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="skype">
-      <mat-header-cell *matHeaderCellDef> SKYPE </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.skype}} </mat-cell>
+    <ng-container matColumnDef="cv">
+      <mat-header-cell  *matHeaderCellDef >  </mat-header-cell>
+      <mat-cell *matCellDef="let row" >
+           <button class="ml24" mat-button>CV</button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="change">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element"> 
+        <button mat-button (click)="editUser(element)">change log</button>
+      </td>
     </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
