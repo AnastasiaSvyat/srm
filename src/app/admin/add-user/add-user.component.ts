@@ -4,6 +4,7 @@ import { AdminComponent } from '../admin.component';
 import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { MaterialService } from 'src/app/services/material/material.service';
+import { AdminStaffListComponent } from '../admin-staff-list/admin-staff-list.component';
 
 @Component({
   selector: 'app-add-user',
@@ -16,22 +17,22 @@ export class AddUserComponent implements OnInit {
 
 
   constructor(
-    private employeeService: EmployeeService,  
     public formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<AddUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AdminComponent
+    public dialogRef: MatDialogRef<AddUserComponent,AdminStaffListComponent>,
+    @Inject(MAT_DIALOG_DATA) public dataUser: AdminStaffListComponent
 ) { 
 
 }
   ngOnInit(): void {
     this.addEmployeeForm = new FormGroup({
-      name: new FormControl('',[Validators.required]),
-      email : new FormControl('', [Validators.required, Validators.email]),
+      name: new FormControl(this.dataUser.name,[Validators.required]),
+      email : new FormControl(this.dataUser.email, [Validators.required, Validators.email]),
       password: new FormControl('',[Validators.required,Validators.minLength(6)]),
-      salary: new FormControl('',[Validators.required]),
-      phone: new FormControl('',[Validators.required]),
-      position: new FormControl('',[Validators.required]),
-      birthday: new FormControl('',[Validators.required]),
+      salary: new FormControl(this.dataUser.salary,[Validators.required]),
+      phone: new FormControl(this.dataUser.phone,[Validators.required]),
+      position: new FormControl(this.dataUser.position,[Validators.required]),
+      lastPerf: new FormControl(this.dataUser.lastPerf,[Validators.required]),
+      birthday: new FormControl(this.dataUser.birthday,[Validators.required]),
       role: new FormControl('',[Validators.required])
     })
   }
@@ -47,15 +48,5 @@ export class AddUserComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  addEmplyee(): void{
-    console.log(this.addEmployeeForm.value);
-    this.employeeService.AddEmployee(this.addEmployeeForm.value)
-    .subscribe(() => {
-      MaterialService.toast("Congratulations! User has been added!")
-      this.dialogRef.close();
-      }, (err) => {
-        console.log(err);
-        MaterialService.toast("This email is already taken. Try another one.")
-    });
-  }
+
 }

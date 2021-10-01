@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AddUserComponent } from '../add-user/add-user.component';
 import {MatDialog} from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
-import { Router } from '@angular/router';
 import { SearchName } from 'src/app/model/SearchName';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { Employee } from 'src/app/model/Employee';
 
 
@@ -21,6 +17,20 @@ export class AdminStaffListComponent implements OnInit {
   currentEmployee: SearchName = {};
   currentIndex = -1;
   name = '';
+  head!:any
+  btn!:any
+  newUser!:any
+  position!:any
+  birthday!:any
+  salary!:any
+  lastPerf!:any
+  email!:any
+  phone!:any
+  arhiveUser!:any
+  addCV!:any
+  password!:any
+  role!:any
+  lastPerfBool!:any
 
 
   page = 1;
@@ -48,11 +58,10 @@ export class AdminStaffListComponent implements OnInit {
     return params;
   }
 
-  displayedColumns: string[] = ['name','position', 'birth','salary','firstDay','lastPerf','phone','email']
+  displayedColumns: string[] = ['name','position', 'birthday','salary','firstDay','lastPerf','phone','email','cv','change']
 
   retrieveStaff(): void {
     const params = this.getRequestParams(this.name, this.page, this.pageSize);
-
     this.employeeService.getStaffListPagination(params)
     .subscribe(
       response => {
@@ -64,7 +73,7 @@ export class AdminStaffListComponent implements OnInit {
         console.log(error);
       });
   }
-
+  
   handlePageChange(event: number): void {
     this.page = event;
     this.retrieveStaff();
@@ -79,15 +88,42 @@ export class AdminStaffListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       height :'791px',
+      data: {head: "Add user:",btn: "EDIT",arhiveUser:false,addCV:"Add CV",
+      password:true,role:true,lastPerfBool:false}
     });
   dialogRef.afterClosed().subscribe(result => {
-    this.retrieveStaff();
-  });
+    console.log(result);
+    
+    this.employeeService.AddEmployee(result)
+    .subscribe(
+      success => this.retrieveStaff(),
+      error => console.log(error));
+    });
   }
   
-  searchName(): void {
-    this.page = 1;
-    this.retrieveStaff();
+  editUser(event:any): void {
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      width: '398px',
+      height :'670px',
+      data: {head: "Edit task:",btn: "SAVE",name:event.name,position:event.position,
+      birthday:event.birthday,salary:event.salary,
+      lastPerf:event.lastPerf,email:event.email,phone:event.phone,
+      arhiveUser:true,addCV:"Add new CV",password:false,role:false,lastPerfBool:true}
+    });
+    console.log(event);
+    dialogRef.afterClosed().subscribe(result => {
+      this.newUser = result;
+      this.employeeService.updateEmployee(event.id,this.newUser)
+          .subscribe(
+            success => console.log("Done"),
+            error => console.log(error));
+            this.retrieveStaff();
+    });
+}
+
+searchName(): void {
+  this.page = 1;
+  this.retrieveStaff();
   }
 }
 
