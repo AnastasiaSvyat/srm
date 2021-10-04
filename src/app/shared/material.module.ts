@@ -38,7 +38,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSortModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   exports:[
     MatFormFieldModule,
@@ -58,7 +58,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ]
 })
 export class MaterialModule { }

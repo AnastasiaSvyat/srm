@@ -28,7 +28,7 @@ export class AddTaskComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getId = this.employee.userId
+    this.getId = this.employee.id
     this.infoAboutUserForm = new FormGroup({
       id: new FormControl(Math.floor(Math.random() * (999999 - 100000)) + 100000),
       toDoList: new FormControl('',[Validators.required]),

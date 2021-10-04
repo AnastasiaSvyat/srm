@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms"
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { MaterialService } from 'src/app/services/material/material.service';
 import { AdminStaffListComponent } from '../admin-staff-list/admin-staff-list.component';
+import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
 
 @Component({
   selector: 'app-add-user',
@@ -18,8 +19,8 @@ export class AddUserComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<AddUserComponent,AdminStaffListComponent>,
-    @Inject(MAT_DIALOG_DATA) public dataUser: AdminStaffListComponent
+    public dialogRef: MatDialogRef<AddUserComponent,DashboardAdminComponent>,
+    @Inject(MAT_DIALOG_DATA) public dataUser: DashboardAdminComponent
 ) { 
 
 }
@@ -27,13 +28,15 @@ export class AddUserComponent implements OnInit {
     this.addEmployeeForm = new FormGroup({
       name: new FormControl(this.dataUser.name,[Validators.required]),
       email : new FormControl(this.dataUser.email, [Validators.required, Validators.email]),
-      password: new FormControl('',[Validators.required,Validators.minLength(6)]),
+      password: new FormControl(this.dataUser.password,[Validators.required,Validators.minLength(6)]),
       salary: new FormControl(this.dataUser.salary,[Validators.required]),
       phone: new FormControl(this.dataUser.phone,[Validators.required]),
       position: new FormControl(this.dataUser.position,[Validators.required]),
       lastPerf: new FormControl(this.dataUser.lastPerf,[Validators.required]),
       birthday: new FormControl(this.dataUser.birthday,[Validators.required]),
-      role: new FormControl('',[Validators.required])
+      role: new FormControl(this.dataUser.role,[Validators.required]),
+      id: new FormControl(this.dataUser.id,[Validators.required])
+
     })
   }
   get name() { return this.addEmployeeForm.get('name')!; }

@@ -7,6 +7,7 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { EventService } from 'src/app/services/event/event.service';
 import { AddEventComponent } from '../add-event/add-event.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
+import { AddUserComponent } from '../add-user/add-user.component';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -31,6 +32,25 @@ export class DashboardAdminComponent implements OnInit {
   deleteArr:any = []
   today!:any
   eventsToday:any = []
+  updateUser!:any
+  head!:any
+  btn!:any
+  name!:any
+  position!:any
+  birthday!:any
+  salary!:any
+  lastPerf!:any
+  email!:any
+  phone!:any
+  arhiveUser!:any
+  addCV!:any
+  password!:any
+  role!:any
+  lastPerfBool!:any
+  passBool!:any
+  roleBool!:any
+  id!:any
+
 
   constructor(public dialog: MatDialog,
     private service:DataEmployeeService,
@@ -46,7 +66,7 @@ ngOnInit(): void {
     });
     this.getEvent()
     this.getEmployee()
-    this.getId = this.employee.userId
+    this.id = this.employee.id
     this.emploeeService.GetStaff()
     this.today = new Date()
   }
@@ -59,6 +79,36 @@ onChange($event:any,task:any){
   }else{
     this.deleteArr.splice(task.id, 1);
   }
+}
+
+editUser(event:any): void {
+  const dialogRef = this.dialog.open(AddUserComponent, {
+    
+    width: '398px',
+    height :'670px',
+    data: {head: "Edit task:",btn: "SAVE",name:event.name,position:event.position,
+    birthday:event.birthday,salary:event.salary,
+    lastPerf:false,email:event.email,phone:event.phone,
+    arhiveUser:true,addCV:"Add new CV",password:event.password,role:event.role,lastPerfBool:true,
+    passBool:false, roleBool:false,id:event.id}
+  });
+  console.log(event);
+  dialogRef.afterClosed().subscribe(result => {
+    this.updateUser = result;
+    console.log(this.updateUser);
+    
+    this.emploeeService.updateEmployee(event.id,this.updateUser)
+        .subscribe(
+          success => {
+            this.emploeeService.GetEmployee(event.id)
+            .subscribe((res) => {
+              this.employee = res
+            })
+          },
+          error => console.log(error));
+         
+          
+  });
 }
 
 delete() {

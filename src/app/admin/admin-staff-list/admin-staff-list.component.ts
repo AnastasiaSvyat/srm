@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { SearchName } from 'src/app/model/SearchName';
 import { Employee } from 'src/app/model/Employee';
+import { fakeAsync } from '@angular/core/testing';
 
 
 @Component({
@@ -31,6 +32,10 @@ export class AdminStaffListComponent implements OnInit {
   password!:any
   role!:any
   lastPerfBool!:any
+  passBool!:any
+  roleBool!:any
+  id!:any
+
 
 
   page = 1;
@@ -88,8 +93,7 @@ export class AdminStaffListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       height :'791px',
-      data: {head: "Add user:",btn: "EDIT",arhiveUser:false,addCV:"Add CV",
-      password:true,role:true,lastPerfBool:false}
+      data: {head: "Add user:",btn: "EDIT",arhiveUser:false,addCV:"Add CV",passBool:true,roleBool:true}
     });
   dialogRef.afterClosed().subscribe(result => {
     console.log(result);
@@ -101,16 +105,16 @@ export class AdminStaffListComponent implements OnInit {
     });
   }
   
-  editUser(event:any): void {
-    const dialogRef = this.dialog.open(AddUserComponent, {
+editUser(event:any): void {
+  const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       height :'670px',
-      data: {head: "Edit task:",btn: "SAVE",name:event.name,position:event.position,
+      data: {head: "Edit user:",btn: "SAVE",name:event.name,position:event.position,
       birthday:event.birthday,salary:event.salary,
       lastPerf:event.lastPerf,email:event.email,phone:event.phone,
-      arhiveUser:true,addCV:"Add new CV",password:false,role:false,lastPerfBool:true}
+      arhiveUser:true,addCV:"Add new CV",password:event.password,role:event.role,lastPerfBool:true,
+      passBool:false,roleBool:false,id:event.id}
     });
-    console.log(event);
     dialogRef.afterClosed().subscribe(result => {
       this.newUser = result;
       this.employeeService.updateEmployee(event.id,this.newUser)

@@ -1,18 +1,24 @@
 <div class="admin-dashboard-container" fxLayout='row'>
     <div fxLayout='row wrap' fxFlex='73%' class="mt24">
-        <div fxLayout='row' fxFlex='96%' class="h95 ml16 colorBlock">
+        <div fxLayout='row' fxLayoutAlign="space-around center" fxFlex='96%' class="h95 ml16 colorBlock">
             <div class="photo ml16">PHOTO</div>
             <div class="ml16 pt28 ">
                 <p class="fs18 mb0 ">{{employee.name}}</p>
                 <p class="fs14 fontColorGrey">Manager</p>
             </div>
-            <div class="ml80 pt32 ">
+            <div class="ml80">
                 <div class="fs14 mb0"><span class="fontColorGrey">Phone:</span>  {{employee.phone}}</div>
                 <div class="fs14 mb0"><span class="fontColorGrey">Email:</span>  {{employee.email}}</div>
             </div>
-            <div class="ml80 pt32 ">
+            <div class="ml80">
                 <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>  {{employee.birthday | date:'shortDate' }}</div>
             </div>
+             <div class="btnEditUser">
+                <button (click) = "editUser(employee)" class="pt0" mat-icon-button aria-label="Example icon-button with a menu">
+                    <mat-icon>more_horiz</mat-icon>
+                  </button>
+            </div>
+           
         </div> 
         <div  fxFlex='31%'  class="ml16 mt16 dashboard-content colorBlock ">
             <div class="fs24 ml24 mt24">Events</div>

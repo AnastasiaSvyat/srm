@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class DataEmployeeService {
-data: BehaviorSubject<any> = new BehaviorSubject<any>( history.state.data);
+data: BehaviorSubject<any> = new BehaviorSubject<any>(history.state.data);
 
   constructor() { }
 
