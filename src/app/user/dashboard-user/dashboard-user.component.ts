@@ -16,7 +16,7 @@ export class DashboardUserComponent implements OnInit {
   fileName = ''
   fileInfos?: Observable<any>;
   employee:any = []
-  getId!:any
+  id!:any
   
   constructor(public dialog: MatDialog, private service:DataEmployeeService,
     private emoloyeeService:EmployeeService,
@@ -27,7 +27,7 @@ export class DashboardUserComponent implements OnInit {
     this.service.data.subscribe(value => {
       this.employee = value
     });
-    this.getId = this.employee.userId
+    this.id = this.employee.id
     this.getInfo()
   }
 
@@ -44,7 +44,7 @@ export class DashboardUserComponent implements OnInit {
    }
     
   getInfo(){
-    this.emoloyeeService.GetEmployee(this.getId)
+    this.emoloyeeService.GetEmployee(this.id)
       .subscribe(value => {
         this.employee = value
       });
@@ -63,7 +63,7 @@ export class DashboardUserComponent implements OnInit {
       this.employee.file.push(name)
       // this.employee.file.push(file)
       console.log(this.employee);
-      this.emoloyeeService.updateEmployee(this.getId,this.employee)
+      this.emoloyeeService.updateEmployee(this.id,this.employee)
       .subscribe((res) => {
         this.employee = res
         console.log(this.employee);
