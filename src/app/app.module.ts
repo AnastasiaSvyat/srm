@@ -17,6 +17,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { AddRequestUserComponent } from './user/add-request-user/add-request-user.component';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { AddRequestUserComponent } from './user/add-request-user/add-request-use
     MatFormFieldModule,
     MatTableModule,
     FlexLayoutModule,
+    SharedModule,
     MatIconModule,
     BrowserModule,
     MatDialogModule,

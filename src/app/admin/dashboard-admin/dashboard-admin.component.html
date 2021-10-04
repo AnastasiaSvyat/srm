@@ -1,14 +1,114 @@
-<div class="admin-dashboard-container" fxLayout='row' class="container containerHeigh">
+<div class="admin-dashboard-container" fxLayout='row'>
     <div fxLayout='row wrap' fxFlex='73%' class="mt24">
-        <div fxFlex='96%' class="h95 ml16 colorBlock"></div> 
-            <div  fxLayout="row" fxLayoutAlign=" end" fxFlex='31%' class="ml16 mt16 dashboard-content colorBlock ">
-                <button (click)='addEvent()' class="w100 btn h48" mat-stroked-button>ADD EVENT</button>
+        <div fxLayout='row' fxLayoutAlign="space-around center" fxFlex='96%' class="h95 ml16 colorBlock">
+            <div class="photo ml16">PHOTO</div>
+            <div class="ml16 pt28 ">
+                <p class="fs18 mb0 ">{{employee.name}}</p>
+                <p class="fs14 fontColorGrey">Manager</p>
             </div>
-            <div fxFlex='31%' class="dashboard-content mt16 ml16 colorBlock"></div>
-            <div fxFlex='31%' class="dashboard-content ml16 mt16 colorBlock"></div>
-            
+            <div class="ml80">
+                <div class="fs14 mb0"><span class="fontColorGrey">Phone:</span>  {{employee.phone}}</div>
+                <div class="fs14 mb0"><span class="fontColorGrey">Email:</span>  {{employee.email}}</div>
+            </div>
+            <div class="ml80">
+                <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>  {{employee.birthday | date:'shortDate' }}</div>
+            </div>
+             <div class="btnEditUser">
+                <button (click) = "editUser(employee)" class="pt0" mat-icon-button aria-label="Example icon-button with a menu">
+                    <mat-icon>more_horiz</mat-icon>
+                  </button>
+            </div>
+           
+        </div> 
+        <div  fxFlex='31%'  class="ml16 mt16 dashboard-content colorBlock ">
+            <div class="fs24 ml24 mt24">Events</div>
+            <div class="h100 bmt24" fxLayout="column"  fxLayoutAlign="space-between start">
+                <div class="ml24" >
+                    <div class="mt24">
+                        <p class="fontColorGrey fs18 mt16">Today</p>
+                        <div *ngIf = "!haveEventToday">
+                            <span class="fontColorGrey fs14">No event today</span>
+                        </div>
+                        <div *ngIf = "haveEventToday">
+                            <div *ngFor = "let item of todayEvent">     
+                                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
+                                <span class="fs14">      {{item.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf = "haveEventMonth" class="mt16">
+                        <p class="fontColorGrey fs18 mt16">This month</p>
+                        <div *ngFor = "let item of monthEvent">     
+                            <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
+                            <span class="fs14">      {{item.name}}</span>
+                        </div>
+                    </div>
+                    <div class="mt16">
+                        <p class="fontColorGrey fs18 mt16">Later</p>
+                        <div *ngFor = "let item of events">     
+                            <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
+                            <span class="fs14">      {{item.name}}</span>
+                        </div>
+                    </div>
+                </div><br>
+                <div class="w100" >
+                    <button (click)='addEvent()' class="w100 n btn h48" mat-stroked-button>ADD EVENT</button>
+                </div>
+            </div>
+        </div>
+        <div  fxFlex='31%' class="dashboard-content mt16 ml16 colorBlock">
+            <div class="fs24 ml24 mt24">Birthdays</div>
+            <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start" >
+                <div class="mt24">
+                    <p class="fontColorGrey fs18 mt16">Today</p>
+                    <div *ngIf = "!haveBirthToday">
+                        <span class="fontColorGrey fs14">No birthday today</span>
+                    </div>
+                    <div *ngIf = "haveBirthToday">
+                        <div *ngFor = "let item of todayBirth">     
+                            <span class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}     </span>
+                            <span class="fs14">      {{item.name}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf = "haveBirthMonth" class="mt16">
+                    <p class="fontColorGrey fs18 mt16">This month</p>
+                    <div *ngFor = "let item of monthBirth">     
+                        <span class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}     </span>
+                        <span class="fs14">      {{item.name}}</span>
+                    </div>
+                </div>
+                <div class="mt16">
+                    <p class="fontColorGrey fs18 mt16">Later</p>
+                    <div *ngFor = "let item of staff">     
+                        <span class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}     </span>
+                        <span class="fs14">      {{item.name}}</span>
+                    </div>
+                </div>
+            </div><br>
+        </div>
+        <div fxFlex='31%' class="dashboard-content ml16 mt16 colorBlock">
+            <div class="fs24 ml24 mt24">Vacations</div>
+        </div>
     </div>
-        <div fxFlex='27%' fxLayout="row" fxLayoutAlign=" end" class="mt24 container_right colorBlock">
+    <div fxFlex='26%'  fxLayout="column" fxLayoutAlign="space-between start" class="mt24 container_right colorBlock">
+        <div class="fs24 ml24 mt24">ToDoList</div>
+        <div *ngFor = "let task of employee.toDoList; let i = index">
+            <div class="ml24">
+                <label>
+                  <input type="checkbox" [checked] = "task.select" [value] = "i"
+                  (change) ="onChange($event,task)"/>
+                    <span class="fontColorGrey fs14">{{task.date | date:'dd/MM' }}     </span>
+                    <span class="fs14">      {{task.toDoList}}</span>
+                </label>
+            </div>
+    </div><br>
+        <div *ngIf = "isChecked" class="w100">
+            <button (click)='delete()' class="w100 btn h48" mat-stroked-button>Delete</button>
+        </div>
+        <div *ngIf = "!isChecked" class="w100">
             <button (click)='addTask()' class="w100 btn h48" mat-stroked-button>ADD TASK</button>
+        </div>
     </div>
 </div>
+

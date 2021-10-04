@@ -20,7 +20,8 @@ import { MsgAdminComponent } from './msg-admin/msg-admin.component';
     AddEventComponent,
     AddUserComponent,
     AddTaskComponent,
-    MsgAdminComponent
+    MsgAdminComponent,
+    
   ],
   imports: [
     CommonModule,
