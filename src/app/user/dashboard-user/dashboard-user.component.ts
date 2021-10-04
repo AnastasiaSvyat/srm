@@ -19,23 +19,7 @@ export class DashboardUserComponent implements OnInit {
   fileInfos?: Observable<any>;
   employee:any = []
   id!:any
-  updateUser!:any
-  head!:any
-  btn!:any
-  name!:any
-  position!:any
-  birthday!:any
-  salary!:any
-  lastPerf!:any
-  email!:any
-  phone!:any
-  arhiveUser!:any
-  addCV!:any
-  password!:any
-  role!:any
-  lastPerfBool!:any
-  passBool!:any
-  roleBool!:any
+
   
   constructor(public dialog: MatDialog, private service:DataEmployeeService,
     private emoloyeeService:EmployeeService,
