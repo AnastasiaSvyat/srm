@@ -1,8 +1,81 @@
 <div class="user-msg-container">
-    <h2>Confirmed</h2>
-    <div class="h100 mr16 mb16" fxLayout="row" fxLayoutAlign="end end">
-        <div class="button-container">
-            <button (click)="addRequest()" class="h48 btn">CREATE REQUEST</button>
+    <div> 
+        <div *ngIf = "!haveRequest" >
+            <p>You have no requests</p>
         </div>
-    </div>
+        <!-- Pending -->
+        <mat-table *ngIf = "haveRequest" [dataSource]="pendingRequestArr" class="mat-elevation-z8 table w100 mt16">
+          <ng-container matColumnDef="startDate">
+            <mat-header-cell *matHeaderCellDef>Pending...</mat-header-cell>
+            <mat-cell *matCellDef="let element">  
+                <img src={{element.photo}} alt="">{{element.startDate | date:"dd.mm.yy"}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="date">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.startDate | date:"dd.mm.yy"}} - {{element.endDate | date:"dd.mm.yy"}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+          </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <!-- Confirmed -->
+          <mat-table *ngIf = "haveRequest" [dataSource]="requestTrue" class="mat-elevation-z8 table w100 mt16">
+            <ng-container matColumnDef="startDate">
+              <mat-header-cell *matHeaderCellDef>Confirmed</mat-header-cell>
+              <mat-cell *matCellDef="let element">  
+                  <img src={{element.photo}} alt="">{{element.startDate | date:"dd.mm.yy"}}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="type">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="date">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.startDate | date:"dd.mm.yy"}} - {{element.endDate | date:"dd.mm.yy"}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="description">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+            </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <!-- Declined -->
+            <mat-table *ngIf = "haveRequest" [dataSource]="requestFalse" class="mat-elevation-z8 table w100 mt16">
+              <ng-container matColumnDef="startDate">
+                <mat-header-cell *matHeaderCellDef> Declined</mat-header-cell>
+                <mat-cell *matCellDef="let element">  
+                    <img src={{element.photo}} alt="">{{element.startDate | date:"dd.mm.yy"}}
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.startDate | date:"dd.mm.yy"}} - {{element.endDate | date:"dd.mm.yy"}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="description">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+              </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+          <div class="mr16 mb16" fxLayout="row" fxLayoutAlign="end end">
+            <div class="button-container">
+                <button (click)="addRequest()" class="h48 btn">CREATE REQUEST</button>
+            </div>
+        </div>
+      </div> 
 </div>
