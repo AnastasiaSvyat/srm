@@ -27,7 +27,7 @@ export class AddInfoUserComponent implements OnInit {
     }
   
     ngOnInit(): void {
-      this.getId = this.employee.userId
+      this.getId = this.employee.id
       this.infoAboutUserForm = new FormGroup({
         info: new FormControl('',[Validators.required]),
       })
