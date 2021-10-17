@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ToDoList } from 'src/app/model/ToDoList';
+import { DataEmployeeService } from '../dataEmployee/dataEmployee.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,13 @@ export class ToDoListService {
 
   
   REST_API: string = 'http://localhost:8000/api';
-  
+  employee!:any 
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private dataEmplService: DataEmployeeService) { 
+    this.dataEmplService.data.subscribe(value => {
+      this.employee = value
+    });
+  }
 
  
   AddTask(data:ToDoList ): Observable<any> {
@@ -26,7 +31,8 @@ export class ToDoListService {
   
   
   GetAllTask() {
-    let API_URL = `${this.REST_API}/get-task`;
+    let emailEmpl = this.employee.email
+    let API_URL = `${this.REST_API}/get-task/?email=${this.employee.email}`;
       return this.httpClient.get(API_URL);
   }
 
