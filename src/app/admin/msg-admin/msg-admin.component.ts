@@ -11,54 +11,59 @@ export class MsgAdminComponent implements OnInit {
 
   requestList!:any
   newRequest!:boolean
-  AddConfirmRequest:any = []
-  newRequestArr:any = []
+  pendingRequestArr:any;
+  confirmRequestArr:any;
+  confirmRequestBool!:Boolean
+  pendingRequestBool!:Boolean
+  
+
   @ViewChildren(MatTable) table !: QueryList<MatTable<string>>;
 
 
   constructor(private requestService:RequestService, private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.requestService.GetAllRequest()
-    .subscribe((res) => {
-    this.requestList = res
-    this.requestList.forEach((element:any) => {
-     if(element.confirm == ""){
-        this.newRequestArr.push(element)
-        this.newRequest = true
-      }
-    if(element.confirm == 'true'){
-      this.AddConfirmRequest.push(element)
-    }
-    });
-  })
-
-
+    this.pendingRequest()
+    this.confirmRequest()
   }
   
   displayedColumns: string[] = ['startDate','type', 'date','description','decline','confirm']
   displayedColumnsConfirm: string[] = ['startDate','type', 'date','con','description']
 
-  confirmRequest(element:any){
-    element.confirm = true
-    this.requestService.UpdateRequest(element._id,element)
-    .subscribe(
-      success => console.log("Done"),
-      error => console.log(error));
-    this.newRequestArr.splice(this.newRequestArr.indexOf(element),1)
-    this.AddConfirmRequest.push(element)
-    this.table.first.renderRows();
-    this.table.last.renderRows();
+
+  pendingRequest(){
+    this.requestService.GetAllRequest()
+    .subscribe((res) => {
+    this.pendingRequestArr = res
+    if(this.pendingRequestArr.length == 0){
+      this.pendingRequestBool =false
+    }else{
+      this.pendingRequestBool =true
+    }
+    })
   }
 
-  declineRequest(element:any){
-    element.confirm = false
-    this.requestService.UpdateRequest(element._id,element)
-    .subscribe(
-      success => console.log("Done"),
-      error => console.log(error));
-  this.newRequestArr.splice(this.newRequestArr.indexOf(element),1)
-  this.table.first.renderRows();
-  this.table.last.renderRows();
+  confirmRequest(){
+    this.requestService.ConfirmRequest()
+    .subscribe((res) => {
+      this.confirmRequestArr = res
+      if(this.confirmRequestArr.length == 0){
+        this.confirmRequestBool =false
+      }else{
+        this.confirmRequestBool =true
+      }
+    })
   }
+
+  actionRequest(res:any,element:any){
+    if(res == true){
+      element.confirm = res
+    }else{
+      element.decline = true
+    }
+    this.requestService.UpdateRequest(element._id,element)
+    .subscribe((res) =>{
+      this.confirmRequest()
+      this.pendingRequest()
+  })}
 }

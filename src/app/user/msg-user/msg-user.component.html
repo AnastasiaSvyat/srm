@@ -1,10 +1,10 @@
 <div class="user-msg-container">
     <div> 
-        <div *ngIf = "!haveRequest" >
-            <p>You have no requests</p>
-        </div>
         <!-- Pending -->
-        <mat-table *ngIf = "haveRequest" [dataSource]="pendingRequestArr" class="mat-elevation-z8 table w100 mt16">
+        <div class="noRequest w98 h48 ma" *ngIf = "!pendingRequestBool" >
+          <p class="pt11 pl8">You have no pending requests</p>
+        </div>
+        <mat-table *ngIf = "pendingRequestBool" [dataSource]="pendingRequestArr" class="mat-elevation-z8 table w100 mt16">
           <ng-container matColumnDef="startDate">
             <mat-header-cell *matHeaderCellDef>Pending...</mat-header-cell>
             <mat-cell *matCellDef="let element">  
@@ -27,9 +27,12 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
           <!-- Confirmed -->
-          <mat-table *ngIf = "haveRequest" [dataSource]="requestTrue" class="mat-elevation-z8 table w100 mt16">
+          <div class="noRequest w98 h48 ma" *ngIf = "!confirmRequestBool" >
+            <p class="pt11 pl8">You have no pending requests</p>
+          </div>
+          <mat-table *ngIf = "confirmRequestBool" [dataSource]="confirmRequestArr" class="mat-elevation-z8 table w100 mt16">
             <ng-container matColumnDef="startDate">
-              <mat-header-cell *matHeaderCellDef>Confirmed</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Confirmed...</mat-header-cell>
               <mat-cell *matCellDef="let element">  
                   <img src={{element.photo}} alt="">{{element.startDate | date:"dd.mm.yy"}}
               </mat-cell>
@@ -50,9 +53,12 @@
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
             </mat-table>
             <!-- Declined -->
-            <mat-table *ngIf = "haveRequest" [dataSource]="requestFalse" class="mat-elevation-z8 table w100 mt16">
+            <div class="noRequest w98 h48 ma" *ngIf = "!declineRequestBool" >
+              <p class="pt11 pl8">You have no pending requests</p>
+            </div>
+            <mat-table *ngIf = "declineRequestBool" [dataSource]="declineRequestArr" class="mat-elevation-z8 table w100 mt16">
               <ng-container matColumnDef="startDate">
-                <mat-header-cell *matHeaderCellDef> Declined</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Declined...</mat-header-cell>
                 <mat-cell *matCellDef="let element">  
                     <img src={{element.photo}} alt="">{{element.startDate | date:"dd.mm.yy"}}
                 </mat-cell>

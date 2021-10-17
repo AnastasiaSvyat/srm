@@ -1,12 +1,12 @@
 <div class="user-msg-container">
     <div> 
-        <div *ngIf = "!newRequest" >
-            <p>You have no requests</p>
-        </div>
           <!-- Pending -->
-        <mat-table *ngIf = "newRequest" [dataSource]="newRequestArr" class="mat-elevation-z8 table w100 mt16">
+          <div class="noRequest w98 h48 ma" *ngIf = "!pendingRequestBool" >
+            <p class="pt11 pl8">You have no pending requests</p>
+          </div>
+        <mat-table *ngIf = "pendingRequestBool" [dataSource]="pendingRequestArr" class="mat-elevation-z8 table w100 mt16">
           <ng-container matColumnDef="startDate">
-            <mat-header-cell *matHeaderCellDef>Pending</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Pending...</mat-header-cell>
             <mat-cell *matCellDef="let element">  
                 <img src={{element.photo}} alt="">{{element.startDate | date:"dd.mm.yy"}}
             </mat-cell>
@@ -26,24 +26,26 @@
           <ng-container matColumnDef="decline">
             <mat-header-cell  *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let element">
-                 <button (click)="declineRequest(element)" class="ml24" mat-button>decline</button>
+                 <button (click)="actionRequest(false,element)" class="ml24" mat-button>decline</button>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="confirm">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element"> 
-              <button mat-button (click)="confirmRequest(element)">confirm</button>
+              <button mat-button (click)="actionRequest(true,element)">confirm</button>
             </td>
           </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
-
-          <div>
+        <div>
             <!-- Confirmed -->
-          <mat-table *ngIf = "newRequest" [dataSource]="AddConfirmRequest" class="mat-elevation-z8 table w100 mt16">
+            <div class="noRequest w98 h48 ma" *ngIf = "!confirmRequestBool" >
+              <p class="pt11 pl8">You have no confirmed requests</p>
+            </div>
+          <mat-table *ngIf = "confirmRequestBool"  [dataSource]="confirmRequestArr" class="mat-elevation-z8 table w100 mt16">
             <ng-container matColumnDef="startDate">
-              <mat-header-cell *matHeaderCellDef>Confirmed</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>Confirmed...</mat-header-cell>
               <mat-cell *matCellDef="let element">  
                   <img src={{element.photo}} alt="">{{element.startDate | date:"dd.mm.yy"}}
               </mat-cell>
@@ -66,8 +68,7 @@
             </ng-container>
               <mat-header-row *matHeaderRowDef="displayedColumnsConfirm"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumnsConfirm;"></mat-row>
-            </mat-table>
-          </div>
-
-      </div> 
+          </mat-table>
+        </div>
+    </div> 
 </div>

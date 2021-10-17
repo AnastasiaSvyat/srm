@@ -1,10 +1,8 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AddRequestUserComponent } from '../add-request-user/add-request-user.component';
-import {MatDialog} from '@angular/material/dialog';
-import { Request } from 'src/app/model/Request';
+import { MatDialog } from '@angular/material/dialog';
 import { RequestService } from 'src/app/services/request/request.service';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
-import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-msg-user',
@@ -15,18 +13,12 @@ export class MsgUserComponent implements OnInit {
   
   requestArr!:any
   employee!:any
-  email!:any
-  requestTrue:any = []
-  requestFalse:any = []
-  haveRequest!:boolean
-  pendingRequestArr:any = []
-  arr:any = []
-  requestList!:any
-  k!:any
-  @ViewChild(MatTable) table !: MatTable<any>;
-
- 
-  
+  pendingRequestArr:any;
+  confirmRequestArr:any;
+  pendingRequestBool!:Boolean
+  confirmRequestBool!:Boolean
+  declineRequestBool!:Boolean
+  declineRequestArr!:any;
   
   constructor(public dialog: MatDialog,
     public requestService:RequestService,
@@ -34,13 +26,55 @@ export class MsgUserComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this.pendingRequest()
+    this.confirmRequest()
+    this.declineRequest()
+    this.getEmloyee()
+  }
+
+  displayedColumns: string[] = ['startDate','type', 'date','description',]
+
+  getEmloyee(){
     this.service.data.subscribe(value => {
       this.employee = value
     });
-   this.retrieveResponse()
-   
   }
-  displayedColumns: string[] = ['startDate','type', 'date','description',]
+
+  pendingRequest(){
+    this.requestService.GetAllRequest()
+    .subscribe((res) => {
+    this.pendingRequestArr = res
+    if(this.pendingRequestArr.length == 0){
+      this.pendingRequestBool =false
+    }else{
+      this.pendingRequestBool =true
+    }
+    })
+  }
+
+  confirmRequest(){
+    this.requestService.ConfirmRequest()
+    .subscribe((res) => {
+      this.confirmRequestArr = res
+      if(this.confirmRequestArr.length == 0){
+        this.confirmRequestBool =false
+      }else{
+        this.confirmRequestBool =true
+      }
+    })
+  }
+  
+  declineRequest(){
+    this.requestService.DeclineRequest()
+    .subscribe((res) => {
+      this.declineRequestArr = res
+      if(this.declineRequestArr.length == 0){
+        this.declineRequestBool =false
+      }else{
+        this.declineRequestBool =true
+      }
+    })
+  }
 
   addRequest(): void {
     const dialogRef = this.dialog.open(AddRequestUserComponent, {
@@ -49,33 +83,7 @@ export class MsgUserComponent implements OnInit {
       data:{employee:this.employee}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.pendingRequestArr.push(result)
-      this.table.renderRows();
+      this.pendingRequest()
     });
-  }
-
-  retrieveResponse(): void {
-    this.requestService.GetAllRequest()
-    .subscribe((res) => {
-    this.requestList = res
-    this.requestList.forEach((element:any) => {
-      if(element.email == this.employee.email){
-        console.log(this.employee.email);
-        console.log(element.email);
-        
-     if(element.confirm == ""){
-        this.pendingRequestArr.push(element)
-
-        this.haveRequest = true
-      }
-    if(element.confirm == 'true'){
-      this.requestTrue.push(element)
-    }
-    if(element.confirm == 'false'){
-      this.requestFalse.push(element)
-    }
-  }
-    });
-    })
   }
 }
