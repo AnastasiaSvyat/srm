@@ -5,6 +5,7 @@ export class Request {
     endDate!: String;
     type!: String;
     description!: String;
-    confirm!: String;
+    confirm!: Boolean;
+    decline!:Boolean;
     name!: String;
 }

@@ -1,8 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { MsgAdminComponent } from 'src/app/admin/msg-admin/msg-admin.component';
-import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { MaterialService } from 'src/app/services/material/material.service';
 import { RequestService } from 'src/app/services/request/request.service';
 import { MsgUserComponent } from '../msg-user/msg-user.component';
@@ -34,17 +32,16 @@ export class AddRequestUserComponent implements OnInit {
       startDate: new FormControl('',[Validators.required]),
       endDate: new FormControl('',[Validators.required]),
       description: new FormControl('',[Validators.required]),
-      confirm: new FormControl('',[Validators.required])
-
+      confirm: new FormControl(false,[Validators.required]),
+      decline: new FormControl(false,[Validators.required])
     })
-  
   }
-  get email() { return this.requestForm.get('email')!; }
+
   get type() { return this.requestForm.get('type')!; }
   get startDate() { return this.requestForm.get('startDate')!; }
   get endDate() { return this.requestForm.get('endDate')!; }
   get description() { return this.requestForm.get('description')!; }
-  get confirm() { return this.requestForm.get('confirm')!; }
+
 
   
 
