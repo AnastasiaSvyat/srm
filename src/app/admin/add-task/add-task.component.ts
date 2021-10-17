@@ -36,6 +36,7 @@ export class AddTaskComponent implements OnInit {
     this.infoAboutUserForm = new FormGroup({
       task: new FormControl(this.dataTask.task,[Validators.required]),
       date: new FormControl(this.dataTask.date,[Validators.required]),
+      email: new FormControl(this.employee.email),
     })
     this.getInfo()
 }

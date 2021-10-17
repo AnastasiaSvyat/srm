@@ -38,6 +38,7 @@ export class DashboardAdminComponent implements OnInit {
   task!:any
   btn!:any
   editTask!:any
+  arr:any = []
 
 
 constructor(public dialog: MatDialog,
@@ -91,9 +92,10 @@ getAllTask(){
   this.taskService.GetAllTask()
   .subscribe((res) => {
     this.toDoList = res
-
   })
 }
+
+
 addTask(): void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '398px',
