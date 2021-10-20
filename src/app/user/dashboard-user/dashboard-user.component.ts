@@ -1,10 +1,13 @@
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { UploadFile } from 'src/app/model/UploadFile';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
+import { UploadFileService } from 'src/app/services/uploadFile/upload-file.service';
 import { AddInfoUserComponent } from '../add-info-user/add-info-user.component';
 
 @Component({
@@ -14,24 +17,38 @@ import { AddInfoUserComponent } from '../add-info-user/add-info-user.component';
 })
 export class DashboardUserComponent implements OnInit {
   fileName = ''
-  fileInfos?: Observable<any>;
   employee:any = []
   getId!:any
+  cv!:any
+
+
   
   constructor(public dialog: MatDialog, private service:DataEmployeeService,
-    private emoloyeeService:EmployeeService,
-    private http: HttpClient) {}
+    private emoloyeeService:EmployeeService,private uploadFileService:UploadFileService,) {}
 
 
   ngOnInit(): void {
+   this.getEmployee()
+    this.getInfo()
+    this.getUploadFile()
+  }
+
+  getEmployee(){
     this.service.data.subscribe(value => {
       this.employee = value
     });
     this.getId = this.employee.userId
-    this.getInfo()
   }
 
-
+  getUploadFile(){
+    this.uploadFileService.getGalleryById(this.employee.email)
+    .subscribe((res) => {
+      this.cv = res[res.length - 1]
+      this.fileName = this.cv.name
+      
+    })
+  }
+  
   addNewInfo(): void {
     const dialogRef = this.dialog.open(AddInfoUserComponent, {
       width: '398px',
@@ -52,21 +69,11 @@ export class DashboardUserComponent implements OnInit {
   
   onFileSelected(event:any) {
     const file:File = event.target.files[0];
-    if (file) {
-      this.fileName = file.name;
-      const formData = new FormData();
-      formData.append("name", file);
-    var name = formData.get("name")
-    console.log(name);
-    
-    
-      this.employee.file.push(name)
-      // this.employee.file.push(file)
-      console.log(this.employee);
-      this.emoloyeeService.updateEmployee(this.getId,this.employee)
+      if (file) {
+        this.fileName = file.name;
+    this.uploadFileService.uploadFile(this.employee,file)
       .subscribe((res) => {
-        this.employee = res
-        console.log(this.employee);
+        console.log('Done');
       }, (err) => {
           console.log(err);
       });
