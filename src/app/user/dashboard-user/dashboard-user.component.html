@@ -70,12 +70,11 @@
             <div class="mt24 ml24">
                 <p class="fs24">CVs</p>
             </div>
-                <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-                <div class="file-upload">{{fileName || "No file uploaded yet."}}</div> 
-                <div class="w100">
-                    <button (click)="fileUpload.click()" type="file" class="w100 h48 btn" mat-stroked-button>ADD NEW</button>
-                </div>
-           
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <div class="file-upload">{{fileName || "No file uploaded yet."}}</div> 
+            <div class="w100">
+                <button (click)="fileUpload.click()" type="file" class="w100 h48 btn" mat-stroked-button>ADD NEW</button>
+            </div>
         </div>
     </div>
 </div>

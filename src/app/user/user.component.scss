@@ -4,3 +4,15 @@
     width: 49px;
     height: 49px;
 }
+.circle-sms{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    line-height: 16px; 
+    text-align: center;  
+    background: rgb(248, 248, 248);
+    font-size: 8px;
+    position: absolute;
+    left: 30px;
+    top: 3px;
+}

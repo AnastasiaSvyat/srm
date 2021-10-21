@@ -14,10 +14,11 @@
                 <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>  {{employee.birthday | date:'shortDate' }}</div>
             </div>
         </div> 
-        <div  fxFlex='31%'  class="ml16 mt16 dashboard-content colorBlock ">
+
+        <div fxFlex='31%'  fxLayout="column" fxLayoutAlign="space-between start"  class="ml16 mt16 dashboard-content colorBlock ">
             <div class="fs24 ml24 mt24">Events</div>
-            <div class="h100 bmt24" fxLayout="column"  fxLayoutAlign="space-between start">
-                <div class="ml24" >
+            <div class="mb165" fxLayout="column"  fxLayoutAlign="space-between start">
+                <div class="ml24">
                     <div class="mt24">
                         <p class="fontColorGrey fs18 mt16">Today</p>
                         <div *ngIf = "!haveEventToday">
@@ -44,12 +45,13 @@
                             <span class="fs14">      {{item.name}}</span>
                         </div>
                     </div>
-                </div><br>
-                <div class="w100" >
-                    <button (click)='addEvent()' class="w100 n btn h48" mat-stroked-button>ADD EVENT</button>
                 </div>
             </div>
+            <div class="w100">
+                <button (click)='addEvent()' class="w100 btn h48" mat-stroked-button>ADD EVENT</button>
+            </div>
         </div>
+
         <div  fxFlex='31%' class="dashboard-content mt16 ml16 colorBlock">
             <div class="fs24 ml24 mt24">Birthdays</div>
             <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start" >
@@ -81,6 +83,7 @@
                 </div>
             </div><br>
         </div>
+        
         <div fxFlex='31%' class="dashboard-content ml16 mt16 colorBlock">
             <div class="fs24 ml24 mt24">Vacations</div>
         </div>
@@ -93,7 +96,7 @@
                   <input type="checkbox" [checked] = "task.select" [value] = "i"
                   (change) ="onChange($event,task)"/>
                     <span class="fontColorGrey fs14">{{task.date | date:'dd/MM' }}     </span>
-                    <span class="fs14">      {{task.toDoList}}</span>
+                    <span class="fs14">{{task.toDoList}}</span>
                 </label>
             </div>
     </div><br>
