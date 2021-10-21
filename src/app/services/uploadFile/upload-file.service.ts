@@ -10,6 +10,7 @@ export class UploadFileService {
 
   constructor(private httpClient: HttpClient) { }
   REST_API: string = 'http://localhost:8000/api';
+  httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
 
   private handleError(error: HttpErrorResponse): any {
@@ -37,6 +38,13 @@ export class UploadFileService {
     let API_URL = `${this.REST_API}/uplFile`;
     return this.httpClient.post(API_URL, formData)
       .pipe(
+        catchError(this.handleError)
+      )
+  }
+  
+  deleteUplFile(id:any): Observable<any> {
+    let API_URL = `${this.REST_API}/delete-cv/${id}`;
+    return this.httpClient.delete(API_URL, { headers: this.httpHeaders}).pipe(
         catchError(this.handleError)
       )
   }

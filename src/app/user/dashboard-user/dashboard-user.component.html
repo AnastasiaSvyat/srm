@@ -70,21 +70,18 @@
         <div fxFlex='25%' fxLayout="column" fxLayoutAlign="space-between start" class="h11r ml16 mt16 colorBlock">
             <div class="mt24 ml24">
                 <p class="fs24">CVs</p>
-                
             </div>
-            
                 <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-                
                 <div class="file-upload ml16">
-                    <div *ngIf = "fileName">
+                    <div class="uploadFileBox" *ngIf = "fileName">
+                        <button (click)="deleteCV()" class="fileImg" class="deleteBtn greyColor">x</button>
                         <img src="../../../assets/img/cv.svg" alt="">
                     </div>
-                    <p>{{fileName || "No file uploaded yet."}}</p>
+                    <p>{{fileName || "No cv uploaded yet."}}</p>
                 </div> 
                 <div class="w100">
                     <button (click)="fileUpload.click()" type="file" class="w100 h48 btn" mat-stroked-button>ADD NEW</button>
                 </div>
-           
         </div>
     </div>
 </div>

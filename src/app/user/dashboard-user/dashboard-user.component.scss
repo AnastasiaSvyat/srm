@@ -26,3 +26,19 @@
 .file-input {
     display: none;
 }
+
+.deleteBtn{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    line-height: 8px; 
+    position: absolute;
+    left: 18px;
+    color: white;
+    bottom: 27px;
+    border: none;
+}
+.uploadFileBox{
+    position: relative;
+    width: 31px;
+}

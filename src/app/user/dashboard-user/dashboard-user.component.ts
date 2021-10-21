@@ -1,10 +1,5 @@
-import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { UploadFile } from 'src/app/model/UploadFile';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { UploadFileService } from 'src/app/services/uploadFile/upload-file.service';
@@ -20,6 +15,7 @@ export class DashboardUserComponent implements OnInit {
   employee:any = []
   getId!:any
   cv!:any
+  arr!:any
 
 
   
@@ -41,11 +37,17 @@ export class DashboardUserComponent implements OnInit {
   }
 
   getUploadFile(){
-    this.uploadFileService.getGalleryById(this.employee.email)
+  this.uploadFileService.getGalleryById(this.employee.email)
     .subscribe((res) => {
-      this.cv = res[res.length - 1]
-      this.fileName = this.cv.name
-      
+      this.arr = res
+      if(this.arr.length > 0){
+        this.cv = res[res.length - 1]
+        this.fileName = this.cv.name
+      }else{
+        this.fileName = ''
+        this.cv = []
+        
+      }
     })
   }
   
@@ -55,7 +57,6 @@ export class DashboardUserComponent implements OnInit {
       height :'398px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       this.getInfo()
     });
    }
@@ -73,10 +74,21 @@ export class DashboardUserComponent implements OnInit {
         this.fileName = file.name;
     this.uploadFileService.uploadFile(this.employee,file)
       .subscribe((res) => {
-        console.log('Done');
-      }, (err) => {
+        this.getUploadFile()
+      if(this.cv._id != undefined){
+        this.deleteCV()
+      }}, (err) => {
           console.log(err);
       });
     }
+  }
+
+  deleteCV(){
+    this.uploadFileService.deleteUplFile(this.cv._id)
+    .subscribe((res) => {
+      this.getUploadFile()
+    })
+
+  
   }
 }
