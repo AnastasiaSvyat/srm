@@ -1,0 +1,14 @@
+mat-cell{
+    border-top: 1px solid #CFD8DC;
+    border-bottom: 1px solid #CFD8DC;
+    border-right: none;
+    border-left: none;
+    margin-top: 8px;
+
+}
+mat-cell:first-child{
+    border-left: 1px solid #CFD8DC;
+}
+mat-cell:last-child{
+    border-right: 1px solid #CFD8DC;
+}

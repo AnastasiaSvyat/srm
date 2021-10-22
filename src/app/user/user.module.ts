@@ -8,6 +8,7 @@ import { UserCalendarComponent } from './user-calendar/user-calendar.component';
 import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
 import { MsgUserComponent } from './msg-user/msg-user.component';
 import { AddInfoUserComponent } from './add-info-user/add-info-user.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AddInfoUserComponent } from './add-info-user/add-info-user.component';
     UserCalendarComponent,
     DashboardUserComponent,
     MsgUserComponent,
-    AddInfoUserComponent
+    AddInfoUserComponent,
+    UpdateUserComponent
   ],
   imports: [
     CommonModule,

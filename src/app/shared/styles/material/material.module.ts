@@ -17,6 +17,8 @@ import { MatCardModule } from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [],
@@ -39,6 +41,11 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatMenuModule
+<<<<<<< HEAD:src/app/shared/material.module.ts
+=======
+    MatMenuModule
+>>>>>>> devel:src/app/shared/styles/material/material.module.ts
   ],
   exports:[
     MatFormFieldModule,
@@ -59,6 +66,11 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSelectModule,
     MatCardModule,
     MatPaginatorModule,
+    MatMenuModule
+<<<<<<< HEAD:src/app/shared/material.module.ts
+=======
+    MatMenuModule
+>>>>>>> devel:src/app/shared/styles/material/material.module.ts
   ]
 })
 export class MaterialModule { }

@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { EventService } from 'src/app/services/event/event.service';
+import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
 import { AddEventComponent } from '../add-event/add-event.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { AddUserComponent } from '../add-user/add-user.component';
@@ -16,6 +17,7 @@ import { AddUserComponent } from '../add-user/add-user.component';
 })
 export class DashboardAdminComponent implements OnInit {
   employee:any = []
+  toDoList:any = []
   events!:any
   staff!:any
   getId!:any;
@@ -32,6 +34,7 @@ export class DashboardAdminComponent implements OnInit {
   deleteArr:any = []
   today!:any
   eventsToday:any = []
+<<<<<<< HEAD
   updateUser!:any
   head!:any
   btn!:any
@@ -51,22 +54,35 @@ export class DashboardAdminComponent implements OnInit {
   roleBool!:any
   id!:any
 
+=======
+  head!:any
+  date!:any
+  task!:any
+  btn!:any
+  editTask!:any
+  arr:any = []
+>>>>>>> devel
 
-  constructor(public dialog: MatDialog,
+
+constructor(public dialog: MatDialog,
     private service:DataEmployeeService,
     private eventService: EventService,
-    private emploeeService:EmployeeService ) {
-      
-  }
+    private emploeeService:EmployeeService,
+    private taskService: ToDoListService) {
+}
  
-
 ngOnInit(): void {
     this.service.data.subscribe(res => {
       this.employee = res
     });
     this.getEvent()
     this.getEmployee()
+<<<<<<< HEAD
     this.id = this.employee.id
+=======
+    this.getAllTask()
+    this.getId = this.employee.userId
+>>>>>>> devel
     this.emploeeService.GetStaff()
     this.today = new Date()
   }
@@ -81,6 +97,7 @@ onChange($event:any,task:any){
   }
 }
 
+<<<<<<< HEAD
 editUser(event:any): void {
   const dialogRef = this.dialog.open(AddUserComponent, {
     
@@ -117,7 +134,15 @@ delete() {
       this.employee.toDoList.splice(element, 1);
   })
   });
+=======
+deleteTask(id:any, i:any) {
+  console.log(id);
+    this.taskService.DeleteTask(id).subscribe((res) => {
+      this.toDoList.splice(i, 1);
+    })
+>>>>>>> devel
 }
+
   
 addEvent(): void {
     const dialogRef = this.dialog.open(AddEventComponent, {
@@ -128,18 +153,45 @@ addEvent(): void {
       this.getEvent()
     });
 }
-  
+
+getAllTask(){
+  this.taskService.GetAllTask()
+  .subscribe((res) => {
+    this.toDoList = res
+  })
+}
+
+
 addTask(): void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '398px',
       height :'361px',
+      data: {head: "Add task:",btn:"ADD",}
+  
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.emploeeService.GetEmployee(this.getId)
-      .subscribe((res) => {
-        this.employee = res
-      })
+    this.taskService.AddTask(result)
+    .subscribe((res) => {
+    })
+      this.getAllTask()
     });
+}
+
+
+updateTask(event:any): void {
+  const dialogRef = this.dialog.open(AddTaskComponent, {
+    width: '398px',
+    height :'361px',
+    data: {head: "Edit task:",btn: "EDIT",date:event.date,task:event.task}
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    this.editTask = result;
+    this.taskService.UpdateTask(event._id,this.editTask)
+        .subscribe(
+          success => console.log("Done"),
+          error => console.log(error));
+      this.getAllTask()
+  });
 }
   
 getEvent(){

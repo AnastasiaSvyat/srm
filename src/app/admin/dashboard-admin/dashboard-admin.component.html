@@ -93,20 +93,36 @@
     </div>
     <div fxFlex='26%'  fxLayout="column" fxLayoutAlign="space-between start" class="mt24 container_right colorBlock">
         <div class="fs24 ml24 mt24">ToDoList</div>
-        <div *ngFor = "let task of employee.toDoList; let i = index">
-            <div class="ml24">
-                <label>
-                  <input type="checkbox" [checked] = "task.select" [value] = "i"
-                  (change) ="onChange($event,task)"/>
-                    <span class="fontColorGrey fs14">{{task.date | date:'dd/MM' }}     </span>
-                    <span class="fs14">      {{task.toDoList}}</span>
-                </label>
+        <div *ngFor = "let task of toDoList; let i = index">
+            <div class="ml24 task" fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <label>
+                        <input type="checkbox" [checked] = "task.select" [value] = "i"
+                        (change) ="onChange($event,task)"/>
+                          <span class="fontColorGrey fs14">{{task.date | date:'dd/MM' }}     </span>
+                          <span class="fs14">      {{task.task}}</span>
+                      </label>
+                </div>
+                <div>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button (click) = "updateTask(task)" mat-menu-item>
+                          <mat-icon>edit</mat-icon>
+                          <span>Edit</span>
+                        </button>
+                        <button (click)="deleteTask(task._id, i)"mat-menu-item>
+                          <mat-icon>delete</mat-icon>
+                          <span>Delete</span>
+                        </button>
+                      </mat-menu>
+                </div>
+               
+                  
             </div>
     </div><br>
-        <div *ngIf = "isChecked" class="w100">
-            <button (click)='delete()' class="w100 btn h48" mat-stroked-button>Delete</button>
-        </div>
-        <div *ngIf = "!isChecked" class="w100">
+        <div class="w100">
             <button (click)='addTask()' class="w100 btn h48" mat-stroked-button>ADD TASK</button>
         </div>
     </div>
