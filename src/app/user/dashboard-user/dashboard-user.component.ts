@@ -33,7 +33,7 @@ export class DashboardUserComponent implements OnInit {
     this.service.data.subscribe(value => {
       this.employee = value
     });
-    this.getId = this.employee.userId
+    this.getId = this.employee.id
   }
 
   getUploadFile(){
