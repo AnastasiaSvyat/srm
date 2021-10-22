@@ -12,53 +12,53 @@ import { CareService } from '../care/care.service';
 
 export class EmployeeService {
 
-  constructor(private httpClient: HttpClient, private careService:CareService) { }
+  constructor(private httpClient: HttpClient, private СareService:CareService) { }
 
   AddEmployee(employee: Employee): Observable<any> {
-    let API_URL = `${this.careService.REST_API}/add-employee`;
+    let API_URL = `${this.СareService.REST_API}/add-employee`;
     return this.httpClient.post(API_URL, employee)
       .pipe(
-        catchError(this.careService.handleError)
+        catchError(this.СareService.handleError)
       )
   }
 
   GetStaff() {
-    return this.httpClient.get(`${this.careService.REST_API}`);
+    return this.httpClient.get(`${this.СareService.REST_API}`);
   }
   
   
   GetEmployee(id:any): Observable<any> {
-    let API_URL = `${this.careService.REST_API}/read-employee/${id}`;
-    return this.httpClient.get(API_URL, { headers: this.careService.httpHeaders })
+    let API_URL = `${this.СareService.REST_API}/read-employee/${id}`;
+    return this.httpClient.get(API_URL, { headers: this.СareService.httpHeaders })
       .pipe(map((res: any) => {
           return res || {}
         }),
-        catchError(this.careService.handleError)
+        catchError(this.СareService.handleError)
       )
   }
 
   updateEmployee(id:any, employee:any): Observable<any> {
-    let API_URL = `${this.careService.REST_API}/update-employee/${id}`;
-    return this.httpClient.put(API_URL, employee, { headers: this.careService.httpHeaders })
+    let API_URL = `${this.СareService.REST_API}/update-employee/${id}`;
+    return this.httpClient.put(API_URL, employee, { headers: this.СareService.httpHeaders })
       .pipe(
-        catchError(this.careService.handleError)
+        catchError(this.СareService.handleError)
       )
   }
 
   deleteEmployee(id:any): Observable<any> {
-    let API_URL = `${this.careService.REST_API}/delete-employee/${id}`;
-    return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders}).pipe(
-        catchError(this.careService.handleError)
+    let API_URL = `${this.СareService.REST_API}/delete-employee/${id}`;
+    return this.httpClient.delete(API_URL, { headers: this.СareService.httpHeaders}).pipe(
+        catchError(this.СareService.handleError)
       )
   }
   
   getStaffListPagination(params: any): Observable<any> {
-    let API_URL = `${this.careService.REST_API}/stafflist`;
+    let API_URL = `${this.СareService.REST_API}/stafflist`;
     return this.httpClient.get<any>(API_URL, { params });
   }
 
   getFiles(): Observable<any> {
-    return this.httpClient.get(`${this.careService.REST_API}/files`);
+    return this.httpClient.get(`${this.СareService.REST_API}/files`);
   }
 
 }
