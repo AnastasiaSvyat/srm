@@ -1,6 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ToDoList } from 'src/app/model/ToDoList';
+import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
+import { EmployeeService } from 'src/app/services/employee/employee.service';
+import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
 import { AdminComponent } from '../admin.component';
+import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
 
 @Component({
   selector: 'app-add-task',
@@ -9,13 +15,39 @@ import { AdminComponent } from '../admin.component';
 })
 export class AddTaskComponent implements OnInit {
 
-  constructor(
-    public dialogRef: MatDialogRef<AddTaskComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AdminComponent) { }
+  getId: any;
+  infoAboutUserForm!:FormGroup
+  public employee: any;
 
-  ngOnInit(): void {}
-  
+  todo!:ToDoList
+  constructor( public dialogRef: MatDialogRef<AddTaskComponent,DashboardAdminComponent>,
+    @Inject(MAT_DIALOG_DATA) public dataTask: DashboardAdminComponent,
+    private service:DataEmployeeService,
+    private taskService:ToDoListService,
+    private emoloyeeService: EmployeeService ) { 
+      this.service.data.subscribe(value => {
+        this.employee = value
+      });
+    }
+
+
+  ngOnInit(): void {
+    this.getId = this.employee.userId
+    this.infoAboutUserForm = new FormGroup({
+      task: new FormControl(this.dataTask.task,[Validators.required]),
+      date: new FormControl(this.dataTask.date,[Validators.required]),
+      email: new FormControl(this.employee.email),
+    })
+    this.getInfo()
+}
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  getInfo(){
+    this.emoloyeeService.GetEmployee(this.getId)
+      .subscribe(value => {
+        this.employee = value
+      });
   }
 }

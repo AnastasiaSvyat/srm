@@ -1,22 +1,23 @@
 <div class="add-task-container">
-    <h2 class="mt24" mat-dialog-title>Add task</h2>
-    <div mat-dialog-content>
-            <mat-form-field>
-                <input matInput  [matDatepicker]="picker" placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker startView="year"></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Description</mat-label>
-                <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
-            </mat-form-field>
-            <div fxLayout="row" fxLayoutAlign="space-around center"  class="mt50">
-                <div>
-                    <button (click)='onNoClick()' class="w155 btnCancel" mat-stroked-button>Cancel</button>
-                </div>
-                <div>
-                    <button class="btn w155" mat-stroked-button>Add</button>
-                </div>
-            </div>
-    </div>
+    <h2 class="mt24" mat-dialog-title>{{dataTask.head}}</h2>
+    <div [formGroup]="infoAboutUserForm" mat-dialog-content>
+        <mat-form-field>
+            <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="year"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+             <mat-label>Description</mat-label>
+             <textarea placeholder="Enter description..." formControlName="task" name="description" matInput></textarea>
+         </mat-form-field>
+             <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
+                 <div>
+                     <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
+                 </div>
+                 <div>
+                     <button class="btn w155" [mat-dialog-close]="infoAboutUserForm.value"  mat-stroked-button>{{dataTask.btn}}</button>
+                 </div>
+
+             </div>
+     </div>
 </div>

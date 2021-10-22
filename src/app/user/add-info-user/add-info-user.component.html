@@ -1,0 +1,17 @@
+<div class="add-event-container">
+    <h2 class="mt24" mat-dialog-title>Add information about youself!</h2>
+    <div [formGroup]="infoAboutUserForm" mat-dialog-content>
+       <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea placeholder="Enter description..." formControlName="info" name="description" matInput></textarea>
+        </mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
+                <div>
+                    <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
+                </div>
+                <div>
+                    <button (click)='addUserInfo()' class="btn w155" mat-stroked-button>Add</button>
+                </div>
+            </div>
+    </div>
+</div>

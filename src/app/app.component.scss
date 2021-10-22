@@ -1,12 +1,4 @@
-.loginBox{
-    height: 650px;
+button{
+    margin-top: 60px;
 }
-.loginBox_user,.loginBox_admin{
-    background-color: rgb(148, 187, 206);
-    width: 300px;
-    height: 300px;
-    text-align: center;
-    color: white;
-    vertical-align:middle;
-    font-size: 30px;
-}
+@import "~materialize-css/dist/css/materialize.min.css"

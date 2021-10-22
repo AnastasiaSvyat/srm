@@ -1,9 +1,9 @@
 <div class="admin-container">
   <mat-drawer-container class="w100 h100">
     <mat-drawer class="navbar" mode="side" opened>
-      <div  fxLayout="column" fxLayoutAlign="space-evenly center" class="mt76">
-        <div>
-          <div class="mt20">
+      <div fxLayout="column" fxLayoutAlign="space-evenly center" class="h100pr">
+        <div fxFlex="85">
+          <div class="mt99">
             <button mat-icon-button [routerLink]="['/admin','dashboardAdmin']">
                 <img class="sizeDashboardImg" src="/assets/img/dashboardImg.png" alt="photo">
             </button>
@@ -19,13 +19,14 @@
             </button>
         </div>
         </div>
-          <div class="mt20">
-            <button  mat-icon-button class="navbar-button" [routerLink]="['/admin','messageAdmin']">
-                <img src="/assets/img/msg.png" alt=""><br>
-            </button>
+          <div fxFlex="6">
+            <div>
+              <button  mat-icon-button class="navbar-button" [routerLink]="['/admin','messageAdmin']">
+                <div class="circle-sms">{{countPendingReq}}</div>
+                <img  src="/assets/img/msg.png" alt="">
+              </button>
+            </div>
           </div>
-        
-      
       </div>
     </mat-drawer>
     <mat-drawer-content>
