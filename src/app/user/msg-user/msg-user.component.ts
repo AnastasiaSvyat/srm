@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AddRequestUserComponent } from '../add-request-user/add-request-user.component';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { RequestService } from 'src/app/services/request/request.service';
+import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 
 @Component({
   selector: 'app-msg-user',
@@ -8,15 +10,80 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./msg-user.component.scss']
 })
 export class MsgUserComponent implements OnInit {
+  
+  requestArr!:any
+  employee!:any
+  pendingRequestArr:any;
+  confirmRequestArr:any;
+  pendingRequestBool!:Boolean
+  confirmRequestBool!:Boolean
+  declineRequestBool!:Boolean
+  declineRequestArr!:any;
+  
+  constructor(public dialog: MatDialog,
+    public requestService:RequestService,
+    public service: DataEmployeeService) { }
+  
 
-  constructor(public dialog: MatDialog) { }
- 
   ngOnInit(): void {
+    this.pendingRequest()
+    this.confirmRequest()
+    this.declineRequest()
+    this.getEmloyee()
   }
+
+  displayedColumns: string[] = ['startDate','type', 'date','description',]
+
+  getEmloyee(){
+    this.service.data.subscribe(value => {
+      this.employee = value
+    });
+  }
+
+  pendingRequest(){
+    this.requestService.GetAllRequest()
+    .subscribe((res) => {
+    this.pendingRequestArr = res
+    if(this.pendingRequestArr.length == 0){
+      this.pendingRequestBool =false
+    }else{
+      this.pendingRequestBool =true
+    }
+    })
+  }
+
+  confirmRequest(){
+    this.requestService.ConfirmRequest()
+    .subscribe((res) => {
+      this.confirmRequestArr = res
+      if(this.confirmRequestArr.length == 0){
+        this.confirmRequestBool =false
+      }else{
+        this.confirmRequestBool =true
+      }
+    })
+  }
+  
+  declineRequest(){
+    this.requestService.DeclineRequest()
+    .subscribe((res) => {
+      this.declineRequestArr = res
+      if(this.declineRequestArr.length == 0){
+        this.declineRequestBool =false
+      }else{
+        this.declineRequestBool =true
+      }
+    })
+  }
+
   addRequest(): void {
     const dialogRef = this.dialog.open(AddRequestUserComponent, {
       width: '398px',
       height :'516px',
+      data:{employee:this.employee}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.pendingRequest()
     });
   }
 }
