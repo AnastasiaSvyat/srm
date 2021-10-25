@@ -19,11 +19,15 @@ export class DashboardUserComponent implements OnInit {
   fileInfos?: Observable<any>;
   employee:any = []
   id!:any
+  updateUser!:any
+  addCV!:any
+  head!:any
+  btn!:any
 
-  
-  constructor(public dialog: MatDialog, private service:DataEmployeeService,
-    private emoloyeeService:EmployeeService,
-    private http: HttpClient) {}
+  updateEmployee!:any
+
+constructor(public dialog: MatDialog, private service:DataEmployeeService,
+    private emoloyeeService:EmployeeService,) {}
 
 
   ngOnInit(): void {
@@ -54,23 +58,14 @@ export class DashboardUserComponent implements OnInit {
   }
 
   editUser(event:any): void {
-    console.log(event);
-    
     const dialogRef = this.dialog.open(UpdateUserComponent, {
-      
       width: '398px',
       height :'670px',
-      data: {head: "Edit task:",btn: "SAVE",name:event.name,position:event.position,
-      birthday:event.birthday,salary:event.salary,
-      lastPerf:false,email:event.email,phone:event.phone,
-      arhiveUser:true,addCV:"Add new CV",password:event.password,role:event.role,lastPerfBool:true,
-      passBool:false, roleBool:false,id:event.id}
+      data: {head: "Edit user:",btn: "SAVE",updateEmployee:event,
+      addCV:"Add new CV"}
     });
-    console.log(event);
     dialogRef.afterClosed().subscribe(result => {
       this.updateUser = result;
-      console.log(this.updateUser);
-      
       this.emoloyeeService.updateEmployee(event.id,this.updateUser)
           .subscribe(
             success => {
@@ -80,8 +75,6 @@ export class DashboardUserComponent implements OnInit {
               })
             },
             error => console.log(error));
-           
-            
     });
   }
   
