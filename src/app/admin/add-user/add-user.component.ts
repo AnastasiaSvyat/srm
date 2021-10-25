@@ -26,16 +26,16 @@ export class AddUserComponent implements OnInit {
 }
   ngOnInit(): void {
     this.addEmployeeForm = new FormGroup({
-      name: new FormControl(this.dataUser.name,[Validators.required]),
-      email : new FormControl(this.dataUser.email, [Validators.required, Validators.email]),
-      password: new FormControl(this.dataUser.password,[Validators.required,Validators.minLength(6)]),
-      salary: new FormControl(this.dataUser.salary,[Validators.required]),
-      phone: new FormControl(this.dataUser.phone,[Validators.required]),
-      position: new FormControl(this.dataUser.position,[Validators.required]),
-      lastPerf: new FormControl(this.dataUser.lastPerf,[Validators.required]),
-      birthday: new FormControl(this.dataUser.birthday,[Validators.required]),
-      role: new FormControl(this.dataUser.role,[Validators.required]),
-      id: new FormControl(this.dataUser.id,[Validators.required])
+      name: new FormControl(this.dataUser.changeUser.name,[Validators.required]),
+      email : new FormControl(this.dataUser.changeUser.email, [Validators.required, Validators.email]),
+      password: new FormControl(this.dataUser.changeUser.password,[Validators.required,Validators.minLength(6)]),
+      salary: new FormControl(this.dataUser.changeUser.salary,[Validators.required]),
+      phone: new FormControl(this.dataUser.changeUser.phone,[Validators.required]),
+      position: new FormControl(this.dataUser.changeUser.position,[Validators.required]),
+      lastPerf: new FormControl(this.dataUser.changeUser.lastPerf,[Validators.required]),
+      birthday: new FormControl(this.dataUser.changeUser.birthday,[Validators.required]),
+      role: new FormControl(this.dataUser.changeUser.role,[Validators.required]),
+      id: new FormControl(this.dataUser.changeUser.id,[Validators.required])
 
     })
   }

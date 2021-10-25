@@ -42,10 +42,6 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSelectModule,
     MatPaginatorModule,
     MatMenuModule
-<<<<<<< HEAD:src/app/shared/material.module.ts
-=======
-    MatMenuModule
->>>>>>> devel:src/app/shared/styles/material/material.module.ts
   ],
   exports:[
     MatFormFieldModule,
@@ -67,10 +63,6 @@ import {MatMenuModule} from '@angular/material/menu';
     MatCardModule,
     MatPaginatorModule,
     MatMenuModule
-<<<<<<< HEAD:src/app/shared/material.module.ts
-=======
-    MatMenuModule
->>>>>>> devel:src/app/shared/styles/material/material.module.ts
   ]
 })
 export class MaterialModule { }

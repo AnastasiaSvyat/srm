@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import * as moment from 'moment';
@@ -16,11 +15,10 @@ import { AddUserComponent } from '../add-user/add-user.component';
   styleUrls: ['./dashboard-admin.component.scss']
 })
 export class DashboardAdminComponent implements OnInit {
-  employee:any = []
+  employee:any
   toDoList:any = []
   events!:any
   staff!:any
-  getId!:any;
   isChecked:boolean = false;
   monthBirth:any = []
   todayBirth:any = []
@@ -34,40 +32,24 @@ export class DashboardAdminComponent implements OnInit {
   deleteArr:any = []
   today!:any
   eventsToday:any = []
-<<<<<<< HEAD
+  id!:any
   updateUser!:any
+  editTask!:any
+  changeUser!:any
   head!:any
   btn!:any
-  name!:any
-  position!:any
-  birthday!:any
-  salary!:any
   lastPerf!:any
-  email!:any
-  phone!:any
   arhiveUser!:any
   addCV!:any
-  password!:any
-  role!:any
   lastPerfBool!:any
-  passBool!:any
+  passBool!:any 
   roleBool!:any
-  id!:any
-
-=======
-  head!:any
-  date!:any
-  task!:any
-  btn!:any
-  editTask!:any
-  arr:any = []
->>>>>>> devel
-
+  dateEvent!:any
 
 constructor(public dialog: MatDialog,
     private service:DataEmployeeService,
     private eventService: EventService,
-    private emploeeService:EmployeeService,
+    private emoloyeeService:EmployeeService,
     private taskService: ToDoListService) {
 }
  
@@ -75,15 +57,11 @@ ngOnInit(): void {
     this.service.data.subscribe(res => {
       this.employee = res
     });
+    this.id = this.employee.id
+    this.getInfo()
     this.getEvent()
     this.getEmployee()
-<<<<<<< HEAD
-    this.id = this.employee.id
-=======
-    this.getAllTask()
-    this.getId = this.employee.userId
->>>>>>> devel
-    this.emploeeService.GetStaff()
+    this.emoloyeeService.GetStaff()
     this.today = new Date()
   }
 
@@ -97,53 +75,43 @@ onChange($event:any,task:any){
   }
 }
 
-<<<<<<< HEAD
 editUser(event:any): void {
   const dialogRef = this.dialog.open(AddUserComponent, {
-    
     width: '398px',
     height :'670px',
-    data: {head: "Edit task:",btn: "SAVE",name:event.name,position:event.position,
-    birthday:event.birthday,salary:event.salary,
-    lastPerf:false,email:event.email,phone:event.phone,
-    arhiveUser:true,addCV:"Add new CV",password:event.password,role:event.role,lastPerfBool:true,
-    passBool:false, roleBool:false,id:event.id}
+    data: {head: "Edit user:",btn: "SAVE",changeUser:event,
+    lastPerf:false,arhiveUser:true,addCV:"Add new CV",lastPerfBool:true,
+    passBool:false, roleBool:false,}
   });
-  console.log(event);
   dialogRef.afterClosed().subscribe(result => {
     this.updateUser = result;
-    console.log(this.updateUser);
-    
-    this.emploeeService.updateEmployee(event.id,this.updateUser)
+    this.emoloyeeService.updateEmployee(event.id,this.updateUser)
         .subscribe(
           success => {
-            this.emploeeService.GetEmployee(event.id)
+            this.emoloyeeService.GetEmployee(event.id)
             .subscribe((res) => {
               this.employee = res
             })
           },
           error => console.log(error));
-         
-          
   });
 }
 
 delete() {
   this.deleteArr.forEach((element:any,i:any) => {
-  this.emploeeService.deleteEmployee(element.id).subscribe((res) => {
+  this.emoloyeeService.deleteEmployee(element.id).subscribe((res) => {
       this.employee.toDoList.splice(element, 1);
   })
   });
-=======
+}
+
 deleteTask(id:any, i:any) {
   console.log(id);
     this.taskService.DeleteTask(id).subscribe((res) => {
       this.toDoList.splice(i, 1);
     })
->>>>>>> devel
 }
 
-  
 addEvent(): void {
     const dialogRef = this.dialog.open(AddEventComponent, {
       width: '398px',
@@ -182,7 +150,7 @@ updateTask(event:any): void {
   const dialogRef = this.dialog.open(AddTaskComponent, {
     width: '398px',
     height :'361px',
-    data: {head: "Edit task:",btn: "EDIT",date:event.date,task:event.task}
+    data: {head: "Edit task:",btn: "EDIT",dateEvent:event}
   });
   dialogRef.afterClosed().subscribe(result => {
     this.editTask = result;
@@ -205,9 +173,15 @@ getEvent(){
           })
     });
 }
+getInfo(){
+  this.emoloyeeService.GetEmployee(this.id)
+    .subscribe(value => {
+      this.employee = value
+    });
+}
 
 getEmployee(){
-    this.emploeeService.GetStaff()
+    this.emoloyeeService.GetStaff()
     .subscribe((res) => {
         this.staff = res
         this.getStaffBirthdayTodayOrMonth()
