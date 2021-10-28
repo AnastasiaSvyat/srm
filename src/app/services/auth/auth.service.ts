@@ -31,5 +31,4 @@ export class AuthService {
     let API_URL = `${this.careService.REST_API}/login`;
       return this.httpClient.post<{token:string}>(API_URL,employee)
   }
- 
 }

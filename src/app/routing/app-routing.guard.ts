@@ -10,10 +10,7 @@ import { AuthService } from '../services/auth/auth.service';
 export class AppRoutingGuard implements CanActivate {
   constructor(
     private router: Router,
-    private authService: AuthService
-
-
-  ){}
+    private authService: AuthService){}
 
   canActivate(
     route: ActivatedRouteSnapshot): Observable<boolean>| Promise<boolean>  | boolean  {

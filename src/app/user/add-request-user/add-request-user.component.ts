@@ -42,13 +42,10 @@ export class AddRequestUserComponent implements OnInit {
   get endDate() { return this.requestForm.get('endDate')!; }
   get description() { return this.requestForm.get('description')!; }
 
-
-  
-
-
   onNoClick(): void {
     this.dialogRef.close();
   }
+  
   addRequest(): void{
     console.log(this.requestForm.value);
     this.requestService.AddRequest(this.requestForm.value)
@@ -56,12 +53,8 @@ export class AddRequestUserComponent implements OnInit {
       MaterialService.toast("Congratulations! Event has been added!")
       this.dialogRef.close(this.requestForm.value)
       this.createRequest = res
-      console.log(this.createRequest);
-      
     }, (err) => {
       MaterialService.toast("This event is already exists. Try another one.")
-      console.log(err);
     });
-   
   }
 }

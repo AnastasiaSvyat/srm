@@ -30,9 +30,6 @@ export class UserStaffListComponent implements OnInit {
  
   getRequestParams( page: number, pageSize: number): any {
     let params: any = {};
-    // if(searchName){
-    //   params[`name`] = searchName;
-    // }
     if(page){
       params[`page`] = page - 1;
     }

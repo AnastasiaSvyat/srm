@@ -15,6 +15,7 @@ export class AddEventComponent implements OnInit {
   
   eventForm!: FormGroup;
   createEvent!:any
+  
   constructor(public dialogRef: MatDialogRef<AddEventComponent>,
             @Inject(MAT_DIALOG_DATA) public data: AdminComponent,
             private eventService: EventService,  
@@ -28,6 +29,7 @@ export class AddEventComponent implements OnInit {
       description: new FormControl('',[Validators.required])
     })
   }
+
   get name() { return this.eventForm.get('name')!; }
   get type() { return this.eventForm.get('type')!; }
   get date() { return this.eventForm.get('date')!; }
@@ -46,6 +48,5 @@ export class AddEventComponent implements OnInit {
     }, (err) => {
       MaterialService.toast("This event is already exists. Try another one.")
     });
-   
   }
 }

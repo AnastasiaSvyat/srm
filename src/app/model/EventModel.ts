@@ -4,6 +4,5 @@ export class EventModel {
     date!: String;
     type!: String;
     description!: String;
-    confirm!:Boolean;
-    
+    confirm!:Boolean;   
 }

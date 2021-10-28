@@ -21,12 +21,9 @@ export class AddUserComponent implements OnInit {
     public formBuilder: FormBuilder,
     public uploadFileService: UploadFileService,
     public dialogRef: MatDialogRef<AddUserComponent,DashboardAdminComponent>,
-    @Inject(MAT_DIALOG_DATA) public dataUser: DashboardAdminComponent,
-
-) { 
-
-}
-  ngOnInit(): void {
+    @Inject(MAT_DIALOG_DATA) public dataUser: DashboardAdminComponent) {}
+  
+    ngOnInit(): void {
     this.getUploadFile()
     this.addEmployeeForm = new FormGroup({
       name: new FormControl(this.dataUser.changeUser.name,[Validators.required]),
@@ -42,6 +39,7 @@ export class AddUserComponent implements OnInit {
 
     })
   }
+
   get name() { return this.addEmployeeForm.get('name')!; }
   get email() { return this.addEmployeeForm.get('email')!; }
   get password() { return this.addEmployeeForm.get('password')!; }
@@ -59,7 +57,7 @@ export class AddUserComponent implements OnInit {
     const file:File = event.target.files[0];
       if (file) {
         this.fileName = file.name;
-    this.uploadFileService.uploadFile(this.dataUser.changeUser,file)
+      this.uploadFileService.uploadFile(this.dataUser.changeUser,file)
       .subscribe((res) => {
         this.getUploadFile()
       if(this.cv._id != undefined){
@@ -87,7 +85,6 @@ export class AddUserComponent implements OnInit {
         }else{
           this.fileName = ''
           this.cv = []
-          
         }
       })
     }

@@ -4,5 +4,4 @@ export class Events {
     date!: String;
     type!: String;
     description!: String;
-    
 }

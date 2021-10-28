@@ -5,7 +5,6 @@ import { ToDoList } from 'src/app/model/ToDoList';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
-import { AdminComponent } from '../admin.component';
 import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
 
 @Component({
@@ -23,7 +22,6 @@ export class AddTaskComponent implements OnInit {
   constructor( public dialogRef: MatDialogRef<AddTaskComponent,DashboardAdminComponent>,
     @Inject(MAT_DIALOG_DATA) public dataTask: DashboardAdminComponent,
     private service:DataEmployeeService,
-    private taskService:ToDoListService,
     private emoloyeeService: EmployeeService ) { 
       this.service.data.subscribe(value => {
         this.employee = value

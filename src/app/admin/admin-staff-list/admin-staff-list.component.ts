@@ -99,9 +99,7 @@ export class AdminStaffListComponent implements OnInit {
       data: {head: "Add user:",btn: "ADD",arhiveUser:false,addCV:"Add CV",
       changeUser:"",roleBool:true,passBool:true,lastPerfBool:false}
     });
-  dialogRef.afterClosed().subscribe(result => {
-    console.log(result);
-    
+    dialogRef.afterClosed().subscribe(result => {
     this.employeeService.AddEmployee(result)
     .subscribe((res) => {
       this.retrieveStaff()
@@ -111,10 +109,6 @@ export class AdminStaffListComponent implements OnInit {
 
   getUplFile(email:any){
     this.uplFileService.getUplFileByEmail(email)
-    .subscribe((res) => {
-      console.log(res);
-      
-    })
   }
   
   editUser(event:any): void {

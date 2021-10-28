@@ -5,7 +5,6 @@ import { UserComponent } from './user.component';
 import { Routes, RouterModule } from '@angular/router';
 import { UserStaffListComponent } from './user-staff-list/user-staff-list.component';
 import { UserCalendarComponent } from './user-calendar/user-calendar.component';
-import { AppRoutingGuard } from 'src/app/routing/app-routing.guard';
 import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
 import { MsgUserComponent } from './msg-user/msg-user.component';
 

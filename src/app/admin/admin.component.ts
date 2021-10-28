@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../services/request/request.service';
-import { AddUserComponent } from './add-user/add-user.component';
 
 
 
@@ -29,7 +28,5 @@ countPendingReq!:any
       });
       this.countPendingReq = this.pendingRequestArr.length
     })
-    console.log(this.countPendingReq);
-    
   }
 }

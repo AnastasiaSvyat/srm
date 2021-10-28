@@ -3,7 +3,6 @@ import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Employee } from '../../model/Employee';
-import { ToDoList } from 'src/app/model/ToDoList';
 import { CareService } from '../care/care.service';
 
 @Injectable({
@@ -60,5 +59,4 @@ export class EmployeeService {
   getFiles(): Observable<any> {
     return this.httpClient.get(`${this.careService.REST_API}/files`);
   }
-
 }

@@ -35,6 +35,7 @@ export class UpdateUserComponent implements OnInit {
 
     })
   }
+
   get name() { return this.addEmployeeForm.get('name')!; }
   get email() { return this.addEmployeeForm.get('email')!; }
   get birthday() { return this.addEmployeeForm.get('birthday')!; } 
@@ -81,5 +82,4 @@ export class UpdateUserComponent implements OnInit {
         }
       })
     }
-
 }

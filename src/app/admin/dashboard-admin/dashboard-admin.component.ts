@@ -227,7 +227,6 @@ getEventTodayOrMonth(){
     this.haveEventMonth = false;
     this.monthEvent = []
   }
-  
 });
 }
 }

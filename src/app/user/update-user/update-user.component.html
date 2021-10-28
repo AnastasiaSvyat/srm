@@ -43,7 +43,6 @@
                 <div *ngIf="email.errors?.required">Name is required.</div>
                 <div *ngIf="email.errors?.email">Enter correct email.</div>
             </div>
-           <!-- <div fxLayout="row" fxLayoutAlign="space-around start"> -->
             <div>
                 <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
                 <div class="file-upload mt20">
@@ -53,15 +52,10 @@
                     </div>
                     <p class="fz5 fontColorGrey">{{fileName || "No cv uploaded yet."}}</p>
                 </div> 
-                <!-- <div fxLayout="row" fxLayoutAlign="space-around start"> -->
                     <div (click)="fileUpload.click()" type="file" class="addCV-box">
                         <button class="cvButton">{{dataUser.addCV}}</button>
                     </div>
-
-                <!-- </div> -->
-               
-               </div>
-           <!-- </div> -->
+            </div>
            <div fxLayout="row" fxLayoutAlign="space-around center"  class="mt50">
                 <div>
                     <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
