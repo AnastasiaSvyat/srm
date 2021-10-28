@@ -10,10 +10,10 @@
       </mat-card>
       <div class="leftBox_bottom mt24 colorBlock">
         <div fxLayout="row" fxLayoutAlign="start start" class="ml24 pt28">
-          <div *ngIf = "birthTodayBool" class="fs24">Today</div>
+          <div *ngIf = "selectedDate == today" class="fs24">Today</div>
           <div class="fs14 ml8 mt3 fontColorGrey">{{selectedDate | date:'dd.MM.yy'}} </div>
         </div>
-        <div class="ml24" *ngIf="birthTodayBool || eventsTodayBool">
+        <div class="ml24">
           <div class="mt14" *ngFor="let birth of birthToday">
             {{birth.name}} birthday
           </div>
@@ -26,6 +26,7 @@
         </div>
       </div>
     </div>
+    
     <div fxFlex='70%' class="rightBox ml24 colorBlock">
       <div class="ml24 pt28 fs24">Planned events</div>
       <div class="mt16 ml24">

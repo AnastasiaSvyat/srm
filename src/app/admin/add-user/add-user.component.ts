@@ -1,10 +1,8 @@
 import { Component, Inject, NgZone, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { AdminComponent } from '../admin.component';
 import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
-import { EmployeeService } from 'src/app/services/employee/employee.service';
-import { MaterialService } from 'src/app/services/material/material.service';
-import { AdminStaffListComponent } from '../admin-staff-list/admin-staff-list.component';
+import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
+import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
 
 @Component({
   selector: 'app-add-user',
@@ -14,26 +12,34 @@ import { AdminStaffListComponent } from '../admin-staff-list/admin-staff-list.co
 export class AddUserComponent implements OnInit {
   
   addEmployeeForm!: FormGroup;
+  fileName = ''
+  cv!:any
+  arr!:any
 
 
   constructor(
     public formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<AddUserComponent,AdminStaffListComponent>,
-    @Inject(MAT_DIALOG_DATA) public dataUser: AdminStaffListComponent
+    public uploadFileService: UploadFileService,
+    public dialogRef: MatDialogRef<AddUserComponent,DashboardAdminComponent>,
+    @Inject(MAT_DIALOG_DATA) public dataUser: DashboardAdminComponent,
+
 ) { 
 
 }
   ngOnInit(): void {
+    this.getUploadFile()
     this.addEmployeeForm = new FormGroup({
-      name: new FormControl(this.dataUser.name,[Validators.required]),
-      email : new FormControl(this.dataUser.email, [Validators.required, Validators.email]),
-      password: new FormControl('',[Validators.required,Validators.minLength(6)]),
-      salary: new FormControl(this.dataUser.salary,[Validators.required]),
-      phone: new FormControl(this.dataUser.phone,[Validators.required]),
-      position: new FormControl(this.dataUser.position,[Validators.required]),
-      lastPerf: new FormControl(this.dataUser.lastPerf,[Validators.required]),
-      birthday: new FormControl(this.dataUser.birthday,[Validators.required]),
-      role: new FormControl('',[Validators.required])
+      name: new FormControl(this.dataUser.changeUser.name,[Validators.required]),
+      email : new FormControl(this.dataUser.changeUser.email, [Validators.required, Validators.email]),
+      password: new FormControl(this.dataUser.changeUser.password,[Validators.required,Validators.minLength(6)]),
+      salary: new FormControl(this.dataUser.changeUser.salary,[Validators.required]),
+      phone: new FormControl(this.dataUser.changeUser.phone,[Validators.required]),
+      position: new FormControl(this.dataUser.changeUser.position,[Validators.required]),
+      lastPerf: new FormControl(this.dataUser.changeUser.lastPerf,[Validators.required]),
+      birthday: new FormControl(this.dataUser.changeUser.birthday,[Validators.required]),
+      role: new FormControl(this.dataUser.changeUser.role,[Validators.required]),
+      id: new FormControl(this.dataUser.changeUser.id,[Validators.required])
+
     })
   }
   get name() { return this.addEmployeeForm.get('name')!; }
@@ -49,4 +55,40 @@ export class AddUserComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onFileSelected(event:any) {
+    const file:File = event.target.files[0];
+      if (file) {
+        this.fileName = file.name;
+    this.uploadFileService.uploadFile(this.dataUser.changeUser,file)
+      .subscribe((res) => {
+        this.getUploadFile()
+      if(this.cv._id != undefined){
+        this.deleteCV()
+      }}, (err) => {
+          console.log(err);
+      });
+    }
+  }
+
+  deleteCV(){
+    this.uploadFileService.deleteUplFile(this.cv._id)
+    .subscribe((res) => {
+      this.getUploadFile()
+    })
+  }
+
+  getUploadFile(){
+    this.uploadFileService.getUplFileByEmail(this.dataUser.changeUser.email)
+      .subscribe((res) => {
+        this.arr = res
+        if(this.arr.length > 0){
+          this.cv = res[res.length - 1]
+          this.fileName = this.cv.name
+        }else{
+          this.fileName = ''
+          this.cv = []
+          
+        }
+      })
+    }
 }

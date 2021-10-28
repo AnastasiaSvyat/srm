@@ -6,7 +6,7 @@
         class="form-control"
         placeholder="Search by employee name..."
         [(ngModel)]="name"/>
-      <div class="input-group-append">
+      <div class="input-group-append ml12">
         <button
           class="btn btn-outline-secondary"
           type="button"
@@ -23,8 +23,8 @@
       previousLabel="Prev"
       nextLabel="Next"
       [responsive]="true"
-      (pageChange)="handlePageChange($event)"
-    ></pagination-controls>
+      (pageChange)="handlePageChange($event)">
+    </pagination-controls>
     <div *ngFor="let employee of staffList | paginate : {
               itemsPerPage: pageSize,
               currentPage: page,
@@ -69,29 +69,18 @@
       <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="cv">
-      <mat-header-cell  *matHeaderCellDef >  </mat-header-cell>
+      <mat-header-cell  *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let row" >
            <button class="ml24" mat-button>CV</button>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="change">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element"> 
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
         <button mat-button (click)="editUser(element)">change log</button>
-      </td>
+      </mat-cell>
     </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-</div> 
- 
-
-
-    
-    
-       
-     
-      
-    
-     
-     
+</div>      

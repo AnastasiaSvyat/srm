@@ -15,7 +15,7 @@ import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.comp
 })
 export class AddTaskComponent implements OnInit {
 
-  getId: any;
+  id: any;
   infoAboutUserForm!:FormGroup
   public employee: any;
 
@@ -32,7 +32,7 @@ export class AddTaskComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getId = this.employee.userId
+    this.id = this.employee.id
     this.infoAboutUserForm = new FormGroup({
       task: new FormControl(this.dataTask.task,[Validators.required]),
       date: new FormControl(this.dataTask.date,[Validators.required]),
@@ -45,7 +45,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   getInfo(){
-    this.emoloyeeService.GetEmployee(this.getId)
+    this.emoloyeeService.GetEmployee(this.id)
       .subscribe(value => {
         this.employee = value
       });

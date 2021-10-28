@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
-import { Employee } from 'src/app/model/Employee';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 
@@ -12,9 +10,9 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
   styleUrls: ['./add-info-user.component.scss']
 })
 export class AddInfoUserComponent implements OnInit {
-  getId: any;
+  id: any;
   infoAboutUserForm!:FormGroup
-  public employee: any;
+  employee: any;
  
 
   constructor(public dialogRef: MatDialogRef<AddInfoUserComponent>,
@@ -26,18 +24,20 @@ export class AddInfoUserComponent implements OnInit {
     
     }
   
-    ngOnInit(): void {
-      this.getId = this.employee.id
+  ngOnInit(): void {
+    this.id = this.employee.id
       this.infoAboutUserForm = new FormGroup({
         info: new FormControl('',[Validators.required]),
       })
-    }
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
+  
   addUserInfo(): any {
     this.employee.info.push(this.infoAboutUserForm.value)
-    this.emoloyeeService.updateEmployee(this.getId, this.employee)
+    this.emoloyeeService.updateEmployee(this.id, this.employee)
     .subscribe((res) => {
       this.dialogRef.close();
       this.employee = res
@@ -45,6 +45,4 @@ export class AddInfoUserComponent implements OnInit {
         console.log(err);
     });
   }
- 
-
 }

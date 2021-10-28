@@ -1,48 +1,56 @@
 <div class="admin-dashboard-container" fxLayout='row'>
     <div fxLayout='row wrap' fxFlex='73%' class="mt24">
-        <div fxLayout='row' fxFlex='96%' class="h95 ml16 colorBlock">
-            <div class="photo ml16">PHOTO</div>
-            <div class="ml16 pt28 ">
-                <p class="fs18 mb0 ">{{employee.name}}</p>
-                <p class="fs14 fontColorGrey">Manager</p>
+    <!-- header -->
+        <div fxLayout='row' fxLayout='row' fxLayoutAlign="space-around center" fxFlex='96%' class="h95 ml16 colorBlock">
+            <div class="photo photoHeader ml16">PHOTO</div>
+            <div class="ml16">
+                <div class="fs18 mb0">{{employee.name}}</div>
+                <div class="fs14 mb0 fontColorGrey">Manager</div>
             </div>
-            <div class="ml80 pt32 ">
-                <div class="fs14 mb0"><span class="fontColorGrey">Phone:</span>  {{employee.phone}}</div>
-                <div class="fs14 mb0"><span class="fontColorGrey">Email:</span>  {{employee.email}}</div>
+            <div class="ml80">
+                <div class="fs14 mb0"><span class="fontColorGrey">Phone:</span>{{employee.phone}}</div>
+                <div class="fs14 mb0"><span class="fontColorGrey">Email:</span>{{employee.email}}</div>
             </div>
-            <div class="ml80 pt32 ">
-                <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>  {{employee.birthday | date:'shortDate' }}</div>
+            <div class="ml80 mb13">
+                <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>{{employee.birthday | date:'shortDate' }}</div>
+            </div>
+            <div class="btnEditUser">
+                <button (click) = "editUser(employee)" class="pt0" mat-icon-button aria-label="Example icon-button with a menu">
+                    <mat-icon class="mb13">more_horiz</mat-icon>
+                </button>
             </div>
         </div> 
-
+        <!-- Events -->
         <div fxFlex='31%'  fxLayout="column" fxLayoutAlign="space-between start"  class="ml16 mt16 dashboard-content colorBlock ">
-            <div class="fs24 ml24 mt24">Events</div>
-            <div class="mb165" fxLayout="column"  fxLayoutAlign="space-between start">
-                <div class="ml24">
-                    <div class="mt24">
-                        <p class="fontColorGrey fs18 mt16">Today</p>
-                        <div *ngIf = "!haveEventToday">
-                            <span class="fontColorGrey fs14">No event today</span>
-                        </div>
-                        <div *ngIf = "haveEventToday">
-                            <div *ngFor = "let item of todayEvent">     
-                                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
-                                <span class="fs14">      {{item.name}}</span>
+            <div fxFlex='2%' class="fs24 ml24 mt24">Events</div>
+            <div fxFlex='80%' class="w100">
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <div class="ml24">
+                        <div>
+                            <p class="fontColorGrey fs18 mt16">Today</p>
+                            <div *ngIf = "!haveEventToday">
+                                <span class="fontColorGrey fs14">No event today</span>
+                            </div>
+                            <div *ngIf = "haveEventToday">
+                                <div *ngFor = "let item of todayEvent">     
+                                    <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
+                                    <span class="fs14">{{item.name}}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div *ngIf = "haveEventMonth" class="mt16">
-                        <p class="fontColorGrey fs18 mt16">This month</p>
-                        <div *ngFor = "let item of monthEvent">     
-                            <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
-                            <span class="fs14">      {{item.name}}</span>
+                        <div *ngIf = "haveEventMonth" class="mt16">
+                            <p class="fontColorGrey fs18 mt16">This month</p>
+                            <div *ngFor = "let item of monthEvent">     
+                                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
+                                <span class="fs14">{{item.name}}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt16">
-                        <p class="fontColorGrey fs18 mt16">Later</p>
-                        <div *ngFor = "let item of events">     
-                            <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
-                            <span class="fs14">      {{item.name}}</span>
+                        <div class="mt16">
+                            <p class="fontColorGrey fs18 mt16">Later</p>
+                            <div *ngFor = "let item of events">     
+                                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}     </span>
+                                <span class="fs14">{{item.name}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -51,8 +59,8 @@
                 <button (click)='addEvent()' class="w100 btn h48" mat-stroked-button>ADD EVENT</button>
             </div>
         </div>
-
-        <div  fxFlex='31%' class="dashboard-content mt16 ml16 colorBlock">
+        <!-- Birthdays -->
+        <div fxFlex='31%' class="dashboard-content mt16 ml16 colorBlock">
             <div class="fs24 ml24 mt24">Birthdays</div>
             <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start" >
                 <div class="mt24">
@@ -61,87 +69,68 @@
                         <span class="fontColorGrey fs14">No birthday today</span>
                     </div>
                     <div *ngIf = "haveBirthToday">
-                        <div *ngFor = "let item of todayBirth">     
-                            <span class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}     </span>
-                            <span class="fs14">      {{item.name}}</span>
+                        <div fxLayout="row" fxLayoutAlign="start center" *ngFor = "let item of todayBirth">     
+                            <div class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}</div>
+                            <div class="photo photoSmall ml12"></div>
+                            <div class="fs14 ml8">{{item.name}}</div>
                         </div>
                     </div>
                 </div>
                 <div *ngIf = "haveBirthMonth" class="mt16">
                     <p class="fontColorGrey fs18 mt16">This month</p>
-                    <div *ngFor = "let item of monthBirth">     
-                        <span class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}     </span>
-                        <span class="fs14">      {{item.name}}</span>
+                    <div fxLayout="row" fxLayoutAlign="start center" *ngFor = "let item of monthBirth">     
+                        <div class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}</div>
+                        <div class="photo photoSmall ml12"></div>
+                        <div class="fs14 ml8">{{item.name}}</div>
                     </div>
                 </div>
                 <div class="mt16">
                     <p class="fontColorGrey fs18 mt16">Later</p>
-                    <div *ngFor = "let item of staff">     
-                        <span class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}     </span>
-                        <span class="fs14">      {{item.name}}</span>
+                    <div fxLayout="row" fxLayoutAlign="start center" *ngFor = "let item of staff">     
+                        <div class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}</div>
+                        <div class="photo photoSmall ml12"></div>
+                        <div class="fs14 ml8">{{item.name}}</div>
                     </div>
                 </div>
-            </div><br>
+            </div>
         </div>
-        
+        <!-- Vacations -->
         <div fxFlex='31%' class="dashboard-content ml16 mt16 colorBlock">
             <div class="fs24 ml24 mt24">Vacations</div>
         </div>
     </div>
+    <!-- ToDoList -->
     <div fxFlex='26%'  fxLayout="column" fxLayoutAlign="space-between start" class="mt24 container_right colorBlock">
-        <div class="fs24 ml24 mt24">ToDoList</div>
-<<<<<<< HEAD
-        <div *ngFor = "let task of employee.toDoList; let i = index">
-            <div class="ml24">
-                <label>
-                  <input type="checkbox" [checked] = "task.select" [value] = "i"
-                  (change) ="onChange($event,task)"/>
-                    <span class="fontColorGrey fs14">{{task.date | date:'dd/MM' }}     </span>
-                    <span class="fs14">{{task.toDoList}}</span>
-                </label>
-||||||| 95bd349
-        <div *ngFor = "let task of employee.toDoList; let i = index">
-            <div class="ml24">
-                <label>
-                  <input type="checkbox" [checked] = "task.select" [value] = "i"
-                  (change) ="onChange($event,task)"/>
-                    <span class="fontColorGrey fs14">{{task.date | date:'dd/MM' }}     </span>
-                    <span class="fs14">      {{task.toDoList}}</span>
-                </label>
-=======
-        <div *ngFor = "let task of toDoList; let i = index">
-            <div class="ml24 task" fxLayout="row" fxLayoutAlign="space-between center">
-                <div>
+        <div fxFlex='2%' class="fs24 ml24 mt24">ToDoList</div>
+        <div fxFlex='80%' class="w100">
+            <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor = "let task of toDoList; let i = index" class="w100" >
+                <div class="ml24">
                     <label>
                         <input type="checkbox" [checked] = "task.select" [value] = "i"
-                        (change) ="onChange($event,task)"/>
+                            (change) ="onChange($event,task)"/>
                           <span class="fontColorGrey fs14">{{task.date | date:'dd/MM' }}     </span>
-                          <span class="fs14">      {{task.task}}</span>
-                      </label>
+                          <span class="fs14 ml8">{{task.task}}</span>
+                    </label>
                 </div>
                 <div>
                     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                         <mat-icon>more_vert</mat-icon>
-                      </button>
-                      <mat-menu #menu="matMenu">
-                        <button (click) = "updateTask(task)" mat-menu-item>
-                          <mat-icon>edit</mat-icon>
-                          <span>Edit</span>
-                        </button>
-                        <button (click)="deleteTask(task._id, i)"mat-menu-item>
-                          <mat-icon>delete</mat-icon>
-                          <span>Delete</span>
-                        </button>
-                      </mat-menu>
+                    </button>
+                        <mat-menu #menu="matMenu">
+                            <button (click) = "updateTask(task)" mat-menu-item>
+                                <mat-icon>edit</mat-icon>
+                                <span>Edit</span>
+                            </button>
+                            <button (click)="deleteTask(task._id, i)"mat-menu-item>
+                                <mat-icon>delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
+                        </mat-menu>
                 </div>
-               
-                  
->>>>>>> devel
             </div>
-    </div><br>
+        </div>
         <div class="w100">
             <button (click)='addTask()' class="w100 btn h48" mat-stroked-button>ADD TASK</button>
         </div>
     </div>
 </div>
-

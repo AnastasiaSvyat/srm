@@ -1,25 +1,27 @@
 <div class="user-dashboard-container">
     <div fxLayout='row'>
         <div fxLayout='row wrap' fxFlex='73' class="container_left mt24">
-            <div fxLayout='row' fxLayoutAlign="space-around center"  fxFlex='96%' class="h95 ml16 colorBlock">
-                <div class="photo ml16">PHOTO</div>
-                <div class="ml16 pt28 ">
-                    <p class="fs18 mb0 ">{{employee.name}}</p>
-                    <p class="fs14 fontColorGrey">{{employee.position}}</p>
+            <!-- header -->
+            <div fxLayout='row' fxLayout='row' fxLayoutAlign="space-around center" fxFlex='96%' class="h95 ml16 colorBlock">
+                <div class="photo photoHeader ml16">PHOTO</div>
+                <div class="ml16">
+                    <div class="fs18 mb0">{{employee.name}}</div>
+                    <div class="fs14 mb0 fontColorGrey">Manager</div>
                 </div>
-                <div class="ml80 pt32 ">
-                    <div class="fs14 mb0"><span class="fontColorGrey">Phone:</span>  {{employee.phone}}</div>
-                    <div class="fs14 mb0"><span class="fontColorGrey">Email:</span>  {{employee.email}}</div>
+                <div class="ml80">
+                    <div class="fs14 mb0"><span class="fontColorGrey">Phone:</span>{{employee.phone}}</div>
+                    <div class="fs14 mb0"><span class="fontColorGrey">Email:</span>{{employee.email}}</div>
                 </div>
-                <div class="ml80 pt32 ">
-                    <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>  {{employee.birthday | date:'shortDate' }}</div>
+                <div class="ml80 mb13">
+                    <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>{{employee.birthday | date:'shortDate' }}</div>
                 </div>
                 <div class="btnEditUser">
                     <button (click) = "editUser(employee)" class="pt0" mat-icon-button aria-label="Example icon-button with a menu">
-                        <mat-icon>more_horiz</mat-icon>
-                      </button>
+                        <mat-icon class="mb13">more_horiz</mat-icon>
+                    </button>
                 </div>
             </div> 
+            <!-- smallbox -->
             <div fxFlex='31%' class="content_top mt16 ml16 colorBlock">
                 <div class="mt24 ml24">
                     <p class="fs18 fontColorGrey">Salary</p>
@@ -36,6 +38,7 @@
                     <p class="fs18 fontColorGrey">Last performance</p>
                 </div>
             </div>
+            <!-- bigbox -->
             <div fxFlex='31%' class="content_bottom mt16 ml16 colorBlock">
                 <div class="mt24 ml24">
                     <p class="fs18 fontColorGrey">Planned vacation</p>
@@ -52,6 +55,7 @@
                 </div>
             </div>
         </div>
+        <!-- About -->
         <div fxFlex='25%' fxLayout="column" fxLayoutAlign="space-between start" class="container_right mt24 colorBlock">
             <div class="mt24 ml24">
                 <p class="fs24">About me</p>
@@ -71,16 +75,22 @@
         <div fxFlex='73%'  class="mt16 h11r colorBlock" fxLayout="row" fxLayoutAlign="end end">
             <button class="btnOpen-dashboard-user w155 h48 btn" mat-stroked-button>OPEN FILE</button>
         </div>
+        
         <div fxFlex='25%' fxLayout="column" fxLayoutAlign="space-between start" class="h11r ml16 mt16 colorBlock">
             <div class="mt24 ml24">
                 <p class="fs24">CVs</p>
             </div>
                 <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-                <div class="file-upload">{{fileName || "No file uploaded yet."}}</div> 
+                <div class="file-upload ml16">
+                    <div class="uploadFileBox" *ngIf = "fileName">
+                        <button (click)="deleteCV()" class="fileImg" class="deleteBtn greyColor">x</button>
+                        <img src="../../../assets/img/cv.svg" alt="">
+                    </div>
+                    <p>{{fileName || "No cv uploaded yet."}}</p>
+                </div> 
                 <div class="w100">
                     <button (click)="fileUpload.click()" type="file" class="w100 h48 btn" mat-stroked-button>ADD NEW</button>
                 </div>
-           
         </div>
     </div>
 </div>

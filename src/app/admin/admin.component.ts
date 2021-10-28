@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../services/request/request.service';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 
@@ -14,7 +15,7 @@ requestArr!:any
 pendingRequestArr:any = []
 countPendingReq!:any
 
-  constructor(private requestService:RequestService) {}
+  constructor(private requestService:RequestService,) {}
 
   ngOnInit(): void {
     this.requestService.GetAllRequest()
@@ -31,5 +32,4 @@ countPendingReq!:any
     console.log(this.countPendingReq);
     
   }
-
 }

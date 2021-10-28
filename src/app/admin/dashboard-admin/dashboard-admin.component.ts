@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import * as moment from 'moment';
@@ -8,6 +7,7 @@ import { EventService } from 'src/app/services/event/event.service';
 import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
 import { AddEventComponent } from '../add-event/add-event.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
+import { AddUserComponent } from '../add-user/add-user.component';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -19,7 +19,7 @@ export class DashboardAdminComponent implements OnInit {
   toDoList:any = []
   events!:any
   staff!:any
-  getId!:any;
+  id!:any;
   isChecked:boolean = false;
   monthBirth:any = []
   todayBirth:any = []
@@ -39,12 +39,21 @@ export class DashboardAdminComponent implements OnInit {
   btn!:any
   editTask!:any
   arr:any = []
+  updateUser!:any
+  changeUser!:any
+  lastPerf!:any
+  arhiveUser!:any
+  addCV!:any
+  lastPerfBool!:boolean
+  passBool!:boolean
+  roleBool!:boolean
+  addCVBool!:boolean
 
 
 constructor(public dialog: MatDialog,
     private service:DataEmployeeService,
     private eventService: EventService,
-    private emploeeService:EmployeeService,
+    private emoloyeeService:EmployeeService,
     private taskService: ToDoListService) {
 }
  
@@ -52,13 +61,21 @@ ngOnInit(): void {
     this.service.data.subscribe(res => {
       this.employee = res
     });
+    this.id = this.employee.id
     this.getEvent()
     this.getEmployee()
     this.getAllTask()
-    this.getId = this.employee.userId
-    this.emploeeService.GetStaff()
+    this.getUser()
+    this.emoloyeeService.GetStaff()
     this.today = new Date()
   }
+
+  getUser(){
+    this.emoloyeeService.GetEmployee(this.id)
+      .subscribe(value => {
+        this.employee = value
+      });
+}
 
 onChange($event:any,task:any){
   this.idCheckBox = $event.target.value
@@ -88,13 +105,34 @@ addEvent(): void {
     });
 }
 
+editUser(event:any): void {
+  const dialogRef = this.dialog.open(AddUserComponent, {
+    width: '398px',
+    height :'670px',
+    data: {head: "Edit user:",btn: "SAVE",changeUser:event,
+    lastPerf:false,arhiveUser:false,addCVBool:false,lastPerfBool:true,
+    passBool:false, roleBool:false,}
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    this.updateUser = result;
+    this.emoloyeeService.updateEmployee(event.id,this.updateUser)
+        .subscribe(
+          success => {
+            this.emoloyeeService.GetEmployee(event.id)
+            .subscribe((res) => {
+              this.employee = res
+            })
+          },
+          error => console.log(error));
+  });
+}
+
 getAllTask(){
   this.taskService.GetAllTask()
   .subscribe((res) => {
     this.toDoList = res
   })
 }
-
 
 addTask(): void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
@@ -110,7 +148,6 @@ addTask(): void {
       this.getAllTask()
     });
 }
-
 
 updateTask(event:any): void {
   const dialogRef = this.dialog.open(AddTaskComponent, {
@@ -141,7 +178,7 @@ getEvent(){
 }
 
 getEmployee(){
-    this.emploeeService.GetStaff()
+    this.emoloyeeService.GetStaff()
     .subscribe((res) => {
         this.staff = res
         this.getStaffBirthdayTodayOrMonth()
@@ -173,6 +210,8 @@ this.staff.forEach((employeeBirth:any) => {
 }
 
 getEventTodayOrMonth(){
+  console.log(this.events);
+  
   this.events.forEach((eventToday:any) => {
   if(<any>moment(this.today).format('MMDD') == <any>moment(eventToday.date).format('MMDD')){
    this.haveEventToday = true;

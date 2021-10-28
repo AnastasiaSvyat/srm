@@ -26,10 +26,11 @@ export class MsgUserComponent implements OnInit {
   
 
   ngOnInit(): void {
+    this.getEmloyee()
     this.pendingRequest()
     this.confirmRequest()
     this.declineRequest()
-    this.getEmloyee()
+    
   }
 
   displayedColumns: string[] = ['startDate','type', 'date','description',]
@@ -37,11 +38,17 @@ export class MsgUserComponent implements OnInit {
   getEmloyee(){
     this.service.data.subscribe(value => {
       this.employee = value
+      console.log(this.employee.email);
+      
     });
+    console.log(this.employee.email);
+
   }
 
   pendingRequest(){
-    this.requestService.GetAllRequest()
+
+    
+    this.requestService.GetAllRequestEmail(this.employee.email)
     .subscribe((res) => {
     this.pendingRequestArr = res
     if(this.pendingRequestArr.length == 0){
@@ -53,7 +60,7 @@ export class MsgUserComponent implements OnInit {
   }
 
   confirmRequest(){
-    this.requestService.ConfirmRequest()
+    this.requestService.ConfirmRequestByEmil(this.employee.email)
     .subscribe((res) => {
       this.confirmRequestArr = res
       if(this.confirmRequestArr.length == 0){
@@ -65,7 +72,7 @@ export class MsgUserComponent implements OnInit {
   }
   
   declineRequest(){
-    this.requestService.DeclineRequest()
+    this.requestService.DeclineRequestByEmail(this.employee.email)
     .subscribe((res) => {
       this.declineRequestArr = res
       if(this.declineRequestArr.length == 0){

@@ -30,6 +30,18 @@ constructor(private httpClient: HttpClient,private careService: CareService) { }
       catchError(this.careService.handleError)
     )
   }
+  
+  GetAllRequestEmail(email: string) {
+    console.log(email);
+    
+    let API_URL = `${this.careService.REST_API}/get-reqEmail/?confirm=false&decline=false&email=${email}`;
+    return this.httpClient.get(API_URL)
+      .pipe(map((res: any) => {
+        return res || {}
+      }),
+      catchError(this.careService.handleError)
+    )
+  }
 
   SelectedRequest(id:any): Observable<any> {
     let API_URL = `${this.careService.REST_API}/read-request/${id}`;
@@ -59,6 +71,24 @@ constructor(private httpClient: HttpClient,private careService: CareService) { }
     )
   }
 
+  ConfirmRequestByEmil(email:any): Observable<any> {
+    return this.httpClient.get(`${this.careService.REST_API}/true-reqEmail/?confirm=true&email=${email}`)
+        .pipe(map((res: any) => {
+          return res || {}
+        }),
+        catchError(this.careService.handleError)
+      )
+  }
+
+  DeclineRequestByEmail(email:any): Observable<any> {
+    return this.httpClient.get(`${this.careService.REST_API}/false-reqEmail/?decline=true&email=${email}`)
+      .pipe(map((res: any) => {
+        return res || {}
+      }),
+      catchError(this.careService.handleError)
+    )
+  }
+
   UpdateRequest(id:any, event:any): Observable<any> {
     let API_URL = `${this.careService.REST_API}/update-request/${id}`;
       return this.httpClient.put(API_URL, event, { headers: this.careService.httpHeaders })
@@ -67,15 +97,5 @@ constructor(private httpClient: HttpClient,private careService: CareService) { }
         }),
         catchError(this.careService.handleError)
       )
-  }
-
-  DeleteRequest(id:any): Observable<any> {
-    let API_URL = `${this.careService.REST_API}/delete-request/${id}`;
-      return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders})
-      .pipe(map((res: any) => {
-        return res || {}
-      }),
-      catchError(this.careService.handleError)
-    )
   }
 }

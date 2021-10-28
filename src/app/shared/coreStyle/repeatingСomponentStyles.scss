@@ -34,22 +34,65 @@ h2{
     color: #263238;
     text-align: center;
 }
+.greyColor{
+    background-color: #546E7A;
+}
 .btnCancel{
     background-color: none;
     border: 1px solid #546E7A;
     color: #546E7A;
 }
-.photo{
+.photoHeader{
     height: 82px;
     width: 82px;
+    padding-top: 20px;
+}
+.photo{
     border-radius: 50%;
     background: rgb(163, 245, 218);
     text-align: center;
-    padding-top: 20px;
-    margin-top: 6px;
+    margin-top: 3px;
+}
+.photoSmall{
+    height: 20px;
+    width: 20px;
+    
 }
 .noRequest{
     border: 1px solid rgb(212, 208, 208);
     background-color: white;
     margin-top: 30px;
+}
+.deleteBtn{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    line-height: 8px; 
+    position: absolute;
+    left: 18px;
+    color: white;
+    bottom: 27px;
+    border: none;
+}
+.uploadFileBox{
+    position: relative;
+    width: 31px;
+}
+.addCV-box{
+    text-align: center;
+}
+.file-input {
+    display: none;
+}
+.cvButton{
+    border: none; 
+    outline: none; 
+    background-color: none;
+    text-decoration: underline;
+}
+.a{
+    background-color: blueviolet;
+}
+.v{
+    background-color: rgb(101, 226, 43);
 }

@@ -4,6 +4,8 @@ import {MatDialog} from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { SearchName } from 'src/app/model/SearchName';
 import { Employee } from 'src/app/model/Employee';
+import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
+import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 
 
 @Component({
@@ -16,7 +18,7 @@ export class AdminStaffListComponent implements OnInit {
   staffList: Employee[] = [];
   currentEmployee: SearchName = {};
   currentIndex = -1;
-  name = '';
+  name!:any;
   head!:any
   btn!:any
   newUser!:any
@@ -28,9 +30,11 @@ export class AdminStaffListComponent implements OnInit {
   phone!:any
   arhiveUser!:any
   addCV!:any
-  password!:any
-  role!:any
+  passBool!:any
+  roleBool!:any
   lastPerfBool!:any
+  changeUser!:any
+  employee!:any
 
 
   page = 1;
@@ -38,9 +42,13 @@ export class AdminStaffListComponent implements OnInit {
   pageSize = 10;
   pageSizes = [3, 6, 9];
 
-  constructor(private employeeService: EmployeeService,public dialog: MatDialog,) { }
+  constructor(private employeeService: EmployeeService,public dialog: MatDialog, 
+    public uplFileService:UploadFileService,public service:DataEmployeeService) { }
 
   ngOnInit(): void {
+    this.service.data.subscribe(res => {
+      this.employee = res
+    });
     this.retrieveStaff();
   }
 
@@ -88,29 +96,35 @@ export class AdminStaffListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       height :'791px',
-      data: {head: "Add user:",btn: "EDIT",arhiveUser:false,addCV:"Add CV",
-      password:true,role:true,lastPerfBool:false}
+      data: {head: "Add user:",btn: "ADD",arhiveUser:false,addCV:"Add CV",
+      changeUser:"",roleBool:true,passBool:true,lastPerfBool:false}
     });
   dialogRef.afterClosed().subscribe(result => {
     console.log(result);
     
     this.employeeService.AddEmployee(result)
-    .subscribe(
-      success => this.retrieveStaff(),
-      error => console.log(error));
+    .subscribe((res) => {
+      this.retrieveStaff()
+    })
     });
+  }
+
+  getUplFile(email:any){
+    this.uplFileService.getUplFileByEmail(email)
+    .subscribe((res) => {
+      console.log(res);
+      
+    })
   }
   
   editUser(event:any): void {
+    this.getUplFile(event.email)
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       height :'670px',
-      data: {head: "Edit task:",btn: "SAVE",name:event.name,position:event.position,
-      birthday:event.birthday,salary:event.salary,
-      lastPerf:event.lastPerf,email:event.email,phone:event.phone,
-      arhiveUser:true,addCV:"Add new CV",password:false,role:false,lastPerfBool:true}
+      data: {head: "Edit user:",btn: "SAVE",changeUser:event,
+      arhiveUser:true,addCV:"Add new CV",passBool:false,roleBool:false,lastPerfBool:true}
     });
-    console.log(event);
     dialogRef.afterClosed().subscribe(result => {
       this.newUser = result;
       this.employeeService.updateEmployee(event.id,this.newUser)

@@ -18,9 +18,7 @@ export class AddEventComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddEventComponent>,
             @Inject(MAT_DIALOG_DATA) public data: AdminComponent,
             private eventService: EventService,  
-            public formBuilder: FormBuilder,
-
-           ) { }
+            public formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
     this.eventForm = new FormGroup({
@@ -40,17 +38,13 @@ export class AddEventComponent implements OnInit {
   }
 
   addEvent(): void{
-    console.log(this.eventForm.value);
     this.eventService.AddEvent(this.eventForm.value)
     .subscribe((res) => {
       MaterialService.toast("Congratulations! Event has been added!")
       this.dialogRef.close();
       this.createEvent = res
-      console.log(this.createEvent);
-      
     }, (err) => {
       MaterialService.toast("This event is already exists. Try another one.")
-      console.log(err);
     });
    
   }
