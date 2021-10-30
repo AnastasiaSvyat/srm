@@ -6,6 +6,7 @@ import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
 import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-task',
@@ -31,21 +32,22 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.employee.id
+  
+    
     this.infoAboutUserForm = new FormGroup({
       task: new FormControl(this.dataTask.task,[Validators.required]),
-      date: new FormControl(this.dataTask.date,[Validators.required]),
+      date: new FormControl(this.dataTask.dateAll,[Validators.required]),
       email: new FormControl(this.employee.email),
+      
     })
-    this.getInfo()
+
 }
+get date() { return this.infoAboutUserForm.get('date')!; }
+
+
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  getInfo(){
-    this.emoloyeeService.GetEmployee(this.id)
-      .subscribe(value => {
-        this.employee = value
-      });
-  }
 }

@@ -26,7 +26,7 @@
                     <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
                 </div>
                 <div>
-                    <button (click)='addEvent()' class="btn w155" mat-stroked-button>Add</button>
+                    <button (click)='addEvent()' [mat-dialog-close]="eventForm.value" class="btn w155" mat-stroked-button>Add</button>
                 </div>
             </div>
     </div>

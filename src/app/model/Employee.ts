@@ -4,6 +4,8 @@ export class Employee {
     email!: string;
     position!: string;
     birthday!: string;
+    dayBirth!: string;
+    monthBirth!: string;
     salary!: number;
     password!: number;
     token!: string;

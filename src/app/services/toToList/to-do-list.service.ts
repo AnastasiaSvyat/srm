@@ -3,18 +3,18 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ToDoList } from 'src/app/model/ToDoList';
+import { CareService } from '../care/care.service';
 import { DataEmployeeService } from '../dataEmployee/dataEmployee.service';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToDoListService {
-
-  
-  REST_API: string = 'http://localhost:8000/api';
   employee!:any 
-  httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-  constructor(private httpClient: HttpClient, private dataEmplService: DataEmployeeService) { 
+  
+  constructor(private httpClient: HttpClient, private dataEmplService: DataEmployeeService,
+    private careService: CareService) { 
     this.dataEmplService.data.subscribe(value => {
       this.employee = value
     });
@@ -22,54 +22,50 @@ export class ToDoListService {
 
  
   AddTask(data:ToDoList ): Observable<any> {
-    let API_URL = `${this.REST_API}/add-task`;
+    let API_URL = `${this.careService.REST_API}/add-task`;
     return this.httpClient.post(API_URL, data)
       .pipe(
-        catchError(this.handleError)
+        catchError(this.careService.handleError)
       )
   }
   
-  
-  GetAllTask() {
-    let emailEmpl = this.employee.email
-    let API_URL = `${this.REST_API}/get-task/?email=${this.employee.email}`;
+  GetAllTaskTomorrow() {
+    let API_URL = `${this.careService.REST_API}/get-taskTomorrow/?email=${this.employee.email}&day=${this.careService.tomorrow + 1}&year=${this.careService.year}`;
+      return this.httpClient.get(API_URL);
+  }
+
+  GetAllTaskWeek() {
+    let API_URL = `${this.careService.REST_API}/get-taskWeek/?email=${this.employee.email}&week=${this.careService.week}&year=${this.careService.year}`;
+      return this.httpClient.get(API_URL);
+  }
+
+  GetAllTaskDate() {
+    let API_URL = `${this.careService.REST_API}/get-taskDate/?email=${this.employee.email}&day=${this.careService.today}&year=${this.careService.year}`;
       return this.httpClient.get(API_URL);
   }
 
   SelectedTask(id:any): Observable<any> {
-    let API_URL = `${this.REST_API}/read-task/${id}`;
-    return this.httpClient.get(API_URL, { headers: this.httpHeaders })
+    let API_URL = `${this.careService.REST_API}/read-task/${id}`;
+    return this.httpClient.get(API_URL, { headers: this.careService.httpHeaders })
       .pipe(map((res: any) => {
           return res || {}
         }),
-        catchError(this.handleError)
+        catchError(this.careService.handleError)
       )
   }
 
   UpdateTask(id:any, task:any): Observable<any> {
-    let API_URL = `${this.REST_API}/update-task/${id}`;
-    return this.httpClient.put(API_URL, task, { headers: this.httpHeaders })
+    let API_URL = `${this.careService.REST_API}/update-task/${id}`;
+    return this.httpClient.put(API_URL, task, { headers: this.careService.httpHeaders })
       .pipe(
-        catchError(this.handleError)
+        catchError(this.careService.handleError)
       )
   }
 
   DeleteTask(id:any): Observable<any> {
-    let API_URL = `${this.REST_API}/delete-task/${id}`;
-    return this.httpClient.delete(API_URL, { headers: this.httpHeaders}).pipe(
-        catchError(this.handleError)
+    let API_URL = `${this.careService.REST_API}/delete-task/${id}`;
+    return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders}).pipe(
+        catchError(this.careService.handleError)
       )
-  }
-
-
-  handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
   }
 }

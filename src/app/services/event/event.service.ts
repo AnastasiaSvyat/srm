@@ -10,7 +10,13 @@ import { CareService } from '../care/care.service';
 })
 export class EventService {
 
-constructor(private httpClient: HttpClient, private careService: CareService) { }
+// today!:any 
+// month!:any
+// year!:any
+
+constructor(private httpClient: HttpClient, private careService: CareService) {
+
+ }
 
  
   AddEvent(data:Events ): Observable<any> {
@@ -22,8 +28,19 @@ constructor(private httpClient: HttpClient, private careService: CareService) { 
   }
   
   GetAllEvents() {
-    let API_URL = `${this.careService.REST_API}/get-event`;
+    let API_URL = `${this.careService.REST_API}/get-event/?year=${this.careService.year}`;
     return this.httpClient.get(API_URL);
+  }
+
+
+  GetEventMonth() {
+    let API_URL = `${this.careService.REST_API}/getEvent-month/?month=${this.careService.month}&year=${this.careService.year}`;
+      return this.httpClient.get(API_URL);
+  }
+
+  GetAllEventToday() {
+    let API_URL = `${this.careService.REST_API}/getEvent-today/?day=${this.careService.today}&year=${this.careService.year}`;
+      return this.httpClient.get(API_URL);
   }
 
   SelectedEvent(id:any): Observable<any> {

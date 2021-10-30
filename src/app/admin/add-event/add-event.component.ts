@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { EventService } from 'src/app/services/event/event.service';
 import { AdminComponent } from '../admin.component';
-import { MaterialService } from 'src/app/services/material/material.service';
+import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
 
 @Component({
   selector: 'app-add-event',
@@ -16,7 +16,7 @@ export class AddEventComponent implements OnInit {
   eventForm!: FormGroup;
   createEvent!:any
   
-  constructor(public dialogRef: MatDialogRef<AddEventComponent>,
+  constructor(public dialogRef: MatDialogRef<AddEventComponent,DashboardAdminComponent>,
             @Inject(MAT_DIALOG_DATA) public data: AdminComponent,
             private eventService: EventService,  
             public formBuilder: FormBuilder,) { }
@@ -40,13 +40,6 @@ export class AddEventComponent implements OnInit {
   }
 
   addEvent(): void{
-    this.eventService.AddEvent(this.eventForm.value)
-    .subscribe((res) => {
-      MaterialService.toast("Congratulations! Event has been added!")
-      this.dialogRef.close();
-      this.createEvent = res
-    }, (err) => {
-      MaterialService.toast("This event is already exists. Try another one.")
-    });
+  
   }
 }

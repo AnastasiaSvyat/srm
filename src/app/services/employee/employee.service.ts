@@ -44,6 +44,16 @@ export class EmployeeService {
       )
   }
 
+  GetEmplBirthToday() {
+    let API_URL = `${this.careService.REST_API}/getEmpl-Today/?dayBirth=${this.careService.today}`;
+      return this.httpClient.get(API_URL);
+  }
+
+  GetEmplBirthMonth() {
+    let API_URL = `${this.careService.REST_API}/getEmpl-Month/?monthBirth=${this.careService.month}`;
+      return this.httpClient.get(API_URL);
+  }
+
   deleteEmployee(id:any): Observable<any> {
     let API_URL = `${this.careService.REST_API}/delete-employee/${id}`;
     return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders}).pipe(

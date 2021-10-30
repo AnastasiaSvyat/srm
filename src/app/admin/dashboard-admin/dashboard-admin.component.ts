@@ -8,6 +8,7 @@ import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
 import { AddEventComponent } from '../add-event/add-event.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { MaterialService } from 'src/app/services/material/material.service';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -16,25 +17,28 @@ import { AddUserComponent } from '../add-user/add-user.component';
 })
 export class DashboardAdminComponent implements OnInit {
   employee:any = []
-  toDoList:any = []
+  toDoListToday:any
+  toDoListWeek:any
+  toDoListTomorrow:any
+  haveTaskToday:boolean = false
+  haveTaskTomorrow:boolean = false
+  haveTaskWeek:boolean = false
+
   events!:any
   staff!:any
-  id!:any;
   isChecked:boolean = false;
-  monthBirth:any = []
-  todayBirth:any = []
-  haveBirthToday!:boolean
-  haveBirthMonth!:boolean
-  todayEvent:any = []
-  monthEvent:any = []
-  haveEventToday!:boolean
-  haveEventMonth!:boolean
+  monthBirth:any
+  todayBirth:any
+  haveBirthToday:boolean = false
+  haveBirthMonth:boolean = false
+  haveEventToday:boolean = false
+  haveEventMonth:boolean = false
+  noHaveEvent:boolean = false
   idCheckBox!:any
   deleteArr:any = []
   today!:any
-  eventsToday:any = []
   head!:any
-  date!:any
+  dateAll!:any
   task!:any
   btn!:any
   editTask!:any
@@ -48,6 +52,8 @@ export class DashboardAdminComponent implements OnInit {
   passBool!:boolean
   roleBool!:boolean
   addCVBool!:boolean
+  eventDay!:any
+  eventMonth!:any
 
 
 constructor(public dialog: MatDialog,
@@ -58,51 +64,28 @@ constructor(public dialog: MatDialog,
 }
  
 ngOnInit(): void {
-    this.service.data.subscribe(res => {
-      this.employee = res
-    });
-    this.id = this.employee.id
-    this.getEvent()
-    this.getEmployee()
-    this.getAllTask()
     this.getUser()
+    this.getEvent()
+    this.getAllTask()
+    this.getAllEvent()
     this.emoloyeeService.GetStaff()
     this.today = new Date()
-  }
+    this.getAllBirth()
+    this.emoloyeeService.GetEmplBirthToday()}
 
-  getUser(){
-    this.emoloyeeService.GetEmployee(this.id)
-      .subscribe(value => {
-        this.employee = value
-      });
+addResult(result:any){
+  result.month = <any>moment(result.date).format('MM')
+  result.year = <any>moment(result.date).format('YY')
+  result.day = <any>moment(result.date).format('DD')
+  result.week = <any>moment(result.date).format('WW')
 }
 
-onChange($event:any,task:any){
-  this.idCheckBox = $event.target.value
-  this.isChecked = $event.target.checked
-  if(this.isChecked){
-    this.deleteArr.push(task)
-  }else{
-    this.deleteArr.splice(task.id, 1);
-  }
-}
+// USER
 
-deleteTask(id:any, i:any) {
-  console.log(id);
-    this.taskService.DeleteTask(id).subscribe((res) => {
-      this.toDoList.splice(i, 1);
-    })
-}
-
-  
-addEvent(): void {
-    const dialogRef = this.dialog.open(AddEventComponent, {
-      width: '398px',
-      height :'591px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getEvent()
-    });
+getUser(){
+  this.service.data.subscribe(res => {
+    this.employee = res
+  });
 }
 
 editUser(event:any): void {
@@ -127,106 +110,203 @@ editUser(event:any): void {
   });
 }
 
+// TASK
+
+onChange($event:any,task:any){
+  this.idCheckBox = $event.target.value
+  this.isChecked = $event.target.checked
+  if(this.isChecked){
+    this.deleteArr.push(task)
+  }else{
+    this.deleteArr.splice(task.id, 1);
+  }
+}
+
+deleteTask(id:any) {
+  console.log(id);
+    this.taskService.DeleteTask(id).subscribe((res) => {
+      this.getAllTask()
+    })
+}
+
 getAllTask(){
-  this.taskService.GetAllTask()
+  this.getTaskDay()
+  this.getTaskWeek()
+  this.getTaskTomorrow()
+}
+
+getTaskDay(){
+  this.taskService.GetAllTaskDate()
   .subscribe((res) => {
-    this.toDoList = res
+    this.toDoListToday = res
+    console.log(this.toDoListToday.length);
+    
+    if(this.toDoListToday.length > 0){
+      this.haveTaskToday = true
+      console.log(this.haveTaskToday);
+      
+    }else{
+      this.haveTaskToday = false
+
+    }
+
+    console.log(this.haveTaskToday);
+
+  })
+}
+ 
+getTaskWeek(){
+  this.taskService.GetAllTaskWeek()
+  .subscribe((res) => {
+    this.toDoListWeek = res
+    if(this.toDoListWeek.length > 0){
+      this.haveTaskWeek = true
+    }else{
+      this.haveTaskWeek = false
+    }
   })
 }
 
-addTask(): void {
-    const dialogRef = this.dialog.open(AddTaskComponent, {
-      width: '398px',
-      height :'361px',
-      data: {head: "Add task:",btn:"ADD",}
-  
-    });
-    dialogRef.afterClosed().subscribe(result => {
-    this.taskService.AddTask(result)
-    .subscribe((res) => {
-    })
-      this.getAllTask()
-    });
+getTaskTomorrow(){
+  this.taskService.GetAllTaskTomorrow()
+  .subscribe((res) => {
+    this.toDoListTomorrow = res
+    if(this.toDoListTomorrow.length > 0){
+      this.haveTaskTomorrow = true
+    }else{
+      this.haveTaskTomorrow = false
+    }
+  })
 }
 
-updateTask(event:any): void {
+
+
+addTask(): void {
   const dialogRef = this.dialog.open(AddTaskComponent, {
     width: '398px',
     height :'361px',
-    data: {head: "Edit task:",btn: "EDIT",date:event.date,task:event.task}
+    data: {head: "Add task:",btn:"ADD",}
+
   });
   dialogRef.afterClosed().subscribe(result => {
-    this.editTask = result;
-    this.taskService.UpdateTask(event._id,this.editTask)
-        .subscribe(
-          success => console.log("Done"),
-          error => console.log(error));
-      this.getAllTask()
-  });
+    this.addResult(result)
+      this.taskService.AddTask(result)
+      .subscribe((res) => {
+        console.log(res);
+        this.getAllTask()
+      })
+      });
 }
+
+updateTask(event:any): void {
+const dialogRef = this.dialog.open(AddTaskComponent, {
+  width: '398px',
+  height :'361px',
+  data: {head: "Edit task:",btn: "EDIT",dateAll:event.dateAll,task:event.task}
+});
+dialogRef.afterClosed().subscribe(result => {
+  this.editTask = result;
+  this.taskService.UpdateTask(event._id,this.editTask)
+    this.getAllTask()
+});
+}
+
+
+// EVENT
   
-getEvent(){
-    this.eventService.GetAllEvents()
-    .subscribe((res) => {
-        this.events = res
-        console.log(this.events);
-        const today = new Date()
-          this.events.sort(function(a:any,b:any){
-            return (<any>moment(today).format('MMDD') - <any>moment(b.date).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.date).format('MMDD'))
-          })
+addEvent(): void {
+    const dialogRef = this.dialog.open(AddEventComponent, {
+      width: '398px',
+      height :'591px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.addResult(result)
+      this.eventService.AddEvent(result)
+      .subscribe((res) => {
+        MaterialService.toast("Congratulations! Event has been added!")
+          this.getAllEvent()
+      }, (err) => {
+        MaterialService.toast("This event is already exists. Try another one.")
+      });
     });
 }
 
-getEmployee(){
-    this.emoloyeeService.GetStaff()
-    .subscribe((res) => {
-        this.staff = res
-        this.getStaffBirthdayTodayOrMonth()
-        this.getEventTodayOrMonth()
-        const today = new Date()
-        this.staff.sort(function(a:any,b:any){
-          return (<any>moment(today).format('MMDD') - <any>moment(b.birthday).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.birthday).format('MMDD'))
-        })
-    })
+getAllEvent(){
+  this.getEventDay()
+  this.getEventMonth()
+  this.getEvent()
 }
 
-getStaffBirthdayTodayOrMonth(){
-this.staff.forEach((employeeBirth:any) => {
-    if(<any>moment(this.today).format('MMDD') == <any>moment(employeeBirth.birthday).format('MMDD')){
-     this.haveBirthToday = true;
-      this.todayBirth.push(employeeBirth)
-    }else{
-     this.haveBirthToday = false;
-     this.todayBirth = [];
+getEventDay(){
+  this.eventService.GetAllEventToday()
+  .subscribe((res) => {
+    this.eventDay = res
+    if(this.eventDay.length > 0){
+      this.haveEventToday = true
     }
-    if(<any>moment(this.today).format('MM') == <any>moment(employeeBirth.birthday).format('MM')){
-      this.monthBirth.push(employeeBirth)
-      this.haveBirthMonth = true;
-    }else{
-      this.haveBirthMonth = false;
-      this.monthBirth = []
+  })
+}
+
+getEventMonth(){
+  this.eventService.GetEventMonth()
+  .subscribe((res) => {
+    this.eventMonth = res
+    if(this.eventMonth.length > 0){
+      this.haveEventMonth = true
     }
+  })
+}
+
+getEvent(){
+  this.eventService.GetAllEvents()
+  .subscribe((res) => {
+      this.events = res
+      if(this.events.length > 0){
+        this.noHaveEvent = true
+      }
+      const today = new Date()
+        this.events.sort(function(a:any,b:any){
+          return (<any>moment(today).format('MMDD') - <any>moment(b.date).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.date).format('MMDD'))
+        })
   });
 }
 
-getEventTodayOrMonth(){
-  console.log(this.events);
-  
-  this.events.forEach((eventToday:any) => {
-  if(<any>moment(this.today).format('MMDD') == <any>moment(eventToday.date).format('MMDD')){
-   this.haveEventToday = true;
-   this.todayEvent.push(eventToday)
-  }else{
-   this.haveEventToday = false;
-   this.todayEvent = [];
-  }
-  if(<any>moment(this.today).format('MM') == <any>moment(eventToday.date).format('MM')){
-    this.monthEvent.push(eventToday)
-    this.haveEventMonth = true;
-  }else{
-    this.haveEventMonth = false;
-    this.monthEvent = []
-  }
-});
+// BIRTH
+
+getAllBirth(){
+  this.getBirthDay()
+  this.getBirthMonth()
+  this.getBirth()
+}
+
+getBirthDay(){
+  this.emoloyeeService.GetEmplBirthToday()
+    .subscribe((res) => {
+    this.todayBirth = res
+    if(this.todayBirth.length > 0){
+      this.haveBirthToday = true
+    }
+  })
+}
+
+getBirthMonth(){
+  this.emoloyeeService.GetEmplBirthMonth()
+    .subscribe((res) => {
+    this.monthBirth = res
+    if(this.monthBirth.length > 0){
+      this.haveBirthMonth = true
+    }
+  })
+}
+
+getBirth(){
+  this.emoloyeeService.GetStaff()
+  .subscribe((res) => {
+      this.staff = res
+      const today = new Date()
+      this.staff.sort(function(a:any,b:any){
+        return (<any>moment(today).format('MMDD') - <any>moment(b.birthday).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.birthday).format('MMDD'))
+      })
+  })
 }
 }

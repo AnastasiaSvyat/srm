@@ -3,4 +3,7 @@ export class ToDoList {
     task!: String;
     date!: String;
     email!:String;
+    day!: String;
+    week!: String;
+    year!:String;
 }
