@@ -80,6 +80,13 @@ addResult(result:any){
   result.week = <any>moment(result.date).format('WW')
 }
 
+sortArr(arr:any){
+  const today = new Date()
+  arr.sort(function(a:any,b:any){
+    return (<any>moment(today).format('MMDD') - <any>moment(b.date).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.date).format('MMDD'))
+  })
+}
+
 // USER
 
 getUser(){
@@ -139,19 +146,11 @@ getTaskDay(){
   this.taskService.GetAllTaskDate()
   .subscribe((res) => {
     this.toDoListToday = res
-    console.log(this.toDoListToday.length);
-    
     if(this.toDoListToday.length > 0){
       this.haveTaskToday = true
-      console.log(this.haveTaskToday);
-      
     }else{
       this.haveTaskToday = false
-
     }
-
-    console.log(this.haveTaskToday);
-
   })
 }
  
@@ -163,6 +162,8 @@ getTaskWeek(){
       this.haveTaskWeek = true
     }else{
       this.haveTaskWeek = false
+      this.sortArr(this.toDoListWeek)
+
     }
   })
 }
@@ -253,6 +254,8 @@ getEventMonth(){
     this.eventMonth = res
     if(this.eventMonth.length > 0){
       this.haveEventMonth = true
+      this.sortArr(this.eventMonth)
+
     }
   })
 }
@@ -264,10 +267,8 @@ getEvent(){
       if(this.events.length > 0){
         this.noHaveEvent = true
       }
-      const today = new Date()
-        this.events.sort(function(a:any,b:any){
-          return (<any>moment(today).format('MMDD') - <any>moment(b.date).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.date).format('MMDD'))
-        })
+      this.sortArr(this.events)
+      
   });
 }
 
@@ -296,6 +297,8 @@ getBirthMonth(){
     if(this.monthBirth.length > 0){
       this.haveBirthMonth = true
     }
+    this.sortArr(this.monthBirth)
+
   })
 }
 
@@ -304,9 +307,7 @@ getBirth(){
   .subscribe((res) => {
       this.staff = res
       const today = new Date()
-      this.staff.sort(function(a:any,b:any){
-        return (<any>moment(today).format('MMDD') - <any>moment(b.birthday).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.birthday).format('MMDD'))
-      })
+      this.sortArr(this.staff)
   })
 }
 }

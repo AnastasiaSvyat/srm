@@ -30,7 +30,7 @@ export class UpdateUserComponent implements OnInit {
       name: new FormControl(this.dataUser.updateEmployee.name,[Validators.required]),
       email : new FormControl(this.dataUser.updateEmployee.email, [Validators.required, Validators.email]),
       phone: new FormControl(this.dataUser.updateEmployee.phone,[Validators.required]),
-      birthday: new FormControl(this.dataUser.updateEmployee.birthday,[Validators.required]),
+      date: new FormControl(this.dataUser.updateEmployee.date,[Validators.required]),
       id: new FormControl(this.dataUser.updateEmployee.id,[Validators.required])
 
     })
@@ -38,7 +38,7 @@ export class UpdateUserComponent implements OnInit {
 
   get name() { return this.addEmployeeForm.get('name')!; }
   get email() { return this.addEmployeeForm.get('email')!; }
-  get birthday() { return this.addEmployeeForm.get('birthday')!; } 
+  get date() { return this.addEmployeeForm.get('date')!; } 
   get phone() { return this.addEmployeeForm.get('phone')!; }
   
   onNoClick(): void {

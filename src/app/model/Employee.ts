@@ -3,7 +3,7 @@ export class Employee {
     name!: string;
     email!: string;
     position!: string;
-    birthday!: string;
+    date!: string;
     dayBirth!: string;
     monthBirth!: string;
     salary!: number;

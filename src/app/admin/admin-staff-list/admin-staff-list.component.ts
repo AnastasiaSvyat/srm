@@ -101,8 +101,8 @@ export class AdminStaffListComponent implements OnInit {
       changeUser:"",roleBool:true,passBool:true,lastPerfBool:false}
     });
     dialogRef.afterClosed().subscribe(result => {
-      result.monthBirth = <any>moment(result.birthday).format('MM')
-      result.dayBirth = <any>moment(result.birthday).format('DD')
+      result.monthBirth = <any>moment(result.date).format('MM')
+      result.dayBirth = <any>moment(result.date).format('DD')
     this.employeeService.AddEmployee(result)
     .subscribe((res) => {
       this.retrieveStaff()

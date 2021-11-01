@@ -33,7 +33,7 @@ export class AddUserComponent implements OnInit {
       phone: new FormControl(this.dataUser.changeUser.phone,[Validators.required]),
       position: new FormControl(this.dataUser.changeUser.position,[Validators.required]),
       lastPerf: new FormControl(this.dataUser.changeUser.lastPerf,[Validators.required]),
-      birthday: new FormControl(this.dataUser.changeUser.birthday,[Validators.required]),
+      date: new FormControl(this.dataUser.changeUser.date,[Validators.required]),
       role: new FormControl(this.dataUser.changeUser.role,[Validators.required]),
       id: new FormControl(this.dataUser.changeUser.id,[Validators.required])
 
@@ -45,7 +45,7 @@ export class AddUserComponent implements OnInit {
   get password() { return this.addEmployeeForm.get('password')!; }
   get position() { return this.addEmployeeForm.get('position')!; }
   get role() { return this.addEmployeeForm.get('role')!; }
-  get birthday() { return this.addEmployeeForm.get('birthday')!; } 
+  get date() { return this.addEmployeeForm.get('date')!; } 
   get salary() { return this.addEmployeeForm.get('salary')!; }
   get phone() { return this.addEmployeeForm.get('phone')!; }
   

@@ -75,7 +75,7 @@
                     </div>
                     <div *ngIf="haveBirthToday">
                         <div fxLayout="row" fxLayoutAlign="start center" *ngFor = "let item of todayBirth">     
-                            <div class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}</div>
+                            <div class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}</div>
                             <div class="photo photoSmall ml12"></div>
                             <div class="fs14 ml8">{{item.name}}</div>
                         </div>
@@ -84,7 +84,7 @@
                 <div *ngIf="haveBirthMonth" class="mt16">
                     <p class="fontColorGrey fs18 mt16">This month</p>
                     <div fxLayout="row" fxLayoutAlign="start center" *ngFor = "let item of monthBirth">     
-                        <div class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}</div>
+                        <div class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}</div>
                         <div class="photo photoSmall ml12"></div>
                         <div class="fs14 ml8">{{item.name}}</div>
                     </div>
@@ -92,7 +92,7 @@
                 <div class="mt16">
                     <p class="fontColorGrey fs18 mt16">Later</p>
                     <div fxLayout="row" fxLayoutAlign="start center" *ngFor = "let item of staff">     
-                        <div class="fontColorGrey fs14">{{item.birthday | date:'dd/MM'}}</div>
+                        <div class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}</div>
                         <div class="photo photoSmall ml12"></div>
                         <div class="fs14 ml8">{{item.name}}</div>
                     </div>
@@ -114,7 +114,7 @@
         <div  *ngIf="haveTaskWeek" fxFlex='80%' class="w100">
             <div class="fs18 fontColorGrey mt16 ml24">Today</div>
             <div *ngIf="!haveTaskToday">
-                <span class="fontColorGrey fs14">No birthday today</span>
+                <span class="fontColorGrey fs14">No task today</span>
             </div>
             <div *ngIf="haveTaskToday">
             <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor = "let task of toDoListToday; let i = index" class="w100" >

@@ -27,14 +27,14 @@
             <mat-form-field>
                 <mat-label>Birthday</mat-label>
                 <input matInput 
-                formControlName="birthday" 
+                formControlName="date" 
                 [matDatepicker]="picker" 
                 placeholder="Choose a date">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker startView="year"></mat-datepicker>
             </mat-form-field>
-            <div *ngIf="birthday.invalid && (birthday.dirty || birthday.touched)" class="helper-text red-text">
-                <div *ngIf="birthday.errors?.required">Birthday is required.</div>
+            <div *ngIf="date.invalid && (date.dirty || date.touched)" class="helper-text red-text">
+                <div *ngIf="date.errors?.required">Birthday is required.</div>
            </div>
             <mat-form-field>
                 <mat-label>Salary</mat-label>
