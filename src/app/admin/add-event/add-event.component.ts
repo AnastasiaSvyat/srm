@@ -39,7 +39,5 @@ export class AddEventComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  addEvent(): void{
-  
-  }
+
 }

@@ -4,6 +4,7 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { EventService } from 'src/app/services/event/event.service';
 import { AddEventComponent } from '../add-event/add-event.component';
 import * as moment from 'moment';
+import { MaterialService } from 'src/app/services/material/material.service';
 
 @Component({
   selector: 'app-admin-calendar',
@@ -14,8 +15,6 @@ export class AdminCalendarComponent implements OnInit {
   today = new Date()
   events!:any
   employee!:any
-  eventsMonth:any = []
-  eventsMonthBool!:boolean
   eventsTodayBool!:boolean
   eventsToday:any = []
   birthTodayBool!:boolean
@@ -25,6 +24,8 @@ export class AdminCalendarComponent implements OnInit {
   eventsPlannedMonthBool!:boolean;
   eventsPlannedMonth:any = [];
   eventsPlannedToday:any = [];
+  noHaveEvent!:any
+  eventsPlanned!:any
 
   
   constructor( public dialog: MatDialog,
@@ -35,8 +36,7 @@ export class AdminCalendarComponent implements OnInit {
   ngOnInit(): void {
     this.selectedDate = this.today
     this.onSelect(this.selectedDate);
-    this.getEmployee()
-    this.getEventInPlanned()
+    this.getPlannedEvent()
   }
 
   onSelect(event:any) {
@@ -45,14 +45,21 @@ export class AdminCalendarComponent implements OnInit {
     this.getEmployee()
     this.getEvent()
   }
-
- getEmployee(){
+  
+  addResult(result:any){
+    result.month = <any>moment(result.date).format('MM')
+    result.year = <any>moment(result.date).format('YY')
+    result.day = <any>moment(result.date).format('DD')
+    result.week = <any>moment(result.date).format('WW')
+  }
+ 
+  getEmployee(){
   this.birthTodayBool = false
   this.employeeService.GetStaff()
   .subscribe((res) => {
     this.employee = res
     this.employee.forEach((employeeBirth:any) => {
-      if(<any>moment(this.selectedDate).format('MMDD') == <any>moment(employeeBirth.birthday).format('MMDD')){
+      if(<any>moment(this.selectedDate).format('MMDD') == <any>moment(employeeBirth.date).format('MMDD')){
         this.birthToday.push(employeeBirth)
         this.birthTodayBool = true
       }
@@ -60,59 +67,87 @@ export class AdminCalendarComponent implements OnInit {
   })
 } 
 
- getEventInPlanned(){
-  this.eventsPlannedTodayBool = false
-  this.eventsPlannedMonthBool = false;
+getEvent(){
+  this.eventsTodayBool = false
   this.eventService.GetAllEvents()
-    .subscribe((res) => {
-      this.events = res
-      this.events.forEach((events:any) => {
-        if(<any>moment(this.today).format('MMDD') == <any>moment(events.date).format('MMDD')){
-          this.eventsPlannedToday.push(events)
-          this.eventsPlannedTodayBool = true
-        }
-        if(<any>moment(this.today).format('MM') == <any>moment(events.date).format('MM')){
-          this.eventsPlannedMonth.push(events)
-          this.eventsPlannedMonthBool = true;
-        }else{
-          this.eventsPlannedMonth = []
-        }
-      })
+  .subscribe((res) => {
+    this.events = res
+    this.events.forEach((ev:any) => {
+      if(<any>moment(this.selectedDate).format('MMDD') == <any>moment(ev.date).format('MMDD')){
+        this.eventsToday.push(ev)
+        this.eventsTodayBool = true
+      }
     })
- }
+  })
+}
 
-  getEvent(){
-    this.eventsTodayBool = false
-    this.eventsMonthBool = false;
-    this.eventService.GetAllEvents()
-    .subscribe((res) => {
-      this.events = res
-      this.events.forEach((ev:any) => {
-        if(<any>moment(this.selectedDate).format('MMDD') == <any>moment(ev.date).format('MMDD')){
-          this.eventsToday.push(ev)
-          this.eventsTodayBool = true
-        }
-        if(<any>moment(this.selectedDate).format('MM') == <any>moment(ev.date).format('MM')){
-          this.eventsMonth.push(ev)
-          this.eventsMonthBool = true;
-        }
-      })
-    })
-  }
+getPlannedEvent(){
+  this.getEventDayPlanned()
+  this.getEventMonthPlanned()
+  this.getEventPlanned()
+}
 
-  addEvent() : void {
+getEventDayPlanned(){
+  this.eventService.GetAllEventToday()
+  .subscribe((res) => {
+    this.eventsPlannedToday = res
+    if(this.eventsPlannedToday.length > 0){
+      this.eventsPlannedTodayBool = true
+    }
+  })
+}
+
+getEventMonthPlanned(){
+  this.eventService.GetEventMonth()
+  .subscribe((res) => {
+    this.eventsPlannedMonth = res
+    if(this.eventsPlannedMonth.length > 0){
+      this.eventsPlannedMonthBool = true
+      this.sortArr(this.eventsPlannedMonth)
+    }
+  })
+}
+
+
+sortArr(arr:any){
+  const today = new Date()
+  arr.sort(function(a:any,b:any){
+    return (<any>moment(today).format('MMDD') - <any>moment(b.date).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.date).format('MMDD'))
+  })
+}
+
+getEventPlanned(){
+  this.eventService.GetAllEvents()
+  .subscribe((res) => {
+      this.eventsPlanned = res
+      if(this.eventsPlanned.length > 0){
+        this.noHaveEvent = true
+      }
+      this.sortArr(this.eventsPlanned)
+  });
+}
+
+addEvent() : void {
     const dialogRef = this.dialog.open(AddEventComponent, {
       width: '398px',
       height :'591px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getEvent()
+      this.addResult(result)
+      this.eventService.AddEvent(result)
+      .subscribe((res) => {
+      MaterialService.toast("Congratulations! Event has been added!")
+          this.resetResults()
+          this.getPlannedEvent()
+          this.getEvent()
+      }, (err) => {
+        MaterialService.toast("This event is already exists. Try another one.")
+      });
     });
   }
 
   resetResults(){
     this.eventsToday = []  
     this.birthToday = []
-    this.eventsMonth = []
   }
 }

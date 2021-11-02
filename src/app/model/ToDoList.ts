@@ -6,4 +6,5 @@ export class ToDoList {
     day!: String;
     week!: String;
     year!:String;
+    isChecked!:Boolean;
 }

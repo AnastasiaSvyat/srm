@@ -5,4 +5,11 @@
 .container_right{
     height: 50.4rem;
 }
+label{
+    display: block;
+  }
+label input[type=checkbox]:checked + span{
+    text-decoration: line-through;
+}
+
 

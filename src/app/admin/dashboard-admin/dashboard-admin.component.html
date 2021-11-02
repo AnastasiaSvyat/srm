@@ -111,8 +111,8 @@
         <div *ngIf="!haveTaskWeek" class="text-center w100">
             <span class="fontColorGrey fs14">No tasks</span>
         </div>
-        <div  *ngIf="haveTaskWeek" fxFlex='80%' class="w100">
-            <div class="fs18 fontColorGrey mt16 ml24">Today</div>
+        <div fxFlex='80%' class="w100">
+            <div class="fs18 fontColorGrey mt16 ml24">Today {{today | date:'dd/MM' }} </div>
             <div *ngIf="!haveTaskToday">
                 <span class="fontColorGrey fs14">No task today</span>
             </div>
@@ -120,10 +120,9 @@
             <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor = "let task of toDoListToday; let i = index" class="w100" >
                 <div class="ml24">
                     <label>
-                        <input type="checkbox" [checked] = "task.select" [value] = "i"
+                        <input type="checkbox" [checked] = "task.select" 
                             (change) ="onChange($event,task)"/>
-                          <span class="fontColorGrey fs14">{{task.date | date:'dd/MM' }}     </span>
-                          <span class="fs14 ml8">{{task.task}}</span>
+                                <span class="fs14 ml8">{{task.task}}</span>
                     </label>
                 </div>
                 <div>
@@ -149,7 +148,6 @@
                     <label>
                         <input type="checkbox" [checked] = "task.select" [value] = "i"
                             (change) ="onChange($event,task)"/>
-                          <span class="fontColorGrey fs14">{{task.date | date:'dd/MM' }}     </span>
                           <span class="fs14 ml8">{{task.task}}</span>
                     </label>
                 </div>
@@ -176,8 +174,9 @@
                     <label>
                         <input type="checkbox" [checked] = "task.select" [value] = "i"
                             (change) ="onChange($event,task)"/>
-                          <span class="fontColorGrey fs14">{{task.date | date:'dd/MM' }}     </span>
                           <span class="fs14 ml8">{{task.task}}</span>
+                          <div class="fontColorGrey fs12 ml40">{{task.date | date:'dd/MM' }}     </div>
+
                     </label>
                 </div>
                 <div>

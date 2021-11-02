@@ -22,8 +22,9 @@ export class UserCalendarComponent implements OnInit {
   selectedDate = new Date();
   eventsPlannedTodayBool!:boolean;
   eventsPlannedMonthBool!:boolean;
-  eventsPlannedMonth:any = [];
-  eventsPlannedToday:any = [];
+  eventsPlannedMonth:any
+  eventsPlannedToday:any
+  eventsPlanned!:any
 
   
   constructor( public dialog: MatDialog,
@@ -34,8 +35,11 @@ export class UserCalendarComponent implements OnInit {
   ngOnInit(): void {
     this.selectedDate = this.today
     this.onSelect(this.selectedDate);
-    this.getEmployee()
-    this.getEventInPlanned()
+    // this.getEmployee()
+    // this.getEvent()
+
+    this.getPlannedEvent()
+
   }
 
   onSelect(event:any) {
@@ -48,37 +52,61 @@ export class UserCalendarComponent implements OnInit {
  getEmployee(){
   this.birthTodayBool = false
   this.employeeService.GetStaff()
-  .subscribe((res) => {
+  .subscribe((res) => {    
     this.employee = res
     this.employee.forEach((employeeBirth:any) => {
-      if(<any>moment(this.selectedDate).format('MMDD') == <any>moment(employeeBirth.birthday).format('MMDD')){
+      if(<any>moment(this.selectedDate).format('MMDD') == <any>moment(employeeBirth.date).format('MMDD')){
         this.birthToday.push(employeeBirth)
         this.birthTodayBool = true
       }
     })
   })
 } 
+getPlannedEvent(){
+  this.getEventDayPlanned()
+  this.getEventMonthPlanned()
+  this.getEventPlanned()
+}
 
- getEventInPlanned(){
-  this.eventsPlannedTodayBool = false
-  this.eventsPlannedMonthBool = false;
+getEventDayPlanned(){
+  this.eventService.GetAllEventToday()
+  .subscribe((res) => {
+    this.eventsPlannedToday = res
+    if(this.eventsPlannedToday.length > 0){
+      this.eventsPlannedTodayBool = true
+    }
+  })
+}
+
+getEventMonthPlanned(){
+  this.eventService.GetEventMonth()
+  .subscribe((res) => {
+    this.eventsPlannedMonth = res
+    if(this.eventsPlannedMonth.length > 0){
+      this.eventsPlannedMonthBool = true
+      this.sortArr(this.eventsPlannedMonth)
+    }
+  })
+}
+
+
+sortArr(arr:any){
+  const today = new Date()
+  arr.sort(function(a:any,b:any){
+    return (<any>moment(today).format('MMDD') - <any>moment(b.date).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.date).format('MMDD'))
+  })
+}
+
+getEventPlanned(){
   this.eventService.GetAllEvents()
-    .subscribe((res) => {
-      this.events = res
-      this.events.forEach((events:any) => {
-        if(<any>moment(this.today).format('MMDD') == <any>moment(events.date).format('MMDD')){
-          this.eventsPlannedToday.push(events)
-          this.eventsPlannedTodayBool = true
-        }
-        if(<any>moment(this.today).format('MM') == <any>moment(events.date).format('MM')){
-          this.eventsPlannedMonth.push(events)
-          this.eventsPlannedMonthBool = true;
-        }else{
-          this.eventsPlannedMonth = []
-        }
-      })
-    })
- }
+  .subscribe((res) => {
+      this.eventsPlanned = res
+      if(this.eventsPlanned.length > 0){
+      }
+      this.sortArr(this.eventsPlanned)
+  });
+}
+
 
   getEvent(){
     this.eventsTodayBool = false
@@ -91,10 +119,6 @@ export class UserCalendarComponent implements OnInit {
           this.eventsToday.push(ev)
           this.eventsTodayBool = true
         }
-        if(<any>moment(this.selectedDate).format('MM') == <any>moment(ev.date).format('MM')){
-          this.eventsMonth.push(ev)
-          this.eventsMonthBool = true;
-        }
       })
     })
   }
@@ -102,6 +126,5 @@ export class UserCalendarComponent implements OnInit {
   resetResults(){
     this.eventsToday = []  
     this.birthToday = []
-    this.eventsMonth = []
   }
 }

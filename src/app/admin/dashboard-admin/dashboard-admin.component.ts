@@ -22,7 +22,7 @@ export class DashboardAdminComponent implements OnInit {
   toDoListTomorrow:any
   haveTaskToday:boolean = false
   haveTaskTomorrow:boolean = false
-  haveTaskWeek:boolean = false
+  haveTaskWeek:boolean = true
 
   events!:any
   staff!:any
@@ -42,7 +42,6 @@ export class DashboardAdminComponent implements OnInit {
   task!:any
   btn!:any
   editTask!:any
-  arr:any = []
   updateUser!:any
   changeUser!:any
   lastPerf!:any
@@ -123,14 +122,14 @@ onChange($event:any,task:any){
   this.idCheckBox = $event.target.value
   this.isChecked = $event.target.checked
   if(this.isChecked){
-    this.deleteArr.push(task)
-  }else{
-    this.deleteArr.splice(task.id, 1);
+      this.taskService.DeleteTask(task._id)
+      .subscribe((res) => {
+        console.log(res);
+    })
   }
 }
 
 deleteTask(id:any) {
-  console.log(id);
     this.taskService.DeleteTask(id).subscribe((res) => {
       this.getAllTask()
     })
@@ -172,6 +171,8 @@ getTaskTomorrow(){
   this.taskService.GetAllTaskTomorrow()
   .subscribe((res) => {
     this.toDoListTomorrow = res
+    console.log(this.toDoListTomorrow);
+
     if(this.toDoListTomorrow.length > 0){
       this.haveTaskTomorrow = true
     }else{
