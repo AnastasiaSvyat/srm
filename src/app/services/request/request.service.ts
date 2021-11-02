@@ -62,6 +62,13 @@ constructor(private httpClient: HttpClient,private careService: CareService) { }
       )
   }
 
+  GetRequestConfirmMonth() {
+    let API_URL = `${this.careService.REST_API}/trueRequest-month/?month=${this.careService.month}&confirm=true`;
+    console.log(API_URL);
+     
+    return this.httpClient.get(API_URL);
+  }
+
   DeclineRequest(): Observable<any> {
     return this.httpClient.get(`${this.careService.REST_API}/false-request/?decline=true`)
       .pipe(map((res: any) => {

@@ -29,7 +29,7 @@ export class AddRequestUserComponent implements OnInit {
       email: new FormControl(this.data.employee.email,[Validators.required]),
       name: new FormControl(this.data.employee.name,[Validators.required]),
       type: new FormControl('',[Validators.required]),
-      startDate: new FormControl('',[Validators.required]),
+      date: new FormControl('',[Validators.required]),
       endDate: new FormControl('',[Validators.required]),
       description: new FormControl('',[Validators.required]),
       confirm: new FormControl(false,[Validators.required]),
@@ -38,23 +38,11 @@ export class AddRequestUserComponent implements OnInit {
   }
 
   get type() { return this.requestForm.get('type')!; }
-  get startDate() { return this.requestForm.get('startDate')!; }
+  get date() { return this.requestForm.get('date')!; }
   get endDate() { return this.requestForm.get('endDate')!; }
   get description() { return this.requestForm.get('description')!; }
 
   onNoClick(): void {
     this.dialogRef.close();
-  }
-  
-  addRequest(): void{
-    console.log(this.requestForm.value);
-    this.requestService.AddRequest(this.requestForm.value)
-    .subscribe((res) => {
-      MaterialService.toast("Congratulations! Event has been added!")
-      this.dialogRef.close(this.requestForm.value)
-      this.createRequest = res
-    }, (err) => {
-      MaterialService.toast("This event is already exists. Try another one.")
-    });
   }
 }

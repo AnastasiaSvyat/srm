@@ -11,7 +11,7 @@
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <div>
                 <mat-form-field class="mt44 calendarWidth">
-                    <input formControlName="startDate" matInput [matDatepicker]="picker" placeholder="Start day">
+                    <input formControlName="date" matInput [matDatepicker]="picker" placeholder="Start day">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker startView="year"></mat-datepicker>
                 </mat-form-field>
@@ -33,7 +33,7 @@
                 <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button (click)='addRequest()' class="btn h48 w155" mat-stroked-button>Send</button>
+                <button [mat-dialog-close]="requestForm.value" class="btn h48 w155" mat-stroked-button>Send</button>
             </div>
         </div>
         </div>

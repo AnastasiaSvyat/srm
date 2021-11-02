@@ -102,6 +102,24 @@
         <!-- Vacations -->
         <div fxFlex='31%' class="dashboard-content ml16 mt16 colorBlock">
             <div class="fs24 ml24 mt24">Vacations</div>
+            <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start" >
+                <div class="mt16">
+                    <p class="fontColorGrey fs18 mt16">This month</p>
+                    <div fxLayout="row" fxLayoutAlign="start center" *ngFor = "let item of vacationMonth">     
+                        <div class="fontColorGrey fs14">{{item.date | date:'dd.MM.yy'}} - {{item.endDate | date:'dd.MM.yy'}}</div>
+                        <div class="photo photoSmall ml12"></div>
+                        <div class="fs14 ml8">{{item.name}}</div>
+                    </div>
+                </div>
+                <div class="mt16">
+                    <p class="fontColorGrey fs18 mt16">Later</p>
+                    <div fxLayout="row" fxLayoutAlign="start center" *ngFor = "let item of vacationLater">     
+                        <div class="fontColorGrey fs14">{{item.date | date:'dd.MM.yy'}} - {{item.endDate | date:'dd.MM.yy'}}</div>
+                        <div class="photo photoSmall ml12"></div>
+                        <div class="fs14 ml8">{{item.name}}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     

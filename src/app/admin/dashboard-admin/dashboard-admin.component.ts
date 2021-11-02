@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import * as moment from 'moment';
+import { MaterialService } from 'src/app/services/material/material.service';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { EventService } from 'src/app/services/event/event.service';
@@ -8,7 +9,7 @@ import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
 import { AddEventComponent } from '../add-event/add-event.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { AddUserComponent } from '../add-user/add-user.component';
-import { MaterialService } from 'src/app/services/material/material.service';
+import { RequestService } from 'src/app/services/request/request.service';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -53,12 +54,15 @@ export class DashboardAdminComponent implements OnInit {
   addCVBool!:boolean
   eventDay!:any
   eventMonth!:any
+  vacationMonth!:any
+  vacationLater!:any
 
 
 constructor(public dialog: MatDialog,
     private service:DataEmployeeService,
     private eventService: EventService,
     private emoloyeeService:EmployeeService,
+    private requestService:RequestService,
     private taskService: ToDoListService) {
 }
  
@@ -70,7 +74,9 @@ ngOnInit(): void {
     this.emoloyeeService.GetStaff()
     this.today = new Date()
     this.getAllBirth()
-    this.emoloyeeService.GetEmplBirthToday()}
+    this.emoloyeeService.GetEmplBirthToday()
+    this.getAllVacations()
+}
 
 addResult(result:any){
   result.month = <any>moment(result.date).format('MM')
@@ -84,6 +90,27 @@ sortArr(arr:any){
   arr.sort(function(a:any,b:any){
     return (<any>moment(today).format('MMDD') - <any>moment(b.date).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.date).format('MMDD'))
   })
+}
+
+// Vacations
+
+getVacationsMonth(){
+  this.requestService.GetRequestConfirmMonth()
+    .subscribe((res) => {
+      this.vacationMonth = res
+    })
+}
+
+getVacationsLater(){
+  this.requestService.ConfirmRequest()
+  .subscribe((res) => {
+    this.vacationLater = res
+  })
+}
+
+getAllVacations(){
+  this.getVacationsMonth()
+  this.getVacationsLater()
 }
 
 // USER

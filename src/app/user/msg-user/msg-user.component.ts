@@ -3,6 +3,8 @@ import { AddRequestUserComponent } from '../add-request-user/add-request-user.co
 import { MatDialog } from '@angular/material/dialog';
 import { RequestService } from 'src/app/services/request/request.service';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
+import * as moment from 'moment';
+import { MaterialService } from 'src/app/services/material/material.service';
 
 @Component({
   selector: 'app-msg-user',
@@ -51,6 +53,8 @@ export class MsgUserComponent implements OnInit {
     this.requestService.GetAllRequestEmail(this.employee.email)
     .subscribe((res) => {
     this.pendingRequestArr = res
+    console.log(this.pendingRequestArr);
+    
     if(this.pendingRequestArr.length == 0){
       this.pendingRequestBool =false
     }else{
@@ -90,7 +94,17 @@ export class MsgUserComponent implements OnInit {
       data:{employee:this.employee}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.pendingRequest()
-    });
+  result.month = <any>moment(result.date).format('MM')
+  this.requestService.AddRequest(result)
+  .subscribe((res) => {
+    MaterialService.toast("Congratulations! Event has been added!")
+    this.pendingRequest()
+    
+    // this.createRequest = res
+  }, (err) => {
+    MaterialService.toast("This event is already exists. Try another one.")
+  });
+}
+    );
   }
 }
