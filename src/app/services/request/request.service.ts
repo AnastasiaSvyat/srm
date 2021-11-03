@@ -105,4 +105,11 @@ constructor(private httpClient: HttpClient,private careService: CareService) { }
         catchError(this.careService.handleError)
       )
   }
+
+  DeleteRequest(id:any): Observable<any> {
+    let API_URL = `${this.careService.REST_API}/delete-request/${id}`;
+    return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders}).pipe(
+        catchError(this.careService.handleError)
+      )
+  }
 }

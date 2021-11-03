@@ -55,7 +55,10 @@ export class DashboardAdminComponent implements OnInit {
   eventDay!:any
   eventMonth!:any
   vacationMonth!:any
-  vacationLater!:any
+  vacationLater:any = []
+  eventLater:any = []
+  staffLater:any = []
+  vacationAll!:any
 
 
 constructor(public dialog: MatDialog,
@@ -87,7 +90,7 @@ addResult(result:any){
 
 sortArr(arr:any){
   const today = new Date()
-  arr.sort(function(a:any,b:any){
+  arr.sort(function(a:any,b:any){ 
     return (<any>moment(today).format('MMDD') - <any>moment(b.date).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.date).format('MMDD'))
   })
 }
@@ -104,7 +107,18 @@ getVacationsMonth(){
 getVacationsLater(){
   this.requestService.ConfirmRequest()
   .subscribe((res) => {
-    this.vacationLater = res
+    this.vacationAll = res
+    const today = <any>moment(new Date).format('YYYY-MM-DD')
+    this.vacationAll.forEach((item:any) => {
+      if(moment(today).isBefore(item.date)){
+        this.vacationLater.push(item)
+        this.sortArr(this.vacationLater)
+      }else{
+        this.requestService.DeleteRequest(item._id)
+        .subscribe((res) => {
+        })
+      }
+    });
   })
 }
 
@@ -186,10 +200,9 @@ getTaskWeek(){
     this.toDoListWeek = res
     if(this.toDoListWeek.length > 0){
       this.haveTaskWeek = true
+      this.sortArr(this.toDoListWeek)
     }else{
       this.haveTaskWeek = false
-      this.sortArr(this.toDoListWeek)
-
     }
   })
 }
@@ -202,13 +215,13 @@ getTaskTomorrow(){
 
     if(this.toDoListTomorrow.length > 0){
       this.haveTaskTomorrow = true
+      console.log(this.haveTaskTomorrow);
+      
     }else{
       this.haveTaskTomorrow = false
     }
   })
 }
-
-
 
 addTask(): void {
   const dialogRef = this.dialog.open(AddTaskComponent, {
@@ -231,7 +244,7 @@ updateTask(event:any): void {
 const dialogRef = this.dialog.open(AddTaskComponent, {
   width: '398px',
   height :'361px',
-  data: {head: "Edit task:",btn: "EDIT",dateAll:event.dateAll,task:event.task}
+  data: {head: "Edit task:",btn: "EDIT",dateAll:event.date,task:event.task}
 });
 dialogRef.afterClosed().subscribe(result => {
   this.editTask = result;
@@ -294,9 +307,19 @@ getEvent(){
       this.events = res
       if(this.events.length > 0){
         this.noHaveEvent = true
+        const today = <any>moment(new Date).format('YYYY-MM-DD')
+        this.events.forEach((item:any) => {
+          if(moment(today).isBefore(item.date)){
+            this.eventLater.push(item)
+            this.sortArr(this.eventLater)
+          }else{
+            this.eventService.DeleteEvent(item._id)
+            .subscribe((res) => {
+              this.getAllEvent()
+            })
+          }
+        });
       }
-      this.sortArr(this.events)
-      
   });
 }
 
@@ -334,7 +357,14 @@ getBirth(){
   this.emoloyeeService.GetStaff()
   .subscribe((res) => {
       this.staff = res
-      const today = new Date()
+      const today = <any>moment(new Date).format('MM-DD')
+      this.staff.forEach((item:any) => {
+      const convertedItem =<any>moment(item.date).format('MM-DD')
+        if(moment(today).isBefore(convertedItem)){
+          this.staffLater.push(item)
+          this.sortArr(this.staffLater)
+        }
+      });
       this.sortArr(this.staff)
   })
 }

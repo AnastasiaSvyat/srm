@@ -30,7 +30,7 @@ export class ToDoListService {
   }
   
   GetAllTaskTomorrow() {
-    let API_URL = `${this.careService.REST_API}/get-taskTomorrow/?email=${this.employee.email}&day=${this.careService.tomorrow + 1}&year=${this.careService.year}`;
+    let API_URL = `${this.careService.REST_API}/get-taskTomorrow/?email=${this.employee.email}&day=${this.careService.tomorrow + 1}&month=${this.careService.month}&year=${this.careService.year}`;
       return this.httpClient.get(API_URL);
   }
 
@@ -40,7 +40,9 @@ export class ToDoListService {
   }
 
   GetAllTaskDate() {
-    let API_URL = `${this.careService.REST_API}/get-taskDate/?email=${this.employee.email}&day=${this.careService.today}&year=${this.careService.year}`;
+    let API_URL = `${this.careService.REST_API}/get-taskDate/?email=${this.employee.email}&month=${this.careService.month}&day=${this.careService.today}&year=${this.careService.year}`;
+    console.log(API_URL);
+    
       return this.httpClient.get(API_URL);
   }
 

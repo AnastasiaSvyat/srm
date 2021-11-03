@@ -5,6 +5,7 @@ export class ToDoList {
     email!:String;
     day!: String;
     week!: String;
+    month!: String;
     year!:String;
     isChecked!:Boolean;
 }
