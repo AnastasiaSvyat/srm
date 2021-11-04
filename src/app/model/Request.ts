@@ -1,12 +1,12 @@
 export class Request {
-    _id!: String;
-    email!: String;
-    date!: String;
-    endDate!: String;
-    type!: String;
-    description!: String;
-    confirm!: Boolean;
-    decline!:Boolean;
-    name!: String;
-    month!:String;
+    id!: string;
+    email!: string;
+    date!: string;
+    endDate!: string;
+    type!: string;
+    description!: string;
+    confirm!: boolean;
+    decline!: boolean;
+    name!: string;
+    month!: string;
 }

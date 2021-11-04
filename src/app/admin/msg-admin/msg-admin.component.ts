@@ -9,61 +9,61 @@ import { RequestService } from 'src/app/services/request/request.service';
 })
 export class MsgAdminComponent implements OnInit {
 
-  requestList!:any
-  newRequest!:boolean
-  pendingRequestArr:any;
-  confirmRequestArr:any;
-  confirmRequestBool!:Boolean
-  pendingRequestBool!:Boolean
-  
+
+  constructor(private requestService: RequestService, private changeDetectorRefs: ChangeDetectorRef) { }
+
+  requestList!: any;
+  newRequest!: boolean;
+  pendingRequestArr: any;
+  confirmRequestArr: any;
+  confirmRequestBool!: boolean;
+  pendingRequestBool!: boolean;
+
 
   @ViewChildren(MatTable) table !: QueryList<MatTable<string>>;
 
-
-  constructor(private requestService:RequestService, private changeDetectorRefs: ChangeDetectorRef) { }
+  displayedColumns: string[] = ['startDate', 'type', 'date', 'description', 'decline', 'confirm'];
+  displayedColumnsConfirm: string[] = ['startDate', 'type', 'date', 'con', 'description'];
 
   ngOnInit(): void {
-    this.pendingRequest()
-    this.confirmRequest()
+    this.pendingRequest();
+    this.confirmRequest();
   }
-  
-  displayedColumns: string[] = ['startDate','type', 'date','description','decline','confirm']
-  displayedColumnsConfirm: string[] = ['startDate','type', 'date','con','description']
 
 
   pendingRequest(){
     this.requestService.GetAllRequest()
     .subscribe((res) => {
-    this.pendingRequestArr = res
-    if(this.pendingRequestArr.length == 0){
-      this.pendingRequestBool =false
+    this.pendingRequestArr = res;
+    if (this.pendingRequestArr.length === 0){
+      this.pendingRequestBool = false;
     }else{
-      this.pendingRequestBool =true
+      this.pendingRequestBool = true;
     }
-    })
+    });
   }
 
   confirmRequest(){
     this.requestService.ConfirmRequest()
     .subscribe((res) => {
-      this.confirmRequestArr = res
-      if(this.confirmRequestArr.length == 0){
-        this.confirmRequestBool =false
+      this.confirmRequestArr = res;
+      if (this.confirmRequestArr.length === 0){
+        this.confirmRequestBool = false;
       }else{
-        this.confirmRequestBool =true
+        this.confirmRequestBool = true;
       }
-    })
+    });
   }
 
-  actionRequest(res:any,element:any){
-    if(res == true){
-      element.confirm = res
+  actionRequest(res: any, element: any){
+    if (res === true){
+      element.confirm = res;
     }else{
-      element.decline = true
+      element.decline = true;
     }
-    this.requestService.UpdateRequest(element._id,element)
-    .subscribe((res) =>{
-      this.confirmRequest()
-      this.pendingRequest()
-  })}
+    this.requestService.UpdateRequest(element.id, element)
+    .subscribe(() => {
+      this.confirmRequest();
+      this.pendingRequest();
+  }); }
 }

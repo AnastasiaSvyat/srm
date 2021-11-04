@@ -25,7 +25,7 @@
             <div fxFlex='31%' class="content_top mt16 ml16 colorBlock">
                 <div class="mt24 ml24">
                     <p class="fs18 fontColorGrey">Salary</p>
-                    <p class="fs36">{{employee.salary}}$</p>
+                    <p class="fs36 fw500">{{employee.salary}}$</p>
                 </div>
             </div>
             <div fxFlex='31%' class="content_top mt16 ml16 colorBlock">
@@ -42,6 +42,7 @@
             <div fxFlex='31%' class="content_bottom mt16 ml16 colorBlock">
                 <div class="mt24 ml24">
                     <p class="fs18 fontColorGrey">Planned vacation</p>
+                    <p *ngFor = "let vacation of vacationPlanned" class="plannedVacation fw500 fs36">{{vacation.date | date:'dd.MM.YYYY'}} - {{vacation.endDate | date:'dd.MM.YYYY'}}</p>
                 </div>
             </div>
             <div fxFlex='31%' class="content_bottom mt16 ml16 colorBlock">
@@ -51,16 +52,18 @@
             </div>
             <div fxFlex='31%' class="content_bottom mt16 ml16 colorBlock">
                 <div class="mt24 ml24">
-                    <p class="fs18 fontColorGrey">Events this.month</p>
+                    <p class="fs18 fontColorGrey">Events this month</p>
+                        <div *ngFor = "let event of monthBirth">
+                            <span class="fontColorGrey fs14">{{event.date | date:'dd.MM'}}</span>
+                            <span class="ml8 fs14">{{event.name}}</span>
+                        </div>
                 </div>
             </div>
         </div>
         <!-- About -->
         <div fxFlex='25%' fxLayout="column" fxLayoutAlign="space-between start" class="container_right mt24 colorBlock">
-            <div class="mt24 ml24">
-                <p class="fs24">About me</p>
-            </div>
-            <div *ngFor = "let info of employee.info let i = index;">
+            <div fxFlex='2%' class="fs24 ml24 mt24">About me</div>
+            <div fxFlex='10%' *ngFor = "let info of employee.info let i = index;">
                 <div class="ml24 mt16">
                     <p class="fs18 fontColorGrey">Some info</p>
                     <p class="fs14">{{info.info}}</p>
@@ -72,7 +75,7 @@
         </div>
     </div>
     <div fxLayout='row'>
-        <div fxFlex='73%'  class="mt16 h11r colorBlock" fxLayout="row" fxLayoutAlign="end end">
+        <div fxFlex='72%'  class="mt16 h11r colorBlock" fxLayout="row" fxLayoutAlign="end end">
             <button class="btnOpen-dashboard-user w155 h48 btn" mat-stroked-button>OPEN FILE</button>
         </div>
         

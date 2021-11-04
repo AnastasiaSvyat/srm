@@ -12,25 +12,27 @@ import {MatDialog} from '@angular/material/dialog';
 })
 
 export class UserStaffListComponent implements OnInit {
+
+  constructor(private employeeService: EmployeeService, public dialog: MatDialog) { }
   staffList: Employee[] = [];
   currentEmployee: SearchName = {};
-  name = ''
+  name = '';
   currentIndex = -1;
   page = 1;
   count = 0;
   pageSize = 10;
   pageSizes = [3, 6, 9];
-  
-  constructor(private employeeService: EmployeeService,public dialog: MatDialog) { }
+
+  displayedColumns: string[] = ['name', 'position', 'birthday', 'phone', 'email', 'skype'];
 
   ngOnInit(): void {
     this.retrieveStaff();
   }
 
- 
+
   getRequestParams( page: number, pageSize: number): any {
-    let params: any = {};
-    if(page){
+    const params: any = {};
+    if (page){
       params[`page`] = page - 1;
     }
     if (pageSize) {
@@ -38,8 +40,6 @@ export class UserStaffListComponent implements OnInit {
     }
     return params;
   }
-
-  displayedColumns: string[] = ['name','position', 'birthday','phone','email','skype']
 
   retrieveStaff(): void {
     const params = this.getRequestParams(this.page, this.pageSize);
@@ -54,12 +54,12 @@ export class UserStaffListComponent implements OnInit {
         console.log(error);
       });
   }
-  
+
   handlePageChange(event: number): void {
     this.page = event;
     this.retrieveStaff();
   }
-  
+
   setActiveEmployee(employee: Employee, index: number): void {
     this.currentEmployee = employee;
     this.currentIndex = index;

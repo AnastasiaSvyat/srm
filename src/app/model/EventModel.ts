@@ -1,8 +1,8 @@
 export class EventModel {
-    _id!: String;
-    name!: String;
-    date!: String;
-    type!: String;
-    description!: String;
-    confirm!:Boolean;   
+    id!: string;
+    name!: string;
+    date!: string;
+    type!: string;
+    description!: string;
+    confirm!: boolean;
 }

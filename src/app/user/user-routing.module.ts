@@ -10,12 +10,12 @@ import { MsgUserComponent } from './msg-user/msg-user.component';
 
 export const routes: Routes = [
   { path: '', component: UserComponent, children: [
-    { path: 'stafflist', component: UserStaffListComponent ,},
-    { path: 'calendar', component: UserCalendarComponent ,},
-    { path: 'dashboardUser', component: DashboardUserComponent ,},
-    { path: 'messageUser', component: MsgUserComponent ,},
-    { path: '', redirectTo:'dashboardUser', pathMatch:'full'},
-    { path: '**', redirectTo:'dashboardUser' ,},
+    { path: 'stafflist', component: UserStaffListComponent},
+    { path: 'calendar', component: UserCalendarComponent},
+    { path: 'dashboardUser', component: DashboardUserComponent},
+    { path: 'messageUser', component: MsgUserComponent},
+    { path: '', redirectTo: 'dashboardUser', pathMatch: 'full'},
+    { path: '**', redirectTo: 'dashboardUser'},
   ]},
 ];
 

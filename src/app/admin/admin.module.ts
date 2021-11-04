@@ -21,7 +21,6 @@ import { MsgAdminComponent } from './msg-admin/msg-admin.component';
     AddUserComponent,
     AddTaskComponent,
     MsgAdminComponent,
-    
   ],
   imports: [
     CommonModule,

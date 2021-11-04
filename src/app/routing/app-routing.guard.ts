@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Route, Router , CanLoad} from '@angular/router';
 import { Observable } from 'rxjs';
-import { Role } from '../model/role'
 import { AuthService } from '../services/auth/auth.service';
 
 @Injectable({
@@ -18,7 +17,7 @@ export class AppRoutingGuard implements CanActivate {
         this.router.navigate(['']);
         return false;
     }
-    return true;
+      return true;
   }
   canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.authService.isAuthorized()) {

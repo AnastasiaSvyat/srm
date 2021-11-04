@@ -16,38 +16,36 @@ import * as moment from 'moment';
 export class AddTaskComponent implements OnInit {
 
   id: any;
-  infoAboutUserForm!:FormGroup
+  infoAboutUserForm!: FormGroup;
   public employee: any;
 
-  todo!:ToDoList
-  constructor( public dialogRef: MatDialogRef<AddTaskComponent,DashboardAdminComponent>,
-    @Inject(MAT_DIALOG_DATA) public dataTask: DashboardAdminComponent,
-    private service:DataEmployeeService,
-    private emoloyeeService: EmployeeService ) { 
+  todo!: ToDoList;
+  constructor( public dialogRef: MatDialogRef<AddTaskComponent, DashboardAdminComponent>,
+               @Inject(MAT_DIALOG_DATA) public dataTask: DashboardAdminComponent,
+               private service: DataEmployeeService,
+               private emoloyeeService: EmployeeService ) {
       this.service.data.subscribe(value => {
-        this.employee = value
+        this.employee = value;
       });
     }
 
 
   ngOnInit(): void {
-    this.id = this.employee.id
-  
-    
+    this.id = this.employee.id;
+
+
     this.infoAboutUserForm = new FormGroup({
-      task: new FormControl(this.dataTask.task,[Validators.required]),
-      date: new FormControl(this.dataTask.dateAll,[Validators.required]),
+      task: new FormControl(this.dataTask.task, [Validators.required]),
+      date: new FormControl(this.dataTask.dateAll, [Validators.required]),
       email: new FormControl(this.employee.email),
-      isChecked:new FormControl(false)
-      
-    })
+      isChecked: new FormControl(false)
+
+    });
 
 }
-get date() { return this.infoAboutUserForm.get('date')!; }
+get date() { return this.infoAboutUserForm.get('date'); }
 
-
-
-  onNoClick(): void {
+onNoClick(): void {
     this.dialogRef.close();
   }
 

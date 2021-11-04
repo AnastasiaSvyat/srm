@@ -11,36 +11,36 @@ import { MsgUserComponent } from '../msg-user/msg-user.component';
   styleUrls: ['./add-request-user.component.scss']
 })
 export class AddRequestUserComponent implements OnInit {
-  
-  requestForm!:any
-  createRequest!:any
-  employee!:any
-  
+
+  requestForm!: any;
+  createRequest!: any;
+  employee!: any;
+
   constructor(
     public dialogRef: MatDialogRef<MsgUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: MsgUserComponent,
-    public requestService:RequestService,
-    
+    public requestService: RequestService,
+
   ) { }
 
   ngOnInit(): void {
 
     this.requestForm = new FormGroup({
-      email: new FormControl(this.data.employee.email,[Validators.required]),
-      name: new FormControl(this.data.employee.name,[Validators.required]),
-      type: new FormControl('',[Validators.required]),
-      date: new FormControl('',[Validators.required]),
-      endDate: new FormControl('',[Validators.required]),
-      description: new FormControl('',[Validators.required]),
-      confirm: new FormControl(false,[Validators.required]),
-      decline: new FormControl(false,[Validators.required])
-    })
+      email: new FormControl(this.data.employee.email, [Validators.required]),
+      name: new FormControl(this.data.employee.name, [Validators.required]),
+      type: new FormControl('', [Validators.required]),
+      date: new FormControl('', [Validators.required]),
+      endDate: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
+      confirm: new FormControl(false, [Validators.required]),
+      decline: new FormControl(false, [Validators.required])
+    });
   }
 
-  get type() { return this.requestForm.get('type')!; }
-  get date() { return this.requestForm.get('date')!; }
-  get endDate() { return this.requestForm.get('endDate')!; }
-  get description() { return this.requestForm.get('description')!; }
+  get type() { return this.requestForm.get('type'); }
+  get date() { return this.requestForm.get('date'); }
+  get endDate() { return this.requestForm.get('endDate'); }
+  get description() { return this.requestForm.get('description'); }
 
   onNoClick(): void {
     this.dialogRef.close();

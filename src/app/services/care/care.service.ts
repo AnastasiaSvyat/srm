@@ -7,25 +7,24 @@ import * as moment from 'moment';
   providedIn: 'root'
 })
 export class CareService {
-  today!:any 
-  month!:any
-  year!:any
-  week!:any
-  tomorrow!:any
-d!:any
+  today!: any;
+  month!: any;
+  year!: any;
+  week!: any;
+  tomorrow!: any;
+d!: any;
 
-  constructor() { 
-    this.d = new Date
-    this.month = <any>moment(new Date).format('MM')
-    this.today = <any>moment(new Date).format('DD')
-    this.year = <any>moment(new Date).format('YY')
-    this.week = <any>moment(new Date).format('WW')
-    this.tomorrow = Number(<any>moment(new Date).format('DD'))  
+  constructor() {
+    this.month = (moment(new Date()).format('MM') as any);
+    this.today = (moment(new Date()).format('DD') as any);
+    this.year = (moment(new Date()).format('YY') as any);
+    this.week = (moment(new Date()).format('WW') as any);
+    this.tomorrow = Number(moment(new Date()).format('DD') as any);
   }
-  
-  REST_API: string = 'http://localhost:8000/api';
+
+  REST_API = 'http://localhost:8000/api';
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-  
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

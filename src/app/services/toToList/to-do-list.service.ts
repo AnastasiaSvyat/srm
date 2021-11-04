@@ -11,63 +11,63 @@ import * as moment from 'moment';
   providedIn: 'root'
 })
 export class ToDoListService {
-  employee!:any 
-  
+  employee!: any;
+
   constructor(private httpClient: HttpClient, private dataEmplService: DataEmployeeService,
-    private careService: CareService) { 
+              private careService: CareService) {
     this.dataEmplService.data.subscribe(value => {
-      this.employee = value
+      this.employee = value;
     });
   }
 
- 
-  AddTask(data:ToDoList ): Observable<any> {
-    let API_URL = `${this.careService.REST_API}/add-task`;
+
+  AddTask(data: ToDoList ): Observable<any> {
+    const API_URL = `${this.careService.REST_API}/add-task`;
     return this.httpClient.post(API_URL, data)
       .pipe(
         catchError(this.careService.handleError)
-      )
+      );
   }
-  
+
   GetAllTaskTomorrow() {
-    let API_URL = `${this.careService.REST_API}/get-taskTomorrow/?email=${this.employee.email}&day=${this.careService.tomorrow + 1}&month=${this.careService.month}&year=${this.careService.year}`;
-      return this.httpClient.get(API_URL);
+    const API_URL = `${this.careService.REST_API}/get-taskTomorrow/?email=${this.employee.email}&day=${this.careService.tomorrow + 1}&month=${this.careService.month}&year=${this.careService.year}`;
+    return this.httpClient.get(API_URL);
   }
 
   GetAllTaskWeek() {
-    let API_URL = `${this.careService.REST_API}/get-taskWeek/?email=${this.employee.email}&week=${this.careService.week}&year=${this.careService.year}`;
-      return this.httpClient.get(API_URL);
+    const API_URL = `${this.careService.REST_API}/get-taskWeek/?email=${this.employee.email}&week=${this.careService.week}&year=${this.careService.year}`;
+    return this.httpClient.get(API_URL);
   }
 
   GetAllTaskDate() {
-    let API_URL = `${this.careService.REST_API}/get-taskDate/?email=${this.employee.email}&month=${this.careService.month}&day=${this.careService.today}&year=${this.careService.year}`;
+    const API_URL = `${this.careService.REST_API}/get-taskDate/?email=${this.employee.email}&month=${this.careService.month}&day=${this.careService.today}&year=${this.careService.year}`;
     console.log(API_URL);
-    
-      return this.httpClient.get(API_URL);
+
+    return this.httpClient.get(API_URL);
   }
 
-  SelectedTask(id:any): Observable<any> {
-    let API_URL = `${this.careService.REST_API}/read-task/${id}`;
+  SelectedTask(id: any): Observable<any> {
+    const API_URL = `${this.careService.REST_API}/read-task/${id}`;
     return this.httpClient.get(API_URL, { headers: this.careService.httpHeaders })
       .pipe(map((res: any) => {
-          return res || {}
+          return res || {};
         }),
         catchError(this.careService.handleError)
-      )
+      );
   }
 
-  UpdateTask(id:any, task:any): Observable<any> {
-    let API_URL = `${this.careService.REST_API}/update-task/${id}`;
+  UpdateTask(id: any, task: any): Observable<any> {
+    const API_URL = `${this.careService.REST_API}/update-task/${id}`;
     return this.httpClient.put(API_URL, task, { headers: this.careService.httpHeaders })
       .pipe(
         catchError(this.careService.handleError)
-      )
+      );
   }
 
-  DeleteTask(id:any): Observable<any> {
-    let API_URL = `${this.careService.REST_API}/delete-task/${id}`;
+  DeleteTask(id: any): Observable<any> {
+    const API_URL = `${this.careService.REST_API}/delete-task/${id}`;
     return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders}).pipe(
         catchError(this.careService.handleError)
-      )
+      );
   }
 }

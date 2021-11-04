@@ -1,5 +1,5 @@
 export class Employee {
-    _id!: string;
+    id!: string;
     name!: string;
     email!: string;
     position!: string;
@@ -10,7 +10,7 @@ export class Employee {
     password!: number;
     token!: string;
     role!: string;
-    info!:Array<string>;
-    file!:Array<any>;
-    toDoList!:Array<string>;
+    info!: Array<string>;
+    file!: Array<any>;
+    toDoList!: Array<string>;
 }

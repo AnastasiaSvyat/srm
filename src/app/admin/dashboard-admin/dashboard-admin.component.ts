@@ -17,82 +17,83 @@ import { RequestService } from 'src/app/services/request/request.service';
   styleUrls: ['./dashboard-admin.component.scss']
 })
 export class DashboardAdminComponent implements OnInit {
-  employee:any = []
-  toDoListToday:any
-  toDoListWeek:any
-  toDoListTomorrow:any
-  haveTaskToday:boolean = false
-  haveTaskTomorrow:boolean = false
-  haveTaskWeek:boolean = true
+  employee: any = [];
+  toDoListToday: any;
+  toDoListWeek: any;
+  toDoListTomorrow: any;
+  haveTaskToday = false;
+  haveTaskTomorrow = false;
+  haveTaskWeek = true;
 
-  events!:any
-  staff!:any
-  isChecked:boolean = false;
-  monthBirth:any
-  todayBirth:any
-  haveBirthToday:boolean = false
-  haveBirthMonth:boolean = false
-  haveEventToday:boolean = false
-  haveEventMonth:boolean = false
-  noHaveEvent:boolean = false
-  idCheckBox!:any
-  deleteArr:any = []
-  today!:any
-  head!:any
-  dateAll!:any
-  task!:any
-  btn!:any
-  editTask!:any
-  updateUser!:any
-  changeUser!:any
-  lastPerf!:any
-  arhiveUser!:any
-  addCV!:any
-  lastPerfBool!:boolean
-  passBool!:boolean
-  roleBool!:boolean
-  addCVBool!:boolean
-  eventDay!:any
-  eventMonth!:any
-  vacationMonth!:any
-  vacationLater:any = []
-  eventLater:any = []
-  staffLater:any = []
-  vacationAll!:any
+  events!: any;
+  staff!: any;
+  isChecked = false;
+  monthBirth: any;
+  todayBirth: any;
+  haveBirthToday = false;
+  haveBirthMonth = false;
+  haveEventToday = false;
+  haveEventMonth = false;
+  noHaveEvent = false;
+  idCheckBox!: any;
+  deleteArr: any = [];
+  today!: any;
+  head!: any;
+  dateAll!: any;
+  task!: any;
+  btn!: any;
+  editTask!: any;
+  updateUser!: any;
+  changeUser!: any;
+  lastPerf!: any;
+  arhiveUser!: any;
+  addCV!: any;
+  lastPerfBool!: boolean;
+  passBool!: boolean;
+  roleBool!: boolean;
+  addCVBool!: boolean;
+  eventDay!: any;
+  eventMonth!: any;
+  vacationMonth!: any;
+  vacationLater: any = [];
+  eventLater: any = [];
+  staffLater: any = [];
+  vacationAll!: any;
 
 
 constructor(public dialog: MatDialog,
-    private service:DataEmployeeService,
-    private eventService: EventService,
-    private emoloyeeService:EmployeeService,
-    private requestService:RequestService,
-    private taskService: ToDoListService) {
+            private service: DataEmployeeService,
+            private eventService: EventService,
+            private emoloyeeService: EmployeeService,
+            private requestService: RequestService,
+            private taskService: ToDoListService) {
 }
- 
+
 ngOnInit(): void {
-    this.getUser()
-    this.getEvent()
-    this.getAllTask()
-    this.getAllEvent()
-    this.emoloyeeService.GetStaff()
-    this.today = new Date()
-    this.getAllBirth()
-    this.emoloyeeService.GetEmplBirthToday()
-    this.getAllVacations()
+    this.getUser();
+    this.getAllTask();
+    this.getAllEvent();
+    this.emoloyeeService.GetStaff();
+    this.today = new Date();
+    this.getAllBirth();
+    this.emoloyeeService.GetEmplBirthToday();
+    this.getAllVacations();
 }
 
-addResult(result:any){
-  result.month = <any>moment(result.date).format('MM')
-  result.year = <any>moment(result.date).format('YY')
-  result.day = <any>moment(result.date).format('DD')
-  result.week = <any>moment(result.date).format('WW')
+addResult(result: any){
+  result.month = (moment(result.date).format('MM') as any);
+  result.year = (moment(result.date).format('YY') as any);
+  result.day = (moment(result.date).format('DD') as any);
+  result.week = (moment(result.date).format('WW') as any);
 }
 
-sortArr(arr:any){
-  const today = new Date()
-  arr.sort(function(a:any,b:any){ 
-    return (<any>moment(today).format('MMDD') - <any>moment(b.date).format('MMDD')) - (<any>moment(today).format('MMDD') - <any>moment(a.date).format('MMDD'))
-  })
+sortArr(arr: any){
+  const today = new Date();
+  arr.sort((a: any, b: any) => {
+    const first = (moment(today).format('MMDD') as any) - (moment(b.date).format('MMDD') as any);
+    const second = (moment(today).format('MMDD') as any) - (moment(a.date).format('MMDD') as any);
+    return first - second;
+  });
 }
 
 // Vacations
@@ -100,58 +101,58 @@ sortArr(arr:any){
 getVacationsMonth(){
   this.requestService.GetRequestConfirmMonth()
     .subscribe((res) => {
-      this.vacationMonth = res
-    })
+      this.vacationMonth = res;
+    });
 }
 
 getVacationsLater(){
   this.requestService.ConfirmRequest()
   .subscribe((res) => {
-    this.vacationAll = res
-    const today = <any>moment(new Date).format('YYYY-MM-DD')
-    this.vacationAll.forEach((item:any) => {
-      if(moment(today).isBefore(item.date)){
-        this.vacationLater.push(item)
-        this.sortArr(this.vacationLater)
+    this.vacationAll = res;
+    const today = moment(new Date()).format('YYYY-MM-DD') as any;
+    this.vacationAll.forEach((item: any) => {
+      if (moment(today).isBefore(item.date)){
+        this.vacationLater.push(item);
+        this.sortArr(this.vacationLater);
       }else{
-        this.requestService.DeleteRequest(item._id)
-        .subscribe((res) => {
-        })
+        this.requestService.DeleteRequest(item.id)
+        .subscribe(() => {
+        });
       }
     });
-  })
+  });
 }
 
 getAllVacations(){
-  this.getVacationsMonth()
-  this.getVacationsLater()
+  this.getVacationsMonth();
+  this.getVacationsLater();
 }
 
 // USER
 
 getUser(){
   this.service.data.subscribe(res => {
-    this.employee = res
+    this.employee = res;
   });
 }
 
-editUser(event:any): void {
+editUser(event: any): void {
   const dialogRef = this.dialog.open(AddUserComponent, {
     width: '398px',
-    height :'670px',
-    data: {head: "Edit user:",btn: "SAVE",changeUser:event,
-    lastPerf:false,arhiveUser:false,addCVBool:false,lastPerfBool:true,
-    passBool:false, roleBool:false,}
+    height : '670px',
+    data: {head: 'Edit user:', btn: 'SAVE', changeUser: event,
+    lastPerf: false, arhiveUser: false, addCVBool: false, lastPerfBool: true,
+    passBool: false, roleBool: false, }
   });
   dialogRef.afterClosed().subscribe(result => {
     this.updateUser = result;
-    this.emoloyeeService.updateEmployee(event.id,this.updateUser)
+    this.emoloyeeService.updateEmployee(event.id, this.updateUser)
         .subscribe(
           success => {
             this.emoloyeeService.GetEmployee(event.id)
             .subscribe((res) => {
-              this.employee = res
-            })
+              this.employee = res;
+            });
           },
           error => console.log(error));
   });
@@ -159,164 +160,164 @@ editUser(event:any): void {
 
 // TASK
 
-onChange($event:any,task:any){
-  this.idCheckBox = $event.target.value
-  this.isChecked = $event.target.checked
-  if(this.isChecked){
-      this.taskService.DeleteTask(task._id)
+onChange($event: any, task: any){
+  this.idCheckBox = $event.target.value;
+  this.isChecked = $event.target.checked;
+  if (this.isChecked){
+      this.taskService.DeleteTask(task.id)
       .subscribe((res) => {
         console.log(res);
-    })
+    });
   }
 }
 
-deleteTask(id:any) {
+deleteTask(id: any) {
     this.taskService.DeleteTask(id).subscribe((res) => {
-      this.getAllTask()
-    })
+      this.getAllTask();
+    });
 }
 
 getAllTask(){
-  this.getTaskDay()
-  this.getTaskWeek()
-  this.getTaskTomorrow()
+  this.getTaskDay();
+  this.getTaskWeek();
+  this.getTaskTomorrow();
 }
 
 getTaskDay(){
   this.taskService.GetAllTaskDate()
   .subscribe((res) => {
-    this.toDoListToday = res
-    if(this.toDoListToday.length > 0){
-      this.haveTaskToday = true
+    this.toDoListToday = res;
+    if (this.toDoListToday.length > 0){
+      this.haveTaskToday = true;
     }else{
-      this.haveTaskToday = false
+      this.haveTaskToday = false;
     }
-  })
+  });
 }
- 
+
 getTaskWeek(){
   this.taskService.GetAllTaskWeek()
   .subscribe((res) => {
-    this.toDoListWeek = res
-    if(this.toDoListWeek.length > 0){
-      this.haveTaskWeek = true
-      this.sortArr(this.toDoListWeek)
+    this.toDoListWeek = res;
+    if (this.toDoListWeek.length > 0){
+      this.haveTaskWeek = true;
+      this.sortArr(this.toDoListWeek);
     }else{
-      this.haveTaskWeek = false
+      this.haveTaskWeek = false;
     }
-  })
+  });
 }
 
 getTaskTomorrow(){
   this.taskService.GetAllTaskTomorrow()
   .subscribe((res) => {
-    this.toDoListTomorrow = res
+    this.toDoListTomorrow = res;
     console.log(this.toDoListTomorrow);
 
-    if(this.toDoListTomorrow.length > 0){
-      this.haveTaskTomorrow = true
+    if (this.toDoListTomorrow.length > 0){
+      this.haveTaskTomorrow = true;
       console.log(this.haveTaskTomorrow);
-      
+
     }else{
-      this.haveTaskTomorrow = false
+      this.haveTaskTomorrow = false;
     }
-  })
+  });
 }
 
 addTask(): void {
   const dialogRef = this.dialog.open(AddTaskComponent, {
     width: '398px',
-    height :'361px',
-    data: {head: "Add task:",btn:"ADD",}
+    height : '361px',
+    data: {head: 'Add task:', btn: 'ADD', }
 
   });
   dialogRef.afterClosed().subscribe(result => {
-    this.addResult(result)
-      this.taskService.AddTask(result)
+    this.addResult(result);
+    this.taskService.AddTask(result)
       .subscribe((res) => {
         console.log(res);
-        this.getAllTask()
-      })
+        this.getAllTask();
+      });
       });
 }
 
-updateTask(event:any): void {
+updateTask(event: any): void {
 const dialogRef = this.dialog.open(AddTaskComponent, {
   width: '398px',
-  height :'361px',
-  data: {head: "Edit task:",btn: "EDIT",dateAll:event.date,task:event.task}
+  height : '361px',
+  data: {head: 'Edit task:', btn: 'EDIT', dateAll: event.date, task: event.task}
 });
 dialogRef.afterClosed().subscribe(result => {
   this.editTask = result;
-  this.taskService.UpdateTask(event._id,this.editTask)
-    this.getAllTask()
+  this.taskService.UpdateTask(event.id, this.editTask);
+  this.getAllTask();
 });
 }
 
 
 // EVENT
-  
+
 addEvent(): void {
     const dialogRef = this.dialog.open(AddEventComponent, {
       width: '398px',
-      height :'591px',
+      height : '591px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.addResult(result)
+      this.addResult(result);
       this.eventService.AddEvent(result)
       .subscribe((res) => {
-        MaterialService.toast("Congratulations! Event has been added!")
-          this.getAllEvent()
+        MaterialService.toast('Congratulations! Event has been added!');
+        this.getAllEvent();
       }, (err) => {
-        MaterialService.toast("This event is already exists. Try another one.")
+        MaterialService.toast('This event is already exists. Try another one.');
       });
     });
 }
 
 getAllEvent(){
-  this.getEventDay()
-  this.getEventMonth()
-  this.getEvent()
+  this.getEventDay();
+  this.getEventMonth();
+  this.getEvent();
 }
 
 getEventDay(){
   this.eventService.GetAllEventToday()
   .subscribe((res) => {
-    this.eventDay = res
-    if(this.eventDay.length > 0){
-      this.haveEventToday = true
+    this.eventDay = res;
+    if (this.eventDay.length > 0){
+      this.haveEventToday = true;
     }
-  })
+  });
 }
 
 getEventMonth(){
   this.eventService.GetEventMonth()
   .subscribe((res) => {
-    this.eventMonth = res
-    if(this.eventMonth.length > 0){
-      this.haveEventMonth = true
-      this.sortArr(this.eventMonth)
+    this.eventMonth = res;
+    if (this.eventMonth.length > 0){
+      this.haveEventMonth = true;
+      this.sortArr(this.eventMonth);
 
     }
-  })
+  });
 }
 
 getEvent(){
   this.eventService.GetAllEvents()
   .subscribe((res) => {
-      this.events = res
-      if(this.events.length > 0){
-        this.noHaveEvent = true
-        const today = <any>moment(new Date).format('YYYY-MM-DD')
-        this.events.forEach((item:any) => {
-          if(moment(today).isBefore(item.date)){
-            this.eventLater.push(item)
-            this.sortArr(this.eventLater)
+      this.events = res;
+      if (this.events.length > 0){
+        this.noHaveEvent = true;
+        const today = moment(new Date()).format('YYYY-MM-DD') as any;
+        this.events.forEach((item: any) => {
+          if (moment(today).isBefore(item.date)){
+            this.eventLater.push(item);
+            this.sortArr(this.eventLater);
           }else{
             this.eventService.DeleteEvent(item._id)
-            .subscribe((res) => {
-              this.getAllEvent()
-            })
+            .subscribe(() => {
+              this.getAllEvent();
+            });
           }
         });
       }
@@ -326,46 +327,45 @@ getEvent(){
 // BIRTH
 
 getAllBirth(){
-  this.getBirthDay()
-  this.getBirthMonth()
-  this.getBirth()
+  this.getBirthDay();
+  this.getBirthMonth();
+  this.getBirth();
 }
 
 getBirthDay(){
   this.emoloyeeService.GetEmplBirthToday()
     .subscribe((res) => {
-    this.todayBirth = res
-    if(this.todayBirth.length > 0){
-      this.haveBirthToday = true
+    this.todayBirth = res;
+    if (this.todayBirth.length > 0){
+      this.haveBirthToday = true;
     }
-  })
+  });
 }
 
 getBirthMonth(){
   this.emoloyeeService.GetEmplBirthMonth()
     .subscribe((res) => {
-    this.monthBirth = res
-    if(this.monthBirth.length > 0){
-      this.haveBirthMonth = true
+    this.monthBirth = res;
+    if (this.monthBirth.length > 0){
+      this.haveBirthMonth = true;
     }
-    this.sortArr(this.monthBirth)
-
-  })
+    this.sortArr(this.monthBirth);
+  });
 }
 
 getBirth(){
   this.emoloyeeService.GetStaff()
   .subscribe((res) => {
-      this.staff = res
-      const today = <any>moment(new Date).format('MM-DD')
-      this.staff.forEach((item:any) => {
-      const convertedItem =<any>moment(item.date).format('MM-DD')
-        if(moment(today).isBefore(convertedItem)){
-          this.staffLater.push(item)
-          this.sortArr(this.staffLater)
+      this.staff = res;
+      const today = moment(new Date()).format('MM-DD') as any;
+      this.staff.forEach((item: any) => {
+      const convertedItem = moment(item.date).format('MM-DD') as any;
+      if (moment(today).isBefore(convertedItem)){
+          this.staffLater.push(item);
+          this.sortArr(this.staffLater);
         }
       });
-      this.sortArr(this.staff)
-  })
+      this.sortArr(this.staff);
+  });
 }
 }
