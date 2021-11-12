@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Events } from 'src/app/model/Events';
 import { CareService } from '../care/care.service';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +26,17 @@ export class EventService {
 
   GetEventsLater(): Observable<Events[]> {
     const API_URL = `${this.careService.REST_API}/getEvent-Later`;
-    console.log(API_URL);
+    return this.httpClient.get<Events[]>(API_URL);
+  }
+
+  GetSelectEvents(selectDate: any): Observable<Events[]> {
+    selectDate = moment(selectDate).format('YYYY-MM-DD');
+    const API_URL = `${this.careService.REST_API}/getEvent-Select/?date=${selectDate}`;
     return this.httpClient.get<Events[]>(API_URL);
   }
 
   GetAllEvents(): Observable<Events[]> {
     const API_URL = `${this.careService.REST_API}/getEvent`;
-    console.log(API_URL);
     return this.httpClient.get<Events[]>(API_URL);
   }
 

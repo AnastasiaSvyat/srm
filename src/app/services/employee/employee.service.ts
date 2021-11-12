@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Employee } from '../../model/Employee';
 import { CareService } from '../care/care.service';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,12 @@ export class EmployeeService {
       }),
         catchError(this.careService.handleError)
       );
+  }
+
+  GetSelectBirth(selectDate: any): Observable<Employee[]> {
+    selectDate = moment(selectDate).format('MM-DD');
+    const API_URL = `${this.careService.REST_API}/getBirth-Select/?date=${selectDate}`;
+    return this.httpClient.get<Employee[]>(API_URL);
   }
 
   updateEmployee(id: any, employee: any): Observable<any> {

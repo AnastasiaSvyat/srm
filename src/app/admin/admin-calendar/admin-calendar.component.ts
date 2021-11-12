@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { EventService } from 'src/app/services/event/event.service';
 import { AddEventComponent } from '../add-event/add-event.component';
-import * as moment from 'moment';
 import { Events } from 'src/app/model/Events';
 import { Employee } from 'src/app/model/Employee';
 
@@ -14,13 +13,11 @@ import { Employee } from 'src/app/model/Employee';
 })
 export class AdminCalendarComponent implements OnInit {
   today = new Date();
-  eventsList: Events[] = [];
-  employee: Employee[] = [];
   haveEventsToday!: boolean;
   eventSelectedDate: Events[] = [];
   haveBirthToday!: boolean;
   birthSelectDate: Employee[] = [];
-  selectedDate = new Date();
+  selectedDate!: any;
   haveEventsPlannedToday!: boolean;
   haveEventsPlannedMonth!: boolean;
   eventsPlannedMonth: Events[] = [];
@@ -35,6 +32,7 @@ export class AdminCalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.selectedDate = new Date();
     this.onSelect(this.selectedDate);
     this.getPlannedEvent();
   }
@@ -42,35 +40,30 @@ export class AdminCalendarComponent implements OnInit {
   onSelect(event: any) {
     this.selectedDate = event;
     this.resetResults();
-    this.getEmployee();
-    this.getEvent();
+    this.getEmployeeBirthSelectDate();
+    this.getEventSelectDate();
   }
 
-  getEmployee() {
+  getEmployeeBirthSelectDate() {
     this.haveBirthToday = false;
-    this.employeeService.GetStaff()
+    this.employeeService.GetSelectBirth(this.selectedDate)
       .subscribe((res) => {
-        this.employee = res;
-        this.employee.forEach((employeeBirth: any) => {
-          if ((moment(this.selectedDate).format('MMDD') as any) === (moment(employeeBirth.date).format('MMDD') as any)) {
-            this.birthSelectDate.push(employeeBirth);
-            this.haveBirthToday = true;
-          }
-        });
+        console.log(res);
+        this.birthSelectDate = res;
+        if (this.birthSelectDate.length > 0) {
+          this.haveBirthToday = true;
+        }
       });
   }
 
-  getEvent() {
+  getEventSelectDate() {
     this.haveEventsToday = false;
-    this.eventService.GetAllEvents()
+    this.eventService.GetSelectEvents(this.selectedDate)
       .subscribe((res) => {
-        this.eventsList = res;
-        this.eventsList.forEach((ev: any) => {
-          if ((moment(this.selectedDate).format('MMDD') as any) === (moment(ev.date).format('MMDD') as any)) {
-            this.eventSelectedDate.push(ev);
-            this.haveEventsToday = true;
-          }
-        });
+        this.eventSelectedDate = res;
+        if (this.eventSelectedDate.length > 0) {
+          this.haveEventsToday = true;
+        }
       });
   }
 
@@ -119,7 +112,7 @@ export class AdminCalendarComponent implements OnInit {
             // MaterialService.toast('Congratulations! Event has been added!');
             this.resetResults();
             this.getPlannedEvent();
-            this.getEvent();
+            this.getEventSelectDate();
           }, (err) => {
             // MaterialService.toast('This event is already exists. Try another one.');
           });

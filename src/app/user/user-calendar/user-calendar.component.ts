@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
-import * as moment from 'moment';
 import { EventService } from 'src/app/services/event/event.service';
 import { Employee } from 'src/app/model/Employee';
 import { Events } from 'src/app/model/Events';
@@ -11,12 +10,11 @@ import { Events } from 'src/app/model/Events';
   templateUrl: './user-calendar.component.html',
   styleUrls: ['./user-calendar.component.scss']
 })
+
 export class UserCalendarComponent implements OnInit {
   today = new Date();
   eventSelectedDate: Events[] = [];
-  employee: Employee[] = [];
   haveEventsToday!: boolean;
-  eventsList: Events[] = [];
   haveBirthToday!: boolean;
   birthSelectDate: Employee[] = [];
   selectedDate = new Date();
@@ -30,7 +28,7 @@ export class UserCalendarComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private eventService: EventService,
-    private employeeService: EmployeeService) {}
+    private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     this.selectedDate = this.today;
@@ -42,23 +40,33 @@ export class UserCalendarComponent implements OnInit {
   onSelect(event: any) {
     this.selectedDate = event;
     this.resetResults();
-    this.getEmployee();
-    this.getEvent();
+    this.getEmployeeBirthSelectDate();
+    this.getEventSelectDate();
   }
 
-  getEmployee() {
+  getEmployeeBirthSelectDate() {
     this.haveBirthToday = false;
-    this.employeeService.GetStaff()
+    this.employeeService.GetSelectBirth(this.selectedDate)
       .subscribe((res) => {
-        this.employee = res;
-        this.employee.forEach((employeeBirth: any) => {
-          if ((moment(this.selectedDate).format('MMDD') as any) === (moment(employeeBirth.date).format('MMDD') as any)) {
-            this.birthSelectDate.push(employeeBirth);
-            this.haveBirthToday = true;
-          }
-        });
+        console.log(res);
+        this.birthSelectDate = res;
+        if (this.birthSelectDate.length > 0) {
+          this.haveBirthToday = true;
+        }
       });
   }
+
+  getEventSelectDate() {
+    this.haveEventsToday = false;
+    this.eventService.GetSelectEvents(this.selectedDate)
+      .subscribe((res) => {
+        this.eventSelectedDate = res;
+        if (this.eventSelectedDate.length > 0) {
+          this.haveEventsToday = true;
+        }
+      });
+  }
+
   getPlannedEvent() {
     this.getEventDayPlanned();
     this.getEventMonthPlanned();
@@ -90,21 +98,6 @@ export class UserCalendarComponent implements OnInit {
     this.eventService.GetEventsLater()
       .subscribe((res) => {
         this.eventsPlannedLater = res;
-      });
-  }
-
-
-  getEvent() {
-    this.haveEventsToday = false;
-    this.eventService.GetAllEvents()
-      .subscribe((res) => {
-        this.eventsList = res;
-        this.eventsList.forEach((event: any) => {
-          if ((moment(this.selectedDate).format('MMDD') as any) === (moment(event.date).format('MMDD') as any)) {
-            this.eventSelectedDate.push(event);
-            this.haveEventsToday = true;
-          }
-        });
       });
   }
 

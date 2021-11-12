@@ -26,7 +26,6 @@ export class DashboardAdminComponent implements OnInit {
   haveTaskToday!: boolean;
   haveTaskTomorrow!: boolean;
   haveTaskWeek!: boolean;
-  eventsList: Events[] = [];
   isChecked!: boolean;
   monthBirthList: Employee[] = [];
   todayBirthList: Employee[] = [];
@@ -54,16 +53,6 @@ export class DashboardAdminComponent implements OnInit {
     private emoloyeeService: EmployeeService,
     private requestService: RequestService,
     private taskService: ToDoListService) {
-    this.haveTaskToday = false;
-    this.haveTaskTomorrow = false;
-    this.haveTaskWeek = false;
-    this.isChecked = false;
-    this.haveBirthToday = false;
-    this.haveBirthMonth = false;
-    this.haveEventToday = false;
-    this.haveEventMonth = false;
-    this.noHaveEvent = false;
-
   }
 
   ngOnInit(): void {

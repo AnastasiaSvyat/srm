@@ -6,7 +6,6 @@ import { SearchName } from 'src/app/model/SearchName';
 import { Employee } from 'src/app/model/Employee';
 import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
-import * as moment from 'moment';
 
 
 @Component({

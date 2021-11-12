@@ -23,7 +23,6 @@ export class DashboardUserComponent implements OnInit {
   cv: any = [];
   uploadFileList: UploadFile[] = [];
   updateUser!: Employee[];
-  vacationList: Request[] = [];
   vacationPlannedList: Request[] = [];
   eventMonthList: Events[] = [];
   haveEventMonth!: boolean;
