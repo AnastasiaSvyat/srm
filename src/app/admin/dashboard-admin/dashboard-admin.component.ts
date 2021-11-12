@@ -12,6 +12,7 @@ import { Employee } from 'src/app/model/Employee';
 import { ToDoList } from 'src/app/model/ToDoList';
 import { Events } from 'src/app/model/Events';
 import { Request } from 'src/app/model/Request';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -44,6 +45,7 @@ export class DashboardAdminComponent implements OnInit {
   vacationLaterList: Request[] = [];
   eventLaterList: Events[] = [];
   staffBirthLater: Employee[] = [];
+  duration = 5000;
 
 
   constructor(
@@ -52,7 +54,8 @@ export class DashboardAdminComponent implements OnInit {
     private eventService: EventService,
     private emoloyeeService: EmployeeService,
     private requestService: RequestService,
-    private taskService: ToDoListService) {
+    private taskService: ToDoListService,
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -227,10 +230,14 @@ export class DashboardAdminComponent implements OnInit {
       if (result) {
         this.eventService.AddEvent(result)
           .subscribe((res) => {
-            // MaterialService.toast('Congratulations! Event has been added!');
+            this.snackBar.open('Congratulations! Event has been added!', '', {
+              duration: this.duration
+            });
             this.getAllEvent();
           }, (err) => {
-            // MaterialService.toast('This event is already exists. Try another one.');
+            this.snackBar.open('This event was not added.', '', {
+              duration: this.duration
+            });
           });
       }
     });

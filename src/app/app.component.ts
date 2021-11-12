@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Role } from './model/role';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { MaterialService } from './services/material/material.service';
 import { Employee } from './model/Employee';
 import { AuthService } from './services/auth/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -18,13 +18,15 @@ export class AppComponent {
   admin!: boolean;
   Role = Role;
   employeeLoginForm!: FormGroup;
+  duration = 5000;
+
 
 
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
-    private authService: AuthService
-  ) {
+    private authService: AuthService,
+    private snackBar: MatSnackBar) {
     this.employeeLoginForm = this.formBuilder.group({
       email: [''],
       password: [''],
@@ -49,8 +51,9 @@ export class AppComponent {
           this.router.navigate(['/admin', 'dashboardAdmin'], { state: { data: this.user } });
         }
       }, error => {
-        MaterialService.toast(error.error.massage);
-        console.warn(error);
+        this.snackBar.open(error.error.massage, '', {
+          duration: this.duration
+        });
       });
   }
 }

@@ -4,9 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { RequestService } from 'src/app/services/request/request.service';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import * as moment from 'moment';
-import { MaterialService } from 'src/app/services/material/material.service';
 import { Employee } from 'src/app/model/Employee';
 import { Request } from 'src/app/model/Request';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -19,7 +19,8 @@ export class MsgUserComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public requestService: RequestService,
-    public service: DataEmployeeService) { }
+    public service: DataEmployeeService,
+    private snackBar: MatSnackBar) { }
 
   employee!: Employee;
   pendingRequestList: Request[] = [];
@@ -28,7 +29,7 @@ export class MsgUserComponent implements OnInit {
   haveConfirmRequest!: boolean;
   haveDeclineRequest!: boolean;
   declineRequestList: Request[] = [];
-
+  duration = 5000;
   displayedColumns: string[] = ['startDate', 'type', 'date', 'description'];
 
   ngOnInit(): void {
@@ -91,10 +92,14 @@ export class MsgUserComponent implements OnInit {
         result.month = (moment(result.date).format('MM') as any);
         this.requestService.AddRequest(result)
           .subscribe((res) => {
-            // MaterialService.toast('Congratulations! Event has been added!');
+            this.snackBar.open('Congratulations! Event has been added!', '', {
+              duration: this.duration
+            });
             this.pendingRequest();
           }, (err) => {
-            // MaterialService.toast('This event is already exists. Try another one.');
+            this.snackBar.open('This Event was not added!', '', {
+              duration: this.duration
+            });
           });
       }
     }

@@ -5,6 +5,7 @@ import { EventService } from 'src/app/services/event/event.service';
 import { AddEventComponent } from '../add-event/add-event.component';
 import { Events } from 'src/app/model/Events';
 import { Employee } from 'src/app/model/Employee';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-calendar',
@@ -23,12 +24,13 @@ export class AdminCalendarComponent implements OnInit {
   eventsPlannedMonth: Events[] = [];
   eventsPlannedToday: Events[] = [];
   eventsPlannedLater: Events[] = [];
-
+  duration = 5000;
 
   constructor(
     public dialog: MatDialog,
     private eventService: EventService,
-    private employeeService: EmployeeService) {
+    private employeeService: EmployeeService,
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -109,18 +111,23 @@ export class AdminCalendarComponent implements OnInit {
       if (result) {
         this.eventService.AddEvent(result)
           .subscribe((res) => {
-            // MaterialService.toast('Congratulations! Event has been added!');
+            this.snackBar.open('Congratulations! Event has been added!', '', {
+              duration: this.duration
+            });
             this.resetResults();
             this.getPlannedEvent();
             this.getEventSelectDate();
           }, (err) => {
-            // MaterialService.toast('This event is already exists. Try another one.');
-          });
+            this.snackBar.open('Event was not added!', '', {
+              duration: this.duration
+            });
+          }
+          );
       }
     });
   }
 
-  resetResults() {
+  resetResults(){
     this.eventSelectedDate = [];
     this.birthSelectDate = [];
   }
