@@ -6,7 +6,7 @@
             <mat-select formControlName="type">
                 <mat-option value="publicHoliday">Public holiday</mat-option>
                 <mat-option value="corporatEvent">Corporate event</mat-option>
-              </mat-select>
+            </mat-select>
         </mat-form-field>
         <mat-form-field>
             <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date">
@@ -15,19 +15,20 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Name</mat-label>
-            <textarea placeholder="Enter title event..." formControlName="name" name="description" matInput></textarea>
+            <input placeholder="Enter title event..." formControlName="name" name="name" matInput />
         </mat-form-field>
         <mat-form-field>
             <mat-label>Description</mat-label>
-            <textarea placeholder="Enter description..." formControlName="description" name="description" matInput></textarea>
+            <textarea placeholder="Enter description..." formControlName="description" name="description"
+                matInput></textarea>
         </mat-form-field>
-            <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
-                <div>
-                    <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
-                </div>
-                <div>
-                    <button [mat-dialog-close]="eventForm.value" class="btn w155" mat-stroked-button>Add</button>
-                </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
+            <div>
+                <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
             </div>
+            <div>
+                <button [mat-dialog-close]="eventForm.value" class="btn w155" mat-stroked-button>Add</button>
+            </div>
+        </div>
     </div>
 </div>

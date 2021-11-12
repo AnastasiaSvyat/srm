@@ -25,7 +25,6 @@ import { UpdateUserComponent } from './update-user/update-user.component';
     CommonModule,
     UserRoutingModule,
     SharedModule,
-   
   ]
 })
 export class UserModule { }

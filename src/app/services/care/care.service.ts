@@ -12,7 +12,6 @@ export class CareService {
   year!: any;
   week!: any;
   tomorrow!: any;
-d!: any;
 
   constructor() {
     this.month = (moment(new Date()).format('MM') as any);

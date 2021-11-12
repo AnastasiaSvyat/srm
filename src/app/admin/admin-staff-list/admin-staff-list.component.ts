@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AddUserComponent } from '../add-user/add-user.component';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { SearchName } from 'src/app/model/SearchName';
 import { Employee } from 'src/app/model/Employee';
@@ -16,29 +16,18 @@ import * as moment from 'moment';
 })
 export class AdminStaffListComponent implements OnInit {
 
-  constructor(private employeeService: EmployeeService, public dialog: MatDialog,
-              public uplFileService: UploadFileService, public service: DataEmployeeService) { }
+  constructor(
+    private employeeService: EmployeeService,
+    public dialog: MatDialog,
+    public uplFileService: UploadFileService,
+    public service: DataEmployeeService) { }
 
   staffList: Employee[] = [];
   currentEmployee: SearchName = {};
   currentIndex = -1;
-  name!: any;
-  head!: any;
-  btn!: any;
-  newUser!: any;
-  position!: any;
-  birthday!: any;
-  salary!: any;
-  lastPerf!: any;
-  email!: any;
-  phone!: any;
-  arhiveUser!: any;
-  addCV!: any;
-  passBool!: any;
-  roleBool!: any;
-  lastPerfBool!: any;
-  changeUser!: any;
-  employee!: any;
+  searchByName!: any;
+  updateUser!: any;
+  employee: Employee[] = [];
 
 
   page = 1;
@@ -57,10 +46,10 @@ export class AdminStaffListComponent implements OnInit {
 
   getRequestParams(searchName: string, page: number, pageSize: number): any {
     const params: any = {};
-    if (searchName){
+    if (searchName) {
       params[`name`] = searchName;
     }
-    if (page){
+    if (page) {
       params[`page`] = page - 1;
     }
     if (pageSize) {
@@ -70,17 +59,17 @@ export class AdminStaffListComponent implements OnInit {
   }
 
   retrieveStaff(): void {
-    const params = this.getRequestParams(this.name, this.page, this.pageSize);
+    const params = this.getRequestParams(this.searchByName, this.page, this.pageSize);
     this.employeeService.getStaffListPagination(params)
-    .subscribe(
-      response => {
-        const { staffList, totalItems } = response;
-        this.staffList = staffList;
-        this.count = totalItems;
-      },
-      error => {
-        console.log(error);
-      });
+      .subscribe(
+        response => {
+          const { staffList, totalItems } = response;
+          this.staffList = staffList;
+          this.count = totalItems;
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   handlePageChange(event: number): void {
@@ -96,21 +85,30 @@ export class AdminStaffListComponent implements OnInit {
   addUser(): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
-      height : '791px',
-      data: {head: 'Add user:', btn: 'ADD', arhiveUser: false, addCV: 'Add CV',
-      changeUser: '', roleBool: true, passBool: true, lastPerfBool: false}
+      height: '884px',
+      data: {
+        head: 'Add user:',
+        btn: 'ADD',
+        showArhiveUser: false,
+        addCV: 'Add CV',
+        changeUser: '',
+        showRole: true,
+        showCV: true,
+        showPassword: true,
+        showLastPerf: false,
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
-      result.monthBirth = (moment(result.date).format('MM') as any);
-      result.dayBirth = (moment(result.date).format('DD') as any);
-      this.employeeService.AddEmployee(result)
-    .subscribe((res) => {
-      this.retrieveStaff();
-    });
+      if (result) {
+        this.employeeService.AddEmployee(result)
+          .subscribe((res) => {
+            this.retrieveStaff();
+          });
+      }
     });
   }
 
-  getUplFile(email: any){
+  getUplFile(email: any) {
     this.uplFileService.getUplFileByEmail(email);
   }
 
@@ -118,23 +116,34 @@ export class AdminStaffListComponent implements OnInit {
     this.getUplFile(event.email);
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
-      height : '670px',
-      data: {head: 'Edit user:', btn: 'SAVE', changeUser: event,
-      arhiveUser: true, addCV: 'Add new CV', passBool: false, roleBool: false, lastPerfBool: true}
+      height: '884px',
+      data: {
+        head: 'Edit user:',
+        btn: 'SAVE',
+        changeUser: event,
+        showArhiveUser: true,
+        addCV: 'Add new CV',
+        showPassword: false,
+        showRole: false,
+        showLastPerf: true,
+        showCV: true
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.newUser = result;
-      this.employeeService.updateEmployee(event.id, this.newUser)
+      if (result) {
+        this.updateUser = result;
+        this.employeeService.updateEmployee(event.id, this.updateUser)
           .subscribe(
             success => console.log('Done'),
             error => console.log(error));
-      this.retrieveStaff();
+        this.retrieveStaff();
+      }
     });
-}
+  }
 
-searchName(): void {
-  this.page = 1;
-  this.retrieveStaff();
+  searchName(): void {
+    this.page = 1;
+    this.retrieveStaff();
   }
 }
 

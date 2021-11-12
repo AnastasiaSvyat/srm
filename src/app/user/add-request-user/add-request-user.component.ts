@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { MaterialService } from 'src/app/services/material/material.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RequestService } from 'src/app/services/request/request.service';
-import { MsgUserComponent } from '../msg-user/msg-user.component';
 
 @Component({
   selector: 'app-add-request-user',
@@ -12,15 +10,12 @@ import { MsgUserComponent } from '../msg-user/msg-user.component';
 })
 export class AddRequestUserComponent implements OnInit {
 
-  requestForm!: any;
-  createRequest!: any;
-  employee!: any;
+  requestForm!: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<MsgUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: MsgUserComponent,
+    public dialogRef: MatDialogRef<AddRequestUserComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public requestService: RequestService,
-
   ) { }
 
   ngOnInit(): void {

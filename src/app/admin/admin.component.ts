@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Request } from '../model/Request';
 import { RequestService } from '../services/request/request.service';
 
 
@@ -10,23 +11,22 @@ import { RequestService } from '../services/request/request.service';
 })
 export class AdminComponent implements OnInit {
 
-requestArr!: any;
-pendingRequestArr: any = [];
-countPendingReq!: any;
+  requestArr: Request[] = [];
+  pendingRequestList: Request[] = [];
+  countPendingReq!: number;
 
-  constructor(private requestService: RequestService, ) {}
+  constructor(private requestService: RequestService) { }
 
   ngOnInit(): void {
     this.requestService.GetAllRequest()
-    .subscribe((res) => {
-      this.requestArr = res;
-      this.requestArr.forEach((element: any) => {
-        if (element.confirm === ''){
-          this.pendingRequestArr.push(element);
-
-        }
+      .subscribe((res) => {
+        this.requestArr = res;
+        this.requestArr.forEach((element: any) => {
+          if (element.confirm === '') {
+            this.pendingRequestList.push(element);
+          }
+        });
+        this.countPendingReq = this.pendingRequestList.length;
       });
-      this.countPendingReq = this.pendingRequestArr.length;
-    });
   }
 }

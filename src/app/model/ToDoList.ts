@@ -7,5 +7,5 @@ export class ToDoList {
     week!: string;
     month!: string;
     year!: string;
-    isChecked!: boolean;
+    select!: boolean;
 }

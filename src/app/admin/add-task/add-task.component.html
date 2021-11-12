@@ -7,17 +7,17 @@
             <mat-datepicker #picker startView="year"></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-             <mat-label>Description</mat-label>
-             <textarea placeholder="Enter description..." formControlName="task" name="description" matInput></textarea>
-         </mat-form-field>
-             <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
-                 <div>
-                     <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
-                 </div>
-                 <div>
-                     <button class="btn w155" [mat-dialog-close]="infoAboutUserForm.value"  mat-stroked-button>{{dataTask.btn}}</button>
-                 </div>
-
-             </div>
-     </div>
+            <mat-label>Description</mat-label>
+            <textarea placeholder="Enter description..." formControlName="task" name="description" matInput></textarea>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
+            <div>
+                <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
+            </div>
+            <div>
+                <button class="btn w155" [mat-dialog-close]="infoAboutUserForm.value"
+                    mat-stroked-button>{{dataTask.btn}}</button>
+            </div>
+        </div>
+    </div>
 </div>

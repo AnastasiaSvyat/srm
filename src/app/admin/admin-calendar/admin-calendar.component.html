@@ -1,48 +1,53 @@
-<div class="calendar-container">
-  <div fxLayout="row" fxLayoutAlign="end none" class="mr24 mt16 btnAddLeft">
+<div class="calendar-container" fxLayout="column">
+  <!-- button -->
+  <div fxLayoutAlign="end none" fxFlex='20%' class="mr24 mt16 btnAddLeft">
     <button class="btn h48 w155" (click)='addEvent()' mat-stroked-button>ADD EVENT</button>
   </div>
-  <div fxLayout='row' class="mb29 mt16">
-    <div fxFlex='23%' class="ml48">
-      <mat-card class="colorBlock">
-        <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)">
-        </mat-calendar>
-      </mat-card>
-      <div class="leftBox_bottom mt24 colorBlock">
-        <div fxLayout="row" fxLayoutAlign="start start" class="ml24 pt28">
-          <div *ngIf = "selectedDate == today" class="fs24">Today</div>
+  <div fxLayout='row' fxFlex='80%' class="mb29 mt16">
+    <div fxFlex='20%' fxLayout='column' class="ml48">
+      <!-- calendar -->
+      <div fxFlex='50%'>
+        <mat-card class="colorBlock">
+          <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)">
+          </mat-calendar>
+        </mat-card>
+      </div>
+      <!-- select Event -->
+      <div fxFlex='55%' class="mt24 colorBlock">
+        <div class="ml24 pt28">
+          <div *ngIf="selectedDate == today" class="fs24 ">Today</div>
           <div class="fs14 ml8 mt3 fontColorGrey">{{selectedDate | date:'dd.MM.yy'}} </div>
         </div>
         <div class="ml24">
-          <div class="mt14" *ngFor="let birth of birthToday">
+          <div class="mt14" *ngFor="let birth of birthSelectDate">
             {{birth.name}} birthday
           </div>
-          <div class="mt14" *ngFor="let eventToday of eventsToday">
+          <div class="mt14" *ngFor="let eventToday of eventSelectedDate">
             {{eventToday.name }} - {{eventToday.type}}
           </div>
         </div>
-        <div class="ml24 fontColorGrey" *ngIf="!birthTodayBool && !eventsTodayBool">
+        <div class="ml24 fontColorGrey" *ngIf="!haveBirthToday && !haveEventsToday">
           <div>No events today</div>
         </div>
       </div>
     </div>
-    
-    <div fxFlex='70%' class="rightBox ml24 colorBlock">
+    <!-- planned Event -->
+    <div fxFlex='75%' class="rightBox ml24 colorBlock">
       <div class="ml24 pt28 fs24">Planned events</div>
       <div class="mt16 ml24">
         <div>
           <p class="fontColorGrey fs18 mt16">Today</p>
-          <div *ngIf="!eventsPlannedTodayBool">
+          <div *ngIf="!haveEventsPlannedToday">
             <span class="fontColorGrey fs14">No event today</span>
           </div>
-          <div *ngIf="eventsPlannedTodayBool">
+          <div *ngIf="haveEventsPlannedToday">
             <div *ngFor="let item of eventsPlannedToday">
               <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
               <span class="fs14"> {{item.name}}</span>
             </div>
           </div>
         </div>
-        <div *ngIf="eventsPlannedMonthBool" class="mt16">
+        <div *ngIf="haveEventsPlannedMonth" class="mt16">
           <p class="fontColorGrey fs18 mt16">This month</p>
           <div *ngFor="let item of eventsPlannedMonth">
             <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
@@ -51,7 +56,7 @@
         </div>
         <div class="mt16">
           <p class="fontColorGrey fs18 mt16">Later</p>
-          <div *ngFor="let item of eventsPlanned">
+          <div *ngFor="let item of eventsPlannedLater">
             <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
             <span class="fs14"> {{item.name}}</span>
           </div>

@@ -8,15 +8,16 @@ import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.compo
 import { MsgAdminComponent } from './msg-admin/msg-admin.component';
 
 export const routes: Routes = [
-  { path: '', component: AdminComponent , children: [
-    { path: 'stafflist', component: AdminStaffListComponent },
-    { path: 'calendar', component: AdminCalendarComponent },
-    { path: 'messageAdmin', component: MsgAdminComponent },
-    { path: 'dashboardAdmin', component: DashboardAdminComponent },
-    { path: '', redirectTo:'dashboardAdmin', pathMatch:'full'},
-    { path: '**', redirectTo:'dashboardAdmin' ,},
-
-  ]},
+  {
+    path: '', component: AdminComponent, children: [
+      { path: 'stafflist', component: AdminStaffListComponent },
+      { path: 'calendar', component: AdminCalendarComponent },
+      { path: 'messageAdmin', component: MsgAdminComponent },
+      { path: 'dashboardAdmin', component: DashboardAdminComponent },
+      { path: '', redirectTo: 'dashboardAdmin', pathMatch: 'full' },
+      { path: '**', redirectTo: 'dashboardAdmin', },
+    ]
+  },
 ];
 
 @NgModule({

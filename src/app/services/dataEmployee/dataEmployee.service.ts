@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataEmployeeService {
 
-  data: BehaviorSubject<any> = new BehaviorSubject<any>( history.state.data);
+  data: BehaviorSubject<any> = new BehaviorSubject<any>(history.state.data);
 
   constructor() { }
 }

@@ -4,13 +4,13 @@ export class Employee {
     email!: string;
     position!: string;
     date!: string;
-    dayBirth!: string;
-    monthBirth!: string;
+    dateWithOutYear!: string;
     salary!: number;
     password!: number;
     token!: string;
     role!: string;
-    info!: Array<string>;
+    info!: Array<any>;
     file!: Array<any>;
+    phone!: number;
     toDoList!: Array<string>;
 }

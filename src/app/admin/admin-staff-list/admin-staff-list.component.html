@@ -1,43 +1,36 @@
-<div class="admin-staff-container h100"> 
+<div class="admin-staff-container h100">
   <div class="col-md-8">
-    <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search by employee name..."
-        [(ngModel)]="name"/>
-      <div class="input-group-append ml12">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="searchName()">Search
+    <div fxLayout="row" class="mb-3 ml8">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput type="text" class="form-control" placeholder="Search by employee name..."
+          [(ngModel)]="searchByName" />
+      </mat-form-field>
+      <div class="input-group-append">
+        <button class="h39 mt10 greyColor borderNone" type="button" (click)="searchName()">Search
         </button>
       </div>
     </div>
   </div>
-    <div fxLayout="row" fxLayoutAlign="end none" class="mr24 mt16 btnAddLeft">
-      <button class="btn w155"(click)='addUser()'mat-stroked-button>ADD USER</button>
-    </div>
+  <div fxLayout="row" fxLayoutAlign="end none" class="mr24 mt16 btnAddLeft">
+    <button class="btn w155" (click)='addUser()' mat-stroked-button>ADD USER</button>
+  </div>
   <div class="col-md-12">
-    <pagination-controls
-      previousLabel="Prev"
-      nextLabel="Next"
-      [responsive]="true"
+    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
       (pageChange)="handlePageChange($event)">
     </pagination-controls>
     <div *ngFor="let employee of staffList | paginate : {
               itemsPerPage: pageSize,
               currentPage: page,
-              totalItems: count};let i = index"
-        [class.active]="i == currentIndex"
-        (click)="setActiveEmployee(employee, i)">
+              totalItems: count};let i = index" [class.active]="i == currentIndex"
+      (click)="setActiveEmployee(employee, i)">
     </div>
   </div>
   <mat-table [dataSource]="staffList" class="mat-elevation-z8 table w100 h100 mt16">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> EMPLOYEE </mat-header-cell>
-      <mat-cell *matCellDef="let element">  
-          <img src={{element.photo}} alt="">{{element.name}} 
+      <mat-cell *matCellDef="let element">
+        <img src={{element.photo}} alt="">{{element.name}}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="position">
@@ -69,18 +62,18 @@
       <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="cv">
-      <mat-header-cell  *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let row" >
-           <button class="ml24" mat-button>CV</button>
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button class="ml24" mat-button>CV</button>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="change">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let element"> 
+      <mat-cell *matCellDef="let element">
         <button mat-button (click)="editUser(element)">change log</button>
       </mat-cell>
     </ng-container>
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-</div>      
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

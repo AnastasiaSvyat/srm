@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Events } from 'src/app/model/Events';
 import { CareService } from '../care/care.service';
@@ -10,16 +10,12 @@ import { CareService } from '../care/care.service';
 })
 export class EventService {
 
-// today!:any
-// month!:any
-// year!:any
-
-constructor(private httpClient: HttpClient, private careService: CareService) {
-
- }
+  constructor(
+    private httpClient: HttpClient,
+    private careService: CareService) { }
 
 
-  AddEvent(data: Events ): Observable<any> {
+  AddEvent(data: Events): Observable<any> {
     const API_URL = `${this.careService.REST_API}/add-event`;
     return this.httpClient.post(API_URL, data)
       .pipe(
@@ -27,28 +23,35 @@ constructor(private httpClient: HttpClient, private careService: CareService) {
       );
   }
 
-  GetAllEvents() {
-    const API_URL = `${this.careService.REST_API}/get-event/?year=${this.careService.year}`;
-    return this.httpClient.get(API_URL);
+  GetEventsLater(): Observable<Events[]> {
+    const API_URL = `${this.careService.REST_API}/getEvent-Later`;
+    console.log(API_URL);
+    return this.httpClient.get<Events[]>(API_URL);
+  }
+
+  GetAllEvents(): Observable<Events[]> {
+    const API_URL = `${this.careService.REST_API}/getEvent`;
+    console.log(API_URL);
+    return this.httpClient.get<Events[]>(API_URL);
   }
 
 
-  GetEventMonth() {
-    const API_URL = `${this.careService.REST_API}/getEvent-month/?month=${this.careService.month}&year=${this.careService.year}`;
-    return this.httpClient.get(API_URL);
+  GetEventMonth(): Observable<Events[]> {
+    const API_URL = `${this.careService.REST_API}/getEvent-month`;
+    return this.httpClient.get<Events[]>(API_URL);
   }
 
-  GetAllEventToday() {
-    const API_URL = `${this.careService.REST_API}/getEvent-today/?day=${this.careService.today}&year=${this.careService.year}`;
-    return this.httpClient.get(API_URL);
+  GetAllEventToday(): Observable<Events[]> {
+    const API_URL = `${this.careService.REST_API}/getEvent-today`;
+    return this.httpClient.get<Events[]>(API_URL);
   }
 
   SelectedEvent(id: any): Observable<any> {
     const API_URL = `${this.careService.REST_API}/read-event/${id}`;
     return this.httpClient.get(API_URL, { headers: this.careService.httpHeaders })
-        .pipe(map((res: any) => {
-          return res || {};
-        }),
+      .pipe(map((res: any) => {
+        return res || {};
+      }),
         catchError(this.careService.handleError)
       );
   }
@@ -63,8 +66,8 @@ constructor(private httpClient: HttpClient, private careService: CareService) {
 
   DeleteEvent(id: any): Observable<any> {
     const API_URL = `${this.careService.REST_API}/delete-event/${id}`;
-    return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders}).pipe(
-        catchError(this.careService.handleError)
-      );
+    return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders }).pipe(
+      catchError(this.careService.handleError)
+    );
   }
 }

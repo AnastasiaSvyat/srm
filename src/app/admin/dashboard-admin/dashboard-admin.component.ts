@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import * as moment from 'moment';
-import { MaterialService } from 'src/app/services/material/material.service';
+import { MatDialog } from '@angular/material/dialog';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { EventService } from 'src/app/services/event/event.service';
@@ -10,6 +8,10 @@ import { AddEventComponent } from '../add-event/add-event.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { RequestService } from 'src/app/services/request/request.service';
+import { Employee } from 'src/app/model/Employee';
+import { ToDoList } from 'src/app/model/ToDoList';
+import { Events } from 'src/app/model/Events';
+import { Request } from 'src/app/model/Request';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -17,355 +19,308 @@ import { RequestService } from 'src/app/services/request/request.service';
   styleUrls: ['./dashboard-admin.component.scss']
 })
 export class DashboardAdminComponent implements OnInit {
-  employee: any = [];
-  toDoListToday: any;
-  toDoListWeek: any;
-  toDoListTomorrow: any;
-  haveTaskToday = false;
-  haveTaskTomorrow = false;
-  haveTaskWeek = true;
-
-  events!: any;
-  staff!: any;
-  isChecked = false;
-  monthBirth: any;
-  todayBirth: any;
-  haveBirthToday = false;
-  haveBirthMonth = false;
-  haveEventToday = false;
-  haveEventMonth = false;
-  noHaveEvent = false;
+  employee!: Employee;
+  toDoListToday: ToDoList[] = [];
+  toDoListWeek: ToDoList[] = [];
+  toDoListTomorrow: ToDoList[] = [];
+  haveTaskToday!: boolean;
+  haveTaskTomorrow!: boolean;
+  haveTaskWeek!: boolean;
+  eventsList: Events[] = [];
+  isChecked!: boolean;
+  monthBirthList: Employee[] = [];
+  todayBirthList: Employee[] = [];
+  haveBirthToday!: boolean;
+  haveBirthMonth!: boolean;
+  haveEventToday!: boolean;
+  haveEventMonth!: boolean;
+  noHaveEvent!: boolean;
   idCheckBox!: any;
-  deleteArr: any = [];
-  today!: any;
-  head!: any;
-  dateAll!: any;
-  task!: any;
-  btn!: any;
-  editTask!: any;
-  updateUser!: any;
-  changeUser!: any;
-  lastPerf!: any;
-  arhiveUser!: any;
-  addCV!: any;
-  lastPerfBool!: boolean;
-  passBool!: boolean;
-  roleBool!: boolean;
-  addCVBool!: boolean;
-  eventDay!: any;
-  eventMonth!: any;
-  vacationMonth!: any;
-  vacationLater: any = [];
-  eventLater: any = [];
-  staffLater: any = [];
-  vacationAll!: any;
+  today = new Date();
+  editTask: ToDoList[] = [];
+  updateUser: Employee[] = [];
+  eventDayList: Events[] = [];
+  eventMonthList: Events[] = [];
+  vacationMonthList: Request[] = [];
+  vacationLaterList: Request[] = [];
+  eventLaterList: Events[] = [];
+  staffBirthLater: Employee[] = [];
 
 
-constructor(public dialog: MatDialog,
-            private service: DataEmployeeService,
-            private eventService: EventService,
-            private emoloyeeService: EmployeeService,
-            private requestService: RequestService,
-            private taskService: ToDoListService) {
-}
+  constructor(
+    public dialog: MatDialog,
+    private service: DataEmployeeService,
+    private eventService: EventService,
+    private emoloyeeService: EmployeeService,
+    private requestService: RequestService,
+    private taskService: ToDoListService) {
+    this.haveTaskToday = false;
+    this.haveTaskTomorrow = false;
+    this.haveTaskWeek = false;
+    this.isChecked = false;
+    this.haveBirthToday = false;
+    this.haveBirthMonth = false;
+    this.haveEventToday = false;
+    this.haveEventMonth = false;
+    this.noHaveEvent = false;
 
-ngOnInit(): void {
+  }
+
+  ngOnInit(): void {
     this.getUser();
     this.getAllTask();
     this.getAllEvent();
     this.emoloyeeService.GetStaff();
-    this.today = new Date();
     this.getAllBirth();
     this.emoloyeeService.GetEmplBirthToday();
     this.getAllVacations();
-}
+  }
 
-addResult(result: any){
-  result.month = (moment(result.date).format('MM') as any);
-  result.year = (moment(result.date).format('YY') as any);
-  result.day = (moment(result.date).format('DD') as any);
-  result.week = (moment(result.date).format('WW') as any);
-}
+  // Vacations
 
-sortArr(arr: any){
-  const today = new Date();
-  arr.sort((a: any, b: any) => {
-    const first = (moment(today).format('MMDD') as any) - (moment(b.date).format('MMDD') as any);
-    const second = (moment(today).format('MMDD') as any) - (moment(a.date).format('MMDD') as any);
-    return first - second;
-  });
-}
-
-// Vacations
-
-getVacationsMonth(){
-  this.requestService.GetRequestConfirmMonth()
-    .subscribe((res) => {
-      this.vacationMonth = res;
-    });
-}
-
-getVacationsLater(){
-  this.requestService.ConfirmRequest()
-  .subscribe((res) => {
-    this.vacationAll = res;
-    const today = moment(new Date()).format('YYYY-MM-DD') as any;
-    this.vacationAll.forEach((item: any) => {
-      if (moment(today).isBefore(item.date)){
-        this.vacationLater.push(item);
-        this.sortArr(this.vacationLater);
-      }else{
-        this.requestService.DeleteRequest(item.id)
-        .subscribe(() => {
-        });
-      }
-    });
-  });
-}
-
-getAllVacations(){
-  this.getVacationsMonth();
-  this.getVacationsLater();
-}
-
-// USER
-
-getUser(){
-  this.service.data.subscribe(res => {
-    this.employee = res;
-  });
-}
-
-editUser(event: any): void {
-  const dialogRef = this.dialog.open(AddUserComponent, {
-    width: '398px',
-    height : '670px',
-    data: {head: 'Edit user:', btn: 'SAVE', changeUser: event,
-    lastPerf: false, arhiveUser: false, addCVBool: false, lastPerfBool: true,
-    passBool: false, roleBool: false, }
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    this.updateUser = result;
-    this.emoloyeeService.updateEmployee(event.id, this.updateUser)
-        .subscribe(
-          success => {
-            this.emoloyeeService.GetEmployee(event.id)
-            .subscribe((res) => {
-              this.employee = res;
-            });
-          },
-          error => console.log(error));
-  });
-}
-
-// TASK
-
-onChange($event: any, task: any){
-  this.idCheckBox = $event.target.value;
-  this.isChecked = $event.target.checked;
-  if (this.isChecked){
-      this.taskService.DeleteTask(task.id)
+  getVacationsMonth() {
+    this.requestService.GetRequestConfirmMonth()
       .subscribe((res) => {
-        console.log(res);
+        this.vacationMonthList = res;
+      });
+  }
+
+  getVacationsLater() {
+    this.requestService.GetRequestConfirmLater()
+      .subscribe((res) => {
+        this.vacationLaterList = res;
+      });
+  }
+
+  getAllVacations() {
+    this.getVacationsMonth();
+    this.getVacationsLater();
+  }
+
+  // USER
+
+  getUser() {
+    this.service.data.subscribe(res => {
+      this.employee = res;
     });
   }
-}
 
-deleteTask(id: any) {
+  editUser(event: any): void {
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      width: '398px',
+      height: '884px',
+      data: {
+        head: 'Edit user:',
+        btn: 'SAVE',
+        changeUser: event,
+        showArhiveUser: false,
+        showCV: true,
+        showLastPerf: true,
+        showPassword: false,
+        showRole: false,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateUser = result;
+        this.emoloyeeService.updateEmployee(event.id, this.updateUser)
+          .subscribe(
+            success => {
+              this.emoloyeeService.GetEmployee(event.id)
+                .subscribe((res) => {
+                  this.employee = res;
+                });
+            },
+            error => console.log(error));
+      }
+    });
+  }
+
+  // TASK
+
+  onChange($event: any, task: any) {
+    console.log(task);
+    this.idCheckBox = $event.target.value;
+    this.isChecked = $event.target.checked;
+    if (this.isChecked) {
+      this.taskService.DeleteTask(task._id)
+        .subscribe((res) => {
+          console.log(res);
+        });
+    }
+  }
+
+  deleteTask(id: any) {
     this.taskService.DeleteTask(id).subscribe((res) => {
       this.getAllTask();
     });
-}
+  }
 
-getAllTask(){
-  this.getTaskDay();
-  this.getTaskWeek();
-  this.getTaskTomorrow();
-}
+  getAllTask() {
+    this.getTaskDay();
+    this.getTaskWeek();
+    this.getTaskTomorrow();
+  }
 
-getTaskDay(){
-  this.taskService.GetAllTaskDate()
-  .subscribe((res) => {
-    this.toDoListToday = res;
-    if (this.toDoListToday.length > 0){
-      this.haveTaskToday = true;
-    }else{
-      this.haveTaskToday = false;
-    }
-  });
-}
-
-getTaskWeek(){
-  this.taskService.GetAllTaskWeek()
-  .subscribe((res) => {
-    this.toDoListWeek = res;
-    if (this.toDoListWeek.length > 0){
-      this.haveTaskWeek = true;
-      this.sortArr(this.toDoListWeek);
-    }else{
-      this.haveTaskWeek = false;
-    }
-  });
-}
-
-getTaskTomorrow(){
-  this.taskService.GetAllTaskTomorrow()
-  .subscribe((res) => {
-    this.toDoListTomorrow = res;
-    console.log(this.toDoListTomorrow);
-
-    if (this.toDoListTomorrow.length > 0){
-      this.haveTaskTomorrow = true;
-      console.log(this.haveTaskTomorrow);
-
-    }else{
-      this.haveTaskTomorrow = false;
-    }
-  });
-}
-
-addTask(): void {
-  const dialogRef = this.dialog.open(AddTaskComponent, {
-    width: '398px',
-    height : '361px',
-    data: {head: 'Add task:', btn: 'ADD', }
-
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    this.addResult(result);
-    this.taskService.AddTask(result)
+  getTaskDay() {
+    this.taskService.GetAllTaskDate()
       .subscribe((res) => {
         console.log(res);
-        this.getAllTask();
-      });
-      });
-}
-
-updateTask(event: any): void {
-const dialogRef = this.dialog.open(AddTaskComponent, {
-  width: '398px',
-  height : '361px',
-  data: {head: 'Edit task:', btn: 'EDIT', dateAll: event.date, task: event.task}
-});
-dialogRef.afterClosed().subscribe(result => {
-  this.editTask = result;
-  this.taskService.UpdateTask(event.id, this.editTask);
-  this.getAllTask();
-});
-}
-
-
-// EVENT
-
-addEvent(): void {
-    const dialogRef = this.dialog.open(AddEventComponent, {
-      width: '398px',
-      height : '591px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.addResult(result);
-      this.eventService.AddEvent(result)
-      .subscribe((res) => {
-        MaterialService.toast('Congratulations! Event has been added!');
-        this.getAllEvent();
-      }, (err) => {
-        MaterialService.toast('This event is already exists. Try another one.');
-      });
-    });
-}
-
-getAllEvent(){
-  this.getEventDay();
-  this.getEventMonth();
-  this.getEvent();
-}
-
-getEventDay(){
-  this.eventService.GetAllEventToday()
-  .subscribe((res) => {
-    this.eventDay = res;
-    if (this.eventDay.length > 0){
-      this.haveEventToday = true;
-    }
-  });
-}
-
-getEventMonth(){
-  this.eventService.GetEventMonth()
-  .subscribe((res) => {
-    this.eventMonth = res;
-    if (this.eventMonth.length > 0){
-      this.haveEventMonth = true;
-      this.sortArr(this.eventMonth);
-
-    }
-  });
-}
-
-getEvent(){
-  this.eventService.GetAllEvents()
-  .subscribe((res) => {
-      this.events = res;
-      if (this.events.length > 0){
-        this.noHaveEvent = true;
-        const today = moment(new Date()).format('YYYY-MM-DD') as any;
-        this.events.forEach((item: any) => {
-          if (moment(today).isBefore(item.date)){
-            this.eventLater.push(item);
-            this.sortArr(this.eventLater);
-          }else{
-            this.eventService.DeleteEvent(item._id)
-            .subscribe(() => {
-              this.getAllEvent();
-            });
-          }
-        });
-      }
-  });
-}
-
-// BIRTH
-
-getAllBirth(){
-  this.getBirthDay();
-  this.getBirthMonth();
-  this.getBirth();
-}
-
-getBirthDay(){
-  this.emoloyeeService.GetEmplBirthToday()
-    .subscribe((res) => {
-    this.todayBirth = res;
-    if (this.todayBirth.length > 0){
-      this.haveBirthToday = true;
-    }
-  });
-}
-
-getBirthMonth(){
-  this.emoloyeeService.GetEmplBirthMonth()
-    .subscribe((res) => {
-    this.monthBirth = res;
-    if (this.monthBirth.length > 0){
-      this.haveBirthMonth = true;
-    }
-    this.sortArr(this.monthBirth);
-  });
-}
-
-getBirth(){
-  this.emoloyeeService.GetStaff()
-  .subscribe((res) => {
-      this.staff = res;
-      const today = moment(new Date()).format('MM-DD') as any;
-      this.staff.forEach((item: any) => {
-      const convertedItem = moment(item.date).format('MM-DD') as any;
-      if (moment(today).isBefore(convertedItem)){
-          this.staffLater.push(item);
-          this.sortArr(this.staffLater);
+        this.toDoListToday = res;
+        if (this.toDoListToday.length > 0) {
+          this.haveTaskToday = true;
         }
       });
-      this.sortArr(this.staff);
-  });
-}
+  }
+
+  getTaskWeek() {
+    this.taskService.GetAllTaskWeek()
+      .subscribe((res) => {
+        this.toDoListWeek = res;
+        if (this.toDoListWeek.length > 0) {
+          this.haveTaskWeek = true;
+        }
+      });
+  }
+
+  getTaskTomorrow() {
+    this.taskService.GetAllTaskTomorrow()
+      .subscribe((res) => {
+        this.toDoListTomorrow = res;
+        if (this.toDoListTomorrow.length > 0) {
+          this.haveTaskTomorrow = true;
+        }
+      });
+  }
+
+  addTask(): void {
+    const dialogRef = this.dialog.open(AddTaskComponent, {
+      width: '398px',
+      height: '361px',
+      data: { head: 'Add task:', btn: 'ADD', }
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.taskService.AddTask(result)
+          .subscribe((res) => {
+            console.log(res);
+            this.getAllTask();
+          });
+      }
+    });
+  }
+
+  updateTask(event: any): void {
+    const dialogRef = this.dialog.open(AddTaskComponent, {
+      width: '398px',
+      height: '361px',
+      data: { head: 'Edit task:', btn: 'EDIT', dateAll: event.date, task: event.task }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.editTask = result;
+        this.taskService.UpdateTask(event.id, this.editTask);
+        this.getAllTask();
+      }
+    });
+  }
+
+
+  // EVENT
+
+  addEvent(): void {
+    const dialogRef = this.dialog.open(AddEventComponent, {
+      width: '398px',
+      height: '591px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.eventService.AddEvent(result)
+          .subscribe((res) => {
+            // MaterialService.toast('Congratulations! Event has been added!');
+            this.getAllEvent();
+          }, (err) => {
+            // MaterialService.toast('This event is already exists. Try another one.');
+          });
+      }
+    });
+  }
+
+  getAllEvent() {
+    this.getEventDay();
+    this.getEventMonth();
+    this.getEventLater();
+  }
+
+  getEventDay() {
+    this.eventService.GetAllEventToday()
+      .subscribe((res) => {
+        console.log(res);
+        this.eventDayList = res;
+        if (this.eventDayList.length > 0) {
+          this.haveEventToday = true;
+        }
+      });
+  }
+
+  getEventMonth() {
+    this.eventService.GetEventMonth()
+      .subscribe((res) => {
+        console.log(res);
+        this.eventMonthList = res;
+        if (this.eventMonthList.length > 0) {
+          this.haveEventMonth = true;
+        }
+      });
+  }
+
+  getEventLater() {
+    this.eventService.GetEventsLater()
+      .subscribe((res) => {
+        console.log(res);
+        this.eventLaterList = res;
+        if (this.eventLaterList.length > 0) {
+          this.noHaveEvent = true;
+        }
+      });
+  }
+
+  // BIRTH
+
+  getAllBirth() {
+    this.getBirthDay();
+    this.getBirthMonth();
+    this.getBirth();
+  }
+
+  getBirthDay() {
+    this.emoloyeeService.GetEmplBirthToday()
+      .subscribe((res) => {
+        console.log(res);
+        this.todayBirthList = res;
+        if (this.todayBirthList.length > 0) {
+          this.haveBirthToday = true;
+        }
+      });
+  }
+
+  getBirthMonth() {
+    this.emoloyeeService.GetEmplBirthMonth()
+      .subscribe((res) => {
+        console.log(res);
+        this.monthBirthList = res;
+        if (this.monthBirthList.length > 0) {
+          this.haveBirthMonth = true;
+        }
+      });
+  }
+
+  getBirth() {
+    this.emoloyeeService.GetEmplBirthLater()
+      .subscribe((res) => {
+        console.log(res);
+        this.staffBirthLater = res;
+      });
+  }
 }

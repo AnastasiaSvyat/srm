@@ -10,106 +10,122 @@ import { CareService } from '../care/care.service';
 })
 export class RequestService {
 
-constructor(private httpClient: HttpClient, private careService: CareService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private careService: CareService) { }
 
- AddRequest(data: Request): Observable<any> {
+  AddRequest(data: Request): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/add-request`;
-    return this.httpClient.post(API_URL, data)
+    return this.httpClient.post<Request[]>(API_URL, data)
       .pipe(
         catchError(this.careService.handleError)
       );
   }
 
 
-  GetAllRequest() {
+  GetAllRequest(): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/get-request/?confirm=false&decline=false`;
-    return this.httpClient.get(API_URL)
+    return this.httpClient.get<Request[]>(API_URL)
       .pipe(map((res: any) => {
         return res || {};
       }),
-      catchError(this.careService.handleError)
-    );
+        catchError(this.careService.handleError)
+      );
   }
 
-  GetAllRequestEmail(email: string) {
-    console.log(email);
-
+  GetAllRequestEmail(email: string): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/get-reqEmail/?confirm=false&decline=false&email=${email}`;
-    return this.httpClient.get(API_URL)
+    return this.httpClient.get<Request[]>(API_URL)
       .pipe(map((res: any) => {
         return res || {};
       }),
-      catchError(this.careService.handleError)
-    );
+        catchError(this.careService.handleError)
+      );
   }
 
-  SelectedRequest(id: any): Observable<any> {
+  SelectedRequest(id: any): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/read-request/${id}`;
-    return this.httpClient.get(API_URL, { headers: this.careService.httpHeaders })
-        .pipe(map((res: any) => {
-          return res || {};
-        }),
+    return this.httpClient.get<Request[]>(API_URL, { headers: this.careService.httpHeaders })
+      .pipe(map((res: any) => {
+        return res || {};
+      }),
         catchError(this.careService.handleError)
       );
   }
 
-  ConfirmRequest(): Observable<any> {
-    return this.httpClient.get(`${this.careService.REST_API}/true-request/?confirm=true`)
-        .pipe(map((res: any) => {
-          return res || {};
-        }),
+  ConfirmRequest(): Observable<Request[]> {
+    return this.httpClient.get<Request[]>(`${this.careService.REST_API}/true-request/?confirm=true`)
+      .pipe(map((res: any) => {
+        return res || {};
+      }),
         catchError(this.careService.handleError)
       );
   }
 
-  GetRequestConfirmMonth() {
-    const API_URL = `${this.careService.REST_API}/trueRequest-month/?month=${this.careService.month}&confirm=true`;
+  GetRequestConfirmMonth(): Observable<Request[]> {
+    const API_URL = `${this.careService.REST_API}/trueRequest-month/?confirm=true`;
     console.log(API_URL);
 
-    return this.httpClient.get(API_URL);
+    return this.httpClient.get<Request[]>(API_URL);
   }
 
-  DeclineRequest(): Observable<any> {
-    return this.httpClient.get(`${this.careService.REST_API}/false-request/?decline=true`)
+  GetRequestConfirmLater(): Observable<Request[]> {
+    const API_URL = `${this.careService.REST_API}/trueRequest-Later/?confirm=true`;
+    console.log(API_URL);
+
+    return this.httpClient.get<Request[]>(API_URL);
+  }
+
+  DeclineRequest(): Observable<Request[]> {
+    return this.httpClient.get<Request[]>(`${this.careService.REST_API}/false-request/?decline=true`)
       .pipe(map((res: any) => {
         return res || {};
       }),
-      catchError(this.careService.handleError)
-    );
-  }
-
-  ConfirmRequestByEmil(email: any): Observable<any> {
-    return this.httpClient.get(`${this.careService.REST_API}/true-reqEmail/?confirm=true&email=${email}`)
-        .pipe(map((res: any) => {
-          return res || {};
-        }),
         catchError(this.careService.handleError)
       );
   }
 
-  DeclineRequestByEmail(email: any): Observable<any> {
-    return this.httpClient.get(`${this.careService.REST_API}/false-reqEmail/?decline=true&email=${email}`)
+  ConfirmRequestByEmil(employee: any): Observable<Request[]> {
+    return this.httpClient.get<Request[]>(`${this.careService.REST_API}/true-reqEmail/?confirm=true&email=${employee.email}`)
       .pipe(map((res: any) => {
         return res || {};
       }),
-      catchError(this.careService.handleError)
-    );
+        catchError(this.careService.handleError)
+      );
   }
 
-  UpdateRequest(id: any, event: any): Observable<any> {
+  ConfirmRequestByEmilLater(employee: any): Observable<Request[]> {
+    return this.httpClient.get<Request[]>(`${this.careService.REST_API}/trueRequestEmployee-Later/?confirm=true&email=${employee.email}`)
+      .pipe(map((res: any) => {
+        return res || {};
+      }),
+        catchError(this.careService.handleError)
+      );
+  }
+
+  DeclineRequestByEmail(email: any): Observable<Request[]> {
+    return this.httpClient.get<Request[]>(`${this.careService.REST_API}/false-reqEmail/?decline=true&email=${email}`)
+      .pipe(map((res: any) => {
+        return res || {};
+      }),
+        catchError(this.careService.handleError)
+      );
+  }
+
+  UpdateRequest(id: any, event: any): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/update-request/${id}`;
-    return this.httpClient.put(API_URL, event, { headers: this.careService.httpHeaders })
-        .pipe(map((res: any) => {
-          return res || {};
-        }),
+    return this.httpClient.put<Request[]>(API_URL, event, { headers: this.careService.httpHeaders })
+      .pipe(map((res: any) => {
+        return res || {};
+      }),
         catchError(this.careService.handleError)
       );
   }
 
-  DeleteRequest(id: any): Observable<any> {
+  DeleteRequest(id: any): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/delete-request/${id}`;
-    return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders}).pipe(
-        catchError(this.careService.handleError)
-      );
+    return this.httpClient.delete<Request[]>(API_URL, { headers: this.careService.httpHeaders }).pipe(
+      catchError(this.careService.handleError)
+    );
   }
 }

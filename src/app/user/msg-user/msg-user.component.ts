@@ -5,6 +5,9 @@ import { RequestService } from 'src/app/services/request/request.service';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import * as moment from 'moment';
 import { MaterialService } from 'src/app/services/material/material.service';
+import { Employee } from 'src/app/model/Employee';
+import { Request } from 'src/app/model/Request';
+
 
 @Component({
   selector: 'app-msg-user',
@@ -13,98 +16,88 @@ import { MaterialService } from 'src/app/services/material/material.service';
 })
 export class MsgUserComponent implements OnInit {
 
-  constructor(public dialog: MatDialog,
-              public requestService: RequestService,
-              public service: DataEmployeeService) { }
+  constructor(
+    public dialog: MatDialog,
+    public requestService: RequestService,
+    public service: DataEmployeeService) { }
 
-  requestArr!: any;
-  employee!: any;
-  pendingRequestArr: any;
-  confirmRequestArr: any;
-  pendingRequestBool!: boolean;
-  confirmRequestBool!: boolean;
-  declineRequestBool!: boolean;
-  declineRequestArr!: any;
+  employee!: Employee;
+  pendingRequestList: Request[] = [];
+  confirmRequestList: Request[] = [];
+  havePendingRequest!: boolean;
+  haveConfirmRequest!: boolean;
+  haveDeclineRequest!: boolean;
+  declineRequestList: Request[] = [];
 
-  displayedColumns: string[] = ['startDate', 'type', 'date', 'description', ];
-
+  displayedColumns: string[] = ['startDate', 'type', 'date', 'description'];
 
   ngOnInit(): void {
     this.getEmloyee();
     this.pendingRequest();
     this.confirmRequest();
     this.declineRequest();
-
   }
 
-  getEmloyee(){
+  getEmloyee() {
     this.service.data.subscribe(value => {
       this.employee = value;
-      console.log(this.employee.email);
-
     });
-    console.log(this.employee.email);
-
   }
 
-  pendingRequest(){
-
-
+  pendingRequest() {
     this.requestService.GetAllRequestEmail(this.employee.email)
-    .subscribe((res) => {
-    this.pendingRequestArr = res;
-    console.log(this.pendingRequestArr);
-
-    if (this.pendingRequestArr.length === 0){
-      this.pendingRequestBool = false;
-    }else{
-      this.pendingRequestBool = true;
-    }
-    });
+      .subscribe((res) => {
+        this.pendingRequestList = res;
+        if (this.pendingRequestList.length === 0) {
+          this.havePendingRequest = false;
+        } else {
+          this.havePendingRequest = true;
+        }
+      });
   }
 
-  confirmRequest(){
+  confirmRequest() {
     this.requestService.ConfirmRequestByEmil(this.employee.email)
-    .subscribe((res) => {
-      this.confirmRequestArr = res;
-      if (this.confirmRequestArr.length === 0){
-        this.confirmRequestBool = false;
-      }else{
-        this.confirmRequestBool = true;
-      }
-    });
+      .subscribe((res) => {
+        this.confirmRequestList = res;
+        if (this.confirmRequestList.length === 0) {
+          this.haveConfirmRequest = false;
+        } else {
+          this.haveConfirmRequest = true;
+        }
+      });
   }
 
-  declineRequest(){
+  declineRequest() {
     this.requestService.DeclineRequestByEmail(this.employee.email)
-    .subscribe((res) => {
-      this.declineRequestArr = res;
-      if (this.declineRequestArr.length === 0){
-        this.declineRequestBool = false;
-      }else{
-        this.declineRequestBool = true;
-      }
-    });
+      .subscribe((res) => {
+        this.declineRequestList = res;
+        if (this.declineRequestList.length === 0) {
+          this.haveDeclineRequest = false;
+        } else {
+          this.haveDeclineRequest = true;
+        }
+      });
   }
 
   addRequest(): void {
     const dialogRef = this.dialog.open(AddRequestUserComponent, {
       width: '398px',
-      height : '516px',
-      data: {employee: this.employee}
+      height: '516px',
+      data: { employee: this.employee }
     });
     dialogRef.afterClosed().subscribe(result => {
-  result.month = (moment(result.date).format('MM') as any);
-  this.requestService.AddRequest(result)
-  .subscribe((res) => {
-    MaterialService.toast('Congratulations! Event has been added!');
-    this.pendingRequest();
-
-    // this.createRequest = res
-  }, (err) => {
-    MaterialService.toast('This event is already exists. Try another one.');
-  });
-}
+      if (result) {
+        result.month = (moment(result.date).format('MM') as any);
+        this.requestService.AddRequest(result)
+          .subscribe((res) => {
+            // MaterialService.toast('Congratulations! Event has been added!');
+            this.pendingRequest();
+          }, (err) => {
+            // MaterialService.toast('This event is already exists. Try another one.');
+          });
+      }
+    }
     );
   }
 }

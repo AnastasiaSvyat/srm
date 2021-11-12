@@ -28,6 +28,9 @@
 .rightBox{
     height: 48.77rem;
 }
+.borderNone{
+    border: none;
+}
 h2{
     font-size: 20px;
     font-weight: 500;
@@ -90,9 +93,12 @@ h2{
     background-color: none;
     text-decoration: underline;
 }
-.a{
-    background-color: blueviolet;
-}
-.v{
-    background-color: rgb(101, 226, 43);
+.addPhoto-box{
+    width: 92px;
+    height: 92px;
+    background-color: #C4C4C4;
+    text-align: center;
+    border-radius: 50%;
+    padding-top: 38px;
+    margin-left: 125px;
 }

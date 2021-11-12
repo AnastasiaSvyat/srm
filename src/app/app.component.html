@@ -1,22 +1,24 @@
-<div class="app-container h100">
+<div class="app-container d h100">
   <div fxLayout="column" fxLayoutAlign="center center" class="h100" *ngIf="!isAuthorized">
-  <div  class="loginBox">
-    <h2 class="mt24" mat-dialog-title>LOGIN</h2>
-    <div [formGroup]="employeeLoginForm" fxLayout="column" fxLayoutAlign="center center" mat-dialog-content>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <textarea placeholder="Enter email..." formControlName="email" name="description" matInput></textarea>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <textarea placeholder="Enter password..." formControlName="password" name="description" matInput></textarea>
-  </mat-form-field>
-  <div>
-    <button (click)="loginEmployee()" class="btn h48 w155" mat-stroked-button>Login</button>
-  </div>
+    <div class="loginBox">
+      <h2 class="mt24" mat-dialog-title>LOGIN</h2>
+      <div [formGroup]="employeeLoginForm" fxLayout="column" fxLayoutAlign="center center" mat-dialog-content>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input type="email" placeholder="Enter email..." formControlName="email" name="description" matInput />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input type="password" placeholder="Enter password..." formControlName="password" name="description"
+            matInput />
+        </mat-form-field>
+        <div class="mt24">
+          <button (click)="loginEmployee()" class="btn h48 w155" mat-stroked-button>Login</button>
+        </div>
+      </div>
     </div>
   </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
 </div>
-  <div><router-outlet></router-outlet></div> 
-</div>
-

@@ -6,8 +6,11 @@ import { RequestService } from 'src/app/services/request/request.service';
 import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
 import { AddInfoUserComponent } from '../add-info-user/add-info-user.component';
 import { UpdateUserComponent } from '../update-user/update-user.component';
-import * as moment from 'moment';
 import { EventService } from 'src/app/services/event/event.service';
+import { Employee } from 'src/app/model/Employee';
+import { Events } from 'src/app/model/Events';
+import { Request } from 'src/app/model/Request';
+import { UploadFile } from 'src/app/model/UploadFile';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -15,167 +18,145 @@ import { EventService } from 'src/app/services/event/event.service';
   styleUrls: ['./dashboard-user.component.scss']
 })
 export class DashboardUserComponent implements OnInit {
-  fileName = '';
-  employee: any = [];
-  getId!: any;
-  cv!: any;
-  arr!: any;
-  updateUser!: any;
-  updateEmployee!: any;
-  btn!: any;
-  addCV!: any;
-  head!: any;
-  vacation!: any;
-  vacationPlanned: any = [];
-  eventMonth!: any;
-  eventMonthBool!: boolean;
-  monthBirth!: any;
-  monthBirthBool!: boolean;
-  eventMonthArr!: any;
+  uploadFileName = '';
+  employee!: Employee;
+  cv: any = [];
+  uploadFileList: UploadFile[] = [];
+  updateUser!: Employee[];
+  vacationList: Request[] = [];
+  vacationPlannedList: Request[] = [];
+  eventMonthList: Events[] = [];
+  haveEventMonth!: boolean;
+  birthMonthList: Employee[] = [];
+  haveBirthMonth!: boolean;
 
-
-  constructor(public dialog: MatDialog, private service: DataEmployeeService,
-              private emoloyeeService: EmployeeService,
-              private uploadFileService: UploadFileService,
-              private requestService: RequestService,
-              private eventService: EventService) {
-      this.monthBirthBool = false;
-    }
-
-  ngOnInit(): void {
-   this.getEmployee();
-   this.getInfo();
-   this.getUploadFile();
-   this.getVacationsPlanned();
-   this.getEventMonth();
+  constructor(
+    public dialog: MatDialog, private service: DataEmployeeService,
+    private emoloyeeService: EmployeeService,
+    private uploadFileService: UploadFileService,
+    private requestService: RequestService,
+    private eventService: EventService) {
+    this.haveBirthMonth = false;
   }
 
-  getEmployee(){
+  ngOnInit(): void {
+    this.getEmployee();
+    this.getUploadFile();
+    this.getVacationsPlanned();
+    this.getEventMonth();
+  }
+
+  getEmployee() {
     this.service.data.subscribe(value => {
       this.employee = value;
     });
-    this.getId = this.employee.id;
   }
 
-  getUploadFile(){
-  this.uploadFileService.getUplFileByEmail(this.employee.email)
-    .subscribe((res) => {
-      this.arr = res;
-      if (this.arr.length > 0){
-        this.cv = res[res.length - 1];
-        this.fileName = this.cv.name;
-      }else{
-        this.fileName = '';
-        this.cv = [];
-      }
-    });
+  getUploadFile() {
+    this.uploadFileService.getUplFileByEmail(this.employee)
+      .subscribe((res) => {
+        console.log(res);
+        this.uploadFileList = res;
+        if (this.uploadFileList.length > 0) {
+          this.cv = res[res.length - 1];
+          this.uploadFileName = this.cv.name;
+        } else {
+          this.uploadFileName = '';
+          this.cv = [];
+        }
+      });
   }
 
   addNewInfo(): void {
     const dialogRef = this.dialog.open(AddInfoUserComponent, {
       width: '398px',
-      height : '398px',
+      height: '398px',
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getInfo();
+      if (result) {
+        this.getEmployee();
+      }
     });
-   }
-
-  getInfo(){
-    this.emoloyeeService.GetEmployee(this.getId)
-      .subscribe(value => {
-        this.employee = value;
-      });
   }
+
 
   editUser(event: any): void {
     const dialogRef = this.dialog.open(UpdateUserComponent, {
       width: '398px',
-      height : '670px',
-      data: {head: 'Edit user:', btn: 'SAVE', updateEmployee: event,
-      addCV: 'Add new CV'}
+      height: '680px',
+      data: {
+        head: 'Edit user:',
+        btn: 'SAVE',
+        updateEmployee: event,
+        addCV: 'Add new CV'
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getUploadFile();
-      this.updateUser = result;
-      this.emoloyeeService.updateEmployee(event.id, this.updateUser)
+      if (result) {
+        this.getUploadFile();
+        this.updateUser = result;
+        this.emoloyeeService.updateEmployee(event.id, this.updateUser)
           .subscribe(
             success => {
               this.emoloyeeService.GetEmployee(event.id)
-              .subscribe((res) => {
-                this.employee = res;
-              });
+                .subscribe((res) => {
+                  this.employee = res;
+                });
             },
             error => console.log(error));
+      }
     });
   }
 
   onFileSelected(event: any) {
+    console.log(this.cv);
     const file: File = event.target.files[0];
     if (file) {
-        this.fileName = file.name;
-        this.uploadFileService.uploadFile(this.employee, file)
-      .subscribe((res) => {
-        this.getUploadFile();
-        if (this.cv.id !== undefined){
-        this.deleteCV();
-      }}, (err) => {
+      this.uploadFileName = file.name;
+      this.uploadFileService.uploadFile(this.employee, file)
+        .subscribe((res) => {
+          this.getUploadFile();
+          console.log(this.cv._id);
+          if (this.cv._id !== undefined) {
+            this.deleteCV();
+          }
+        }, (err) => {
           console.log(err);
-      });
+        });
     }
   }
 
-  deleteCV(){
-    this.uploadFileService.deleteUplFile(this.cv.id)
-    .subscribe((res) => {
-      this.getUploadFile();
-    });
-  }
-
-  sortArr(arr: any){
-    const today = new Date();
-    arr.sort((a: any, b: any) => {
-      const first = (moment(today).format('MMDD') as any) - (moment(b.date).format('MMDD') as any);
-      const second = (moment(today).format('MMDD') as any) - (moment(a.date).format('MMDD') as any);
-      return first - second;
-    });
+  deleteCV() {
+    console.log(this.cv);
+    this.uploadFileService.deleteUplFile(this.cv._id)
+      .subscribe((res) => {
+        this.getUploadFile();
+      });
   }
 
   // vacation
 
-  getVacationsPlanned(){
-    this.requestService.ConfirmRequestByEmil(this.employee.email)
-    .subscribe((res) => {
-      this.vacation = res;
-      const today = moment(new Date()).format('YYYY-MM-DD') as any;
-      this.vacation.forEach((item: any) => {
-        if (moment(today).isBefore(item.date)){
-          this.vacationPlanned.push(item);
-          this.sortArr(this.vacationPlanned);
-        }else{
-          this.requestService.DeleteRequest(item.id)
-          .subscribe(() => {
-          });
-        }
+  getVacationsPlanned() {
+    this.requestService.ConfirmRequestByEmilLater(this.employee)
+      .subscribe((res) => {
+        this.vacationPlannedList = res;
       });
-    });
   }
 
-  getEventMonth(){
+  getEventMonth() {
     this.eventService.GetEventMonth()
-    .subscribe((res) => {
-      this.eventMonth = res;
-      this.emoloyeeService.GetEmplBirthMonth()
-        .subscribe((result) => {
-        this.monthBirth = result;
-        this.eventMonth.forEach((element: any) => {
-          this.monthBirth.push(element);
-        });
-        if (this.monthBirth.length > 0){
-          this.eventMonthBool = true;
-          this.sortArr(this.monthBirth);
-        }
-    });
-  });
+      .subscribe((res) => {
+        this.eventMonthList = res;
+        this.emoloyeeService.GetEmplBirthMonth()
+          .subscribe((result) => {
+            this.birthMonthList = result;
+            this.eventMonthList.forEach((element: any) => {
+              this.birthMonthList.push(element);
+            });
+            if (this.birthMonthList.length > 0) {
+              this.haveEventMonth = true;
+            }
+          });
+      });
   }
 }

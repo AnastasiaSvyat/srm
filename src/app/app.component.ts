@@ -20,37 +20,37 @@ export class AppComponent {
   employeeLoginForm!: FormGroup;
 
 
-  constructor(private router: Router,
-              public formBuilder: FormBuilder,
-              private authService: AuthService
-  ){
-       this.employeeLoginForm = this.formBuilder.group({
-        email: [''],
-        password: [''],
-      });
-     }
+  constructor(
+    private router: Router,
+    public formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {
+    this.employeeLoginForm = this.formBuilder.group({
+      email: [''],
+      password: [''],
+    });
+  }
 
   get isAuthorized() {
     return this.authService.isAuthorized();
   }
 
   loginEmployee(): void {
-
     this.authService.Login(this.employeeLoginForm.value)
       .subscribe((res) => {
         const loginEmploee = JSON.parse(JSON.stringify(res));
         this.user = loginEmploee;
         this.authService.checkRole(loginEmploee.role);
-        if (loginEmploee.role === 'user'){
-              this.router.navigate(['user']);
-              this.router.navigate(['user'], {state: {data: this.user}});
+        if (loginEmploee.role === 'user') {
+          this.router.navigate(['user']);
+          this.router.navigate(['user'], { state: { data: this.user } });
 
-          }else if (loginEmploee.role === 'admin'){
-            this.router.navigate(['/admin', 'dashboardAdmin'], {state: {data: this.user}});
-          }}, error => {
-              MaterialService.toast(error.error.massage);
-              console.warn(error);
-
-          });
+        } else if (loginEmploee.role === 'admin') {
+          this.router.navigate(['/admin', 'dashboardAdmin'], { state: { data: this.user } });
+        }
+      }, error => {
+        MaterialService.toast(error.error.massage);
+        console.warn(error);
+      });
   }
 }

@@ -1,9 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { EventService } from 'src/app/services/event/event.service';
-import { AdminComponent } from '../admin.component';
-import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-event',
@@ -14,12 +11,11 @@ import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.comp
 export class AddEventComponent implements OnInit {
 
   eventForm!: FormGroup;
-  createEvent!: any;
 
-  constructor(public dialogRef: MatDialogRef<AddEventComponent, DashboardAdminComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: AdminComponent,
-              private eventService: EventService,
-              public formBuilder: FormBuilder, ) { }
+  constructor(
+    public dialogRef: MatDialogRef<AddEventComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.eventForm = new FormGroup({
@@ -30,7 +26,7 @@ export class AddEventComponent implements OnInit {
     });
   }
 
-  get name() { return this.eventForm.get('name') ; }
+  get name() { return this.eventForm.get('name'); }
   get type() { return this.eventForm.get('type'); }
   get date() { return this.eventForm.get('date'); }
   get description() { return this.eventForm.get('description'); }
@@ -38,6 +34,4 @@ export class AddEventComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-
 }

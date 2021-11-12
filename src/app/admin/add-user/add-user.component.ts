@@ -1,8 +1,9 @@
 import { Component, Inject, NgZone, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
 import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
+import { UploadFile } from 'src/app/model/UploadFile';
 
 @Component({
   selector: 'app-add-user',
@@ -12,22 +13,22 @@ import { UploadFileService } from 'src/app/services/UploadFile/upload-file.servi
 export class AddUserComponent implements OnInit {
 
   addEmployeeForm!: FormGroup;
-  fileName = '';
-  cv!: any;
-  arr!: any;
+  uploadFileName = '';
+  cv: any = [];
+  uploadFileList: UploadFile[] = [];
 
 
   constructor(
     public formBuilder: FormBuilder,
     public uploadFileService: UploadFileService,
-    public dialogRef: MatDialogRef<AddUserComponent, DashboardAdminComponent>,
-    @Inject(MAT_DIALOG_DATA) public dataUser: DashboardAdminComponent) {}
+    public dialogRef: MatDialogRef<AddUserComponent>,
+    @Inject(MAT_DIALOG_DATA) public dataUser: any) { }
 
-    ngOnInit(): void {
+  ngOnInit(): void {
     this.getUploadFile();
     this.addEmployeeForm = new FormGroup({
       name: new FormControl(this.dataUser.changeUser.name, [Validators.required]),
-      email : new FormControl(this.dataUser.changeUser.email, [Validators.required, Validators.email]),
+      email: new FormControl(this.dataUser.changeUser.email, [Validators.required, Validators.email]),
       password: new FormControl(this.dataUser.changeUser.password, [Validators.required, Validators.minLength(6)]),
       salary: new FormControl(this.dataUser.changeUser.salary, [Validators.required]),
       phone: new FormControl(this.dataUser.changeUser.phone, [Validators.required]),
@@ -56,36 +57,37 @@ export class AddUserComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
-        this.fileName = file.name;
-        this.uploadFileService.uploadFile(this.dataUser.changeUser, file)
-      .subscribe((res) => {
-        this.getUploadFile();
-        if (this.cv.id !== undefined){
-        this.deleteCV();
-      }}, (err) => {
+      this.uploadFileName = file.name;
+      this.uploadFileService.uploadFile(this.dataUser.changeUser, file)
+        .subscribe((res) => {
+          this.getUploadFile();
+          if (this.cv._id !== undefined) {
+            this.deleteCV();
+          }
+        }, (err) => {
           console.log(err);
-      });
+        });
     }
   }
 
-  deleteCV(){
-    this.uploadFileService.deleteUplFile(this.cv.id)
-    .subscribe((res) => {
-      this.getUploadFile();
-    });
+  deleteCV() {
+    this.uploadFileService.deleteUplFile(this.cv._id)
+      .subscribe(() => {
+        this.getUploadFile();
+      });
   }
 
-  getUploadFile(){
-    this.uploadFileService.getUplFileByEmail(this.dataUser.changeUser.email)
+  getUploadFile() {
+    this.uploadFileService.getUplFileByEmail(this.dataUser.changeUser)
       .subscribe((res) => {
-        this.arr = res;
-        if (this.arr.length > 0){
+        this.uploadFileList = res;
+        if (this.uploadFileList.length > 0) {
           this.cv = res[res.length - 1];
-          this.fileName = this.cv.name;
-        }else{
-          this.fileName = '';
+          this.uploadFileName = this.cv.name;
+        } else {
+          this.uploadFileName = '';
           this.cv = [];
         }
       });
-    }
+  }
 }

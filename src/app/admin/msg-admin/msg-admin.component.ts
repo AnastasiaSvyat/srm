@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatTable } from '@angular/material/table';
+import { Request } from 'src/app/model/Request';
 import { RequestService } from 'src/app/services/request/request.service';
 
 @Component({
@@ -10,17 +11,14 @@ import { RequestService } from 'src/app/services/request/request.service';
 export class MsgAdminComponent implements OnInit {
 
 
-  constructor(private requestService: RequestService, private changeDetectorRefs: ChangeDetectorRef) { }
+  constructor(private requestService: RequestService) { }
 
-  requestList!: any;
-  newRequest!: boolean;
-  pendingRequestArr: any;
-  confirmRequestArr: any;
-  confirmRequestBool!: boolean;
-  pendingRequestBool!: boolean;
-
-
-  @ViewChildren(MatTable) table !: QueryList<MatTable<string>>;
+  requestList: Request[] = [];
+  haveNewRequest!: boolean;
+  pendingRequestList: Request[] = [];
+  confirmRequestList: Request[] = [];
+  haveConfirmRequest!: boolean;
+  havePendingRequest!: boolean;
 
   displayedColumns: string[] = ['startDate', 'type', 'date', 'description', 'decline', 'confirm'];
   displayedColumnsConfirm: string[] = ['startDate', 'type', 'date', 'con', 'description'];
@@ -31,39 +29,40 @@ export class MsgAdminComponent implements OnInit {
   }
 
 
-  pendingRequest(){
+  pendingRequest() {
     this.requestService.GetAllRequest()
-    .subscribe((res) => {
-    this.pendingRequestArr = res;
-    if (this.pendingRequestArr.length === 0){
-      this.pendingRequestBool = false;
-    }else{
-      this.pendingRequestBool = true;
-    }
-    });
+      .subscribe((res) => {
+        this.pendingRequestList = res;
+        if (this.pendingRequestList.length === 0) {
+          this.havePendingRequest = false;
+        } else {
+          this.havePendingRequest = true;
+        }
+      });
   }
 
-  confirmRequest(){
+  confirmRequest() {
     this.requestService.ConfirmRequest()
-    .subscribe((res) => {
-      this.confirmRequestArr = res;
-      if (this.confirmRequestArr.length === 0){
-        this.confirmRequestBool = false;
-      }else{
-        this.confirmRequestBool = true;
-      }
-    });
+      .subscribe((res) => {
+        this.confirmRequestList = res;
+        if (this.confirmRequestList.length === 0) {
+          this.haveConfirmRequest = false;
+        } else {
+          this.haveConfirmRequest = true;
+        }
+      });
   }
 
-  actionRequest(res: any, element: any){
-    if (res === true){
+  actionRequest(res: any, element: any) {
+    if (res === true) {
       element.confirm = res;
-    }else{
+    } else {
       element.decline = true;
     }
-    this.requestService.UpdateRequest(element.id, element)
-    .subscribe(() => {
-      this.confirmRequest();
-      this.pendingRequest();
-  }); }
+    this.requestService.UpdateRequest(element._id, element)
+      .subscribe(() => {
+        this.confirmRequest();
+        this.pendingRequest();
+      });
+  }
 }

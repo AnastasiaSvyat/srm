@@ -2,14 +2,25 @@
 .add-task-container,
 .add-user-container,
 .add-request-container,
-.app-add-info-user,
-.loginBox{
+.app-add-info-user{
    mat-form-field{
         width: 325px;
-        height: 48px;
+        height: 40px;
         margin-top: 40px;
+        margin-right: 36px;
     }
     .mat-form-field-flex{
         background-color: #ECEFF1;
     }
 }
+.loginBox,
+.admin-staff-container{
+    mat-form-field{
+         width: 325px;
+         height: 48px;
+         margin-top: 10px;
+     }
+     .mat-form-field-flex{
+         background-color: #ECEFF1;
+     }
+ }

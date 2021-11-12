@@ -3,66 +3,59 @@
     <div class="addPhoto-box">
         <a href="#">add photo</a>
     </div>
-        <div [formGroup]="addEmployeeForm" mat-dialog-content>
-            <mat-form-field>
+    <div [formGroup]="addEmployeeForm">
+        <mat-form-field>
             <mat-label>Name</mat-label>
-                <textarea 
-                placeholder="Enter description..." 
-                formControlName="name" 
-                name="description" matInput></textarea>
-           </mat-form-field>
-            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="helper-text red-text">
-                <div *ngIf="name.errors?.required">Name is required.</div>
-            </div>
-            <mat-form-field>
-                <mat-label>Birthday</mat-label>
-                <input matInput 
-                formControlName="date" 
-                [matDatepicker]="picker" 
-                placeholder="Choose a date">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker startView="year"></mat-datepicker>
-            </mat-form-field>
-            <div *ngIf="date.invalid && (date.dirty || date.touched)" class="helper-text red-text">
-                <div *ngIf="date.errors?.required">Birthday is required.</div>
-           </div>
-            <mat-form-field>
+            <input placeholder="Enter description..." formControlName="name" name="description" matInput />
+        </mat-form-field>
+        <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="helper-text red-text">
+            <div *ngIf="name?.errors?.required">Name is required.</div>
+        </div>
+        <mat-form-field>
+            <mat-label>Birthday</mat-label>
+            <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="year"></mat-datepicker>
+        </mat-form-field>
+        <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
+            <div *ngIf="date?.errors?.required">Birthday is required.</div>
+        </div>
+        <mat-form-field>
             <mat-label>Phone</mat-label>
-                <textarea 
-                placeholder="Enter phone..." 
-                formControlName="phone" name="description" matInput></textarea>
-            </mat-form-field>
-            <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="helper-text red-text">
-                <div *ngIf="phone.errors?.required">Phone is required.</div>
-           </div>
-            <mat-form-field>
-                <mat-label>Email</mat-label>
-                <textarea placeholder="Enter email..." formControlName="email" name="description" matInput></textarea>
-            </mat-form-field>
-            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="helper-text red-text">
-                <div *ngIf="email.errors?.required">Name is required.</div>
-                <div *ngIf="email.errors?.email">Enter correct email.</div>
-            </div>
-            <div>
-                <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-                <div class="file-upload mt20">
-                    <div class="uploadFileBox" *ngIf = "fileName">
-                        <button (click)="deleteCV()" class="fileImg" class="deleteBtn greyColor">x</button>
-                        <img src="../../../assets/img/cv.svg" alt="">
-                    </div>
-                    <p class="fz5 fontColorGrey">{{fileName || "No cv uploaded yet."}}</p>
-                </div> 
-                    <div (click)="fileUpload.click()" type="file" class="addCV-box">
-                        <button class="cvButton">{{dataUser.addCV}}</button>
-                    </div>
-            </div>
-           <div fxLayout="row" fxLayoutAlign="space-around center"  class="mt50">
-                <div>
-                    <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
+            <input placeholder="Enter phone..." formControlName="phone" name="description" matInput />
+        </mat-form-field>
+        <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="helper-text red-text">
+            <div *ngIf="phone?.errors?.required">Phone is required.</div>
+        </div>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input placeholder="Enter email..." formControlName="email" name="description" matInput />
+        </mat-form-field>
+        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="helper-text red-text">
+            <div *ngIf="email?.errors?.required">Name is required.</div>
+            <div *ngIf="email?.errors?.email">Enter correct email.</div>
+        </div>
+        <div>
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <div class="file-upload mt20">
+                <div class="uploadFileBox" *ngIf="uploadFileName">
+                    <button (click)="deleteCV()" class="fileImg" class="deleteBtn greyColor">x</button>
+                    <img src="../../../assets/img/cv.svg" alt="">
                 </div>
-                <div>
-                    <button [mat-dialog-close]="addEmployeeForm.value" class="btn h48 w155" mat-stroked-button>{{dataUser.btn}}</button>
-                </div>
+                <p class="fz5 fontColorGrey">{{uploadFileName || "No cv uploaded yet."}}</p>
+            </div>
+            <div (click)="fileUpload.click()" type="file" class="addCV-box">
+                <button class="cvButton">{{dataUser.addCV}}</button>
             </div>
         </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
+            <div>
+                <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
+            </div>
+            <div>
+                <button [mat-dialog-close]="addEmployeeForm.value" class="btn h48 w155"
+                    mat-stroked-button>{{dataUser.btn}}</button>
+            </div>
+        </div>
+    </div>
 </div>

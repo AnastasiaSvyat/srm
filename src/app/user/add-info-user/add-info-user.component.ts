@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Employee } from 'src/app/model/Employee';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 
@@ -10,25 +11,23 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
   styleUrls: ['./add-info-user.component.scss']
 })
 export class AddInfoUserComponent implements OnInit {
-  id: any;
   infoAboutUserForm!: FormGroup;
-  employee: any;
+  employee!: Employee;
 
 
-  constructor(public dialogRef: MatDialogRef<AddInfoUserComponent>,
-              private service: DataEmployeeService,
-              private emoloyeeService: EmployeeService ) {
-      this.service.data.subscribe(value => {
-        this.employee = value;
-      });
-
-    }
+  constructor(
+    public dialogRef: MatDialogRef<AddInfoUserComponent>,
+    private service: DataEmployeeService,
+    private emoloyeeService: EmployeeService) {
+    this.service.data.subscribe(value => {
+      this.employee = value;
+    });
+  }
 
   ngOnInit(): void {
-    this.id = this.employee.id;
     this.infoAboutUserForm = new FormGroup({
-        info: new FormControl('', [Validators.required]),
-      });
+      info: new FormControl('', [Validators.required]),
+    });
   }
 
   onNoClick(): void {
@@ -37,12 +36,11 @@ export class AddInfoUserComponent implements OnInit {
 
   addUserInfo(): any {
     this.employee.info.push(this.infoAboutUserForm.value);
-    this.emoloyeeService.updateEmployee(this.id, this.employee)
-    .subscribe((res) => {
-      this.dialogRef.close();
-      this.employee = res;
-    }, (err) => {
+    this.emoloyeeService.updateEmployee(this.employee.id, this.employee)
+      .subscribe(() => {
+        this.dialogRef.close();
+      }, (err) => {
         console.log(err);
-    });
+      });
   }
 }

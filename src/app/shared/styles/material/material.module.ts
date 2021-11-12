@@ -31,7 +31,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatTableModule,
     MatIconModule,
     MatDialogModule,
-    MatSidenavModule, 
+    MatSidenavModule,
     MatDatepickerModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -43,14 +43,14 @@ import {MatMenuModule} from '@angular/material/menu';
     MatPaginatorModule,
     MatMenuModule
   ],
-  exports:[
+  exports: [
     MatFormFieldModule,
     MatRadioModule,
     CdkTableModule,
     MatTableModule,
     MatIconModule,
     MatDialogModule,
-    MatSidenavModule, 
+    MatSidenavModule,
     MatDatepickerModule,
     ReactiveFormsModule,
     MatButtonModule,
