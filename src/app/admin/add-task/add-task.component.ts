@@ -30,7 +30,7 @@ export class AddTaskComponent implements OnInit {
       task: new FormControl(this.dataTask.task, [Validators.required]),
       date: new FormControl(this.dataTask.dateAll, [Validators.required]),
       email: new FormControl(this.employee.email),
-      isChecked: new FormControl(false)
+      select: new FormControl(false)
     });
   }
 

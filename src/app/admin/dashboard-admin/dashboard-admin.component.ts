@@ -134,6 +134,8 @@ export class DashboardAdminComponent implements OnInit {
     console.log(task);
     this.idCheckBox = $event.target.value;
     this.isChecked = $event.target.checked;
+    console.log(this.isChecked);
+    console.log(this.idCheckBox);
     if (this.isChecked) {
       this.taskService.DeleteTask(task._id)
         .subscribe((res) => {
@@ -142,10 +144,10 @@ export class DashboardAdminComponent implements OnInit {
     }
   }
 
-  deleteTask(id: any) {
-    this.taskService.DeleteTask(id).subscribe((res) => {
-      this.getAllTask();
-    });
+  deleteTask(event: any) {
+    this.taskService.DeleteTask(event._id).subscribe((res) => {
+        this.getAllTask();
+      });
   }
 
   getAllTask() {
@@ -210,9 +212,13 @@ export class DashboardAdminComponent implements OnInit {
       data: { head: 'Edit task:', btn: 'EDIT', dateAll: event.date, task: event.task }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if (result) {
         this.editTask = result;
-        this.taskService.UpdateTask(event.id, this.editTask);
+        this.taskService.UpdateTask(event._id, this.editTask)
+        .subscribe((res) => {
+          console.log(res);
+        });
         this.getAllTask();
       }
     });
