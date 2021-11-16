@@ -25,9 +25,6 @@ export class MsgUserComponent implements OnInit {
   employee!: Employee;
   pendingRequestList: Request[] = [];
   confirmRequestList: Request[] = [];
-  havePendingRequest!: boolean;
-  haveConfirmRequest!: boolean;
-  haveDeclineRequest!: boolean;
   declineRequestList: Request[] = [];
   duration = 5000;
   displayedColumns: string[] = ['startDate', 'type', 'date', 'description'];
@@ -49,11 +46,6 @@ export class MsgUserComponent implements OnInit {
     this.requestService.GetAllRequestEmail(this.employee.email)
       .subscribe((res) => {
         this.pendingRequestList = res;
-        if (this.pendingRequestList.length === 0) {
-          this.havePendingRequest = false;
-        } else {
-          this.havePendingRequest = true;
-        }
       });
   }
 
@@ -61,11 +53,6 @@ export class MsgUserComponent implements OnInit {
     this.requestService.ConfirmRequestByEmil(this.employee.email)
       .subscribe((res) => {
         this.confirmRequestList = res;
-        if (this.confirmRequestList.length === 0) {
-          this.haveConfirmRequest = false;
-        } else {
-          this.haveConfirmRequest = true;
-        }
       });
   }
 
@@ -73,11 +60,6 @@ export class MsgUserComponent implements OnInit {
     this.requestService.DeclineRequestByEmail(this.employee.email)
       .subscribe((res) => {
         this.declineRequestList = res;
-        if (this.declineRequestList.length === 0) {
-          this.haveDeclineRequest = false;
-        } else {
-          this.haveDeclineRequest = true;
-        }
       });
   }
 

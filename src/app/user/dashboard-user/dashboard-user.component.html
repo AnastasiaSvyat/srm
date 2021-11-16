@@ -47,8 +47,14 @@
                     <div fxFlex='33.33%' class="content_bottom mt16 ml16 colorBlock">
                         <div class="mt24 ml24">
                             <p class="fs18 fontColorGrey">Planned vacation</p>
-                            <p *ngFor="let vacation of vacationPlannedList" class="plannedVacation fw500 fs36">
-                                {{vacation.date | date:'dd.MM.YYYY'}} - {{vacation.endDate | date:'dd.MM.YYYY'}}</p>
+                            <div *ngIf="birthMonthList?.length">
+                                <p *ngFor="let vacation of vacationPlannedList" class="plannedVacation fw500 fs36">
+                                    {{vacation.date | date:'dd.MM.YYYY'}} - {{vacation.endDate | date:'dd.MM.YYYY'}}
+                                </p>
+                            </div>
+                                <p *ngIf="!birthMonthList?.length" class="plannedVacation fs24 fontColorGrey">
+                                    No vacation this month
+                                </p>
                         </div>
                     </div>
                     <div fxFlex='33.33%' class="content_bottom mt16 ml16 colorBlock">
@@ -100,8 +106,9 @@
                 <p>{{uploadFileName || "No cv uploaded yet."}}</p>
             </div>
             <div class="w100">
-                <button (click)="fileUpload.click()" type="file" class="w100 h48 btn" mat-stroked-button>ADD
-                    NEW</button>
+                <button (click)="fileUpload.click()" type="file" class="w100 h48 btn" mat-stroked-button>
+                    ADD NEW
+                </button>
             </div>
         </div>
     </div>

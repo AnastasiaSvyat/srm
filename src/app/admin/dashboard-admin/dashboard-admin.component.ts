@@ -24,17 +24,9 @@ export class DashboardAdminComponent implements OnInit {
   toDoListToday: ToDoList[] = [];
   toDoListWeek: ToDoList[] = [];
   toDoListTomorrow: ToDoList[] = [];
-  haveTaskToday!: boolean;
-  haveTaskTomorrow!: boolean;
-  haveTaskWeek!: boolean;
   isChecked!: boolean;
   monthBirthList: Employee[] = [];
   todayBirthList: Employee[] = [];
-  haveBirthToday!: boolean;
-  haveBirthMonth!: boolean;
-  haveEventToday!: boolean;
-  haveEventMonth!: boolean;
-  noHaveEvent!: boolean;
   idCheckBox!: any;
   today = new Date();
   editTask: ToDoList[] = [];
@@ -131,11 +123,8 @@ export class DashboardAdminComponent implements OnInit {
   // TASK
 
   onChange($event: any, task: any) {
-    console.log(task);
     this.idCheckBox = $event.target.value;
     this.isChecked = $event.target.checked;
-    console.log(this.isChecked);
-    console.log(this.idCheckBox);
     if (this.isChecked) {
       this.taskService.DeleteTask(task._id)
         .subscribe((res) => {
@@ -159,11 +148,7 @@ export class DashboardAdminComponent implements OnInit {
   getTaskDay() {
     this.taskService.GetAllTaskDate()
       .subscribe((res) => {
-        console.log(res);
         this.toDoListToday = res;
-        if (this.toDoListToday.length > 0) {
-          this.haveTaskToday = true;
-        }
       });
   }
 
@@ -171,9 +156,6 @@ export class DashboardAdminComponent implements OnInit {
     this.taskService.GetAllTaskWeek()
       .subscribe((res) => {
         this.toDoListWeek = res;
-        if (this.toDoListWeek.length > 0) {
-          this.haveTaskWeek = true;
-        }
       });
   }
 
@@ -181,9 +163,6 @@ export class DashboardAdminComponent implements OnInit {
     this.taskService.GetAllTaskTomorrow()
       .subscribe((res) => {
         this.toDoListTomorrow = res;
-        if (this.toDoListTomorrow.length > 0) {
-          this.haveTaskTomorrow = true;
-        }
       });
   }
 
@@ -192,13 +171,11 @@ export class DashboardAdminComponent implements OnInit {
       width: '398px',
       height: '361px',
       data: { head: 'Add task:', btn: 'ADD', }
-
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.taskService.AddTask(result)
           .subscribe((res) => {
-            console.log(res);
             this.getAllTask();
           });
       }
@@ -212,7 +189,6 @@ export class DashboardAdminComponent implements OnInit {
       data: { head: 'Edit task:', btn: 'EDIT', dateAll: event.date, task: event.task }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.editTask = result;
         this.taskService.UpdateTask(event._id, this.editTask)
@@ -235,7 +211,7 @@ export class DashboardAdminComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.eventService.AddEvent(result)
-          .subscribe((res) => {
+          .subscribe(() => {
             this.snackBar.open('Congratulations! Event has been added!', '', {
               duration: this.duration
             });
@@ -258,22 +234,14 @@ export class DashboardAdminComponent implements OnInit {
   getEventDay() {
     this.eventService.GetAllEventToday()
       .subscribe((res) => {
-        console.log(res);
         this.eventDayList = res;
-        if (this.eventDayList.length > 0) {
-          this.haveEventToday = true;
-        }
       });
   }
 
   getEventMonth() {
     this.eventService.GetEventMonth()
       .subscribe((res) => {
-        console.log(res);
         this.eventMonthList = res;
-        if (this.eventMonthList.length > 0) {
-          this.haveEventMonth = true;
-        }
       });
   }
 
@@ -282,9 +250,6 @@ export class DashboardAdminComponent implements OnInit {
       .subscribe((res) => {
         console.log(res);
         this.eventLaterList = res;
-        if (this.eventLaterList.length > 0) {
-          this.noHaveEvent = true;
-        }
       });
   }
 
@@ -299,29 +264,20 @@ export class DashboardAdminComponent implements OnInit {
   getBirthDay() {
     this.emoloyeeService.GetEmplBirthToday()
       .subscribe((res) => {
-        console.log(res);
         this.todayBirthList = res;
-        if (this.todayBirthList.length > 0) {
-          this.haveBirthToday = true;
-        }
       });
   }
 
   getBirthMonth() {
     this.emoloyeeService.GetEmplBirthMonth()
       .subscribe((res) => {
-        console.log(res);
         this.monthBirthList = res;
-        if (this.monthBirthList.length > 0) {
-          this.haveBirthMonth = true;
-        }
       });
   }
 
   getBirth() {
     this.emoloyeeService.GetEmplBirthLater()
       .subscribe((res) => {
-        console.log(res);
         this.staffBirthLater = res;
       });
   }

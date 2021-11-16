@@ -14,13 +14,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AdminCalendarComponent implements OnInit {
   today = new Date();
-  haveEventsToday!: boolean;
   eventSelectedDate: Events[] = [];
-  haveBirthToday!: boolean;
   birthSelectDate: Employee[] = [];
   selectedDate!: any;
-  haveEventsPlannedToday!: boolean;
-  haveEventsPlannedMonth!: boolean;
   eventsPlannedMonth: Events[] = [];
   eventsPlannedToday: Events[] = [];
   eventsPlannedLater: Events[] = [];
@@ -47,25 +43,16 @@ export class AdminCalendarComponent implements OnInit {
   }
 
   getEmployeeBirthSelectDate() {
-    this.haveBirthToday = false;
     this.employeeService.GetSelectBirth(this.selectedDate)
       .subscribe((res) => {
-        console.log(res);
         this.birthSelectDate = res;
-        if (this.birthSelectDate.length > 0) {
-          this.haveBirthToday = true;
-        }
       });
   }
 
   getEventSelectDate() {
-    this.haveEventsToday = false;
     this.eventService.GetSelectEvents(this.selectedDate)
       .subscribe((res) => {
         this.eventSelectedDate = res;
-        if (this.eventSelectedDate.length > 0) {
-          this.haveEventsToday = true;
-        }
       });
   }
 
@@ -79,9 +66,6 @@ export class AdminCalendarComponent implements OnInit {
     this.eventService.GetAllEventToday()
       .subscribe((res) => {
         this.eventsPlannedToday = res;
-        if (this.eventsPlannedToday.length > 0) {
-          this.haveEventsPlannedToday = true;
-        }
       });
   }
 
@@ -89,9 +73,6 @@ export class AdminCalendarComponent implements OnInit {
     this.eventService.GetEventMonth()
       .subscribe((res) => {
         this.eventsPlannedMonth = res;
-        if (this.eventsPlannedMonth.length > 0) {
-          this.haveEventsPlannedMonth = true;
-        }
       });
   }
 

@@ -3,4 +3,5 @@ export class UploadFile {
     name!: string;
     email!: any;
     uploaded!: Date;
+    file!: any;
 }

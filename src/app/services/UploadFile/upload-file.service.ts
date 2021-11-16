@@ -22,11 +22,14 @@ export class UploadFileService {
   }
 
   uploadFile(employee: Employee, file: File): Observable<UploadFile[]> {
+    console.log(file);
     const formData = new FormData();
     formData.append('file', file);
     formData.append('name', file.name);
     formData.append('email', employee.email);
-    const API_URL = `${this.careService.REST_API}/uplFile`;
+    console.log(formData);
+    console.log(file);
+    const API_URL = `${this.careService.REST_API}/uplFile?email=${employee.email}`;
     return this.httpClient.post<UploadFile[]>(API_URL, formData)
       .pipe(
         catchError(this.careService.handleError)
@@ -38,5 +41,9 @@ export class UploadFileService {
     return this.httpClient.delete<UploadFile>(API_URL, { headers: this.careService.httpHeaders }).pipe(
       catchError(this.careService.handleError)
     );
+  }
+
+  getFiles(): Observable<any> {
+    return this.httpClient.get(`${this.careService.REST_API}/fil`);
   }
 }

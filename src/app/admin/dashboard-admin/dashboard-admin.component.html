@@ -29,15 +29,15 @@
             <div fxFlex='33.33%' fxLayout="column" fxLayoutAlign="space-between start"
                 class="ml16 mt16 dashboard-content colorBlock ">
                 <div fxFlex='2%' class="fs24 ml24 mt24">Events</div>
-                <div *ngIf="noHaveEvent" fxFlex='80%' class="w100">
+                <div *ngIf="eventLaterList?.length" fxFlex='80%' class="w100">
                     <div fxLayout="row" fxLayoutAlign="space-between center">
                         <div class="ml24">
                             <div>
                                 <p class="fontColorGrey fs18 mt16">Today</p>
-                                <div *ngIf="!haveEventToday">
+                                <div *ngIf="!eventDayList?.length">
                                     <span class="fontColorGrey fs14">No event today</span>
                                 </div>
-                                <div *ngIf="haveEventToday">
+                                <div *ngIf="eventDayList?.length">
                                     <div *ngFor="let item of eventDayList">
                                         <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
                                         <span class="fs14">{{item.name}}</span>
@@ -45,7 +45,7 @@
                                 </div>
                             </div>
 
-                            <div *ngIf="haveEventMonth" class="mt16">
+                            <div *ngIf="eventMonthList?.length" class="mt16">
                                 <p class="fontColorGrey fs18 mt16">This month</p>
                                 <div *ngFor="let item of eventMonthList">
                                     <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="!noHaveEvent" class="text-center w100">
+                <div *ngIf="!eventLaterList?.length" class="text-center w100">
                     <span class="fontColorGrey fs14">No events</span>
                 </div>
                 <div class="w100">
@@ -76,10 +76,10 @@
                 <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start">
                     <div class="mt24">
                         <p class="fontColorGrey fs18 mt16">Today</p>
-                        <div *ngIf="!haveBirthToday">
+                        <div *ngIf="!todayBirthList?.length">
                             <span class="fontColorGrey fs14">No birthday today</span>
                         </div>
-                        <div *ngIf="haveBirthToday">
+                        <div *ngIf="todayBirthList?.length">
                             <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of todayBirthList">
                                 <div class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}</div>
                                 <div class="photo photoSmall ml12"></div>
@@ -87,7 +87,7 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="haveBirthMonth" class="mt16">
+                    <div *ngIf="monthBirthList?.length" class="mt16">
                         <p class="fontColorGrey fs18 mt16">This month</p>
                         <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of monthBirthList">
                             <div class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}</div>
@@ -136,11 +136,11 @@
     <div fxFlex='28%' fxLayout="column" fxLayoutAlign="space-between start"
         class="mt24 container_right colorBlock ml16">
         <div fxFlex='2%' class="fs24 ml24 mt24">ToDoList</div>
-        <div *ngIf="!haveTaskWeek && !haveTaskToday && !haveTaskTomorrow" class="text-center w100">
+        <div *ngIf="!toDoListWeek?.length && !toDoListToday?.length && !toDoListTomorrow?.length" class="text-center w100">
             <span class="fontColorGrey fs14">No tasks</span>
         </div>
         <div fxFlex='80%' class="w100">        
-            <div *ngIf="haveTaskToday">
+            <div *ngIf="toDoListToday?.length">
             <div class="fs18 fontColorGrey mt16 ml24">Today {{today | date:'dd/MM' }} </div>
                 <div fxLayout="row" fxLayoutAlign="space-between center"
                     *ngFor="let task of toDoListToday; let i = index" class="w100">
@@ -167,7 +167,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="haveTaskTomorrow" class="fs18 fontColorGrey mt16 ml24">Tomorrow</div>
+            <div *ngIf="toDoListTomorrow?.length" class="fs18 fontColorGrey mt16 ml24">Tomorrow</div>
             <div fxLayout="row" fxLayoutAlign="space-between center"
                 *ngFor="let task of toDoListTomorrow; let i = index" class="w100">
                 <div class="ml24">
@@ -192,7 +192,7 @@
                     </mat-menu>
                 </div>
             </div>
-            <div *ngIf="haveTaskWeek" class="fs18 fontColorGrey mt16 ml24">This week</div>
+            <div *ngIf="toDoListWeek?.length" class="fs18 fontColorGrey mt16 ml24">This week</div>
             <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let task of toDoListWeek" class="w100">
                 <div class="ml24">
                     <label>

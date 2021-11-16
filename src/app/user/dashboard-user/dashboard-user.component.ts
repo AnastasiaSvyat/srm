@@ -25,9 +25,8 @@ export class DashboardUserComponent implements OnInit {
   updateUser!: Employee[];
   vacationPlannedList: Request[] = [];
   eventMonthList: Events[] = [];
-  haveEventMonth!: boolean;
   birthMonthList: Employee[] = [];
-  haveBirthMonth!: boolean;
+  fileInfos!: any;
 
   constructor(
     public dialog: MatDialog, private service: DataEmployeeService,
@@ -35,7 +34,6 @@ export class DashboardUserComponent implements OnInit {
     private uploadFileService: UploadFileService,
     private requestService: RequestService,
     private eventService: EventService) {
-    this.haveBirthMonth = false;
   }
 
   ngOnInit(): void {
@@ -43,6 +41,8 @@ export class DashboardUserComponent implements OnInit {
     this.getUploadFile();
     this.getVacationsPlanned();
     this.getEventMonth();
+    this.fileInfos = this.uploadFileService.getFiles();
+    console.log(this.fileInfos);
   }
 
   getEmployee() {
@@ -54,14 +54,11 @@ export class DashboardUserComponent implements OnInit {
   getUploadFile() {
     this.uploadFileService.getUplFileByEmail(this.employee)
       .subscribe((res) => {
-        console.log(res);
         this.uploadFileList = res;
-        if (this.uploadFileList.length > 0) {
-          this.cv = res[res.length - 1];
+        this.uploadFileName = '';
+        if (this.uploadFileList.length){
+          this.cv = this.uploadFileList[0];
           this.uploadFileName = this.cv.name;
-        } else {
-          this.uploadFileName = '';
-          this.cv = [];
         }
       });
   }
@@ -108,25 +105,19 @@ export class DashboardUserComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    console.log(this.cv);
+    console.log(this.uploadFileList);
     const file: File = event.target.files[0];
     if (file) {
       this.uploadFileName = file.name;
       this.uploadFileService.uploadFile(this.employee, file)
         .subscribe((res) => {
           this.getUploadFile();
-          console.log(this.cv._id);
-          if (this.cv._id !== undefined) {
-            this.deleteCV();
-          }
-        }, (err) => {
-          console.log(err);
         });
     }
   }
 
   deleteCV() {
-    console.log(this.cv);
+    console.log(this.cv._id);
     this.uploadFileService.deleteUplFile(this.cv._id)
       .subscribe((res) => {
         this.getUploadFile();
@@ -152,9 +143,6 @@ export class DashboardUserComponent implements OnInit {
             this.eventMonthList.forEach((element: any) => {
               this.birthMonthList.push(element);
             });
-            if (this.birthMonthList.length > 0) {
-              this.haveEventMonth = true;
-            }
           });
       });
   }

@@ -14,12 +14,8 @@ import { Events } from 'src/app/model/Events';
 export class UserCalendarComponent implements OnInit {
   today = new Date();
   eventSelectedDate: Events[] = [];
-  haveEventsToday!: boolean;
-  haveBirthToday!: boolean;
   birthSelectDate: Employee[] = [];
   selectedDate = new Date();
-  haveEventsPlannedToday!: boolean;
-  haveEventsPlannedMonth!: boolean;
   eventsPlannedMonth: Events[] = [];
   eventsPlannedToday: Events[] = [];
   eventsPlannedLater: Events[] = [];
@@ -45,25 +41,16 @@ export class UserCalendarComponent implements OnInit {
   }
 
   getEmployeeBirthSelectDate() {
-    this.haveBirthToday = false;
     this.employeeService.GetSelectBirth(this.selectedDate)
       .subscribe((res) => {
-        console.log(res);
         this.birthSelectDate = res;
-        if (this.birthSelectDate.length > 0) {
-          this.haveBirthToday = true;
-        }
       });
   }
 
   getEventSelectDate() {
-    this.haveEventsToday = false;
     this.eventService.GetSelectEvents(this.selectedDate)
       .subscribe((res) => {
         this.eventSelectedDate = res;
-        if (this.eventSelectedDate.length > 0) {
-          this.haveEventsToday = true;
-        }
       });
   }
 
@@ -77,9 +64,6 @@ export class UserCalendarComponent implements OnInit {
     this.eventService.GetAllEventToday()
       .subscribe((res) => {
         this.eventsPlannedToday = res;
-        if (this.eventsPlannedToday.length > 0) {
-          this.haveEventsPlannedToday = true;
-        }
       });
   }
 
@@ -87,9 +71,6 @@ export class UserCalendarComponent implements OnInit {
     this.eventService.GetEventMonth()
       .subscribe((res) => {
         this.eventsPlannedMonth = res;
-        if (this.eventsPlannedMonth.length > 0) {
-          this.haveEventsPlannedMonth = true;
-        }
       });
   }
 

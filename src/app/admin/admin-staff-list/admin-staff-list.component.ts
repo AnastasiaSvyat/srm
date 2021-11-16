@@ -32,7 +32,6 @@ export class AdminStaffListComponent implements OnInit {
   page = 1;
   count = 0;
   pageSize = 10;
-  pageSizes = [3, 6, 9];
 
   displayedColumns: string[] = ['name', 'position', 'birthday', 'salary', 'firstDay', 'lastPerf', 'phone', 'email', 'cv', 'change'];
 

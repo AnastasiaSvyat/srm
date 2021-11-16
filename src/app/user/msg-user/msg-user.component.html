@@ -1,10 +1,10 @@
 <div class="user-msg-container">
   <div>
     <!-- Pending -->
-    <div class="noRequest w98 h48 ma" *ngIf="!havePendingRequest">
+    <div class="noRequest w98 h48 ma" *ngIf="!pendingRequestList?.length">
       <p class="pt11 pl8">You have no pending requests</p>
     </div>
-    <mat-table *ngIf="havePendingRequest" [dataSource]="pendingRequestList" class="mat-elevation-z8 table w100 mt16">
+    <mat-table *ngIf="pendingRequestList?.length" [dataSource]="pendingRequestList" class="mat-elevation-z8 table w100 mt16">
       <ng-container matColumnDef="startDate">
         <mat-header-cell *matHeaderCellDef>Pending...</mat-header-cell>
         <mat-cell *matCellDef="let element">
@@ -28,10 +28,10 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
     <!-- Confirmed -->
-    <div class="noRequest w98 h48 ma" *ngIf="!haveConfirmRequest">
+    <div class="noRequest w98 h48 ma" *ngIf="!confirmRequestList?.length">
       <p class="pt11 pl8">You have no pending requests</p>
     </div>
-    <mat-table *ngIf="haveConfirmRequest" [dataSource]="confirmRequestList" class="mat-elevation-z8 table w100 mt16">
+    <mat-table *ngIf="confirmRequestList?.length" [dataSource]="confirmRequestList" class="mat-elevation-z8 table w100 mt16">
       <ng-container matColumnDef="startDate">
         <mat-header-cell *matHeaderCellDef>Confirmed...</mat-header-cell>
         <mat-cell *matCellDef="let element">
@@ -55,10 +55,10 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
     <!-- Declined -->
-    <div class="noRequest w98 h48 ma" *ngIf="!haveDeclineRequest">
+    <div class="noRequest w98 h48 ma" *ngIf="!declineRequestList?.length">
       <p class="pt11 pl8">You have no pending requests</p>
     </div>
-    <mat-table *ngIf="haveDeclineRequest" [dataSource]="declineRequestList" class="mat-elevation-z8 table w100 mt16">
+    <mat-table *ngIf="declineRequestList?.length" [dataSource]="declineRequestList" class="mat-elevation-z8 table w100 mt16">
       <ng-container matColumnDef="startDate">
         <mat-header-cell *matHeaderCellDef>Declined...</mat-header-cell>
         <mat-cell *matCellDef="let element">
