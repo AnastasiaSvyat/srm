@@ -13,7 +13,7 @@ export class UpdateUserComponent implements OnInit {
 
   addEmployeeForm!: FormGroup;
   cv: any = [];
-  cvList: UploadFile[] = [];
+  uploadFileList: UploadFile[] = [];
   uploadFileName = '';
 
 
@@ -53,17 +53,13 @@ export class UpdateUserComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
+    console.log(this.uploadFileList);
     const file: File = event.target.files[0];
     if (file) {
       this.uploadFileName = file.name;
       this.uploadFileService.uploadFile(this.dataUser.updateEmployee, file)
         .subscribe((res) => {
           this.getUploadFile();
-          if (this.cv._id !== undefined) {
-            this.deleteCV();
-          }
-        }, (err) => {
-          console.log(err);
         });
     }
   }
@@ -72,14 +68,11 @@ export class UpdateUserComponent implements OnInit {
   getUploadFile() {
     this.uploadFileService.getUplFileByEmail(this.dataUser.updateEmployee)
       .subscribe((res) => {
-        this.cvList = res;
-        if (this.cvList.length > 0) {
-          this.cv = res[res.length - 1];
+        this.uploadFileList = res;
+        this.uploadFileName = '';
+        if (this.uploadFileList.length){
+          this.cv = this.uploadFileList[0];
           this.uploadFileName = this.cv.name;
-        } else {
-          this.uploadFileName = '';
-          this.cv = [];
-
         }
       });
   }

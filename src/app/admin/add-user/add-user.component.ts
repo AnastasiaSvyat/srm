@@ -1,7 +1,6 @@
 import { Component, Inject, NgZone, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
 import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
 import { UploadFile } from 'src/app/model/UploadFile';
 
@@ -55,17 +54,13 @@ export class AddUserComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
+    console.log(this.uploadFileList);
     const file: File = event.target.files[0];
     if (file) {
       this.uploadFileName = file.name;
       this.uploadFileService.uploadFile(this.dataUser.changeUser, file)
         .subscribe((res) => {
           this.getUploadFile();
-          if (this.cv._id !== undefined) {
-            this.deleteCV();
-          }
-        }, (err) => {
-          console.log(err);
         });
     }
   }
@@ -81,12 +76,10 @@ export class AddUserComponent implements OnInit {
     this.uploadFileService.getUplFileByEmail(this.dataUser.changeUser)
       .subscribe((res) => {
         this.uploadFileList = res;
-        if (this.uploadFileList.length > 0) {
-          this.cv = res[res.length - 1];
+        this.uploadFileName = '';
+        if (this.uploadFileList.length){
+          this.cv = this.uploadFileList[0];
           this.uploadFileName = this.cv.name;
-        } else {
-          this.uploadFileName = '';
-          this.cv = [];
         }
       });
   }

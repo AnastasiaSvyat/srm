@@ -51,18 +51,6 @@ export class DashboardUserComponent implements OnInit {
     });
   }
 
-  getUploadFile() {
-    this.uploadFileService.getUplFileByEmail(this.employee)
-      .subscribe((res) => {
-        this.uploadFileList = res;
-        this.uploadFileName = '';
-        if (this.uploadFileList.length){
-          this.cv = this.uploadFileList[0];
-          this.uploadFileName = this.cv.name;
-        }
-      });
-  }
-
   addNewInfo(): void {
     const dialogRef = this.dialog.open(AddInfoUserComponent, {
       width: '398px',
@@ -102,6 +90,18 @@ export class DashboardUserComponent implements OnInit {
             error => console.log(error));
       }
     });
+  }
+
+  getUploadFile() {
+    this.uploadFileService.getUplFileByEmail(this.employee)
+      .subscribe((res) => {
+        this.uploadFileList = res;
+        this.uploadFileName = '';
+        if (this.uploadFileList.length){
+          this.cv = this.uploadFileList[0];
+          this.uploadFileName = this.cv.name;
+        }
+      });
   }
 
   onFileSelected(event: any) {
