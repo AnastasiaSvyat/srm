@@ -111,6 +111,7 @@ export class DashboardUserComponent implements OnInit {
       this.uploadFileName = file.name;
       this.uploadFileService.uploadFile(this.employee, file)
         .subscribe((res) => {
+          console.log(res);
           this.getUploadFile();
         });
     }

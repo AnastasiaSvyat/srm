@@ -21,8 +21,11 @@
         </div>
         <div fxFlex="6">
           <div>
-            <button mat-icon-button class="navbar-button" [routerLink]="['/admin','messageAdmin']">
-              <div class="circle-sms">{{countPendingReq}}</div>
+            <button *ngIf="requestCount !== 0" mat-icon-button class="navbar-button" [routerLink]="['/admin','messageAdmin']">
+              <div  class="circle-sms">{{requestCount}}</div>
+              <img src="/assets/img/msg.png" alt="">
+            </button>
+            <button *ngIf="requestCount == 0" mat-icon-button class="navbar-button" [routerLink]="['/admin','messageAdmin']">
               <img src="/assets/img/msg.png" alt="">
             </button>
           </div>

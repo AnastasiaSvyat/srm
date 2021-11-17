@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Request } from '../model/Request';
+import { CountRequestService } from '../services/count-request.service';
 import { RequestService } from '../services/request/request.service';
+import { MsgAdminComponent } from './msg-admin/msg-admin.component';
 
 
 
@@ -14,19 +16,19 @@ export class AdminComponent implements OnInit {
   requestArr: Request[] = [];
   pendingRequestList: Request[] = [];
   countPendingReq!: number;
-
-  constructor(private requestService: RequestService) { }
+  requestCount!: any;
+  @ViewChild('primaryMonthPicker', {static: false}) primaryMonthPicker!: MsgAdminComponent;
+  constructor(
+    private requestService: RequestService,
+    private countRequestService: CountRequestService) { }
 
   ngOnInit(): void {
     this.requestService.GetAllRequest()
       .subscribe((res) => {
-        this.requestArr = res;
-        this.requestArr.forEach((element: any) => {
-          if (element.confirm === '') {
-            this.pendingRequestList.push(element);
-          }
-        });
-        this.countPendingReq = this.pendingRequestList.length;
+        this.requestCount = res.length;
       });
+    this.countRequestService.data$.subscribe((rest: any) => {
+      this.requestCount = rest;
+    });
   }
 }
