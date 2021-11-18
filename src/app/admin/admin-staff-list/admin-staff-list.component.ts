@@ -83,7 +83,7 @@ export class AdminStaffListComponent implements OnInit {
   addUser(): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
-      height: '884px',
+      height: '984px',
       data: {
         head: 'Add user:',
         btn: 'ADD',
@@ -114,7 +114,7 @@ export class AdminStaffListComponent implements OnInit {
     this.getUplFile(event.email);
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
-      height: '884px',
+      height: '984px',
       data: {
         head: 'Edit user:',
         btn: 'SAVE',

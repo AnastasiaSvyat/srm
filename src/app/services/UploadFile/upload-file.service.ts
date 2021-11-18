@@ -22,7 +22,6 @@ export class UploadFileService {
   }
 
   uploadFile(employee: Employee, file: File): Observable<UploadFile[]> {
-    console.log(file);
     const formData = new FormData();
     formData.append('file', file);
     formData.append('name', file.name);

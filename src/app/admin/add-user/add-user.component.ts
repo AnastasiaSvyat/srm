@@ -15,6 +15,7 @@ export class AddUserComponent implements OnInit {
   uploadFileName = '';
   cv: any = [];
   uploadFileList: UploadFile[] = [];
+  selectFile!: any;
 
 
   constructor(
@@ -35,7 +36,7 @@ export class AddUserComponent implements OnInit {
       lastPerf: new FormControl(this.dataUser.changeUser.lastPerf, [Validators.required]),
       date: new FormControl(this.dataUser.changeUser.date, [Validators.required]),
       role: new FormControl(this.dataUser.changeUser.role, [Validators.required]),
-      id: new FormControl(this.dataUser.changeUser.id, [Validators.required])
+      id: new FormControl(this.dataUser.changeUser.id, [Validators.required]),
 
     });
   }
@@ -49,22 +50,27 @@ export class AddUserComponent implements OnInit {
   get salary() { return this.addEmployeeForm.get('salary'); }
   get phone() { return this.addEmployeeForm.get('phone'); }
 
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   onFileSelected(event: any) {
-    console.log(this.uploadFileList);
+    console.log(event);
     const file: File = event.target.files[0];
     if (file) {
+      this.selectFile = file;
       this.uploadFileName = file.name;
-      this.uploadFileService.uploadFile(this.dataUser.changeUser, file)
-        .subscribe((res) => {
-          this.getUploadFile();
-        });
     }
   }
 
+  addCv() {
+    console.log(this.addEmployeeForm.value.email);
+    this.uploadFileService.uploadFile(this.addEmployeeForm.value, this.selectFile)
+      .subscribe(() => {
+        this.getUploadFile();
+      });
+  }
   deleteCV() {
     this.uploadFileService.deleteUplFile(this.cv._id)
       .subscribe(() => {
@@ -77,7 +83,7 @@ export class AddUserComponent implements OnInit {
       .subscribe((res) => {
         this.uploadFileList = res;
         this.uploadFileName = '';
-        if (this.uploadFileList.length){
+        if (this.uploadFileList.length) {
           this.cv = this.uploadFileList[0];
           this.uploadFileName = this.cv.name;
         }

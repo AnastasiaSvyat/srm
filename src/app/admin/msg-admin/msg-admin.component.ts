@@ -19,10 +19,6 @@ export class MsgAdminComponent implements OnInit {
   confirmRequestList: Request[] = [];
   data!: any;
 
-
-
-
-
   displayedColumns: string[] = ['startDate', 'type', 'date', 'description', 'decline', 'confirm'];
   displayedColumnsConfirm: string[] = ['startDate', 'type', 'date', 'con', 'description'];
 

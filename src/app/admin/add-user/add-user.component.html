@@ -97,7 +97,7 @@
                 <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button [mat-dialog-close]="addEmployeeForm.value" class="btn h48 w155"
+                <button (click) = "addCv()" [mat-dialog-close]="addEmployeeForm.value" class="btn h48 w155"
                     mat-stroked-button>{{dataUser.btn}}</button>
             </div>
         </div>
