@@ -26,6 +26,7 @@ export class MsgUserComponent implements OnInit {
   pendingRequestList: Request[] = [];
   confirmRequestList: Request[] = [];
   declineRequestList: Request[] = [];
+  vacationPlannedList: Request[] = [];
   duration = 5000;
   displayedColumns: string[] = ['startDate', 'type', 'date', 'description'];
 
@@ -43,14 +44,14 @@ export class MsgUserComponent implements OnInit {
   }
 
   pendingRequest() {
-    this.requestService.GetAllRequestEmail(this.employee.email)
+    this.requestService.GetPendingRequestEmail(this.employee.email)
       .subscribe((res) => {
         this.pendingRequestList = res;
       });
   }
 
   confirmRequest() {
-    this.requestService.ConfirmRequestByEmil(this.employee.email)
+    this.requestService.ConfirmRequestByEmaillLater(this.employee)
       .subscribe((res) => {
         this.confirmRequestList = res;
       });

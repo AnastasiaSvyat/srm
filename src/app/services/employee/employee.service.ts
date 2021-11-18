@@ -80,7 +80,4 @@ export class EmployeeService {
     return this.httpClient.get<any>(API_URL, { params });
   }
 
-  getFiles(): Observable<any> {
-    return this.httpClient.get(`${this.careService.REST_API}/files`);
-  }
 }

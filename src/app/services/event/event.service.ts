@@ -35,12 +35,6 @@ export class EventService {
     return this.httpClient.get<Events[]>(API_URL);
   }
 
-  GetAllEvents(): Observable<Events[]> {
-    const API_URL = `${this.careService.REST_API}/getEvent`;
-    return this.httpClient.get<Events[]>(API_URL);
-  }
-
-
   GetEventMonth(): Observable<Events[]> {
     const API_URL = `${this.careService.REST_API}/getEvent-month`;
     return this.httpClient.get<Events[]>(API_URL);
@@ -49,24 +43,6 @@ export class EventService {
   GetAllEventToday(): Observable<Events[]> {
     const API_URL = `${this.careService.REST_API}/getEvent-today`;
     return this.httpClient.get<Events[]>(API_URL);
-  }
-
-  SelectedEvent(id: any): Observable<any> {
-    const API_URL = `${this.careService.REST_API}/read-event/${id}`;
-    return this.httpClient.get(API_URL, { headers: this.careService.httpHeaders })
-      .pipe(map((res: any) => {
-        return res || {};
-      }),
-        catchError(this.careService.handleError)
-      );
-  }
-
-  UpdateEmployee(id: any, event: any): Observable<any> {
-    const API_URL = `${this.careService.REST_API}/update-event/${id}`;
-    return this.httpClient.put(API_URL, event, { headers: this.careService.httpHeaders })
-      .pipe(
-        catchError(this.careService.handleError)
-      );
   }
 
   DeleteEvent(id: any): Observable<any> {

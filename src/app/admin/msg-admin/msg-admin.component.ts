@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Request } from 'src/app/model/Request';
-import { CountRequestService } from 'src/app/services/count-request.service';
+import { CountRequestService } from 'src/app/services/countRequest/count-request.service';
 import { RequestService } from 'src/app/services/request/request.service';
 
 @Component({
@@ -9,8 +9,7 @@ import { RequestService } from 'src/app/services/request/request.service';
   styleUrls: ['./msg-admin.component.scss']
 })
 export class MsgAdminComponent implements OnInit {
-  @Output() outputToParent = new EventEmitter<any>();
-  @Input() x: any;
+
   constructor(
     private requestService: RequestService,
     private countRequestService: CountRequestService) { }
@@ -30,9 +29,8 @@ export class MsgAdminComponent implements OnInit {
   ngOnInit(): void {
     this.pendingRequest();
     this.confirmRequest();
-    this.countRequestService.data$.subscribe((ress) => {
-      this.data = ress;
-      console.log(this.data);
+    this.countRequestService.data$.subscribe((result) => {
+      this.data = result;
     });
   }
   countRequest(count: any) {
@@ -40,12 +38,11 @@ export class MsgAdminComponent implements OnInit {
   }
 
   pendingRequest() {
-    this.requestService.GetAllRequest()
+    this.requestService.GetPendingRequest()
       .subscribe((res) => {
         this.pendingRequestList = res;
-        this.countRequestService.data$.subscribe((ress) => {
-          this.data = ress;
-          console.log(this.data);
+        this.countRequestService.data$.subscribe((result) => {
+          this.data = result;
         });
         this.countRequest(this.pendingRequestList.length);
       });
@@ -55,7 +52,6 @@ export class MsgAdminComponent implements OnInit {
     this.requestService.ConfirmRequest()
       .subscribe((res) => {
         this.confirmRequestList = res;
-        console.log(this.confirmRequestList);
       });
   }
 

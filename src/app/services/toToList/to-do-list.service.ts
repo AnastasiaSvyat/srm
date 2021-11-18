@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -17,9 +17,9 @@ export class ToDoListService {
     private httpClient: HttpClient,
     private dataEmplService: DataEmployeeService,
     private careService: CareService) {
-      this.dataEmplService.data.subscribe(value => {
-        this.employee = value;
-      });
+    this.dataEmplService.data.subscribe(value => {
+      this.employee = value;
+    });
   }
 
 

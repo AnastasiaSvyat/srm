@@ -128,9 +128,10 @@ export class DashboardUserComponent implements OnInit {
   // vacation
 
   getVacationsPlanned() {
-    this.requestService.ConfirmRequestByEmilLater(this.employee)
+    this.requestService.ConfirmRequestByEmaillLater(this.employee)
       .subscribe((res) => {
         this.vacationPlannedList = res;
+        console.log(this.vacationPlannedList);
       });
   }
 

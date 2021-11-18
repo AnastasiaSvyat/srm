@@ -22,8 +22,7 @@ export class RequestService {
       );
   }
 
-
-  GetAllRequest(): Observable<Request[]> {
+  GetPendingRequest(): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/get-request/?confirm=false&decline=false`;
     return this.httpClient.get<Request[]>(API_URL)
       .pipe(map((res: any) => {
@@ -33,19 +32,9 @@ export class RequestService {
       );
   }
 
-  GetAllRequestEmail(email: string): Observable<Request[]> {
+  GetPendingRequestEmail(email: string): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/get-reqEmail/?confirm=false&decline=false&email=${email}`;
     return this.httpClient.get<Request[]>(API_URL)
-      .pipe(map((res: any) => {
-        return res || {};
-      }),
-        catchError(this.careService.handleError)
-      );
-  }
-
-  SelectedRequest(id: any): Observable<Request[]> {
-    const API_URL = `${this.careService.REST_API}/read-request/${id}`;
-    return this.httpClient.get<Request[]>(API_URL, { headers: this.careService.httpHeaders })
       .pipe(map((res: any) => {
         return res || {};
       }),
@@ -64,15 +53,11 @@ export class RequestService {
 
   GetRequestConfirmMonth(): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/trueRequest-month/?confirm=true`;
-    console.log(API_URL);
-
     return this.httpClient.get<Request[]>(API_URL);
   }
 
   GetRequestConfirmLater(): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/trueRequest-Later/?confirm=true`;
-    console.log(API_URL);
-
     return this.httpClient.get<Request[]>(API_URL);
   }
 
@@ -85,16 +70,7 @@ export class RequestService {
       );
   }
 
-  ConfirmRequestByEmil(employee: any): Observable<Request[]> {
-    return this.httpClient.get<Request[]>(`${this.careService.REST_API}/true-reqEmail/?confirm=true&email=${employee.email}`)
-      .pipe(map((res: any) => {
-        return res || {};
-      }),
-        catchError(this.careService.handleError)
-      );
-  }
-
-  ConfirmRequestByEmilLater(employee: any): Observable<Request[]> {
+  ConfirmRequestByEmaillLater(employee: any): Observable<Request[]> {
     return this.httpClient.get<Request[]>(`${this.careService.REST_API}/trueRequestEmployee-Later/?confirm=true&email=${employee.email}`)
       .pipe(map((res: any) => {
         return res || {};
