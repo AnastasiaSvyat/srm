@@ -14,7 +14,6 @@ export class AddInfoUserComponent implements OnInit {
   infoAboutUserForm!: FormGroup;
   employee!: Employee;
 
-
   constructor(
     public dialogRef: MatDialogRef<AddInfoUserComponent>,
     private service: DataEmployeeService,

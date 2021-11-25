@@ -16,9 +16,9 @@ export class EmployeeService {
     private httpClient: HttpClient,
     private careService: CareService) { }
 
-  AddEmployee(employee: Employee): Observable<any> {
+  AddEmployee(employee: Employee): Observable<Employee[]> {
     const API_URL = `${this.careService.REST_API}/add-employee`;
-    return this.httpClient.post(API_URL, employee)
+    return this.httpClient.post<Employee[]>(API_URL, employee)
       .pipe(
         catchError(this.careService.handleError)
       );

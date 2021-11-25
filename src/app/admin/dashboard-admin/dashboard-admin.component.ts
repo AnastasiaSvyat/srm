@@ -13,6 +13,8 @@ import { ToDoList } from 'src/app/model/ToDoList';
 import { Events } from 'src/app/model/Events';
 import { Request } from 'src/app/model/Request';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
+import { UploadPhoto } from 'src/app/model/UploadPhoto';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -30,7 +32,7 @@ export class DashboardAdminComponent implements OnInit {
   idCheckBox!: any;
   today = new Date();
   editTask: ToDoList[] = [];
-  updateUser: Employee[] = [];
+  updateUser!: Employee;
   eventDayList: Events[] = [];
   eventMonthList: Events[] = [];
   vacationMonthList: Request[] = [];
@@ -38,6 +40,9 @@ export class DashboardAdminComponent implements OnInit {
   eventLaterList: Events[] = [];
   staffBirthLater: Employee[] = [];
   duration = 5000;
+  urlPhoto!: string;
+  dataPhotoUpload!: UploadPhoto;
+
 
 
   constructor(
@@ -46,6 +51,7 @@ export class DashboardAdminComponent implements OnInit {
     private eventService: EventService,
     private emoloyeeService: EmployeeService,
     private requestService: RequestService,
+    private uploadPhotoService: UploadPhotoService,
     private taskService: ToDoListService,
     private snackBar: MatSnackBar) {
   }
@@ -58,6 +64,16 @@ export class DashboardAdminComponent implements OnInit {
     this.getAllBirth();
     this.emoloyeeService.GetEmplBirthToday();
     this.getAllVacations();
+    this.getPhotoEmployee();
+  }
+
+  getPhotoEmployee() {
+    this.uploadPhotoService.GetPhotoByEmail(this.employee)
+      .subscribe((res) => {
+        if (res.length) {
+          this.urlPhoto = res[0].imagePath;
+        }
+      });
   }
 
   // Vacations
@@ -102,11 +118,14 @@ export class DashboardAdminComponent implements OnInit {
         showLastPerf: true,
         showPassword: false,
         showRole: false,
+        addCV: 'Add new CV',
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if (result) {
-        this.updateUser = result;
+        this.updateUser = result[0];
+        this.dataPhotoUpload = result[1];
         this.emoloyeeService.updateEmployee(event.id, this.updateUser)
           .subscribe(
             success => {
@@ -115,6 +134,12 @@ export class DashboardAdminComponent implements OnInit {
                   this.employee = res;
                 });
             },
+            error => console.log(error));
+        this.uploadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
+          .subscribe(success => {
+            console.log(success);
+            this.getPhotoEmployee();
+          },
             error => console.log(error));
       }
     });
@@ -135,8 +160,8 @@ export class DashboardAdminComponent implements OnInit {
 
   deleteTask(event: any) {
     this.taskService.DeleteTask(event._id).subscribe((res) => {
-        this.getAllTask();
-      });
+      this.getAllTask();
+    });
   }
 
   getAllTask() {
@@ -192,9 +217,9 @@ export class DashboardAdminComponent implements OnInit {
       if (result) {
         this.editTask = result;
         this.taskService.UpdateTask(event._id, this.editTask)
-        .subscribe((res) => {
-          console.log(res);
-        });
+          .subscribe((res) => {
+            console.log(res);
+          });
         this.getAllTask();
       }
     });

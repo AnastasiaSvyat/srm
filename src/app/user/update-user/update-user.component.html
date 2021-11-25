@@ -1,7 +1,25 @@
 <div class="add-event-container">
     <h2 class="mt24" mat-dialog-title>{{dataUser.head}}</h2>
-    <div class="addPhoto-box">
-        <a href="#">add photo</a>
+    <div [formGroup]="photoForm" *ngIf="!imageData">
+        <div>
+            <div (click)="photoUpload.click()" class="addPhoto-box">
+                <input name="file" id="url" type="file" class="file-input" (change)="onPhotoSelected($event)"
+                    #photoUpload>
+                add photo
+            </div>
+        </div>
+    </div>
+    <div *ngIf="imageData">
+        <div class="photoBox">
+            <div class="updatePhoto greyColor">
+                <div (click)="photoUpload.click()">
+                    <input name="file" id="url" type="file" class="file-input" (change)="onPhotoSelected($event)"
+                        #photoUpload>
+                    <img class="ml3 mt3" src="../../../assets/img/updatePhoto.png" alt="">
+                </div>
+            </div>
+            <img class="photoBoxImg" [src]="imageData" [alt]="photoForm.value.name" />
+        </div>
     </div>
     <div [formGroup]="addEmployeeForm">
         <mat-form-field>
@@ -53,7 +71,7 @@
                 <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button [mat-dialog-close]="addEmployeeForm.value" class="btn h48 w155"
+                <button [mat-dialog-close]="[addEmployeeForm.value,photoForm.value]" class="btn h48 w155"
                     mat-stroked-button>{{dataUser.btn}}</button>
             </div>
         </div>

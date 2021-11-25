@@ -24,7 +24,6 @@ export class AddTaskComponent implements OnInit {
     });
   }
 
-
   ngOnInit(): void {
     this.infoAboutUserForm = new FormGroup({
       task: new FormControl(this.dataTask.task, [Validators.required]),

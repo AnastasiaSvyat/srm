@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Employee } from 'src/app/model/Employee';
 import { UploadFile } from 'src/app/model/UploadFile';
 import { CareService } from '../care/care.service';
@@ -17,7 +17,7 @@ export class UploadFileService {
     private careService: CareService) { }
 
   getUplFileByEmail(employee: Employee): Observable<UploadFile[]> {
-    const API_URL = `${this.careService.REST_API}/get-uplFile/?email=${employee.email}`;
+    const API_URL = `${this.careService.REST_API}/getCVFile/?email=${employee.email}`;
     return this.httpClient.get<UploadFile[]>(API_URL);
   }
 
@@ -40,9 +40,5 @@ export class UploadFileService {
     return this.httpClient.delete<UploadFile>(API_URL, { headers: this.careService.httpHeaders }).pipe(
       catchError(this.careService.handleError)
     );
-  }
-
-  getFiles(): Observable<any> {
-    return this.httpClient.get(`${this.careService.REST_API}/fil`);
   }
 }

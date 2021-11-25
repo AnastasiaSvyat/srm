@@ -25,6 +25,7 @@
     "angular-paginator": "^7.0.0",
     "datapipe-js": "^0.3.18",
     "dateformat": "^5.0.1",
+    "jquery": "^3.6.0",
     "jw-angular-pagination": "^1.2.0",
     "materialize-css": "^1.0.0-rc.2",
     "moment": "^2.29.1",

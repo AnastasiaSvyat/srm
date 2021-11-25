@@ -108,7 +108,7 @@ export class AdminCalendarComponent implements OnInit {
     });
   }
 
-  resetResults(){
+  resetResults() {
     this.eventSelectedDate = [];
     this.birthSelectDate = [];
   }

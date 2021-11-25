@@ -48,7 +48,6 @@ h2{
 .photoHeader{
     height: 82px;
     width: 82px;
-    padding-top: 20px;
 }
 .photo{
     border-radius: 50%;
@@ -93,12 +92,29 @@ h2{
     background-color: none;
     text-decoration: underline;
 }
-.addPhoto-box{
-    width: 92px;
-    height: 92px;
-    background-color: #C4C4C4;
-    text-align: center;
-    border-radius: 50%;
-    padding-top: 38px;
+.addPhoto-box,.photoBox{
     margin-left: 125px;
 }
+.addPhoto-box,.photoBox,.photoBoxImg{
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+}
+.addPhoto-box{
+    background-color: #C4C4C4;
+    text-align: center;
+}
+.addPhoto-box{
+    padding-top: 38px;
+    text-decoration: underline;
+}
+.updatePhoto{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    position: absolute;
+    // right: 10px;
+    // top: 10px;
+    margin-left: 63px;
+}
+

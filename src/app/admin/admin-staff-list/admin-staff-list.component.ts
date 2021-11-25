@@ -6,6 +6,8 @@ import { SearchName } from 'src/app/model/SearchName';
 import { Employee } from 'src/app/model/Employee';
 import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
+import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
+import { UploadPhoto } from 'src/app/model/UploadPhoto';
 
 
 @Component({
@@ -19,6 +21,7 @@ export class AdminStaffListComponent implements OnInit {
     private employeeService: EmployeeService,
     public dialog: MatDialog,
     public uplFileService: UploadFileService,
+    public uloadPhotoService: UploadPhotoService,
     public service: DataEmployeeService) { }
 
   staffList: Employee[] = [];
@@ -27,7 +30,9 @@ export class AdminStaffListComponent implements OnInit {
   searchByName!: any;
   updateUser!: any;
   employee: Employee[] = [];
-
+  dataAddEmloyee!: Employee;
+  dataPhotoUpload!: UploadPhoto;
+  urlPhoto!: string;
 
   page = 1;
   count = 0;
@@ -55,6 +60,16 @@ export class AdminStaffListComponent implements OnInit {
     }
     return params;
   }
+
+  // getPhotoEmployee() {
+  //   console.log(this.dataAddEmloyee);
+  //   this.uloadPhotoService.GetPhotoByEmail(this.updateUser)
+  //     .subscribe((res) => {
+  //       if (res.length) {
+  //         this.urlPhoto = res[0].imagePath;
+  //       }
+  //     });
+  // }
 
   retrieveStaff(): void {
     const params = this.getRequestParams(this.searchByName, this.page, this.pageSize);
@@ -97,21 +112,24 @@ export class AdminStaffListComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if (result) {
-        this.employeeService.AddEmployee(result)
+        this.dataAddEmloyee = result[0];
+        this.dataPhotoUpload = result[1];
+        this.employeeService.AddEmployee(this.dataAddEmloyee)
           .subscribe((res) => {
             this.retrieveStaff();
+          });
+        this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.dataAddEmloyee.email)
+          .subscribe((res) => {
+            // this.getPhotoEmployee();
+            console.log(res);
           });
       }
     });
   }
 
-  getUplFile(email: any) {
-    this.uplFileService.getUplFileByEmail(email);
-  }
-
   editUser(event: any): void {
-    this.getUplFile(event.email);
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       height: '984px',
@@ -128,13 +146,25 @@ export class AdminStaffListComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if (result) {
-        this.updateUser = result;
+        this.updateUser = result[0];
+        this.dataPhotoUpload = result[1];
         this.employeeService.updateEmployee(event.id, this.updateUser)
           .subscribe(
-            success => console.log('Done'),
+            success => {
+              this.employeeService.GetEmployee(event.id)
+                .subscribe((res) => {
+                  console.log(res);
+                });
+            },
             error => console.log(error));
-        this.retrieveStaff();
+        this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
+          .subscribe(success => {
+            console.log(success);
+            // this.getPhotoEmployee();
+          },
+            error => console.log(error));
       }
     });
   }

@@ -4,7 +4,8 @@
     <div class="noRequest w98 h48 ma" *ngIf="!pendingRequestList?.length">
       <p class="pt11 pl8">You have no pending requests</p>
     </div>
-    <mat-table *ngIf="pendingRequestList?.length" [dataSource]="pendingRequestList" class="mat-elevation-z8 table w100 mt16">
+    <mat-table *ngIf="pendingRequestList?.length" [dataSource]="pendingRequestList"
+      class="mat-elevation-z8 table w100 mt16">
       <ng-container matColumnDef="startDate">
         <mat-header-cell *matHeaderCellDef>Pending...</mat-header-cell>
         <mat-cell *matCellDef="let element">
@@ -44,7 +45,8 @@
       <div class="noRequest w98 h48 ma" *ngIf="!this.confirmRequestList?.length">
         <p class="pt11 pl8">You have no confirmed requests</p>
       </div>
-      <mat-table *ngIf="this.confirmRequestList?.length" [dataSource]="confirmRequestList" class="mat-elevation-z8 table w100 mt16">
+      <mat-table *ngIf="this.confirmRequestList?.length" [dataSource]="confirmRequestList"
+        class="mat-elevation-z8 table w100 mt16">
         <ng-container matColumnDef="startDate">
           <mat-header-cell *matHeaderCellDef>Confirmed...</mat-header-cell>
           <mat-cell *matCellDef="let element">

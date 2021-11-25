@@ -3,7 +3,9 @@
         <div fxLayout='column' fxFlex='72%' class="container_left mt24">
             <!-- header -->
             <div fxLayout='row' fxLayoutAlign="space-around center" class="h95 ml16 colorBlock">
-                <div class="photo photoHeader ml16">PHOTO</div>
+                <div *ngIf="urlPhoto">
+                    <img class="photo photoHeader ml16" [src]="urlPhoto" alt="">
+                </div>
                 <div class="ml16">
                     <div class="fs18 mb0">{{employee.name}}</div>
                     <div class="fs14 mb0 fontColorGrey">Manager</div>
@@ -52,9 +54,9 @@
                                     {{vacation.date | date:'dd.MM.YYYY'}} - {{vacation.endDate | date:'dd.MM.YYYY'}}
                                 </p>
                             </div>
-                                <p *ngIf="!birthMonthList?.length" class="plannedVacation fs24 fontColorGrey">
-                                    No vacation this month
-                                </p>
+                            <p *ngIf="!birthMonthList?.length" class="plannedVacation fs24 fontColorGrey">
+                                No vacation this month
+                            </p>
                         </div>
                     </div>
                     <div fxFlex='33.33%' class="content_bottom mt16 ml16 colorBlock">

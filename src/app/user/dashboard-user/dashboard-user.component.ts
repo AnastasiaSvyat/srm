@@ -11,6 +11,8 @@ import { Employee } from 'src/app/model/Employee';
 import { Events } from 'src/app/model/Events';
 import { Request } from 'src/app/model/Request';
 import { UploadFile } from 'src/app/model/UploadFile';
+import { UploadPhoto } from 'src/app/model/UploadPhoto';
+import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -22,17 +24,20 @@ export class DashboardUserComponent implements OnInit {
   employee!: Employee;
   cv: any = [];
   uploadFileList: UploadFile[] = [];
-  updateUser!: Employee[];
+  updateUser!: Employee;
   vacationPlannedList: Request[] = [];
   eventMonthList: Events[] = [];
   birthMonthList: Employee[] = [];
   fileInfos!: any;
+  urlPhoto!: string;
+  dataPhotoUpload!: UploadPhoto;
 
   constructor(
     public dialog: MatDialog, private service: DataEmployeeService,
     private emoloyeeService: EmployeeService,
     private uploadFileService: UploadFileService,
     private requestService: RequestService,
+    private uploadPhotoService: UploadPhotoService,
     private eventService: EventService) {
   }
 
@@ -41,14 +46,22 @@ export class DashboardUserComponent implements OnInit {
     this.getUploadFile();
     this.getVacationsPlanned();
     this.getEventMonth();
-    this.fileInfos = this.uploadFileService.getFiles();
-    console.log(this.fileInfos);
+    this.getPhotoEmployee();
   }
 
   getEmployee() {
     this.service.data.subscribe(value => {
       this.employee = value;
     });
+  }
+
+  getPhotoEmployee() {
+    this.uploadPhotoService.GetPhotoByEmail(this.employee)
+      .subscribe((res) => {
+        if (res.length) {
+          this.urlPhoto = res[0].imagePath;
+        }
+      });
   }
 
   addNewInfo(): void {
@@ -77,16 +90,24 @@ export class DashboardUserComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getUploadFile();
-        this.updateUser = result;
+        this.updateUser = result[0];
+        this.dataPhotoUpload = result[1];
+        console.log(result);
         this.emoloyeeService.updateEmployee(event.id, this.updateUser)
           .subscribe(
             success => {
               this.emoloyeeService.GetEmployee(event.id)
                 .subscribe((res) => {
                   this.employee = res;
+                  this.getUploadFile();
                 });
             },
+            error => console.log(error));
+        this.uploadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
+          .subscribe(success => {
+            console.log(success);
+            this.getPhotoEmployee();
+          },
             error => console.log(error));
       }
     });
@@ -97,7 +118,7 @@ export class DashboardUserComponent implements OnInit {
       .subscribe((res) => {
         this.uploadFileList = res;
         this.uploadFileName = '';
-        if (this.uploadFileList.length){
+        if (this.uploadFileList.length) {
           this.cv = this.uploadFileList[0];
           this.uploadFileName = this.cv.name;
         }
@@ -105,7 +126,6 @@ export class DashboardUserComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    console.log(this.uploadFileList);
     const file: File = event.target.files[0];
     if (file) {
       this.uploadFileName = file.name;

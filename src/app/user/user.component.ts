@@ -23,11 +23,11 @@ export class UserComponent implements OnInit {
     });
   }
 
-  countConfirmRequest(employee: any){
+  countConfirmRequest(employee: any) {
     this.requestService.ConfirmRequestByEmaillLater(employee)
-    .subscribe((result: any) => {
-      this.requestCount = result.length;
-    });
+      .subscribe((result: any) => {
+        this.requestCount = result.length;
+      });
   }
 
 }
