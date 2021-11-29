@@ -47,11 +47,9 @@ export class AddUserComponent implements OnInit {
       salary: new FormControl(this.dataUser.changeUser.salary, [Validators.required]),
       phone: new FormControl(this.dataUser.changeUser.phone, [Validators.required]),
       position: new FormControl(this.dataUser.changeUser.position, [Validators.required]),
-      lastPerf: new FormControl(this.dataUser.changeUser.lastPerf, [Validators.required]),
+      lastPerf: new FormControl(this.dataUser.changeUser.lastPerf),
       date: new FormControl(this.dataUser.changeUser.date, [Validators.required]),
       role: new FormControl(this.dataUser.changeUser.role, [Validators.required]),
-      id: new FormControl(this.dataUser.changeUser.id, [Validators.required]),
-      imageName: new FormControl(null)
     });
   }
 
@@ -105,10 +103,15 @@ export class AddUserComponent implements OnInit {
   }
 
   deleteCV() {
-    this.uploadFileService.deleteUplFile(this.cv._id)
+    if (!this.cv._id){
+      this.cvForm.reset();
+      this.uploadFileName = '';
+    }else{
+      this.uploadFileService.deleteUplFile(this.cv._id)
       .subscribe(() => {
         this.getUploadFile();
       });
+    }
   }
 
   getUploadFile() {

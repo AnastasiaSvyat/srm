@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Role } from './model/role';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Employee } from './model/Employee';
 import { AuthService } from './services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UploadFile } from './model/UploadFile';
 import { UploadFileService } from './services/UploadFile/upload-file.service';
-import { Subscription } from 'rxjs';
 
 
 @Component({

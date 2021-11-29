@@ -34,6 +34,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   get date() { return this.infoAboutUserForm.get('date'); }
+  get task() { return this.infoAboutUserForm.get('task'); }
 
   onNoClick(): void {
     this.dialogRef.close();

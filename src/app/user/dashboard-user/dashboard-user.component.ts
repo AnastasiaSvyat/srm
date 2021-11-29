@@ -153,10 +153,15 @@ export class DashboardUserComponent implements OnInit {
   }
 
   deleteCV() {
-    this.uploadFileService.deleteUplFile(this.cv._id)
-      .subscribe((res) => {
+    if (!this.cv._id){
+      this.cvForm.reset();
+      this.uploadFileName = '';
+    }else{
+      this.uploadFileService.deleteUplFile(this.cv._id)
+      .subscribe(() => {
         this.getUploadFile();
       });
+    }
   }
 
   // vacation

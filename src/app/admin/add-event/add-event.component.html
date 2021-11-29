@@ -8,26 +8,38 @@
                 <mat-option value="corporatEvent">Corporate event</mat-option>
             </mat-select>
         </mat-form-field>
+        <div *ngIf="type?.invalid && (type?.dirty || type?.touched)" class="helper-text red-text">
+            <div *ngIf="type?.errors?.required">Type is required.</div>
+        </div>
         <mat-form-field>
             <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="year"></mat-datepicker>
         </mat-form-field>
+        <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
+            <div *ngIf="date?.errors?.required">Date is required.</div>
+        </div>
         <mat-form-field>
             <mat-label>Name</mat-label>
             <input placeholder="Enter title event..." formControlName="name" name="name" matInput />
         </mat-form-field>
+        <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="helper-text red-text">
+            <div *ngIf="name?.errors?.required">Name is required.</div>
+        </div>
         <mat-form-field>
             <mat-label>Description</mat-label>
             <textarea placeholder="Enter description..." formControlName="description" name="description"
                 matInput></textarea>
         </mat-form-field>
+        <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="helper-text red-text">
+            <div *ngIf="description?.errors?.required">Description is required.</div>
+        </div>
         <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
             <div>
                 <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button [mat-dialog-close]="eventForm.value" class="btn w155" mat-stroked-button>Add</button>
+                <button [mat-dialog-close]="eventForm.value" [disabled]="!eventForm.valid" class="btn w155" mat-stroked-button>Add</button>
             </div>
         </div>
     </div>

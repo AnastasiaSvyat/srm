@@ -22,7 +22,6 @@
         </div>
     </div>
     <div [formGroup]="addEmployeeForm">
-
         <mat-form-field>
             <mat-label>Name</mat-label>
             <input placeholder="Enter description..." formControlName="name" name="name" matInput>
@@ -93,7 +92,7 @@
         <div *ngIf="role?.invalid && (role?.dirty || role?.touched)" class="helper-text red-text">
             <div *ngIf="role?.errors?.required">Role is required.</div>
         </div>
-        <div>
+        <div [formGroup]="cvForm">
             <input type="file" class="file-input" (change)="onFileSelected($event)"  accept=".pdf,.doc"  #fileUpload>
             <div class="file-upload mt20">
                 <div class="uploadFileBox" *ngIf="uploadFileName">
@@ -116,7 +115,7 @@
                 <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button [mat-dialog-close]="[addEmployeeForm.value , photoForm.value, cvForm.value]"
+                <button [disabled]="!addEmployeeForm.valid" [mat-dialog-close]="[addEmployeeForm.value, photoForm.value, cvForm.value]"
                     class="btn h48 w155" mat-stroked-button>{{dataUser.btn}}</button>
             </div>
         </div>

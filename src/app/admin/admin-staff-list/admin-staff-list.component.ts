@@ -115,6 +115,7 @@ export class AdminStaffListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        console.log(result);
         this.dataAddEmloyee = result[0];
         this.dataPhotoUpload = result[1];
         this.dataCVUpload = result[2];
@@ -123,14 +124,14 @@ export class AdminStaffListComponent implements OnInit {
             this.retrieveStaff();
           });
         if (this.dataPhotoUpload.image != null) {
-          this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
+          this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.dataAddEmloyee.email)
             .subscribe(success => {
               // this.getPhotoEmployee();
             },
               error => console.log(error));
         }
         if (this.dataCVUpload.cv != null) {
-          this.uplFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser.email)
+          this.uplFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.dataAddEmloyee.email)
             .subscribe((res: any) => {
               console.log(res);
             });
@@ -157,6 +158,7 @@ export class AdminStaffListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        console.log(result);
         this.updateUser = result[0];
         this.dataPhotoUpload = result[1];
         this.dataCVUpload = result[2];
@@ -172,6 +174,7 @@ export class AdminStaffListComponent implements OnInit {
         if (this.dataPhotoUpload.image != null) {
           this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
             .subscribe(success => {
+              console.log(success);
               // this.getPhotoEmployee();
             },
               error => console.log(error));

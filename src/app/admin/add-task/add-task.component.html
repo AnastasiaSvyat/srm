@@ -6,10 +6,16 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="year"></mat-datepicker>
         </mat-form-field>
+        <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
+            <div *ngIf="date?.errors?.required">Date is required.</div>
+        </div>
         <mat-form-field>
             <mat-label>Description</mat-label>
             <textarea placeholder="Enter description..." formControlName="task" name="description" matInput></textarea>
         </mat-form-field>
+        <div *ngIf="task?.invalid && (task?.dirty || task?.touched)" class="helper-text red-text">
+            <div *ngIf="task?.errors?.required">Description is required.</div>
+        </div>
         <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
             <div>
                 <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>

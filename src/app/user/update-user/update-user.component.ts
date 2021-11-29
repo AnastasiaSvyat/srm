@@ -85,10 +85,15 @@ export class UpdateUserComponent implements OnInit {
   }
 
   deleteCV() {
-    this.uploadFileService.deleteUplFile(this.cv._id)
+    if (!this.cv._id){
+      this.cvForm.reset();
+      this.uploadFileName = '';
+    }else{
+      this.uploadFileService.deleteUplFile(this.cv._id)
       .subscribe(() => {
         this.getUploadFile();
       });
+    }
   }
 
   onFileSelected(event: any) {
