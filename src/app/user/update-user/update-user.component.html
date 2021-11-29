@@ -54,7 +54,7 @@
             <div *ngIf="email?.errors?.email">Enter correct email.</div>
         </div>
         <div>
-            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <input type="file" class="file-input" (change)="onFileSelected($event)" accept=".pdf,.doc" #fileUpload>
             <div class="file-upload mt20">
                 <div class="uploadFileBox" *ngIf="uploadFileName">
                     <button (click)="deleteCV()" class="fileImg" class="deleteBtn greyColor">x</button>
@@ -71,7 +71,7 @@
                 <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button [mat-dialog-close]="[addEmployeeForm.value,photoForm.value]" class="btn h48 w155"
+                <button [mat-dialog-close]="[addEmployeeForm.value,photoForm.value, cvForm.value]" class="btn h48 w155"
                     mat-stroked-button>{{dataUser.btn}}</button>
             </div>
         </div>

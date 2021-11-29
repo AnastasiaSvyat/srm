@@ -99,7 +99,7 @@
             <div class="mt24 ml24">
                 <p class="fs24">CVs</p>
             </div>
-            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <input type="file" class="file-input" (change)="onFileSelected($event)" accept=".pdf,.doc" #fileUpload>
             <div class="file-upload ml16">
                 <div class="uploadFileBox" *ngIf="uploadFileName">
                     <button (click)="deleteCV()" class="fileImg" class="deleteBtn greyColor">x</button>

@@ -14,7 +14,6 @@ export class CountRequestService {
     this.requestService.GetPendingRequest()
       .subscribe((res) => {
         this.requestCountPending = res.length;
-        console.log(this.requestCountPending);
       });
   }
 

@@ -31,7 +31,7 @@ export class CareService {
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.log(errorMessage);
+    (errorMessage);
     return throwError(errorMessage);
   }
 }

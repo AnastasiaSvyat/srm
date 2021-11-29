@@ -8,6 +8,7 @@ import { UploadFileService } from 'src/app/services/UploadFile/upload-file.servi
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
+import { UploadFile } from 'src/app/model/UploadFile';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class AdminStaffListComponent implements OnInit {
   dataAddEmloyee!: Employee;
   dataPhotoUpload!: UploadPhoto;
   urlPhoto!: string;
+  dataCVUpload!: UploadFile;
 
   page = 1;
   count = 0;
@@ -112,19 +114,27 @@ export class AdminStaffListComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.dataAddEmloyee = result[0];
         this.dataPhotoUpload = result[1];
+        this.dataCVUpload = result[2];
         this.employeeService.AddEmployee(this.dataAddEmloyee)
           .subscribe((res) => {
             this.retrieveStaff();
           });
-        this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.dataAddEmloyee.email)
-          .subscribe((res) => {
-            // this.getPhotoEmployee();
-            console.log(res);
-          });
+        if (this.dataPhotoUpload.image != null) {
+          this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
+            .subscribe(success => {
+              // this.getPhotoEmployee();
+            },
+              error => console.log(error));
+        }
+        if (this.dataCVUpload.cv != null) {
+          this.uplFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser.email)
+            .subscribe((res: any) => {
+              console.log(res);
+            });
+        }
       }
     });
   }
@@ -146,10 +156,10 @@ export class AdminStaffListComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.updateUser = result[0];
         this.dataPhotoUpload = result[1];
+        this.dataCVUpload = result[2];
         this.employeeService.updateEmployee(event.id, this.updateUser)
           .subscribe(
             success => {
@@ -159,12 +169,19 @@ export class AdminStaffListComponent implements OnInit {
                 });
             },
             error => console.log(error));
-        this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
-          .subscribe(success => {
-            console.log(success);
-            // this.getPhotoEmployee();
-          },
-            error => console.log(error));
+        if (this.dataPhotoUpload.image != null) {
+          this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
+            .subscribe(success => {
+              // this.getPhotoEmployee();
+            },
+              error => console.log(error));
+        }
+        if (this.dataCVUpload.cv != null) {
+          this.uplFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser.email)
+            .subscribe((res: any) => {
+              console.log(res);
+            });
+        }
       }
     });
   }

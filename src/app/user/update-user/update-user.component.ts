@@ -18,6 +18,7 @@ export class UpdateUserComponent implements OnInit {
   uploadFileName = '';
   imageData!: any;
   photoForm!: FormGroup;
+  cvForm!: FormGroup;
 
 
   constructor(
@@ -32,6 +33,10 @@ export class UpdateUserComponent implements OnInit {
   ngOnInit(): void {
     this.getUploadFile();
     this.getPhotoEmployee();
+    this.cvForm = new FormGroup({
+      name: new FormControl(null),
+      cv: new FormControl(null)
+    });
     this.photoForm = new FormGroup({
       name: new FormControl(null),
       image: new FormControl(null)
@@ -56,7 +61,6 @@ export class UpdateUserComponent implements OnInit {
   }
 
   getPhotoEmployee() {
-    console.log(this.dataUser.updateEmployee.email);
     this.uploadPhotoService.GetPhotoByEmail(this.dataUser.updateEmployee)
       .subscribe((res) => {
         if (res.length) {
@@ -88,14 +92,11 @@ export class UpdateUserComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    console.log(this.uploadFileList);
     const file: File = event.target.files[0];
     if (file) {
+      this.cvForm.patchValue({ cv: file });
+      this.cvForm.patchValue({ name: file.name });
       this.uploadFileName = file.name;
-      this.uploadFileService.uploadFile(this.dataUser.updateEmployee, file)
-        .subscribe((res) => {
-          this.getUploadFile();
-        });
     }
   }
 

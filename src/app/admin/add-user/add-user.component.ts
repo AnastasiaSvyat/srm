@@ -19,6 +19,7 @@ export class AddUserComponent implements OnInit {
   selectFile!: any;
   imageData!: string;
   photoForm!: FormGroup;
+  cvForm!: FormGroup;
 
 
   constructor(
@@ -33,6 +34,10 @@ export class AddUserComponent implements OnInit {
     this.photoForm = new FormGroup({
       name: new FormControl(null),
       image: new FormControl(null)
+    });
+    this.cvForm = new FormGroup({
+      name: new FormControl(null),
+      cv: new FormControl(null)
     });
     this.getUploadFile();
     this.addEmployeeForm = new FormGroup({
@@ -61,7 +66,6 @@ export class AddUserComponent implements OnInit {
   get image() { return this.addEmployeeForm.get('image'); }
 
   getPhotoEmployee() {
-    console.log(this.dataUser.changeUser.email);
     this.uploadPhotoService.GetPhotoByEmail(this.dataUser.changeUser)
       .subscribe((res) => {
         if (res.length) {
@@ -76,33 +80,28 @@ export class AddUserComponent implements OnInit {
 
   onPhotoSelected(event: any) {
     const file = event.target.files[0];
-    this.photoForm.patchValue({ image: file });
-    this.photoForm.patchValue({ name: file.name });
-    const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg'];
-    if (file && allowedMimeTypes.includes(file.type)) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageData = reader.result as string;
-      };
-      reader.readAsDataURL(file);
+    if (file){
+      this.photoForm.patchValue({ image: file });
+      this.photoForm.patchValue({ name: file.name });
+      const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/pdf'];
+      if (file && allowedMimeTypes.includes(file.type)) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imageData = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      }
     }
   }
 
   onFileSelected(event: any) {
-    console.log(event);
     const file: File = event.target.files[0];
     if (file) {
+      this.cvForm.patchValue({ cv: file });
+      this.cvForm.patchValue({ name: file.name });
       this.selectFile = file;
       this.uploadFileName = file.name;
     }
-  }
-
-  addCv() {
-    console.log(this.addEmployeeForm.value.email);
-    this.uploadFileService.uploadFile(this.addEmployeeForm.value, this.selectFile)
-      .subscribe(() => {
-        this.getUploadFile();
-      });
   }
 
   deleteCV() {

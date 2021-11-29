@@ -15,6 +15,8 @@ import { Request } from 'src/app/model/Request';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
+import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
+import { UploadFile } from 'src/app/model/UploadFile';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -42,6 +44,8 @@ export class DashboardAdminComponent implements OnInit {
   duration = 5000;
   urlPhoto!: string;
   dataPhotoUpload!: UploadPhoto;
+  dataCVUpload!: UploadFile;
+
 
 
 
@@ -52,6 +56,7 @@ export class DashboardAdminComponent implements OnInit {
     private emoloyeeService: EmployeeService,
     private requestService: RequestService,
     private uploadPhotoService: UploadPhotoService,
+    private uploadCVService: UploadFileService,
     private taskService: ToDoListService,
     private snackBar: MatSnackBar) {
   }
@@ -122,10 +127,10 @@ export class DashboardAdminComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.updateUser = result[0];
         this.dataPhotoUpload = result[1];
+        this.dataCVUpload = result[2];
         this.emoloyeeService.updateEmployee(event.id, this.updateUser)
           .subscribe(
             success => {
@@ -135,12 +140,20 @@ export class DashboardAdminComponent implements OnInit {
                 });
             },
             error => console.log(error));
-        this.uploadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
-          .subscribe(success => {
-            console.log(success);
-            this.getPhotoEmployee();
-          },
-            error => console.log(error));
+        if (this.dataPhotoUpload.image != null) {
+          this.uploadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
+            .subscribe(success => {
+              console.log(success);
+              this.getPhotoEmployee();
+            },
+              error => console.log(error));
+        }
+        if (this.dataCVUpload.cv != null) {
+          this.uploadCVService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser.email)
+            .subscribe((res: any) => {
+              console.log(res);
+            });
+        }
       }
     });
   }
@@ -273,7 +286,6 @@ export class DashboardAdminComponent implements OnInit {
   getEventLater() {
     this.eventService.GetEventsLater()
       .subscribe((res) => {
-        console.log(res);
         this.eventLaterList = res;
       });
   }

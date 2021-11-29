@@ -13,6 +13,7 @@ import { Request } from 'src/app/model/Request';
 import { UploadFile } from 'src/app/model/UploadFile';
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
 import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -31,6 +32,8 @@ export class DashboardUserComponent implements OnInit {
   fileInfos!: any;
   urlPhoto!: string;
   dataPhotoUpload!: UploadPhoto;
+  dataCVUpload!: UploadFile;
+  cvForm!: FormGroup;
 
   constructor(
     public dialog: MatDialog, private service: DataEmployeeService,
@@ -42,6 +45,10 @@ export class DashboardUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cvForm = new FormGroup({
+      name: new FormControl(null),
+      cv: new FormControl(null)
+    });
     this.getEmployee();
     this.getUploadFile();
     this.getVacationsPlanned();
@@ -92,7 +99,7 @@ export class DashboardUserComponent implements OnInit {
       if (result) {
         this.updateUser = result[0];
         this.dataPhotoUpload = result[1];
-        console.log(result);
+        this.dataCVUpload = result[2];
         this.emoloyeeService.updateEmployee(event.id, this.updateUser)
           .subscribe(
             success => {
@@ -103,12 +110,19 @@ export class DashboardUserComponent implements OnInit {
                 });
             },
             error => console.log(error));
-        this.uploadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
-          .subscribe(success => {
-            console.log(success);
-            this.getPhotoEmployee();
-          },
-            error => console.log(error));
+        if (this.dataPhotoUpload.image) {
+          this.uploadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
+            .subscribe(success => {
+              this.getPhotoEmployee();
+            },
+              error => console.log(error));
+        }
+        if (this.dataCVUpload.cv != null) {
+          this.uploadFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser.email)
+            .subscribe((res: any) => {
+              this.getUploadFile();
+            });
+        }
       }
     });
   }
@@ -128,17 +142,17 @@ export class DashboardUserComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
+      this.cvForm.patchValue({ cv: file });
+      this.cvForm.patchValue({ name: file.name });
       this.uploadFileName = file.name;
-      this.uploadFileService.uploadFile(this.employee, file)
-        .subscribe((res) => {
-          console.log(res);
-          this.getUploadFile();
-        });
+      this.uploadFileService.uploadFile(this.cvForm.value.name, this.cvForm.value.cv, this.employee.email)
+      .subscribe((res: any) => {
+        this.getUploadFile();
+      });
     }
   }
 
   deleteCV() {
-    console.log(this.cv._id);
     this.uploadFileService.deleteUplFile(this.cv._id)
       .subscribe((res) => {
         this.getUploadFile();
@@ -151,7 +165,6 @@ export class DashboardUserComponent implements OnInit {
     this.requestService.ConfirmRequestByEmaillLater(this.employee)
       .subscribe((res) => {
         this.vacationPlannedList = res;
-        console.log(this.vacationPlannedList);
       });
   }
 

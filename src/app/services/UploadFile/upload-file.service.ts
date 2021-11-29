@@ -21,14 +21,12 @@ export class UploadFileService {
     return this.httpClient.get<UploadFile[]>(API_URL);
   }
 
-  uploadFile(employee: Employee, file: File): Observable<UploadFile[]> {
+  uploadFile(name: string, cv: File, email: string): Observable<UploadFile[]> {
     const formData = new FormData();
-    formData.append('file', file);
-    formData.append('name', file.name);
-    formData.append('email', employee.email);
-    console.log(formData);
-    console.log(file);
-    const API_URL = `${this.careService.REST_API}/uplFile?email=${employee.email}`;
+    formData.append('cv', cv, name);
+    formData.append('name', name);
+    formData.append('email', email);
+    const API_URL = `${this.careService.REST_API}/uplFile?email=${email}`;
     return this.httpClient.post<UploadFile[]>(API_URL, formData)
       .pipe(
         catchError(this.careService.handleError)
