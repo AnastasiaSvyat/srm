@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Employee } from 'src/app/model/Employee';
 import { ToDoList } from 'src/app/model/ToDoList';
+import { AuthService } from '../auth/auth.service';
 import { CareService } from '../care/care.service';
 import { DataEmployeeService } from '../dataEmployee/dataEmployee.service';
 
@@ -15,11 +16,11 @@ export class ToDoListService {
 
   constructor(
     private httpClient: HttpClient,
-    private dataEmplService: DataEmployeeService,
+    private authService: AuthService,
     private careService: CareService) {
-    this.dataEmplService.data.subscribe(value => {
-      this.employee = value;
-    });
+    // this.dataEmplService.data.subscribe(value => {
+      this.employee = this.authService.user;
+    // });
   }
 
 

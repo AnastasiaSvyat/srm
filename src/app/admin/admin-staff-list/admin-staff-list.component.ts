@@ -9,6 +9,11 @@ import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.
 import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
 import { UploadFile } from 'src/app/model/UploadFile';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { FormControl } from '@angular/forms';
+import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -18,36 +23,70 @@ import { UploadFile } from 'src/app/model/UploadFile';
 })
 export class AdminStaffListComponent implements OnInit {
 
-  constructor(
-    private employeeService: EmployeeService,
-    public dialog: MatDialog,
-    public uplFileService: UploadFileService,
-    public uloadPhotoService: UploadPhotoService,
-    public service: DataEmployeeService) { }
-
   staffList: Employee[] = [];
   currentEmployee: SearchName = {};
   currentIndex = -1;
-  searchByName!: any;
   updateUser!: any;
   employee: Employee[] = [];
   dataAddEmloyee!: Employee;
   dataPhotoUpload!: UploadPhoto;
   urlPhoto!: string;
   dataCVUpload!: UploadFile;
-
+  duration = 5000;
+  emplPhoto!: any;
+  searchByName = new FormControl();
   page = 1;
   count = 0;
   pageSize = 10;
 
   displayedColumns: string[] = ['name', 'position', 'birthday', 'salary', 'firstDay', 'lastPerf', 'phone', 'email', 'cv', 'change'];
+  private unsubscribe = new Subject();
+  constructor(
+    private employeeService: EmployeeService,
+    public dialog: MatDialog,
+    public uplFileService: UploadFileService,
+    public uloadPhotoService: UploadPhotoService,
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
+    public service: DataEmployeeService) {
+      this.searchByName.valueChanges
+      .pipe(
+        takeUntil(this.unsubscribe),
+        debounceTime(300),
+        switchMap((value: any) => {
+            const params = this.getRequestParams(this.searchByName.value, this.page, this.pageSize);
+            return this.employeeService.getStaffListPagination(params);
+        }),
+    ).subscribe((list: any) => {
+        console.log(list);
+        if (list.staffList.length) {
+            const { staffList, totalItems } = list;
+            this.staffList = staffList;
+            this.count = totalItems;
+        } else {
+            this.staffList = [];
+        }
+    });
+    }
+
 
   ngOnInit(): void {
-    this.service.data.subscribe(res => {
-      this.employee = res;
-    });
+    this.employee = this.authService.user;
     this.retrieveStaff();
+
+
+    this.uloadPhotoService.GetPhoto()
+      .subscribe((res) => {
+        console.log(res);
+        this.emplPhoto = res;
+        console.log('f');
+      });
   }
+
+  ngOnDesttroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+   }
 
   getRequestParams(searchName: string, page: number, pageSize: number): any {
     const params: any = {};
@@ -63,18 +102,18 @@ export class AdminStaffListComponent implements OnInit {
     return params;
   }
 
-  // getPhotoEmployee() {
-  //   console.log(this.dataAddEmloyee);
-  //   this.uloadPhotoService.GetPhotoByEmail(this.updateUser)
-  //     .subscribe((res) => {
-  //       if (res.length) {
-  //         this.urlPhoto = res[0].imagePath;
-  //       }
-  //     });
-  // }
+  getPhotoEmployee() {
+    console.log(this.dataAddEmloyee);
+    this.uloadPhotoService.GetPhotoByEmail(this.updateUser)
+      .subscribe((res) => {
+        if (res.length) {
+          this.urlPhoto = res[0].imagePath;
+        }
+      });
+  }
 
   retrieveStaff(): void {
-    const params = this.getRequestParams(this.searchByName, this.page, this.pageSize);
+    const params = this.getRequestParams(this.searchByName.value, this.page, this.pageSize);
     this.employeeService.getStaffListPagination(params)
       .subscribe(
         response => {
@@ -122,13 +161,19 @@ export class AdminStaffListComponent implements OnInit {
         this.employeeService.AddEmployee(this.dataAddEmloyee)
           .subscribe((res) => {
             this.retrieveStaff();
+            this.snackBar.open('Congratulations! Employee has been added!', '', {
+              duration: this.duration
+            });
+          }, error => {
+            this.snackBar.open('This email is already taken. Try another.', '', {
+              duration: this.duration
+            });
           });
         if (this.dataPhotoUpload.image != null) {
           this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.dataAddEmloyee.email)
-            .subscribe(success => {
+            .subscribe(() => {
               // this.getPhotoEmployee();
-            },
-              error => console.log(error));
+            });
         }
         if (this.dataCVUpload.cv != null) {
           this.uplFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.dataAddEmloyee.email)
@@ -158,7 +203,6 @@ export class AdminStaffListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
         this.updateUser = result[0];
         this.dataPhotoUpload = result[1];
         this.dataCVUpload = result[2];

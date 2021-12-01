@@ -21,7 +21,7 @@
                 <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button class="btn w155" [mat-dialog-close]="infoAboutUserForm.value"
+                <button class="btn w155" [disabled]="!infoAboutUserForm.valid" [mat-dialog-close]="infoAboutUserForm.value"
                     mat-stroked-button>{{dataTask.btn}}</button>
             </div>
         </div>

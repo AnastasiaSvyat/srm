@@ -61,7 +61,6 @@ export class AddUserComponent implements OnInit {
   get date() { return this.addEmployeeForm.get('date'); }
   get salary() { return this.addEmployeeForm.get('salary'); }
   get phone() { return this.addEmployeeForm.get('phone'); }
-  get image() { return this.addEmployeeForm.get('image'); }
 
   getPhotoEmployee() {
     this.uploadPhotoService.GetPhotoByEmail(this.dataUser.changeUser)

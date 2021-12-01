@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { Employee } from 'src/app/model/Employee';
 import { Request } from 'src/app/model/Request';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class MsgUserComponent implements OnInit {
     public dialog: MatDialog,
     public requestService: RequestService,
     public service: DataEmployeeService,
+    private authService: AuthService,
     private snackBar: MatSnackBar) { }
 
   employee!: Employee;
@@ -38,9 +40,9 @@ export class MsgUserComponent implements OnInit {
   }
 
   getEmloyee() {
-    this.service.data.subscribe(value => {
-      this.employee = value;
-    });
+    // this.service.data.subscribe(value => {
+      this.employee = this.authService.user;
+    // });
   }
 
   pendingRequest() {

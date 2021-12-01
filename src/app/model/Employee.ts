@@ -13,5 +13,4 @@ export class Employee {
     file!: Array<any>;
     phone!: number;
     toDoList!: Array<string>;
-    image!: string;
 }

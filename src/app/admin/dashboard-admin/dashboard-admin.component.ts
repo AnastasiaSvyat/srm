@@ -17,6 +17,7 @@ import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.se
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
 import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
 import { UploadFile } from 'src/app/model/UploadFile';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -52,6 +53,7 @@ export class DashboardAdminComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private service: DataEmployeeService,
+    private auth: AuthService,
     private eventService: EventService,
     private emoloyeeService: EmployeeService,
     private requestService: RequestService,
@@ -105,9 +107,11 @@ export class DashboardAdminComponent implements OnInit {
   // USER
 
   getUser() {
-    this.service.data.subscribe(res => {
-      this.employee = res;
-    });
+    this.employee = this.auth.user;
+    console.log(this.employee);
+    // this.service.data.subscribe(res => {
+    //   this.employee = res;
+    // });
   }
 
   editUser(event: any): void {

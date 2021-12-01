@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Employee } from 'src/app/model/Employee';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 
@@ -16,11 +17,11 @@ export class AddInfoUserComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddInfoUserComponent>,
-    private service: DataEmployeeService,
+    private authService: AuthService,
     private emoloyeeService: EmployeeService) {
-    this.service.data.subscribe(value => {
-      this.employee = value;
-    });
+    // this.service.data.subscribe(value => {
+      this.employee = this.authService.user;
+    // });
   }
 
   ngOnInit(): void {

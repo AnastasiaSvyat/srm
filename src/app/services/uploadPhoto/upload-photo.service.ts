@@ -31,5 +31,9 @@ export class UploadPhotoService {
     const API_URL = `${this.careService.REST_API}/getPhotoEmployee/?email=${employee.email}`;
     return this.httpClient.get<UploadPhoto[]>(API_URL);
   }
+  GetPhoto(): Observable<UploadPhoto[]> {
+    const API_URL = `${this.careService.REST_API}/getPhoto`;
+    return this.httpClient.get<UploadPhoto[]>(API_URL);
+  }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth/auth.service';
 import { DataEmployeeService } from '../services/dataEmployee/dataEmployee.service';
 import { RequestService } from '../services/request/request.service';
 
@@ -14,13 +15,15 @@ export class UserComponent implements OnInit {
 
   constructor(
     private requestService: RequestService,
+    private authService: AuthService,
     private dataEmplService: DataEmployeeService) { }
 
   ngOnInit(): void {
-    this.dataEmplService.data.subscribe(value => {
-      this.employee = value;
+
+    // this.dataEmplService.data.subscribe(value => {
+      this.employee = this.authService.user;
       this.countConfirmRequest(this.employee);
-    });
+    // });
   }
 
   countConfirmRequest(employee: any) {
@@ -28,6 +31,9 @@ export class UserComponent implements OnInit {
       .subscribe((result: any) => {
         this.requestCount = result.length;
       });
+  }
+  logout(){
+    this.authService.logout();
   }
 
 }

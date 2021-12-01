@@ -8,6 +8,9 @@
                 <mat-option value="option2">Two</mat-option>
             </mat-select>
         </mat-form-field>
+        <div *ngIf="type?.invalid && (type?.dirty || type?.touched)" class="helper-text red-text">
+            <div *ngIf="type?.errors?.required">Description is required.</div>
+        </div>
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <div>
                 <mat-form-field class="mt44 calendarWidth">
@@ -16,6 +19,9 @@
                     <mat-datepicker #picker startView="year"></mat-datepicker>
                 </mat-form-field>
             </div>
+            <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
+                <div *ngIf="date?.errors?.required">Description is required.</div>
+            </div>
             <div>
                 <mat-form-field class="mr25 mt44 calendarWidth">
                     <input formControlName="endDate" matInput [matDatepicker]="picker1" placeholder="End day">
@@ -23,12 +29,18 @@
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
             </div>
+            <div *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)" class="helper-text red-text">
+                <div *ngIf="endDate?.errors?.required">endDate is required.</div>
+            </div>
         </div>
         <mat-form-field>
             <mat-label>Description</mat-label>
             <textarea formControlName="description" placeholder="Enter description..." formControlName="description"
                 name="description" matInput></textarea>
         </mat-form-field>
+        <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="helper-text red-text">
+            <div *ngIf="description?.errors?.required">Description is required.</div>
+        </div>
         <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
             <div>
                 <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>

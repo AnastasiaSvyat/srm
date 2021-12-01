@@ -4,7 +4,7 @@
       <mat-form-field>
         <mat-label>Name</mat-label>
         <input matInput type="text" class="form-control" placeholder="Search by employee name..."
-          [(ngModel)]="searchByName" />
+          [formControl]="searchByName" />
       </mat-form-field>
       <div class="input-group-append">
         <button class="h39 mt10 greyColor borderNone" type="button" (click)="searchName()">Search
@@ -30,7 +30,13 @@
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> EMPLOYEE </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <img src={{element.photo}} alt="">{{element.name}}
+        <div *ngFor = "let item of emplPhoto">
+          <div class="sizePhotoStaffList" *ngIf = "item.email == element.email">
+            <img src = {{item.imagePath}} alt="">
+          </div>
+        </div>
+        <div class="mb16">{{element.name}}</div>
+        
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="position">

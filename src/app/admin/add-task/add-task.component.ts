@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { DashboardAdminComponent } from '../dashboard-admin/dashboard-admin.component';
 import { Employee } from 'src/app/model/Employee';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-add-task',
@@ -18,10 +19,11 @@ export class AddTaskComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddTaskComponent>,
     @Inject(MAT_DIALOG_DATA) public dataTask: any,
-    private service: DataEmployeeService) {
-    this.service.data.subscribe(value => {
-      this.employee = value;
-    });
+    private service: DataEmployeeService,
+    private authService: AuthService) {
+    // this.service.data.subscribe(value => {
+      this.employee = this.authService.user;
+    // });
   }
 
   ngOnInit(): void {

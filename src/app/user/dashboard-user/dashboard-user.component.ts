@@ -14,6 +14,7 @@ import { UploadFile } from 'src/app/model/UploadFile';
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
 import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -41,10 +42,13 @@ export class DashboardUserComponent implements OnInit {
     private uploadFileService: UploadFileService,
     private requestService: RequestService,
     private uploadPhotoService: UploadPhotoService,
+    private auth: AuthService,
     private eventService: EventService) {
   }
 
   ngOnInit(): void {
+    this.employee = this.auth.user;
+    console.log(this.employee);
     this.cvForm = new FormGroup({
       name: new FormControl(null),
       cv: new FormControl(null)
@@ -57,9 +61,10 @@ export class DashboardUserComponent implements OnInit {
   }
 
   getEmployee() {
-    this.service.data.subscribe(value => {
-      this.employee = value;
-    });
+    // this.employee = this.auth.user;
+    // this.service.data.subscribe(value => {
+    //   this.employee = value;
+    // });
   }
 
   getPhotoEmployee() {

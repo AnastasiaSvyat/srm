@@ -30,7 +30,13 @@
             </div>
         </mat-drawer>
         <mat-drawer-content>
-            <div class="header w100"></div>
+            <div class="header w100" fxLayout="row" fxLayoutAlign="end center">
+                <div class="exitPhoto mr25">
+                    <button (click) = "logout()" mat-icon-button>
+                      <img src="../../assets/img/exit.png" alt=""><br>
+                    </button>
+                  </div>
+            </div>
             <router-outlet></router-outlet>
         </mat-drawer-content>
     </mat-drawer-container>
