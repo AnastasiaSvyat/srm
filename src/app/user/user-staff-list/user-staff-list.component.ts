@@ -3,6 +3,8 @@ import { Employee } from 'src/app/model/Employee';
 import { SearchName } from 'src/app/model/SearchName';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { MatDialog } from '@angular/material/dialog';
+import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
+import { UploadPhoto } from 'src/app/model/UploadPhoto';
 
 
 @Component({
@@ -13,9 +15,14 @@ import { MatDialog } from '@angular/material/dialog';
 
 export class UserStaffListComponent implements OnInit {
 
-  constructor(private employeeService: EmployeeService, public dialog: MatDialog) { }
+  constructor(
+    private employeeService: EmployeeService,
+    private uloadPhotoService: UploadPhotoService,
+    public dialog: MatDialog) { }
+
   staffList: Employee[] = [];
   currentEmployee: SearchName = {};
+  photoEmployee: UploadPhoto[] = [];
   name = '';
   currentIndex = -1;
   page = 1;
@@ -26,8 +33,15 @@ export class UserStaffListComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveStaff();
+    this.getPhotoEmployee();
   }
 
+  getPhotoEmployee() {
+    this.uloadPhotoService.GetPhoto()
+      .subscribe((res) => {
+        this.photoEmployee = res;
+      });
+  }
 
   getRequestParams(page: number, pageSize: number): any {
     const params: any = {};

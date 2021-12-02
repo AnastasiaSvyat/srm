@@ -20,6 +20,8 @@ export class AddUserComponent implements OnInit {
   imageData!: string;
   photoForm!: FormGroup;
   cvForm!: FormGroup;
+  urlCV!: string;
+  docPDF!: any;
 
 
   constructor(
@@ -63,7 +65,7 @@ export class AddUserComponent implements OnInit {
   get phone() { return this.addEmployeeForm.get('phone'); }
 
   getPhotoEmployee() {
-    this.uploadPhotoService.GetPhotoByEmail(this.dataUser.changeUser)
+    this.uploadPhotoService.GetPhotoById(this.dataUser.changeUser)
       .subscribe((res) => {
         if (res.length) {
           this.imageData = res[0].imagePath;
@@ -75,9 +77,20 @@ export class AddUserComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  getCV() {
+    this.uploadFileService.getUplFileById(this.dataUser.changeUser)
+      .subscribe((result) => {
+        this.urlCV = result[0].imagePath;
+        const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
+        this.docPDF = window.open();
+        this.docPDF.document.write(iframe);
+        this.docPDF.document.close();
+      });
+  }
+
   onPhotoSelected(event: any) {
     const file = event.target.files[0];
-    if (file){
+    if (file) {
       this.photoForm.patchValue({ image: file });
       this.photoForm.patchValue({ name: file.name });
       const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/pdf'];
@@ -102,19 +115,19 @@ export class AddUserComponent implements OnInit {
   }
 
   deleteCV() {
-    if (!this.cv._id){
+    if (!this.cv._id) {
       this.cvForm.reset();
       this.uploadFileName = '';
-    }else{
+    } else {
       this.uploadFileService.deleteUplFile(this.cv._id)
-      .subscribe(() => {
-        this.getUploadFile();
-      });
+        .subscribe(() => {
+          this.getUploadFile();
+        });
     }
   }
 
   getUploadFile() {
-    this.uploadFileService.getUplFileByEmail(this.dataUser.changeUser)
+    this.uploadFileService.getUplFileById(this.dataUser.changeUser)
       .subscribe((res) => {
         this.uploadFileList = res;
         this.uploadFileName = '';

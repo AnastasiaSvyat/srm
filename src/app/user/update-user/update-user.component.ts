@@ -19,6 +19,8 @@ export class UpdateUserComponent implements OnInit {
   imageData!: any;
   photoForm!: FormGroup;
   cvForm!: FormGroup;
+  docPDF!: any;
+  urlCV!: string;
 
 
   constructor(
@@ -61,7 +63,7 @@ export class UpdateUserComponent implements OnInit {
   }
 
   getPhotoEmployee() {
-    this.uploadPhotoService.GetPhotoByEmail(this.dataUser.updateEmployee)
+    this.uploadPhotoService.GetPhotoById(this.dataUser.updateEmployee)
       .subscribe((res) => {
         if (res.length) {
           this.imageData = res[0].imagePath;
@@ -82,6 +84,17 @@ export class UpdateUserComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  getCV(){
+    this.uploadFileService.getUplFileById(this.dataUser.updateEmployee)
+    .subscribe((result) => {
+      this.urlCV = result[0].imagePath;
+      const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
+      this.docPDF = window.open();
+      this.docPDF.document.write(iframe);
+      this.docPDF.document.close();
+    });
   }
 
   deleteCV() {
@@ -107,7 +120,7 @@ export class UpdateUserComponent implements OnInit {
 
 
   getUploadFile() {
-    this.uploadFileService.getUplFileByEmail(this.dataUser.updateEmployee)
+    this.uploadFileService.getUplFileById(this.dataUser.updateEmployee)
       .subscribe((res) => {
         this.uploadFileList = res;
         this.uploadFileName = '';

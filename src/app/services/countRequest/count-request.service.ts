@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { DataEmployeeService } from '../dataEmployee/dataEmployee.service';
 import { RequestService } from '../request/request.service';
 
 @Injectable({
@@ -9,7 +8,7 @@ import { RequestService } from '../request/request.service';
 export class CountRequestService {
   requestCountPending!: number;
 
-  constructor(private requestService: RequestService, private dataEmplService: DataEmployeeService) {
+  constructor(private requestService: RequestService) {
 
     this.requestService.GetPendingRequest()
       .subscribe((res) => {

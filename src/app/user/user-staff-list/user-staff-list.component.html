@@ -13,7 +13,12 @@
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> EMPLOYEE </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <img src={{element.photo}} alt="">{{element.name}}
+        <div *ngFor="let item of photoEmployee">
+          <div class="sizePhotoStaffList" *ngIf="item.idEmployee == element.id">
+            <img src={{item.imagePath}} alt="">
+          </div>
+        </div>
+        <div class="ml8">{{element.name}}</div>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="position">

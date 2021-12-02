@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Request } from '../model/Request';
 import { AuthService } from '../services/auth/auth.service';
 import { CountRequestService } from '../services/countRequest/count-request.service';
-import { DataEmployeeService } from '../services/dataEmployee/dataEmployee.service';
 import { RequestService } from '../services/request/request.service';
 
 
@@ -32,7 +31,7 @@ export class AdminComponent implements OnInit {
       this.requestCount = result;
     });
   }
-  logout(){
+  logout() {
     this.auth.logout();
   }
 }

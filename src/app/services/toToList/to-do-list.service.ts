@@ -6,7 +6,6 @@ import { Employee } from 'src/app/model/Employee';
 import { ToDoList } from 'src/app/model/ToDoList';
 import { AuthService } from '../auth/auth.service';
 import { CareService } from '../care/care.service';
-import { DataEmployeeService } from '../dataEmployee/dataEmployee.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +17,12 @@ export class ToDoListService {
     private httpClient: HttpClient,
     private authService: AuthService,
     private careService: CareService) {
-    // this.dataEmplService.data.subscribe(value => {
       this.employee = this.authService.user;
-    // });
   }
 
 
   AddTask(data: ToDoList): Observable<any> {
+    console.log(data);
     const API_URL = `${this.careService.REST_API}/add-task`;
     return this.httpClient.post(API_URL, data)
       .pipe(
@@ -32,18 +30,19 @@ export class ToDoListService {
       );
   }
 
-  GetAllTaskTomorrow(): Observable<ToDoList[]> {
-    const API_URL = `${this.careService.REST_API}/get-taskTomorrow/?email=${this.employee.email}`;
+  GetAllTaskTomorrow(employee: Employee): Observable<ToDoList[]> {
+    const API_URL = `${this.careService.REST_API}/get-taskTomorrow/?idEmployee=${employee.id}`;
     return this.httpClient.get<ToDoList[]>(API_URL);
   }
 
-  GetAllTaskWeek(): Observable<ToDoList[]> {
-    const API_URL = `${this.careService.REST_API}/get-taskWeek/?email=${this.employee.email}`;
+  GetAllTaskWeek(employee: Employee): Observable<ToDoList[]> {
+    const API_URL = `${this.careService.REST_API}/get-taskWeek/?idEmployee=${employee.id}`;
     return this.httpClient.get<ToDoList[]>(API_URL);
   }
 
-  GetAllTaskDate(): Observable<ToDoList[]> {
-    const API_URL = `${this.careService.REST_API}/get-taskDate/?email=${this.employee.email}`;
+  GetAllTaskDate(employee: Employee): Observable<ToDoList[]> {
+    console.log(employee.id);
+    const API_URL = `${this.careService.REST_API}/get-taskDate/?idEmployee=${employee.id}`;
     return this.httpClient.get<ToDoList[]>(API_URL);
   }
 

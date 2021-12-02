@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AddRequestUserComponent } from '../add-request-user/add-request-user.component';
 import { MatDialog } from '@angular/material/dialog';
 import { RequestService } from 'src/app/services/request/request.service';
-import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import * as moment from 'moment';
 import { Employee } from 'src/app/model/Employee';
 import { Request } from 'src/app/model/Request';
@@ -20,7 +19,6 @@ export class MsgUserComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public requestService: RequestService,
-    public service: DataEmployeeService,
     private authService: AuthService,
     private snackBar: MatSnackBar) { }
 
@@ -40,27 +38,25 @@ export class MsgUserComponent implements OnInit {
   }
 
   getEmloyee() {
-    // this.service.data.subscribe(value => {
-      this.employee = this.authService.user;
-    // });
+    this.employee = this.authService.user;
   }
 
   pendingRequest() {
-    this.requestService.GetPendingRequestEmail(this.employee.email)
+    this.requestService.GetPendingRequestById(this.employee)
       .subscribe((res) => {
         this.pendingRequestList = res;
       });
   }
 
   confirmRequest() {
-    this.requestService.ConfirmRequestByEmaillLater(this.employee)
+    this.requestService.ConfirmRequestByIdLater(this.employee)
       .subscribe((res) => {
         this.confirmRequestList = res;
       });
   }
 
   declineRequest() {
-    this.requestService.DeclineRequestByEmail(this.employee.email)
+    this.requestService.DeclineRequestById(this.employee)
       .subscribe((res) => {
         this.declineRequestList = res;
       });

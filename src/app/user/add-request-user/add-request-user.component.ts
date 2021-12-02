@@ -21,14 +21,14 @@ export class AddRequestUserComponent implements OnInit {
   ngOnInit(): void {
 
     this.requestForm = new FormGroup({
-      email: new FormControl(this.data.employee.email, [Validators.required]),
-      name: new FormControl(this.data.employee.name, [Validators.required]),
+      idEmployee: new FormControl(this.data.employee.id),
+      name: new FormControl(this.data.employee.name),
       type: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
       endDate: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
-      confirm: new FormControl(false, [Validators.required]),
-      decline: new FormControl(false, [Validators.required])
+      confirm: new FormControl(false),
+      decline: new FormControl(false)
     });
   }
 

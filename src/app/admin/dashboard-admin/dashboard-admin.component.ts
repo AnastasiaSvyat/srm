@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { EventService } from 'src/app/services/event/event.service';
 import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
@@ -52,7 +51,6 @@ export class DashboardAdminComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private service: DataEmployeeService,
     private auth: AuthService,
     private eventService: EventService,
     private emoloyeeService: EmployeeService,
@@ -64,7 +62,7 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUser();
+    this.employee = this.auth.user;
     this.getAllTask();
     this.getAllEvent();
     this.emoloyeeService.GetStaff();
@@ -75,7 +73,7 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   getPhotoEmployee() {
-    this.uploadPhotoService.GetPhotoByEmail(this.employee)
+    this.uploadPhotoService.GetPhotoById(this.employee)
       .subscribe((res) => {
         if (res.length) {
           this.urlPhoto = res[0].imagePath;
@@ -105,14 +103,6 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   // USER
-
-  getUser() {
-    this.employee = this.auth.user;
-    console.log(this.employee);
-    // this.service.data.subscribe(res => {
-    //   this.employee = res;
-    // });
-  }
 
   editUser(event: any): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
@@ -145,7 +135,7 @@ export class DashboardAdminComponent implements OnInit {
             },
             error => console.log(error));
         if (this.dataPhotoUpload.image != null) {
-          this.uploadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
+          this.uploadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser)
             .subscribe(success => {
               console.log(success);
               this.getPhotoEmployee();
@@ -153,7 +143,7 @@ export class DashboardAdminComponent implements OnInit {
               error => console.log(error));
         }
         if (this.dataCVUpload.cv != null) {
-          this.uploadCVService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser.email)
+          this.uploadCVService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser)
             .subscribe((res: any) => {
               console.log(res);
             });
@@ -188,21 +178,21 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   getTaskDay() {
-    this.taskService.GetAllTaskDate()
+    this.taskService.GetAllTaskDate(this.employee)
       .subscribe((res) => {
         this.toDoListToday = res;
       });
   }
 
   getTaskWeek() {
-    this.taskService.GetAllTaskWeek()
+    this.taskService.GetAllTaskWeek(this.employee)
       .subscribe((res) => {
         this.toDoListWeek = res;
       });
   }
 
   getTaskTomorrow() {
-    this.taskService.GetAllTaskTomorrow()
+    this.taskService.GetAllTaskTomorrow(this.employee)
       .subscribe((res) => {
         this.toDoListTomorrow = res;
       });
@@ -277,6 +267,8 @@ export class DashboardAdminComponent implements OnInit {
     this.eventService.GetAllEventToday()
       .subscribe((res) => {
         this.eventDayList = res;
+        console.log(this.eventDayList);
+        console.log(res);
       });
   }
 
@@ -291,6 +283,9 @@ export class DashboardAdminComponent implements OnInit {
     this.eventService.GetEventsLater()
       .subscribe((res) => {
         this.eventLaterList = res;
+        console.log('f');
+        console.log(this.eventLaterList);
+
       });
   }
 

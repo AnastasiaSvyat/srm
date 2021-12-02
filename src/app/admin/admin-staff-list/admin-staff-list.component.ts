@@ -5,7 +5,6 @@ import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { SearchName } from 'src/app/model/SearchName';
 import { Employee } from 'src/app/model/Employee';
 import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
-import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
 import { UploadFile } from 'src/app/model/UploadFile';
@@ -30,63 +29,57 @@ export class AdminStaffListComponent implements OnInit {
   employee: Employee[] = [];
   dataAddEmloyee!: Employee;
   dataPhotoUpload!: UploadPhoto;
-  urlPhoto!: string;
   dataCVUpload!: UploadFile;
   duration = 5000;
-  emplPhoto!: any;
+  urlCV!: string;
+  photoEmployee: UploadPhoto[] = [];
   searchByName = new FormControl();
   page = 1;
   count = 0;
   pageSize = 10;
+  docPDF!: any;
 
   displayedColumns: string[] = ['name', 'position', 'birthday', 'salary', 'firstDay', 'lastPerf', 'phone', 'email', 'cv', 'change'];
+
   private unsubscribe = new Subject();
+
   constructor(
     private employeeService: EmployeeService,
     public dialog: MatDialog,
     public uplFileService: UploadFileService,
     public uloadPhotoService: UploadPhotoService,
     private snackBar: MatSnackBar,
-    private authService: AuthService,
-    public service: DataEmployeeService) {
-      this.searchByName.valueChanges
+    private authService: AuthService) {
+    this.searchByName.valueChanges
       .pipe(
         takeUntil(this.unsubscribe),
         debounceTime(300),
         switchMap((value: any) => {
-            const params = this.getRequestParams(this.searchByName.value, this.page, this.pageSize);
-            return this.employeeService.getStaffListPagination(params);
+          const params = this.getRequestParams(this.searchByName.value, this.page, this.pageSize);
+          return this.employeeService.getStaffListPagination(params);
         }),
-    ).subscribe((list: any) => {
+      ).subscribe((list: any) => {
         console.log(list);
         if (list.staffList.length) {
-            const { staffList, totalItems } = list;
-            this.staffList = staffList;
-            this.count = totalItems;
+          const { staffList, totalItems } = list;
+          this.staffList = staffList;
+          this.count = totalItems;
         } else {
-            this.staffList = [];
+          this.staffList = [];
         }
-    });
-    }
-
+      });
+  }
 
   ngOnInit(): void {
     this.employee = this.authService.user;
     this.retrieveStaff();
-
-
-    this.uloadPhotoService.GetPhoto()
-      .subscribe((res) => {
-        console.log(res);
-        this.emplPhoto = res;
-        console.log('f');
-      });
+    this.getPhotoEmployee();
   }
 
   ngOnDesttroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
-   }
+  }
 
   getRequestParams(searchName: string, page: number, pageSize: number): any {
     const params: any = {};
@@ -103,12 +96,9 @@ export class AdminStaffListComponent implements OnInit {
   }
 
   getPhotoEmployee() {
-    console.log(this.dataAddEmloyee);
-    this.uloadPhotoService.GetPhotoByEmail(this.updateUser)
+    this.uloadPhotoService.GetPhoto()
       .subscribe((res) => {
-        if (res.length) {
-          this.urlPhoto = res[0].imagePath;
-        }
+        this.photoEmployee = res;
       });
   }
 
@@ -134,6 +124,17 @@ export class AdminStaffListComponent implements OnInit {
   setActiveEmployee(employee: Employee, index: number): void {
     this.currentEmployee = employee;
     this.currentIndex = index;
+  }
+
+  getCV(res: any) {
+    this.uplFileService.getUplFileById(res)
+      .subscribe((result) => {
+        this.urlCV = result[0].imagePath;
+        const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
+        this.docPDF = window.open();
+        this.docPDF.document.write(iframe);
+        this.docPDF.document.close();
+      });
   }
 
   addUser(): void {
@@ -170,13 +171,13 @@ export class AdminStaffListComponent implements OnInit {
             });
           });
         if (this.dataPhotoUpload.image != null) {
-          this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.dataAddEmloyee.email)
+          this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.dataAddEmloyee)
             .subscribe(() => {
-              // this.getPhotoEmployee();
+              this.getPhotoEmployee();
             });
         }
         if (this.dataCVUpload.cv != null) {
-          this.uplFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.dataAddEmloyee.email)
+          this.uplFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.dataAddEmloyee)
             .subscribe((res: any) => {
               console.log(res);
             });
@@ -219,7 +220,7 @@ export class AdminStaffListComponent implements OnInit {
           this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
             .subscribe(success => {
               console.log(success);
-              // this.getPhotoEmployee();
+              this.getPhotoEmployee();
             },
               error => console.log(error));
         }

@@ -30,13 +30,12 @@
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> EMPLOYEE </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <div *ngFor = "let item of emplPhoto">
-          <div class="sizePhotoStaffList" *ngIf = "item.email == element.email">
-            <img src = {{item.imagePath}} alt="">
+        <div *ngFor="let item of photoEmployee">
+          <div class="sizePhotoStaffList" *ngIf="item.idEmployee == element.id">
+            <img src={{item.imagePath}} alt="">
           </div>
         </div>
-        <div class="mb16">{{element.name}}</div>
-        
+        <div class="ml8">{{element.name}}</div>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="position">
@@ -69,8 +68,8 @@
     </ng-container>
     <ng-container matColumnDef="cv">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <button class="ml24" mat-button>CV</button>
+      <mat-cell *matCellDef="let element">
+        <button class="ml24" (click)="getCV(element)" mat-button>CV</button>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="change">

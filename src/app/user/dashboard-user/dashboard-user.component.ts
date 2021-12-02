@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DataEmployeeService } from 'src/app/services/dataEmployee/dataEmployee.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { RequestService } from 'src/app/services/request/request.service';
 import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
@@ -35,9 +34,11 @@ export class DashboardUserComponent implements OnInit {
   dataPhotoUpload!: UploadPhoto;
   dataCVUpload!: UploadFile;
   cvForm!: FormGroup;
+  docPDF!: any;
+  urlCV!: any;
 
   constructor(
-    public dialog: MatDialog, private service: DataEmployeeService,
+    public dialog: MatDialog,
     private emoloyeeService: EmployeeService,
     private uploadFileService: UploadFileService,
     private requestService: RequestService,
@@ -53,22 +54,14 @@ export class DashboardUserComponent implements OnInit {
       name: new FormControl(null),
       cv: new FormControl(null)
     });
-    this.getEmployee();
     this.getUploadFile();
     this.getVacationsPlanned();
     this.getEventMonth();
     this.getPhotoEmployee();
   }
 
-  getEmployee() {
-    // this.employee = this.auth.user;
-    // this.service.data.subscribe(value => {
-    //   this.employee = value;
-    // });
-  }
-
   getPhotoEmployee() {
-    this.uploadPhotoService.GetPhotoByEmail(this.employee)
+    this.uploadPhotoService.GetPhotoById(this.employee)
       .subscribe((res) => {
         if (res.length) {
           this.urlPhoto = res[0].imagePath;
@@ -83,7 +76,7 @@ export class DashboardUserComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.getEmployee();
+        console.log(result);
       }
     });
   }
@@ -116,14 +109,14 @@ export class DashboardUserComponent implements OnInit {
             },
             error => console.log(error));
         if (this.dataPhotoUpload.image) {
-          this.uploadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
+          this.uploadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser)
             .subscribe(success => {
               this.getPhotoEmployee();
             },
               error => console.log(error));
         }
         if (this.dataCVUpload.cv != null) {
-          this.uploadFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser.email)
+          this.uploadFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser)
             .subscribe((res: any) => {
               this.getUploadFile();
             });
@@ -133,7 +126,7 @@ export class DashboardUserComponent implements OnInit {
   }
 
   getUploadFile() {
-    this.uploadFileService.getUplFileByEmail(this.employee)
+    this.uploadFileService.getUplFileById(this.employee)
       .subscribe((res) => {
         this.uploadFileList = res;
         this.uploadFileName = '';
@@ -144,13 +137,24 @@ export class DashboardUserComponent implements OnInit {
       });
   }
 
+  getCV(){
+    this.uploadFileService.getUplFileById(this.employee)
+    .subscribe((result) => {
+      this.urlCV = result[0].imagePath;
+      const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
+      this.docPDF = window.open();
+      this.docPDF.document.write(iframe);
+      this.docPDF.document.close();
+    });
+  }
+
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
       this.cvForm.patchValue({ cv: file });
       this.cvForm.patchValue({ name: file.name });
       this.uploadFileName = file.name;
-      this.uploadFileService.uploadFile(this.cvForm.value.name, this.cvForm.value.cv, this.employee.email)
+      this.uploadFileService.uploadFile(this.cvForm.value.name, this.cvForm.value.cv, this.employee)
       .subscribe((res: any) => {
         this.getUploadFile();
       });
@@ -172,7 +176,7 @@ export class DashboardUserComponent implements OnInit {
   // vacation
 
   getVacationsPlanned() {
-    this.requestService.ConfirmRequestByEmaillLater(this.employee)
+    this.requestService.ConfirmRequestByIdLater(this.employee)
       .subscribe((res) => {
         this.vacationPlannedList = res;
       });
@@ -182,11 +186,14 @@ export class DashboardUserComponent implements OnInit {
     this.eventService.GetEventMonth()
       .subscribe((res) => {
         this.eventMonthList = res;
+        console.log(this.eventMonthList);
         this.emoloyeeService.GetEmplBirthMonth()
           .subscribe((result) => {
             this.birthMonthList = result;
             this.eventMonthList.forEach((element: any) => {
               this.birthMonthList.push(element);
+              console.log(this.birthMonthList);
+              console.log('f');
             });
           });
       });

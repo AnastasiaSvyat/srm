@@ -1,6 +1,6 @@
 export class Request {
     id!: string;
-    email!: string;
+    idEmployee!: string;
     date!: string;
     endDate!: string;
     type!: string;

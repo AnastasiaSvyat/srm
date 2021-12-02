@@ -58,7 +58,7 @@
     </mat-table>
     <!-- Declined -->
     <div class="noRequest w98 h48 ma" *ngIf="!declineRequestList?.length">
-      <p class="pt11 pl8">You have no pending requests</p>
+      <p class="pt11 pl8">You have no declined requests</p>
     </div>
     <mat-table *ngIf="declineRequestList?.length" [dataSource]="declineRequestList"
       class="mat-elevation-z8 table w100 mt16">

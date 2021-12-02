@@ -15,22 +15,23 @@ export class UploadPhotoService {
     private httpClient: HttpClient,
     private careService: CareService) { }
 
-  uploadPhoto(name: string, image: File, email: string): Observable<UploadPhoto[]> {
+  uploadPhoto(name: string, image: File, employee: Employee): Observable<UploadPhoto[]> {
     const API_URL = `${this.careService.REST_API}/uploadPhoto`;
     const profileData = new FormData();
     profileData.append('name', name);
     profileData.append('image', image, name);
-    profileData.append('email', email);
+    profileData.append('idEmployee', employee.id);
     return this.httpClient.post<UploadPhoto[]>(API_URL, profileData)
       .pipe(
         catchError(this.careService.handleError)
       );
   }
 
-  GetPhotoByEmail(employee: Employee): Observable<UploadPhoto[]> {
-    const API_URL = `${this.careService.REST_API}/getPhotoEmployee/?email=${employee.email}`;
+  GetPhotoById(employee: Employee): Observable<UploadPhoto[]> {
+    const API_URL = `${this.careService.REST_API}/getPhotoEmployeeById/?idEmployee=${employee.id}`;
     return this.httpClient.get<UploadPhoto[]>(API_URL);
   }
+
   GetPhoto(): Observable<UploadPhoto[]> {
     const API_URL = `${this.careService.REST_API}/getPhoto`;
     return this.httpClient.get<UploadPhoto[]>(API_URL);

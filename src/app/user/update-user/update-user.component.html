@@ -60,7 +60,7 @@
                     <button (click)="deleteCV()" class="fileImg" class="deleteBtn greyColor">x</button>
                     <img src="../../../assets/img/cv.svg" alt="">
                 </div>
-                <p class="fz5 fontColorGrey">{{uploadFileName || "No cv uploaded yet."}}</p>
+                <p (click)="getCV()" class="fz5 fontColorGrey cvName">{{uploadFileName || "No cv uploaded yet."}}</p>
             </div>
             <div (click)="fileUpload.click()" type="file" class="addCV-box">
                 <button class="cvButton">{{dataUser.addCV}}</button>

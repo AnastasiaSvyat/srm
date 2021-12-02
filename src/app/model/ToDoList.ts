@@ -2,6 +2,6 @@ export class ToDoList {
     id!: string;
     task!: string;
     date!: string;
-    email!: string;
+    idEmployee!: string;
     select!: boolean;
 }

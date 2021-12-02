@@ -16,17 +16,17 @@ export class UploadFileService {
     private httpClient: HttpClient,
     private careService: CareService) { }
 
-  getUplFileByEmail(employee: Employee): Observable<UploadFile[]> {
-    const API_URL = `${this.careService.REST_API}/getCVFile/?email=${employee.email}`;
+  getUplFileById(employee: Employee): Observable<UploadFile[]> {
+    const API_URL = `${this.careService.REST_API}/getCVFileById/?idEmployee=${employee.id}`;
     return this.httpClient.get<UploadFile[]>(API_URL);
   }
 
-  uploadFile(name: string, cv: File, email: string): Observable<UploadFile[]> {
+  uploadFile(name: string, cv: File, employee: Employee): Observable<UploadFile[]> {
     const formData = new FormData();
     formData.append('cv', cv, name);
     formData.append('name', name);
-    formData.append('email', email);
-    const API_URL = `${this.careService.REST_API}/uplFile?email=${email}`;
+    formData.append('idEmployee', employee.id);
+    const API_URL = `${this.careService.REST_API}/uplFile?idEmployee=${employee.id}`;
     return this.httpClient.post<UploadFile[]>(API_URL, formData)
       .pipe(
         catchError(this.careService.handleError)
