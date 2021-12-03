@@ -11,6 +11,7 @@ import { RequestService } from 'src/app/services/request/request.service';
 export class AddRequestUserComponent implements OnInit {
 
   requestForm!: FormGroup;
+  today = new Date();
 
   constructor(
     public dialogRef: MatDialogRef<AddRequestUserComponent>,

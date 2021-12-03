@@ -31,7 +31,10 @@
     <!-- planned Event -->
     <div fxFlex='74%' class="rightBox ml24 colorBlock">
       <div class="ml24 pt28 fs24">Planned events</div>
-      <div class="mt16 ml24">
+      <div *ngIf="!eventsPlannedToday?.length && !eventsPlannedMonth?.length && !eventsPlannedLater?.length" class="mt16 ml24">
+          <span class="fontColorGrey fs14">No event yet.</span>
+      </div>
+      <div *ngIf="eventsPlannedToday?.length || eventsPlannedMonth?.length || eventsPlannedLater?.length" class="mt16 ml24">
         <div>
           <p class="fontColorGrey fs18 mt16">Today</p>
           <div *ngIf="!eventsPlannedToday?.length">
@@ -51,7 +54,7 @@
             <span class="fs14"> {{item.name}}</span>
           </div>
         </div>
-        <div class="mt16">
+        <div class="mt16" *ngIf="eventsPlannedLater?.length">
           <p class="fontColorGrey fs18 mt16">Later</p>
           <div *ngFor="let item of eventsPlannedLater">
             <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>

@@ -63,11 +63,15 @@ export class DashboardAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.employee = this.auth.user;
+    this.emoloyeeService.GetEmployee(this.employee.id)
+    .subscribe((res) => {
+      this.employee = res;
+    });
     this.getAllTask();
     this.getAllEvent();
     this.emoloyeeService.GetStaff();
     this.getAllBirth();
-    this.emoloyeeService.GetEmplBirthToday();
+    // this.emoloyeeService.GetEmplBirthToday();
     this.getAllVacations();
     this.getPhotoEmployee();
   }
@@ -131,6 +135,7 @@ export class DashboardAdminComponent implements OnInit {
               this.emoloyeeService.GetEmployee(event.id)
                 .subscribe((res) => {
                   this.employee = res;
+                  this.getAllBirth();
                 });
             },
             error => console.log(error));
@@ -181,6 +186,7 @@ export class DashboardAdminComponent implements OnInit {
     this.taskService.GetAllTaskDate(this.employee)
       .subscribe((res) => {
         this.toDoListToday = res;
+        console.log(this.toDoListToday);
       });
   }
 
@@ -188,6 +194,7 @@ export class DashboardAdminComponent implements OnInit {
     this.taskService.GetAllTaskWeek(this.employee)
       .subscribe((res) => {
         this.toDoListWeek = res;
+        console.log(this.toDoListWeek);
       });
   }
 
@@ -195,6 +202,7 @@ export class DashboardAdminComponent implements OnInit {
     this.taskService.GetAllTaskTomorrow(this.employee)
       .subscribe((res) => {
         this.toDoListTomorrow = res;
+        console.log(this.toDoListTomorrow);
       });
   }
 

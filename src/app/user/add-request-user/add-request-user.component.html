@@ -14,23 +14,25 @@
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <div>
                 <mat-form-field class="mt44 calendarWidth">
-                    <input formControlName="date" matInput [matDatepicker]="picker" placeholder="Start day">
+                    <input [min]="today" formControlName="date" matInput [matDatepicker]="picker" placeholder="Start day">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker startView="year"></mat-datepicker>
                 </mat-form-field>
             </div>
-            <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
-                <div *ngIf="date?.errors?.required">Description is required.</div>
-            </div>
             <div>
                 <mat-form-field class="mr25 mt44 calendarWidth">
-                    <input formControlName="endDate" matInput [matDatepicker]="picker1" placeholder="End day">
+                    <input [min]="today" formControlName="endDate" matInput [matDatepicker]="picker1" placeholder="End day">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
             </div>
-            <div *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)" class="helper-text red-text">
-                <div *ngIf="endDate?.errors?.required">endDate is required.</div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text ml8 red-text">
+                <div *ngIf="date?.errors?.required">Start date is required.</div>
+            </div>
+            <div *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)" class="helper-text mr24 red-text">
+                <div *ngIf="endDate?.errors?.required">End date is required.</div>
             </div>
         </div>
         <mat-form-field>
@@ -46,7 +48,7 @@
                 <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button [mat-dialog-close]="requestForm.value" class="btn h48 w155" mat-stroked-button>Send</button>
+                <button [disabled]="!requestForm.valid" [mat-dialog-close]="requestForm.value" class="btn h48 w155" mat-stroked-button>Send</button>
             </div>
         </div>
     </div>

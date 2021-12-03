@@ -57,6 +57,7 @@ export class ToDoListService {
   }
 
   UpdateTask(id: any, task: any): Observable<any> {
+    console.log(task);
     const API_URL = `${this.careService.REST_API}/update-task/${id}`;
     return this.httpClient.put(API_URL, task, { headers: this.careService.httpHeaders })
       .pipe(
