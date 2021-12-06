@@ -29,8 +29,6 @@ export class AppComponent {
     public uplServ: UploadFileService,
     private authService: AuthService,
     private snackBar: MatSnackBar) {
-    // this.currentUser = this.authService.user;
-    // console.log(this.currentUser);
     this.employeeLoginForm = this.formBuilder.group({
       email: [''],
       password: [''],
@@ -55,9 +53,9 @@ export class AppComponent {
           this.router.navigate(['/admin', 'dashboardAdmin'], { state: { data: this.user } });
         }
       }, error => {
-        // this.snackBar.open(error.error.massage, '', {
-        //   duration: this.duration
-        // });
+        this.snackBar.open(error.error.massage, '', {
+          duration: this.duration
+        });
       });
   }
 }
