@@ -52,6 +52,7 @@ export class AddUserComponent implements OnInit {
       lastPerf: new FormControl(this.dataUser.changeUser.lastPerf),
       date: new FormControl(this.dataUser.changeUser.date, [Validators.required]),
       role: new FormControl(this.dataUser.changeUser.role, [Validators.required]),
+      id: new FormControl(this.dataUser.changeUser.id)
     });
   }
 

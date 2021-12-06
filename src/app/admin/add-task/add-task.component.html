@@ -2,7 +2,7 @@
     <h2 class="mt24" mat-dialog-title>{{dataTask.head}}</h2>
     <div [formGroup]="infoAboutUserForm" mat-dialog-content>
         <mat-form-field>
-            <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date">
+            <input [min]="today" matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="year"></mat-datepicker>
         </mat-form-field>

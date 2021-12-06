@@ -16,6 +16,7 @@ export class UploadPhotoService {
     private careService: CareService) { }
 
   uploadPhoto(name: string, image: File, employee: Employee): Observable<UploadPhoto[]> {
+    console.log(employee);
     const API_URL = `${this.careService.REST_API}/uploadPhoto`;
     const profileData = new FormData();
     profileData.append('name', name);

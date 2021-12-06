@@ -11,6 +11,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddEventComponent implements OnInit {
 
   eventForm!: FormGroup;
+  today = new Date();
+
 
   constructor(
     public dialogRef: MatDialogRef<AddEventComponent>,

@@ -71,7 +71,6 @@ export class DashboardAdminComponent implements OnInit {
     this.getAllEvent();
     this.emoloyeeService.GetStaff();
     this.getAllBirth();
-    // this.emoloyeeService.GetEmplBirthToday();
     this.getAllVacations();
     this.getPhotoEmployee();
   }
@@ -111,7 +110,7 @@ export class DashboardAdminComponent implements OnInit {
   editUser(event: any): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
-      height: '884px',
+      height: '791px',
       data: {
         head: 'Edit user:',
         btn: 'SAVE',
@@ -160,13 +159,17 @@ export class DashboardAdminComponent implements OnInit {
   // TASK
 
   onChange($event: any, task: any) {
-    this.idCheckBox = $event.target.value;
     this.isChecked = $event.target.checked;
     if (this.isChecked) {
       this.taskService.DeleteTask(task._id)
         .subscribe((res) => {
           console.log(res);
         });
+    }else{
+      this.taskService.AddTask(task)
+      .subscribe((res) => {
+        console.log(res);
+      });
     }
   }
 
@@ -233,9 +236,8 @@ export class DashboardAdminComponent implements OnInit {
         this.editTask = result;
         this.taskService.UpdateTask(event._id, this.editTask)
           .subscribe((res) => {
-            console.log(res);
+            this.getAllTask();
           });
-        this.getAllTask();
       }
     });
   }

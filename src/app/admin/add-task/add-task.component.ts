@@ -13,6 +13,7 @@ export class AddTaskComponent implements OnInit {
 
   infoAboutUserForm!: FormGroup;
   employee!: Employee;
+  today = new Date();
 
   constructor(
     public dialogRef: MatDialogRef<AddTaskComponent>,

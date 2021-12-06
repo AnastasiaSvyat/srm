@@ -13,10 +13,7 @@ import { RequestService } from '../services/request/request.service';
 })
 export class AdminComponent implements OnInit {
 
-  requestArr: Request[] = [];
-  pendingRequestList: Request[] = [];
   requestCount!: any;
-  user!: any;
   constructor(
     private requestService: RequestService,
     private auth: AuthService,
@@ -31,6 +28,7 @@ export class AdminComponent implements OnInit {
       this.requestCount = result;
     });
   }
+
   logout() {
     this.auth.logout();
   }

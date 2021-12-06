@@ -129,11 +129,17 @@ export class AdminStaffListComponent implements OnInit {
   getCV(res: any) {
     this.uplFileService.getUplFileById(res)
       .subscribe((result) => {
-        this.urlCV = result[0].imagePath;
-        const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
-        this.docPDF = window.open();
-        this.docPDF.document.write(iframe);
-        this.docPDF.document.close();
+        if (result.length){
+          this.urlCV = result[0].imagePath;
+          const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
+          this.docPDF = window.open();
+          this.docPDF.document.write(iframe);
+          this.docPDF.document.close();
+        }else{
+          this.snackBar.open('CV was not added!', '', {
+            duration: this.duration
+          });
+        }
       });
   }
 
@@ -217,15 +223,14 @@ export class AdminStaffListComponent implements OnInit {
             },
             error => console.log(error));
         if (this.dataPhotoUpload.image != null) {
-          this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser.email)
+          this.uloadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser)
             .subscribe(success => {
-              console.log(success);
               this.getPhotoEmployee();
             },
               error => console.log(error));
         }
         if (this.dataCVUpload.cv != null) {
-          this.uplFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser.email)
+          this.uplFileService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser)
             .subscribe((res: any) => {
               console.log(res);
             });

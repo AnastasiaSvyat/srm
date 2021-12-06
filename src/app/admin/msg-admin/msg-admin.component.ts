@@ -17,7 +17,7 @@ export class MsgAdminComponent implements OnInit {
   requestList: Request[] = [];
   pendingRequestList: Request[] = [];
   confirmRequestList: Request[] = [];
-  data!: any;
+  dataCountRequest!: any;
 
   displayedColumns: string[] = ['startDate', 'type', 'date', 'description', 'decline', 'confirm'];
   displayedColumnsConfirm: string[] = ['startDate', 'type', 'date', 'con', 'description'];
@@ -26,7 +26,7 @@ export class MsgAdminComponent implements OnInit {
     this.pendingRequest();
     this.confirmRequest();
     this.countRequestService.data$.subscribe((result) => {
-      this.data = result;
+      this.dataCountRequest = result;
     });
   }
   countRequest(count: any) {
@@ -38,7 +38,7 @@ export class MsgAdminComponent implements OnInit {
       .subscribe((res) => {
         this.pendingRequestList = res;
         this.countRequestService.data$.subscribe((result) => {
-          this.data = result;
+          this.dataCountRequest = result;
         });
         this.countRequest(this.pendingRequestList.length);
       });
