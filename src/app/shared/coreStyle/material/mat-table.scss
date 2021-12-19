@@ -1,13 +1,30 @@
-mat-cell{
-    border-top: 1px solid #CFD8DC;
-    border-bottom: 1px solid #CFD8DC;
-    border-right: none;
-    border-left: none;
-    margin-top: 8px;
+.admin-staff-container,
+.user-staff-container,
+.admin-msg-container,
+.user-msg-container{
+    mat-table {
+        width: 95%;
+        background-color: transparent;
+        box-shadow: none;
+        margin: auto;
+        mat-row{
+            margin-top: 8px;
+            background-color: #FFFFFF;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+        mat-cell{
+            margin-left: 5px;
+            p{
+                white-space: nowrap;
+                overflow: hidden;
+                margin-top: 11px;
+              }
+        }
+        mat-header-row{
+            border-bottom: transparent;
+        }
+    }
 }
-mat-cell:first-child{
-    border-left: 1px solid #CFD8DC;
-}
-mat-cell:last-child{
-    border-right: 1px solid #CFD8DC;
-}
+

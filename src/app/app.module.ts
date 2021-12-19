@@ -16,14 +16,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AddRequestUserComponent } from './user/add-request-user/add-request-user.component';
-import { SharedModule } from './shared/shared.module';
 
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AddRequestUserComponent,
+    AppComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
@@ -47,7 +45,7 @@ import { SharedModule } from './shared/shared.module';
     MatNativeDateModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatSelectModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

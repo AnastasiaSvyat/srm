@@ -15,7 +15,7 @@
                 <div (click)="photoUpload.click()">
                     <input name="file" id="url" type="file" class="file-input" (change)="onPhotoSelected($event)"
                         #photoUpload>
-                    <img class="ml3 mt3" src="../../../assets/img/updatePhoto.png" alt="">
+                    <img class="ml7 mt7" src="../../../assets/img/updatePhoto.png" alt="">
                 </div>
             </div>
             <img class="photoBoxImg" [src]="imageData" [alt]="photoForm.value.name" />
@@ -26,33 +26,37 @@
             <mat-label>Name</mat-label>
             <input placeholder="Enter description..." formControlName="name" name="description" matInput />
         </mat-form-field>
-        <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="helper-text red-text">
-            <div *ngIf="name?.errors?.required">Name is required.</div>
-        </div>
+        <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="helper-text red-text">
+            <span *ngIf="name?.errors?.required">Name is required.</span>
+        </mat-error>
         <mat-form-field>
             <mat-label>Birthday</mat-label>
             <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker startView="year"></mat-datepicker>
+            <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
-            <div *ngIf="date?.errors?.required">Birthday is required.</div>
-        </div>
+        <mat-error *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
+            <span *ngIf="date?.errors?.required">Birthday is required.</span>
+        </mat-error>
         <mat-form-field>
             <mat-label>Phone</mat-label>
             <input placeholder="Enter phone..." formControlName="phone" name="description" matInput />
         </mat-form-field>
-        <div *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="helper-text red-text">
-            <div *ngIf="phone?.errors?.required">Phone is required.</div>
-        </div>
+        <mat-error *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="helper-text red-text">
+            <span *ngIf="phone?.errors?.required">Phone is required.</span>
+        </mat-error>
+        <mat-form-field>
+            <mat-label>Skype</mat-label>
+            <input type="skype" placeholder="Enter your skype" formControlName="skype" matInput />
+        </mat-form-field>
         <mat-form-field>
             <mat-label>Email</mat-label>
             <input placeholder="Enter email..." formControlName="email" name="description" matInput />
         </mat-form-field>
-        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="helper-text red-text">
-            <div *ngIf="email?.errors?.required">Name is required.</div>
-            <div *ngIf="email?.errors?.email">Enter correct email.</div>
-        </div>
+        <mat-error *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="helper-text red-text">
+            <span *ngIf="email?.errors?.required">Name is required.</span>
+            <span *ngIf="email?.errors?.email">Enter correct email.</span>
+        </mat-error>
         <div>
             <input type="file" class="file-input" (change)="onFileSelected($event)" accept=".pdf,.doc" #fileUpload>
             <div class="file-upload mt20">
@@ -71,7 +75,7 @@
                 <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button [mat-dialog-close]="[addEmployeeForm.value,photoForm.value, cvForm.value]" class="btn h48 w155"
+                <button (click)="updateUser(addEmployeeForm.value,photoForm.value, cvForm.value)" class="btn h48 w155"
                     mat-stroked-button>{{dataUser.btn}}</button>
             </div>
         </div>

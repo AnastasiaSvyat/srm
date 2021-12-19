@@ -5,6 +5,15 @@ import { HttpClient } from '@angular/common/http';
 import { Employee } from '../../model/Employee';
 import { CareService } from '../care/care.service';
 import * as moment from 'moment';
+import { ParamsStaffPag } from 'src/app/admin/admin-staff-list/admin-staff-list.component';
+
+interface StaffListDto {
+  totalItems: number;
+  staffList: Employee[];
+  totalPages: number;
+  currentPage: number;
+  data: object;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +25,13 @@ export class EmployeeService {
     private httpClient: HttpClient,
     private careService: CareService) { }
 
-  AddEmployee(employee: Employee): Observable<any> {
+  AddEmployee(employee: Employee): Observable<Employee> {
     const API_URL = `${this.careService.REST_API}/add-employee`;
-    return this.httpClient.post<any>(API_URL, employee)
+    return this.httpClient.post<Employee>(API_URL, employee)
       .pipe(
         catchError(this.careService.handleError)
       );
+
   }
 
   GetStaff(): Observable<Employee[]> {
@@ -29,7 +39,7 @@ export class EmployeeService {
   }
 
 
-  GetEmployee(id: any): Observable<Employee> {
+  GetEmployee(id: string): Observable<Employee> {
     const API_URL = `${this.careService.REST_API}/read-employee/${id}`;
     return this.httpClient.get(API_URL, { headers: this.careService.httpHeaders })
       .pipe(map((res: any) => {
@@ -45,9 +55,9 @@ export class EmployeeService {
     return this.httpClient.get<Employee[]>(API_URL);
   }
 
-  updateEmployee(id: any, employee: any): Observable<any> {
+  updateEmployee(id: string, employee: Employee): Observable<Employee> {
     const API_URL = `${this.careService.REST_API}/update-employee/${id}`;
-    return this.httpClient.put(API_URL, employee, { headers: this.careService.httpHeaders })
+    return this.httpClient.put<Employee>(API_URL, employee, { headers: this.careService.httpHeaders })
       .pipe(
         catchError(this.careService.handleError)
       );
@@ -68,16 +78,16 @@ export class EmployeeService {
     return this.httpClient.get<Employee[]>(API_URL);
   }
 
-  deleteEmployee(id: any): Observable<any> {
+  deleteEmployee(id: string): Observable<Employee> {
     const API_URL = `${this.careService.REST_API}/delete-employee/${id}`;
-    return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders }).pipe(
+    return this.httpClient.delete<Employee>(API_URL, { headers: this.careService.httpHeaders }).pipe(
       catchError(this.careService.handleError)
     );
   }
 
-  getStaffListPagination(params: any): Observable<any> {
+  getStaffListPagination(params: any): Observable<StaffListDto> {
     const API_URL = `${this.careService.REST_API}/stafflist`;
-    return this.httpClient.get<any>(API_URL, { params });
+    return this.httpClient.get<StaffListDto>(API_URL, { params });
   }
 
 }

@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Role } from './model/role';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Employee } from './model/Employee';
 import { AuthService } from './services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UploadFileService } from './services/UploadFile/upload-file.service';
+import { Employee } from './model/Employee';
 
 
 @Component({
@@ -15,13 +15,9 @@ import { UploadFileService } from './services/UploadFile/upload-file.service';
 })
 
 export class AppComponent {
-  user!: any;
-  us!: any;
-  admin!: boolean;
-  Role = Role;
+  user!: Employee;
   employeeLoginForm!: FormGroup;
   duration = 5000;
-  currentUser!: any;
 
   constructor(
     private router: Router,
@@ -53,6 +49,7 @@ export class AppComponent {
           this.router.navigate(['/admin', 'dashboardAdmin'], { state: { data: this.user } });
         }
       }, error => {
+        console.log(error);
         this.snackBar.open(error.error.massage, '', {
           duration: this.duration
         });

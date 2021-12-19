@@ -11,18 +11,17 @@ import { Employee } from 'src/app/model/Employee';
 import { ToDoList } from 'src/app/model/ToDoList';
 import { Events } from 'src/app/model/Events';
 import { Request } from 'src/app/model/Request';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
-import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
-import { UploadFile } from 'src/app/model/UploadFile';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-dashboard-admin',
   templateUrl: './dashboard-admin.component.html',
   styleUrls: ['./dashboard-admin.component.scss']
 })
+
 export class DashboardAdminComponent implements OnInit {
   employee!: Employee;
   toDoListToday: ToDoList[] = [];
@@ -31,23 +30,15 @@ export class DashboardAdminComponent implements OnInit {
   isChecked!: boolean;
   monthBirthList: Employee[] = [];
   todayBirthList: Employee[] = [];
-  idCheckBox!: any;
   today = new Date();
-  editTask: ToDoList[] = [];
-  updateUser!: Employee;
   eventDayList: Events[] = [];
   eventMonthList: Events[] = [];
   vacationMonthList: Request[] = [];
   vacationLaterList: Request[] = [];
   eventLaterList: Events[] = [];
   staffBirthLater: Employee[] = [];
-  duration = 5000;
   urlPhoto!: string;
-  dataPhotoUpload!: UploadPhoto;
-  dataCVUpload!: UploadFile;
-
-
-
+  photoStaffArr: UploadPhoto[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -56,32 +47,46 @@ export class DashboardAdminComponent implements OnInit {
     private emoloyeeService: EmployeeService,
     private requestService: RequestService,
     private uploadPhotoService: UploadPhotoService,
-    private uploadCVService: UploadFileService,
     private taskService: ToDoListService,
-    private snackBar: MatSnackBar) {
+    private overlay: Overlay) {
   }
 
   ngOnInit(): void {
     this.employee = this.auth.user;
     this.emoloyeeService.GetEmployee(this.employee.id)
-    .subscribe((res) => {
-      this.employee = res;
-    });
+      .subscribe((res) => {
+        this.employee = res;
+      });
+    this.getLoginEmployeePhoto();
+    this.getPhotoEmployee();
     this.getAllTask();
     this.getAllEvent();
     this.emoloyeeService.GetStaff();
     this.getAllBirth();
     this.getAllVacations();
-    this.getPhotoEmployee();
+  }
+
+  // PHOTO
+
+  getLoginEmployeePhoto() {
+    this.uploadPhotoService.GetPhotoById(this.employee.id)
+      .subscribe((res) => {
+        if (res) {
+          this.urlPhoto = res.imagePath;
+        }
+      });
   }
 
   getPhotoEmployee() {
-    this.uploadPhotoService.GetPhotoById(this.employee)
+    this.uploadPhotoService.GetPhoto()
       .subscribe((res) => {
-        if (res.length) {
-          this.urlPhoto = res[0].imagePath;
-        }
+        this.photoStaffArr = res;
       });
+  }
+
+  getEmployeePhotoById(userId: string) {
+    const imgResult = this.photoStaffArr.find(img => img.idEmployee === userId);
+    return imgResult?.imagePath ?? '../../../assets/img/nouser.jpeg';
   }
 
   // Vacations
@@ -107,10 +112,12 @@ export class DashboardAdminComponent implements OnInit {
 
   // USER
 
-  editUser(event: any): void {
+  editUser(event: Employee): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
-      height: '791px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '100px',
+      height: 'auto',
       data: {
         head: 'Edit user:',
         btn: 'SAVE',
@@ -125,33 +132,10 @@ export class DashboardAdminComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.updateUser = result[0];
-        this.dataPhotoUpload = result[1];
-        this.dataCVUpload = result[2];
-        this.emoloyeeService.updateEmployee(event.id, this.updateUser)
-          .subscribe(
-            success => {
-              this.emoloyeeService.GetEmployee(event.id)
-                .subscribe((res) => {
-                  this.employee = res;
-                  this.getAllBirth();
-                });
-            },
-            error => console.log(error));
-        if (this.dataPhotoUpload.image != null) {
-          this.uploadPhotoService.uploadPhoto(this.dataPhotoUpload.name, this.dataPhotoUpload.image, this.updateUser)
-            .subscribe(success => {
-              console.log(success);
-              this.getPhotoEmployee();
-            },
-              error => console.log(error));
-        }
-        if (this.dataCVUpload.cv != null) {
-          this.uploadCVService.uploadFile(this.dataCVUpload.name, this.dataCVUpload.cv, this.updateUser)
-            .subscribe((res: any) => {
-              console.log(res);
-            });
-        }
+        this.employee = result;
+        this.getAllBirth();
+        this.getLoginEmployeePhoto();
+        this.getPhotoEmployee();
       }
     });
   }
@@ -159,22 +143,22 @@ export class DashboardAdminComponent implements OnInit {
   // TASK
 
   onChange($event: any, task: any) {
-    this.isChecked = $event.target.checked;
+    this.isChecked = $event.checked;
     if (this.isChecked) {
       this.taskService.DeleteTask(task._id)
         .subscribe((res) => {
           console.log(res);
         });
-    }else{
+    } else {
       this.taskService.AddTask(task)
-      .subscribe((res) => {
-        console.log(res);
-      });
+        .subscribe((res) => {
+          console.log(res);
+        });
     }
   }
 
-  deleteTask(event: any) {
-    this.taskService.DeleteTask(event._id).subscribe((res) => {
+  deleteTask(event: ToDoList) {
+    this.taskService.DeleteTask(event.id).subscribe((res) => {
       this.getAllTask();
     });
   }
@@ -189,7 +173,6 @@ export class DashboardAdminComponent implements OnInit {
     this.taskService.GetAllTaskDate(this.employee)
       .subscribe((res) => {
         this.toDoListToday = res;
-        console.log(this.toDoListToday);
       });
   }
 
@@ -197,7 +180,6 @@ export class DashboardAdminComponent implements OnInit {
     this.taskService.GetAllTaskWeek(this.employee)
       .subscribe((res) => {
         this.toDoListWeek = res;
-        console.log(this.toDoListWeek);
       });
   }
 
@@ -205,64 +187,51 @@ export class DashboardAdminComponent implements OnInit {
     this.taskService.GetAllTaskTomorrow(this.employee)
       .subscribe((res) => {
         this.toDoListTomorrow = res;
-        console.log(this.toDoListTomorrow);
       });
   }
 
   addTask(): void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '398px',
-      height: '361px',
-      data: { head: 'Add task:', btn: 'ADD', }
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '361px',
+      height: 'auto',
+      data: { head: 'Add task:', btn: 'ADD', eventData: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.taskService.AddTask(result)
-          .subscribe((res) => {
-            this.getAllTask();
-          });
+        this.getAllTask();
       }
     });
   }
 
-  updateTask(event: any): void {
+  updateTask(event: ToDoList): void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '398px',
-      height: '361px',
-      data: { head: 'Edit task:', btn: 'EDIT', dateAll: event.date, task: event.task }
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '361px',
+      height: 'auto',
+      data: { head: 'Edit task:', btn: 'EDIT', eventData: event }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.editTask = result;
-        this.taskService.UpdateTask(event._id, this.editTask)
-          .subscribe((res) => {
-            this.getAllTask();
-          });
+        this.getAllTask();
       }
     });
   }
-
 
   // EVENT
 
   addEvent(): void {
     const dialogRef = this.dialog.open(AddEventComponent, {
       width: '398px',
-      height: '591px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '591px',
+      height: 'auto',
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.eventService.AddEvent(result)
-          .subscribe(() => {
-            this.snackBar.open('Congratulations! Event has been added!', '', {
-              duration: this.duration
-            });
-            this.getAllEvent();
-          }, (err) => {
-            this.snackBar.open('This event was not added.', '', {
-              duration: this.duration
-            });
-          });
+        this.getAllEvent();
       }
     });
   }
@@ -277,8 +246,6 @@ export class DashboardAdminComponent implements OnInit {
     this.eventService.GetAllEventToday()
       .subscribe((res) => {
         this.eventDayList = res;
-        console.log(this.eventDayList);
-        console.log(res);
       });
   }
 
@@ -293,9 +260,6 @@ export class DashboardAdminComponent implements OnInit {
     this.eventService.GetEventsLater()
       .subscribe((res) => {
         this.eventLaterList = res;
-        console.log('f');
-        console.log(this.eventLaterList);
-
       });
   }
 

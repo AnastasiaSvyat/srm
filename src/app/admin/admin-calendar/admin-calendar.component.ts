@@ -6,6 +6,7 @@ import { AddEventComponent } from '../add-event/add-event.component';
 import { Events } from 'src/app/model/Events';
 import { Employee } from 'src/app/model/Employee';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-admin-calendar',
@@ -26,7 +27,8 @@ export class AdminCalendarComponent implements OnInit {
     public dialog: MatDialog,
     private eventService: EventService,
     private employeeService: EmployeeService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private overlay: Overlay) {
   }
 
   ngOnInit(): void {
@@ -85,8 +87,10 @@ export class AdminCalendarComponent implements OnInit {
 
   addEvent(): void {
     const dialogRef = this.dialog.open(AddEventComponent, {
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
       width: '398px',
-      height: '591px',
+      minHeight: '491px',
+      height: 'auto'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

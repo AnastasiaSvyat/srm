@@ -8,47 +8,52 @@
                 <mat-option value="option2">Two</mat-option>
             </mat-select>
         </mat-form-field>
-        <div *ngIf="type?.invalid && (type?.dirty || type?.touched)" class="helper-text red-text">
-            <div *ngIf="type?.errors?.required">Description is required.</div>
-        </div>
+        <mat-error *ngIf="type?.invalid && (type?.dirty || type?.touched)" class="helper-text red-text">
+            <span *ngIf="type?.errors?.required">Description is required.</span>
+        </mat-error>
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <div>
                 <mat-form-field class="mt44 calendarWidth">
-                    <input [min]="today" formControlName="date" matInput [matDatepicker]="picker" placeholder="Start day">
+                    <input [min]="today" formControlName="date" matInput [matDatepicker]="picker"
+                        placeholder="Start day">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker startView="year"></mat-datepicker>
+                    <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field class="mr25 mt44 calendarWidth">
-                    <input [min]="today" formControlName="endDate" matInput [matDatepicker]="picker1" placeholder="End day">
+                    <input [min]="today" formControlName="endDate" matInput [matDatepicker]="picker1"
+                        placeholder="End day">
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
             </div>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between center">
-            <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text ml8 red-text">
-                <div *ngIf="date?.errors?.required">Start date is required.</div>
-            </div>
-            <div *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)" class="helper-text mr24 red-text">
-                <div *ngIf="endDate?.errors?.required">End date is required.</div>
-            </div>
+            <mat-error *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text ml8 red-text">
+                <span *ngIf="date?.errors?.required">Start date is required.</span>
+            </mat-error>
+            <mat-error *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)"
+                class="helper-text mr24 red-text">
+                <span *ngIf="endDate?.errors?.required">End date is required.</span>
+            </mat-error>
         </div>
         <mat-form-field>
             <mat-label>Description</mat-label>
-            <textarea formControlName="description" placeholder="Enter description..." formControlName="description"
-                name="description" matInput></textarea>
+            <textarea formControlName="description" placeholder="Enter description..." name="description"
+                matInput></textarea>
         </mat-form-field>
-        <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="helper-text red-text">
-            <div *ngIf="description?.errors?.required">Description is required.</div>
-        </div>
+        <mat-error *ngIf="description?.invalid && (description?.dirty || description?.touched)"
+            class="helper-text red-text">
+            <span *ngIf="description?.errors?.required">Description is required.</span>
+        </mat-error>
         <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
             <div>
                 <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button [disabled]="!requestForm.valid" [mat-dialog-close]="requestForm.value" class="btn h48 w155" mat-stroked-button>Send</button>
+                <button [disabled]="!requestForm.valid" (click)="getRequest(requestForm.value)" class="btn h48 w155"
+                    mat-stroked-button>Send</button>
             </div>
         </div>
     </div>

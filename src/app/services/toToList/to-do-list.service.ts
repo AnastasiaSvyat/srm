@@ -17,14 +17,13 @@ export class ToDoListService {
     private httpClient: HttpClient,
     private authService: AuthService,
     private careService: CareService) {
-      this.employee = this.authService.user;
+    this.employee = this.authService.user;
   }
 
 
-  AddTask(data: ToDoList): Observable<any> {
-    console.log(data);
+  AddTask(data: ToDoList): Observable<ToDoList> {
     const API_URL = `${this.careService.REST_API}/add-task`;
-    return this.httpClient.post(API_URL, data)
+    return this.httpClient.post<ToDoList>(API_URL, data)
       .pipe(
         catchError(this.careService.handleError)
       );
@@ -41,12 +40,11 @@ export class ToDoListService {
   }
 
   GetAllTaskDate(employee: Employee): Observable<ToDoList[]> {
-    console.log(employee.id);
     const API_URL = `${this.careService.REST_API}/get-taskDate/?idEmployee=${employee.id}`;
     return this.httpClient.get<ToDoList[]>(API_URL);
   }
 
-  SelectedTask(id: any): Observable<any> {
+  SelectedTask(id: string): Observable<ToDoList> {
     const API_URL = `${this.careService.REST_API}/read-task/${id}`;
     return this.httpClient.get(API_URL, { headers: this.careService.httpHeaders })
       .pipe(map((res: any) => {
@@ -56,18 +54,17 @@ export class ToDoListService {
       );
   }
 
-  UpdateTask(id: any, task: any): Observable<any> {
-    console.log(task);
+  UpdateTask(id: string, task: ToDoList): Observable<ToDoList> {
     const API_URL = `${this.careService.REST_API}/update-task/${id}`;
-    return this.httpClient.put(API_URL, task, { headers: this.careService.httpHeaders })
+    return this.httpClient.put<ToDoList>(API_URL, task, { headers: this.careService.httpHeaders })
       .pipe(
         catchError(this.careService.handleError)
       );
   }
 
-  DeleteTask(id: any): Observable<any> {
+  DeleteTask(id: string): Observable<ToDoList> {
     const API_URL = `${this.careService.REST_API}/delete-task/${id}`;
-    return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders }).pipe(
+    return this.httpClient.delete<ToDoList>(API_URL, { headers: this.careService.httpHeaders }).pipe(
       catchError(this.careService.handleError)
     );
   }

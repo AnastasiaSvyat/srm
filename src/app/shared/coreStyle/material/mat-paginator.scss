@@ -1,0 +1,17 @@
+.admin-staff-container,
+.user-staff-container{
+    .staff-paginator{
+        .mat-paginator {
+            .mat-paginator-outer-container {
+                background-color: #eef6f8;
+                .mat-paginator-page-size,.mat-paginator-range-label{
+                    display: none;
+                }
+                .mat-icon-button {
+                    background-color: rgb(164, 207, 247);
+                }
+            }
+        }
+       
+    }
+}

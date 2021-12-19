@@ -6,24 +6,13 @@ import { throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class CareService {
-  today!: any;
-  month!: any;
-  year!: any;
-  week!: any;
-  tomorrow!: any;
 
-  constructor() {}
+  constructor() { }
 
   REST_API = 'http://localhost:8000/api';
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
   handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    return throwError(errorMessage);
+    return throwError(error);
   }
 }

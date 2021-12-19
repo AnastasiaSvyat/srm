@@ -1,21 +1,26 @@
 <div class="user-container">
     <mat-drawer-container class="w100 h100">
         <mat-drawer class="navbar" mode="side" opened>
-            <div fxLayout="column" fxLayoutAlign="space-evenly center" class="h100pr">
+            <div fxLayout="column" fxLayoutAlign="center center" class="h100pr">
                 <div fxFlex="85">
-                    <div class="mt99">
+                    <div fxLayoutAlign="center center" class="mt99">
                         <button mat-icon-button [routerLink]="['/user','dashboardUser']">
                             <img class="sizeDashboardImg" src="/assets/img/dashboardImg.png" alt="photo">
                         </button>
                     </div>
-                    <div class="mt20">
+                    <div fxLayoutAlign="center center" class="mt20">
                         <button mat-icon-button class="navbar-button" [routerLink]="['/user','stafflist']">
                             <img src="/assets/img/people.png" alt="">
                         </button>
                     </div>
-                    <div class="mt20">
+                    <div fxLayoutAlign="center center" class="mt20">
                         <button mat-icon-button class="navbar-button" [routerLink]="['/user','calendar']">
                             <img src="/assets/img/bag.png" alt=""><br>
+                        </button>
+                    </div>
+                    <div fxLayoutAlign="center center" class="exitPhoto mt20">
+                        <button (click)="logout()" mat-icon-button>
+                            <img src="/assets/img/exit.svg" alt=""><br>
                         </button>
                     </div>
                 </div>
@@ -30,12 +35,10 @@
             </div>
         </mat-drawer>
         <mat-drawer-content>
-            <div class="header w100" fxLayout="row" fxLayoutAlign="end center">
-                <div class="exitPhoto mr25">
-                    <button (click) = "logout()" mat-icon-button>
-                      <img src="../../assets/img/exit.png" alt=""><br>
-                    </button>
-                  </div>
+            <div class="header pt11 w100" fxLayout="row" fxLayoutAlign="center center">
+                <div>
+                    <img src="../../assets/img/logo.png" alt="">
+                </div>
             </div>
             <router-outlet></router-outlet>
         </mat-drawer-content>

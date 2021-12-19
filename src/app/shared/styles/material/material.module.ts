@@ -19,6 +19,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 @NgModule({
   declarations: [],
@@ -42,7 +45,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSelectModule,
     MatPaginatorModule,
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ScrollingModule,
+    MatCheckboxModule
   ],
   exports: [
     MatFormFieldModule,
@@ -65,6 +70,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatPaginatorModule,
     MatMenuModule,
     MatSnackBarModule,
+    ScrollingModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }

@@ -1,0 +1,9 @@
+<div class="admin-info-about-user h">
+    <h1 mat-dialog-title>This information about {{data.user.name}}</h1>
+    <mat-dialog-content class="mt24 h">
+        {{data.user.infoUser ? data.user.infoUser : 'No information yet.'}}
+    </mat-dialog-content>
+    <div fxLayout="row" fxLayoutAlign="end end">
+        <button mat-button mat-dialog-close class="btn" (click)="onNoClick()">Cancel</button>
+    </div>
+</div>

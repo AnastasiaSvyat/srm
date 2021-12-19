@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Events } from 'src/app/model/Events';
 import { CareService } from '../care/care.service';
 import * as moment from 'moment';
@@ -16,9 +16,9 @@ export class EventService {
     private careService: CareService) { }
 
 
-  AddEvent(data: Events): Observable<any> {
+  AddEvent(data: Events): Observable<Events> {
     const API_URL = `${this.careService.REST_API}/add-event`;
-    return this.httpClient.post(API_URL, data)
+    return this.httpClient.post<Events>(API_URL, data)
       .pipe(
         catchError(this.careService.handleError)
       );
@@ -45,9 +45,9 @@ export class EventService {
     return this.httpClient.get<Events[]>(API_URL);
   }
 
-  DeleteEvent(id: any): Observable<any> {
+  DeleteEvent(id: string): Observable<Event> {
     const API_URL = `${this.careService.REST_API}/delete-event/${id}`;
-    return this.httpClient.delete(API_URL, { headers: this.careService.httpHeaders }).pipe(
+    return this.httpClient.delete<Event>(API_URL, { headers: this.careService.httpHeaders }).pipe(
       catchError(this.careService.handleError)
     );
   }

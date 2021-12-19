@@ -1,23 +1,24 @@
 <div class="admin-dashboard-container" fxLayout='row' fxFlex='100%'>
     <div fxLayout='column' fxFlex='70%' class="mt24">
         <!-- header -->
-        <div fxLayoutAlign="space-around center" fxFlex='100%' class="h95 ml16 colorBlock">
-            <div *ngIf="urlPhoto">
-                <img class="photo photoHeader ml16" [src]="urlPhoto" alt="">
+        <div fxLayoutAlign="space-around center" class="h95 ml16 colorBlock">
+            <div fxFlex="15%">
+                <img class="photo photoHeader ml16" [src]="urlPhoto ? urlPhoto : '../../../assets/img/nouser.jpeg'"
+                    alt="">
             </div>
-            <div class="ml16">
+            <div fxFlex="35%">
                 <div class="fs18 mb0">{{employee.name}}</div>
                 <div class="fs14 mb0 fontColorGrey">Manager</div>
             </div>
-            <div class="ml80">
+            <div fxFlex="30%">
                 <div class="fs14 mb0"><span class="fontColorGrey">Phone:</span>{{employee.phone}}</div>
                 <div class="fs14 mb0"><span class="fontColorGrey">Email:</span>{{employee.email}}</div>
             </div>
-            <div class="ml80 mb13">
+            <div class="mb13" fxFlex="15%">
                 <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>{{employee.date | date:'shortDate' }}
                 </div>
             </div>
-            <div class="btnEditUser">
+            <div class="btnEditUser" fxFlex="5%">
                 <button (click)="editUser(employee)" class="pt0" mat-icon-button
                     aria-label="Example icon-button with a menu">
                     <mat-icon class="mb13">more_horiz</mat-icon>
@@ -27,42 +28,44 @@
         <div fxFlex='100%' fxLayout="row">
             <!-- Events -->
             <div fxFlex='33.33%' fxLayout="column" fxLayoutAlign="space-between start"
-                class="ml16 mt16 dashboard-content colorBlock ">
-                <div fxFlex='2%' class="fs24 ml24 mt24">Events</div>
-                <div *ngIf="eventLaterList?.length || eventDayList?.length || eventMonthList?.length" fxFlex='80%' class="w100">
+                class="ml16 mt16 dashboard-content mb20 colorBlock ">
+                <div fxFlex='2%' class="fs24 fontGilroy ml24 mt24">Events</div>
+                <div *ngIf="eventLaterList?.length || eventDayList?.length || eventMonthList?.length" fxFlex='80%'
+                    class="w100">
                     <div fxLayout="row" fxLayoutAlign="space-between center">
-                        <div class="ml24">
+                        <cdk-virtual-scroll-viewport itemSize="3" class="viewport ml24">
                             <div>
-                                <p class="fontColorGrey fs18 mt16">Today</p>
+                                <p class="fontColorGrey fontGilroy fs18 mt16">Today</p>
                                 <div *ngIf="!eventDayList?.length">
-                                    <span class="fontColorGrey fs14">No event today</span>
+                                    <span class="fontColorGrey fontGilroy fs14">No event today</span>
                                 </div>
                                 <div *ngIf="eventDayList?.length">
-                                    <div *ngFor="let item of eventDayList">
+                                    <div *ngFor="let item of eventDayList" class="item">
                                         <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
                                         <span class="fs14">{{item.name}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div *ngIf="eventMonthList?.length" class="mt16">
-                                <p class="fontColorGrey fs18 mt16">This month</p>
-                                <div *ngFor="let item of eventMonthList">
+                                <p class="fontColorGrey fontGilroy fs18 mt16">This month</p>
+                                <div *ngFor="let item of eventMonthList" class="item">
                                     <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
                                     <span class="fs14">{{item.name}}</span>
                                 </div>
                             </div>
                             <div class="mt16" *ngIf="eventLaterList?.length">
-                                <p class="fontColorGrey fs18 mt16">Later</p>
-                                <div *ngFor="let item of eventLaterList">
+                                <p class="fontColorGrey fontGilroy fs18 mt16">Later</p>
+                                <div *ngFor="let item of eventLaterList" class="item">
                                     <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
                                     <span class="fs14">{{item.name}}</span>
                                 </div>
                             </div>
-                        </div>
+                        </cdk-virtual-scroll-viewport>
                     </div>
                 </div>
-                <div *ngIf="!eventLaterList?.length && !eventDayList?.length && !eventMonthList?.length" class="text-center w100">
-                    <span class="fontColorGrey fs14">No events</span>
+                <div *ngIf="!eventLaterList?.length && !eventDayList?.length && !eventMonthList?.length"
+                    class="text-center w100">
+                    <span fontGilroy class="fontColorGrey fs14">No events</span>
                 </div>
                 <div class="w100">
                     <button (click)='addEvent()' class="w100 btn h48" mat-stroked-button>ADD EVENT</button>
@@ -71,65 +74,84 @@
 
             <!-- Birthdays -->
             <div fxFlex='33.33%' class="dashboard-content mt16 ml16 colorBlock">
-                <div class="fs24 ml24 mt24">Birthdays</div>
+                <div class="fs24 ml24 mt24 fontGilroy">Birthdays</div>
                 <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start">
-                    <div class="mt24">
-                        <p class="fontColorGrey fs18 mt16">Today</p>
-                        <div *ngIf="!todayBirthList?.length">
-                            <span class="fontColorGrey fs14">No birthday today</span>
+                    <cdk-virtual-scroll-viewport itemSize="3" class="viewport">
+                        <div class="mt24">
+                            <p class="fontColorGrey fontGilroy fs18 mt16">Today</p>
+                            <div *ngIf="!todayBirthList?.length">
+                                <span class="fontGilroy fontColorGrey fs14">No birthday today</span>
+                            </div>
+                            <div *ngIf="todayBirthList?.length">
+                                <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of todayBirthList"
+                                    class="item">
+                                    <div class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}</div>
+                                    <div>
+                                        <img class="photo photoSmall ml12" [src]="getEmployeePhotoById(item.id)">
+                                    </div>
+                                    <div class="fs14 ml8 overflow-ellipsis n">{{item.name}}</div>
+                                </div>
+                            </div>
                         </div>
-                        <div *ngIf="todayBirthList?.length">
-                            <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of todayBirthList">
+                        <div *ngIf="monthBirthList?.length" class="mt16">
+                            <p class="fontColorGrey fs18 mt16 fontGilroy">This month</p>
+                            <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of monthBirthList"
+                                class="item">
                                 <div class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}</div>
-                                <div class="photo photoSmall ml12"></div>
+                                <div>
+                                    <img class="photo photoSmall ml12" [src]="getEmployeePhotoById(item.id)">
+                                </div>
                                 <div class="fs14 ml8">{{item.name}}</div>
                             </div>
                         </div>
-                    </div>
-                    <div *ngIf="monthBirthList?.length" class="mt16">
-                        <p class="fontColorGrey fs18 mt16">This month</p>
-                        <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of monthBirthList">
-                            <div class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}</div>
-                            <div class="photo photoSmall ml12"></div>
-                            <div class="fs14 ml8">{{item.name}}</div>
+                        <div *ngIf="staffBirthLater?.length" class="mt16">
+                            <p class="fontColorGrey fs18 mt16 fontGilroy">Later</p>
+                            <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of staffBirthLater"
+                                class="item">
+                                <div class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}</div>
+                                <div>
+                                    <img class="photo photoSmall ml12" [src]="getEmployeePhotoById(item.id)">
+                                </div>
+                                <div class="fs14 ml8">{{item.name}}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div *ngIf="staffBirthLater?.length" class="mt16">
-                        <p class="fontColorGrey fs18 mt16">Later</p>
-                        <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of staffBirthLater">
-                            <div class="fontColorGrey fs14">{{item.date | date:'dd/MM'}}</div>
-                            <div class="photo photoSmall ml12"></div>
-                            <div class="fs14 ml8">{{item.name}}</div>
-                        </div>
-                    </div>
+                    </cdk-virtual-scroll-viewport>
                 </div>
             </div>
             <!-- Vacations -->
             <div fxFlex='33.33%' class="dashboard-content ml16 mt16 colorBlock">
-                <div class="fs24 ml24 mt24">Vacations</div>
+                <div class="fs24 ml24 fontGilroy mt24">Vacations</div>
                 <div *ngIf="vacationMonthList?.length && vacationLaterList?.length">
-                    <span class="fontColorGrey fs14">No vacations yet</span>
+                    <span class="fontColorGrey fontGilroy fs14">No vacations yet</span>
                 </div>
-                <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start">
-                    <div *ngIf="vacationMonthList?.length" class="mt16">
-                        <p class="fontColorGrey fs18 mt16">This month</p>
-                        <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of vacationMonthList">
-                            <div class="fontColorGrey fs14">{{item.date | date:'dd.MM.yy'}} - {{item.endDate |
-                                date:'dd.MM.yy'}}</div>
-                            <div class="photo photoSmall ml12"></div>
-                            <div class="fs14 ml8">{{item.name}}</div>
+                <cdk-virtual-scroll-viewport itemSize="3" class="viewport">
+                    <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start">
+                        <div *ngIf="vacationMonthList?.length" class="mt16">
+                            <p class="fontColorGrey fontGilroy fs18 mt16">This month</p>
+                            <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of vacationMonthList"
+                                class="itemVacation">
+                                <div class="fontColorGrey fs14">{{item.date | date:'dd.MM.yy'}} - {{item.endDate |
+                                    date:'dd.MM.yy'}}</div>
+                                <div>
+                                    <img class="photo photoSmall ml12" [src]="getEmployeePhotoById(item.idEmployee)">
+                                </div>
+                                <div class="fs14 ml8">{{item.name}}</div>
+                            </div>
+                        </div>
+                        <div *ngIf="vacationLaterList?.length" class="mt16">
+                            <p class="fontColorGrey fontGilroy fs18 mt16">Later</p>
+                            <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of vacationLaterList"
+                                class="itemVacation">
+                                <div class="fontColorGrey fs14">{{item.date | date:'dd.MM.yy'}} - {{item.endDate |
+                                    date:'dd.MM.yy'}}</div>
+                                <div>
+                                    <img class="photo photoSmall ml12" [src]="getEmployeePhotoById(item.idEmployee)">
+                                </div>
+                                <div class="fs14 ml8">{{item.name}}</div>
+                            </div>
                         </div>
                     </div>
-                    <div *ngIf="vacationLaterList?.length" class="mt16">
-                        <p class="fontColorGrey fs18 mt16">Later</p>
-                        <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of vacationLaterList">
-                            <div class="fontColorGrey fs14">{{item.date | date:'dd.MM.yy'}} - {{item.endDate |
-                                date:'dd.MM.yy'}}</div>
-                            <div class="photo photoSmall ml12"></div>
-                            <div class="fs14 ml8">{{item.name}}</div>
-                        </div>
-                    </div>
-                </div>
+                </cdk-virtual-scroll-viewport>
             </div>
         </div>
     </div>
@@ -137,21 +159,47 @@
     <!-- ToDoList -->
     <div fxFlex='28%' fxLayout="column" fxLayoutAlign="space-between start"
         class="mt24 container_right colorBlock ml16">
-        <div fxFlex='2%' class="fs24 ml24 mt24">ToDoList</div>
+        <div fxFlex='2%' class="fs24 fontGilroy ml24 mt24">ToDoList</div>
         <div *ngIf="!toDoListWeek?.length && !toDoListToday?.length && !toDoListTomorrow?.length"
             class="text-center w100">
-            <span class="fontColorGrey fs14">No tasks</span>
+            <span class="fontColorGrey fontGilroy fs14">No tasks</span>
         </div>
-        <div fxFlex='80%' class="w100">
-            <div *ngIf="toDoListToday?.length">
-                <div class="fs18 fontColorGrey mt16 ml24">Today {{today | date:'dd/MM' }} </div>
+        <cdk-virtual-scroll-viewport itemSize="3" class="viewport viewportTodolist">
+            <div fxFlex='80%' class="w100">
+                <div *ngIf="toDoListToday?.length">
+                    <div class="fs18 fontColorGrey fontGilroy mt16 ml24">Today {{today | date:'dd/MM' }} </div>
+                    <div fxLayout="row" fxLayoutAlign="space-between center"
+                        *ngFor="let task of toDoListToday; let i = index" class="w100 item mt7">
+                        <div class="ml24">
+                            <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
+                                <span [ngClass]="isChecked ? 'active' : ''" class="fs14 ml8">{{task.task}}</span>
+                            </mat-checkbox>
+                        </div>
+                        <div>
+                            <button mat-icon-button [matMenuTriggerFor]="menu"
+                                aria-label="Example icon-button with a menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button (click)="updateTask(task)" mat-menu-item>
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Edit</span>
+                                </button>
+                                <button (click)="deleteTask(task)" mat-menu-item>
+                                    <mat-icon>delete</mat-icon>
+                                    <span>Delete</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="toDoListTomorrow?.length" class="fs18 fontGilroy fontColorGrey mt16 ml24">Tomorrow</div>
                 <div fxLayout="row" fxLayoutAlign="space-between center"
-                    *ngFor="let task of toDoListToday; let i = index" class="w100">
+                    *ngFor="let task of toDoListTomorrow; let i = index" class="w100 item mt7">
                     <div class="ml24">
-                        <label>
-                            <input type="checkbox" [checked]="task.select" (change)="onChange($event,task)" />
-                            <span class="fs14 ml8">{{task.task}}</span>
-                        </label>
+                        <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
+                            <span [ngClass]="isChecked ? 'active' : ''" class="fs14 ml8">{{task.task}}</span>
+                        </mat-checkbox>
                     </div>
                     <div>
                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -169,58 +217,33 @@
                         </mat-menu>
                     </div>
                 </div>
-            </div>
-            <div *ngIf="toDoListTomorrow?.length" class="fs18 fontColorGrey mt16 ml24">Tomorrow</div>
-            <div fxLayout="row" fxLayoutAlign="space-between center"
-                *ngFor="let task of toDoListTomorrow; let i = index" class="w100">
-                <div class="ml24">
-                    <label>
-                        <input type="checkbox" [checked]="task.select" [value]="i" (change)="onChange($event,task)" />
-                        <span class="fs14 ml8">{{task.task}}</span>
-                    </label>
-                </div>
-                <div>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                        <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button (click)="updateTask(task)" mat-menu-item>
-                            <mat-icon>edit</mat-icon>
-                            <span>Edit</span>
+                <div *ngIf="toDoListWeek?.length" class="fs18 fontGilroy fontColorGrey mt16 ml24">This week</div>
+                <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let task of toDoListWeek"
+                    class="w100 todolostLater">
+                    <div class="ml26 mt10">
+                        <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
+                            <span [ngClass]="isChecked ? 'active' : ''" class="fs14 ml8">{{task.task}}</span>
+                        </mat-checkbox><br>
+                        <span class="fontColorGrey fs12">{{task.date | date:'dd/MM' }} </span>
+                    </div>
+                    <div>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
                         </button>
-                        <button (click)="deleteTask(task)" mat-menu-item>
-                            <mat-icon>delete</mat-icon>
-                            <span>Delete</span>
-                        </button>
-                    </mat-menu>
-                </div>
-            </div>
-            <div *ngIf="toDoListWeek?.length" class="fs18 fontColorGrey mt16 ml24">This week</div>
-            <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let task of toDoListWeek" class="w100">
-                <div class="ml24">
-                    <label>
-                        <input type="checkbox" [checked]="task.select" (change)="onChange($event,task)" />
-                        <span class="fs14 ml8">{{task.task}}</span>
-                        <div class="fontColorGrey fs12 ml40">{{task.date | date:'dd/MM' }} </div>
-                    </label>
-                </div>
-                <div>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                        <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button (click)="updateTask(task)" mat-menu-item>
-                            <mat-icon>edit</mat-icon>
-                            <span>Edit</span>
-                        </button>
-                        <button (click)="updateTask(task)" mat-menu-item>
-                            <mat-icon>delete</mat-icon>
-                            <span>Delete</span>
-                        </button>
-                    </mat-menu>
+                        <mat-menu #menu="matMenu">
+                            <button (click)="updateTask(task)" mat-menu-item>
+                                <mat-icon>edit</mat-icon>
+                                <span>Edit</span>
+                            </button>
+                            <button (click)="updateTask(task)" mat-menu-item>
+                                <mat-icon>delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
+                        </mat-menu>
+                    </div>
                 </div>
             </div>
-        </div>
+        </cdk-virtual-scroll-viewport>
         <div class="w100">
             <button (click)='addTask()' class="w100 btn h48" mat-stroked-button>ADD TASK</button>
         </div>

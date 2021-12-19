@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Request } from '../model/Request';
 import { AuthService } from '../services/auth/auth.service';
 import { CountRequestService } from '../services/countRequest/count-request.service';
 import { RequestService } from '../services/request/request.service';
@@ -13,7 +12,7 @@ import { RequestService } from '../services/request/request.service';
 })
 export class AdminComponent implements OnInit {
 
-  requestCount!: any;
+  requestCount!: number;
   constructor(
     private requestService: RequestService,
     private auth: AuthService,
@@ -24,7 +23,7 @@ export class AdminComponent implements OnInit {
       .subscribe((res) => {
         this.requestCount = res.length;
       });
-    this.countRequestService.data$.subscribe((result: any) => {
+    this.countRequestService.data$.subscribe((result) => {
       this.requestCount = result;
     });
   }

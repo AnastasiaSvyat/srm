@@ -21,6 +21,15 @@
          margin-top: 10px;
      }
      .mat-form-field-flex{
-         background-color: #ECEFF1;
+         background-color: #ddeffc;
+         box-shadow: 0 0 5px #2062A3;
+         border-radius: 10px;
+         .mat-form-field-outline-thick {
+            color: rgb(51, 121, 153);
+        }
      }
+     .mat-form-field-underline {
+        display: none;
+    }
  }
+

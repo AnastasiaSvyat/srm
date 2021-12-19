@@ -1,3 +1,21 @@
+@font-face{
+    font-family: "Gilroy";
+    src: url(../../../assets/font/Gilroy/Gilroy-Bold.ttf);
+}
+@font-face{
+    font-family: "Roboto";
+    src: url(../../../assets/font/Roboto/Roboto-Regular.ttf);
+}
+@font-face{
+    font-family: "RobotoBold";
+    src: url(../../../assets/font/Roboto/Roboto-Medium.ttf);
+}
+.fontGilroy{
+    font-family: "Gilroy";
+}
+.fontRobotoBold{
+    font-family: "RobotoBold";
+}
 .fs18{
     font-size: 18px;
 }

@@ -9,7 +9,8 @@ import { DashboardUserComponent } from './dashboard-user/dashboard-user.componen
 import { MsgUserComponent } from './msg-user/msg-user.component';
 import { AddInfoUserComponent } from './add-info-user/add-info-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
-
+import { AddRequestUserComponent } from './add-request-user/add-request-user.component';
+import { InfoAboutUserComponent } from './info-about-user/info-about-user.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { UpdateUserComponent } from './update-user/update-user.component';
     DashboardUserComponent,
     MsgUserComponent,
     AddInfoUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    AddRequestUserComponent,
+    InfoAboutUserComponent
   ],
   imports: [
     CommonModule,

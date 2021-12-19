@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Employee } from 'src/app/model/Employee';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
@@ -17,13 +17,13 @@ export class AddInfoUserComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddInfoUserComponent>,
     private authService: AuthService,
-    private emoloyeeService: EmployeeService) {
-      this.employee = this.authService.user;
-  }
+    private emoloyeeService: EmployeeService,
+    @Inject(MAT_DIALOG_DATA) public dataUser: any
+  ) { }
 
   ngOnInit(): void {
     this.infoAboutUserForm = new FormGroup({
-      info: new FormControl('', [Validators.required]),
+      infoUser: new FormControl(this.dataUser.updateEmployee.infoUser, [Validators.required]),
     });
   }
 
@@ -31,11 +31,10 @@ export class AddInfoUserComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  addUserInfo(): any {
-    this.employee.info.push(this.infoAboutUserForm.value);
-    this.emoloyeeService.updateEmployee(this.employee.id, this.employee)
-      .subscribe(() => {
-        this.dialogRef.close();
+  addUserInfo(employee: Employee): any {
+    this.emoloyeeService.updateEmployee(this.dataUser.updateEmployee.id, employee)
+      .subscribe((res) => {
+        this.dialogRef.close(res);
       }, (err) => {
         console.log(err);
       });

@@ -1,47 +1,65 @@
-<div class="admin-staff-container h100">
-  <div class="col-md-12">
-    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
-      (pageChange)="handlePageChange($event)"></pagination-controls>
-    <div *ngFor="let employee of staffList | paginate : {
-              itemsPerPage: pageSize,
-              currentPage: page,
-              totalItems: count};let i = index" [class.active]="i == currentIndex"
-      (click)="setActiveEmployee(employee, i)">
-    </div>
-  </div>
-  <mat-table [dataSource]="staffList" class="mat-elevation-z8 table w100 h100 mt16">
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> EMPLOYEE </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <div *ngFor="let item of photoEmployee">
-          <div class="sizePhotoStaffList" *ngIf="item.idEmployee == element.id">
-            <img src={{item.imagePath}} alt="">
-          </div>
+<div class="user-staff-container h100">
+  <mat-table [dataSource]="staffList" class="mat-elevation-z8 margin-auto mt16">
+    <ng-container matColumnDef="photo">
+      <mat-header-cell *matHeaderCellDef fxFlex="5%"></mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="5%">
+        <div class="sizePhotoStaffList">
+          <img [src]="getEmployeePhoto(element.id)" />
         </div>
-        <div class="ml8">{{element.name}}</div>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef fxFlex="15%"> EMPLOYEE </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="15%">
+        <cdk-virtual-scroll-viewport itemSize="1" class="viewport">
+          <p class="overflow-ellipsis">
+            {{element.skype}}
+          </p>
+        </cdk-virtual-scroll-viewport>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef> POSITION </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="15%"> POSITION </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="15%"> {{element.position}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="birthday">
-      <mat-header-cell *matHeaderCellDef> BIRTH DATE </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.date | date:"dd.MM.yy"}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="10%"> BIRTH DATE </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10%"> {{element.date | date:"dd.MM.yy"}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="phone">
-      <mat-header-cell *matHeaderCellDef> PHONE </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="15%"> PHONE </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="15%"> {{element.phone}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="15%"> EMAIL </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="15%">
+        <p class="overflow-ellipsis">
+          {{element.email}}
+        </p>
+      </mat-cell>
     </ng-container>
     <ng-container matColumnDef="skype">
-      <mat-header-cell *matHeaderCellDef> SKYPE </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="15%"> SKYPE </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="15%">
+        <cdk-virtual-scroll-viewport itemSize="1" class="viewport">
+          <p class="overflow-ellipsis">
+            {{element.skype}}
+          </p>
+        </cdk-virtual-scroll-viewport>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="about">
+      <mat-header-cell *matHeaderCellDef fxFlex="10%"></mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10%">
+        <button mat-button (click)="aboutUser(element)" class="underline">about</button>
+      </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+  <div fxLayoutAlign="center center" class="col-md-12 staff-paginator mt7 mr25">
+    <mat-paginator [length]="count" [pageSize]="pageSize" [showFirstLastButtons]="true"
+      (page)="handlePageChange($event)">
+    </mat-paginator>
+  </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="calendar-container" fxLayout="column">
   <!-- button -->
   <div fxLayoutAlign="end none" fxFlex='20%' class="mr24 mt16 btnAddLeft">
-    <button class="btn h48 w155" (click)='addEvent()' mat-stroked-button>ADD EVENT</button>
+    <button class="btn h48 w155 fontGilroy" (click)='addEvent()' mat-stroked-button>ADD EVENT</button>
   </div>
   <div fxLayout='row' fxFlex='80%' class="mb29 mt16">
     <div fxFlex='20%' fxLayout='column' class="ml48">
@@ -15,15 +15,14 @@
       <!-- select Event -->
       <div fxFlex='55%' class="mt24 colorBlock">
         <div class="ml24 pt28">
-          <div *ngIf="selectedDate == today" class="fs24 ">Today</div>
-          <div class="fs14 ml8 mt3 fontColorGrey">{{selectedDate | date:'dd.MM.yy'}} </div>
+          <div class="fs14 ml8 mt7 fontColorGrey">{{selectedDate | date:'dd.MM.yy'}} </div>
         </div>
         <div class="ml24">
           <div class="mt14" *ngFor="let birth of birthSelectDate">
             {{birth.name}} birthday
           </div>
           <div class="mt14" *ngFor="let eventToday of eventSelectedDate">
-            {{eventToday.name }} - {{eventToday.type}}
+            {{eventToday.name}} - {{eventToday.type}}
           </div>
         </div>
         <div class="ml24 fontColorGrey" *ngIf="!birthSelectDate?.length  && !eventSelectedDate?.length">
@@ -33,13 +32,15 @@
     </div>
     <!-- planned Event -->
     <div fxFlex='74%' class="rightBox ml24 colorBlock">
-      <div class="ml24 pt28 fs24">Planned events</div>
-      <div *ngIf="!eventsPlannedToday?.length && !eventsPlannedMonth?.length && !eventsPlannedLater?.length" class="mt16 ml24">
-        <span class="fontColorGrey fs14">No event yet.</span>
+      <div class="ml24 pt28 fs24 fontGilroy">Planned events</div>
+      <div *ngIf="!eventsPlannedToday?.length && !eventsPlannedMonth?.length && !eventsPlannedLater?.length"
+        class="mt16 ml24">
+        <span class="fontColorGrey fontGilroy fs14">No event yet.</span>
       </div>
-      <div *ngIf="eventsPlannedToday?.length || eventsPlannedMonth?.length || eventsPlannedLater?.length" class="mt16 ml24">
+      <div *ngIf="eventsPlannedToday?.length || eventsPlannedMonth?.length || eventsPlannedLater?.length"
+        class="mt16 ml24">
         <div>
-          <p class="fontColorGrey fs18 mt16">Today</p>
+          <p class="fontColorGrey fontGilroy fs18 mt16">Today</p>
           <div *ngIf="!eventsPlannedToday?.length">
             <span class="fontColorGrey fs14">No event today</span>
           </div>
@@ -51,14 +52,14 @@
           </div>
         </div>
         <div *ngIf="eventsPlannedMonth?.length" class="mt16">
-          <p class="fontColorGrey fs18 mt16">This month</p>
+          <p class="fontColorGrey fs18 fontGilroy mt16">This month</p>
           <div *ngFor="let item of eventsPlannedMonth">
             <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
             <span class="fs14"> {{item.name}}</span>
           </div>
         </div>
-        <div *ngIf="eventsPlannedLater?.length"  class="mt16">
-          <p class="fontColorGrey fs18 mt16">Later</p>
+        <div *ngIf="eventsPlannedLater?.length" class="mt16">
+          <p class="fontColorGrey fs18 fontGilroy mt16">Later</p>
           <div *ngFor="let item of eventsPlannedLater">
             <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
             <span class="fs14"> {{item.name}}</span>

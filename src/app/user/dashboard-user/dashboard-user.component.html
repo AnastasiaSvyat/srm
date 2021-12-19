@@ -3,22 +3,23 @@
         <div fxLayout='column' fxFlex='72%' class="container_left mt24">
             <!-- header -->
             <div fxLayout='row' fxLayoutAlign="space-around center" class="h95 ml16 colorBlock">
-                <div *ngIf="urlPhoto">
-                    <img class="photo photoHeader ml16" [src]="urlPhoto" alt="">
+                <div fxFlex="15%">
+                    <img class="photo photoHeader ml16" [src]=" urlPhoto ? urlPhoto : '../../../assets/img/nouser.jpeg'"
+                        alt="">
                 </div>
-                <div class="ml16">
-                    <div class="fs18 mb0">{{employee.name}}</div>
-                    <div class="fs14 mb0 fontColorGrey">Manager</div>
+                <div fxFlex="35%">
+                    <div class="fs18 mb0 fontRobotoBold">{{employee.name}}</div>
                 </div>
-                <div class="ml80">
+                <div fxFlex="30%">
                     <div class="fs14 mb0"><span class="fontColorGrey">Phone:</span>{{employee.phone}}</div>
                     <div class="fs14 mb0"><span class="fontColorGrey">Email:</span>{{employee.email}}</div>
                 </div>
-                <div class="ml80 mb13">
-                    <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>{{employee.date | date:'shortDate'
-                        }}</div>
+                <div class="mb13" fxFlex="15%">
+                    <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>
+                        {{employee.date | date:'shortDate'}}
+                    </div>
                 </div>
-                <div class="btnEditUser">
+                <div class="btnEditUser" fxFlex="5%">
                     <button (click)="editUser(employee)" class="pt0" mat-icon-button
                         aria-label="Example icon-button with a menu">
                         <mat-icon class="mb13">more_horiz</mat-icon>
@@ -31,17 +32,19 @@
                     <div fxFlex='33.33%' class="content_top mt16 ml16 colorBlock">
                         <div class="mt24 ml24">
                             <p class="fs18 fontColorGrey">Salary</p>
-                            <p class="fs36 fw500">{{employee.salary}}$</p>
+                            <p class="fs36 fontRobotoBold fw500">{{employee.salary}}$</p>
                         </div>
                     </div>
                     <div fxFlex='33.33%' class="content_top mt16 ml16 colorBlock">
                         <div class="mt24 ml24">
                             <p class="fs18 fontColorGrey">First day</p>
+                            <p class="fs36 fontRobotoBold fw500">{{employee.lastPerf | date:'dd.MM.YYYY'}}</p>
                         </div>
                     </div>
                     <div fxFlex='33.33%' class="content_top mt16 ml16 colorBlock">
                         <div class="mt24 ml24">
                             <p class="fs18 fontColorGrey">Last performance</p>
+                            <p class="fs36 fontRobotoBold fw500">{{employee.lastPerf | date:'dd.MM.YYYY'}}</p>
                         </div>
                     </div>
                 </div>
@@ -50,9 +53,15 @@
                         <div class="mt24 ml24">
                             <p class="fs18 fontColorGrey">Planned vacation</p>
                             <div *ngIf="vacationPlannedList?.length">
-                                <p *ngFor="let vacation of vacationPlannedList" class="plannedVacation fw500 fs36">
-                                    {{vacation.date | date:'dd.MM.YYYY'}} - {{vacation.endDate | date:'dd.MM.YYYY'}}
-                                </p>
+                                <cdk-virtual-scroll-viewport itemSize="1" class="viewport">
+                                    <div *cdkVirtualFor="let vacation of vacationPlannedList"
+                                        class="itemPlannedVacation">
+                                        <span class="fw500 fontRobotoBold plannedVacation fs36">
+                                            {{vacation.date | date:'dd.MM.YYYY'}} - {{vacation.endDate |
+                                            date:'dd.MM.YYYY'}}
+                                        </span>
+                                    </div>
+                                </cdk-virtual-scroll-viewport>
                             </div>
                             <p *ngIf="!vacationPlannedList?.length" class="plannedVacation fs24 fontColorGrey">
                                 No vacation this month
@@ -62,15 +71,18 @@
                     <div fxFlex='33.33%' class="content_bottom mt16 ml16 colorBlock">
                         <div class="mt24 ml24">
                             <p class="fs18 fontColorGrey">Vacation days left</p>
+                            <p class="fs36 fontRobotoBold fw500">7</p>
                         </div>
                     </div>
                     <div fxFlex='33.33%' class="content_bottom mt16 ml16 colorBlock">
                         <div class="mt24 ml24">
                             <p class="fs18 fontColorGrey">Events this month</p>
-                            <div *ngFor="let event of birthMonthList">
-                                <span class="fontColorGrey fs14">{{event.date | date:'dd.MM'}}</span>
-                                <span class="ml8 fs14">{{event.name}}</span>
-                            </div>
+                            <cdk-virtual-scroll-viewport itemSize="3" class="viewport">
+                                <div *cdkVirtualFor="let event of birthMonthList" class="item">
+                                    <span class="fontColorGrey fs14">{{event.date | date:'dd.MM'}}</span>
+                                    <span class="ml8 fs14">{{event.name}}</span>
+                                </div>
+                            </cdk-virtual-scroll-viewport>
                             <p *ngIf="!birthMonthList?.length" class="plannedVacation fs24 fontColorGrey">
                                 No event this month
                             </p>
@@ -83,14 +95,11 @@
         <div fxFlex='26%' fxLayout="column" fxLayoutAlign="space-between start"
             class="container_right mt24 ml18 colorBlock">
             <div fxFlex='2%' class="fs24 ml24 mt24">About me</div>
-            <div fxFlex='10%' *ngFor="let info of employee.info">
-                <div class="ml24 mt16">
-                    <p class="fs18 fontColorGrey">Some info</p>
-                    <p class="fs14">{{info.info}}</p>
-                </div>
-            </div>
+            <cdk-virtual-scroll-viewport fxFlex='65%' itemSize="3" class="viewport mt24 w100">
+                <div class="itemAboutUser ml24">{{employee.infoUser}}</div>
+            </cdk-virtual-scroll-viewport>
             <div class="w100">
-                <button (click)="addNewInfo()" class="w100 h48 btn" mat-stroked-button>EDIT</button>
+                <button (click)="addNewInfo(employee)" class="w100 h48 btn" mat-stroked-button>EDIT</button>
             </div>
         </div>
     </div>

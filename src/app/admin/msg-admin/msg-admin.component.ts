@@ -14,10 +14,9 @@ export class MsgAdminComponent implements OnInit {
     private requestService: RequestService,
     private countRequestService: CountRequestService) { }
 
-  requestList: Request[] = [];
   pendingRequestList: Request[] = [];
   confirmRequestList: Request[] = [];
-  dataCountRequest!: any;
+  dataCountRequest!: number;
 
   displayedColumns: string[] = ['startDate', 'type', 'date', 'description', 'decline', 'confirm'];
   displayedColumnsConfirm: string[] = ['startDate', 'type', 'date', 'con', 'description'];

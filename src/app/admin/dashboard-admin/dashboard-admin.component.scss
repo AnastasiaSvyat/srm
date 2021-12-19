@@ -1,14 +1,23 @@
-.dashboard-content{
-    height: 43rem;
-    margin-bottom: 20px;
-}
 .container_right{
     height: 49.6rem;
 }
 label{
     display: block;
   }
-label input[type=checkbox]:checked + span{
+.active{
     text-decoration: line-through;
+}
+.viewport{
+    height: 35.8rem;
+}
+.viewportTodolist,.dashboard-content{
+    height: 43rem;
+}
+.todolistLater{
+    height: 50px;
+}
+.itemVacation{
+    width: 30px;
+    width: 100%;
 }
 

@@ -9,23 +9,24 @@ import { CareService } from '../care/care.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class RequestService {
 
   constructor(
     private httpClient: HttpClient,
     private careService: CareService) { }
 
-  AddRequest(data: Request): Observable<Request[]> {
+  AddRequest(data: Request): Observable<Request> {
     const API_URL = `${this.careService.REST_API}/add-request`;
-    return this.httpClient.post<Request[]>(API_URL, data)
+    return this.httpClient.post<Request>(API_URL, data)
       .pipe(
         catchError(this.careService.handleError)
       );
   }
 
   GetPendingRequest(): Observable<Request[]> {
-    const API_URL = `${this.careService.REST_API}/get-request/?confirm=false&decline=false`;
-    return this.httpClient.get<Request[]>(API_URL)
+    const API_URL = `${this.careService.REST_API}/get-request`;
+    return this.httpClient.get<Request[]>(API_URL, { params: { confirm: 'false', decline: 'false' } })
       .pipe(map((res: any) => {
         return res || {};
       }),
@@ -34,8 +35,8 @@ export class RequestService {
   }
 
   GetPendingRequestById(employee: Employee): Observable<Request[]> {
-    const API_URL = `${this.careService.REST_API}/get-reqById/?confirm=false&decline=false&idEmployee=${employee.id}`;
-    return this.httpClient.get<Request[]>(API_URL)
+    const API_URL = `${this.careService.REST_API}/get-reqById/?idEmployee=${employee.id}`;
+    return this.httpClient.get<Request[]>(API_URL, { params: { confirm: 'false', decline: 'false' } })
       .pipe(map((res: any) => {
         return res || {};
       }),
@@ -44,7 +45,8 @@ export class RequestService {
   }
 
   ConfirmRequest(): Observable<Request[]> {
-    return this.httpClient.get<Request[]>(`${this.careService.REST_API}/true-request/?confirm=true`)
+    const API_URL = `${this.careService.REST_API}/true-request`;
+    return this.httpClient.get<Request[]>(API_URL, { params: { confirm: 'true' } })
       .pipe(map((res: any) => {
         return res || {};
       }),
@@ -53,17 +55,18 @@ export class RequestService {
   }
 
   GetRequestConfirmMonth(): Observable<Request[]> {
-    const API_URL = `${this.careService.REST_API}/trueRequest-month/?confirm=true`;
-    return this.httpClient.get<Request[]>(API_URL);
+    const API_URL = `${this.careService.REST_API}/trueRequest-month`;
+    return this.httpClient.get<Request[]>(API_URL, { params: { confirm: 'true' } });
   }
 
   GetRequestConfirmLater(): Observable<Request[]> {
-    const API_URL = `${this.careService.REST_API}/trueRequest-Later/?confirm=true`;
-    return this.httpClient.get<Request[]>(API_URL);
+    const API_URL = `${this.careService.REST_API}/trueRequest-Later`;
+    return this.httpClient.get<Request[]>(API_URL, { params: { confirm: 'true' } });
   }
 
   DeclineRequest(): Observable<Request[]> {
-    return this.httpClient.get<Request[]>(`${this.careService.REST_API}/false-request/?decline=true`)
+    const API_URL = `${this.careService.REST_API}/false-request`;
+    return this.httpClient.get<Request[]>(API_URL, { params: { decline: 'true' } })
       .pipe(map((res: any) => {
         return res || {};
       }),
@@ -72,7 +75,8 @@ export class RequestService {
   }
 
   ConfirmRequestByIdLater(employee: Employee): Observable<Request[]> {
-    return this.httpClient.get<Request[]>(`${this.careService.REST_API}/trueRequestEmployee-Later/?confirm=true&idEmployee=${employee.id}`)
+    const API_URL = `${this.careService.REST_API}/trueRequestEmployee-Later/?idEmployee=${employee.id}`;
+    return this.httpClient.get<Request[]>(API_URL, { params: { confirm: 'true' } })
       .pipe(map((res: any) => {
         return res || {};
       }),
@@ -81,7 +85,8 @@ export class RequestService {
   }
 
   DeclineRequestById(employee: Employee): Observable<Request[]> {
-    return this.httpClient.get<Request[]>(`${this.careService.REST_API}/false-reqById/?decline=true&idEmployee=${employee.id}`)
+    const API_URL = `${this.careService.REST_API}/false-reqById/?idEmployee=${employee.id}`;
+    return this.httpClient.get<Request[]>(API_URL, { params: { decline: 'true' } })
       .pipe(map((res: any) => {
         return res || {};
       }),
@@ -89,7 +94,7 @@ export class RequestService {
       );
   }
 
-  UpdateRequest(id: any, event: any): Observable<Request[]> {
+  UpdateRequest(id: string, event: Event): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/update-request/${id}`;
     return this.httpClient.put<Request[]>(API_URL, event, { headers: this.careService.httpHeaders })
       .pipe(map((res: any) => {
@@ -99,7 +104,7 @@ export class RequestService {
       );
   }
 
-  DeleteRequest(id: any): Observable<Request[]> {
+  DeleteRequest(id: string): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/delete-request/${id}`;
     return this.httpClient.delete<Request[]>(API_URL, { headers: this.careService.httpHeaders }).pipe(
       catchError(this.careService.handleError)
