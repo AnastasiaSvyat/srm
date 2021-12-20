@@ -4,21 +4,21 @@
             <div fxLayout="column" fxLayoutAlign="center center" class="h100pr">
                 <div fxFlex="85">
                     <div fxLayoutAlign="center center" class="mt99">
-                        <button mat-icon-button [routerLink]="['/user','dashboardUser']">
+                        <button mat-icon-button routerLinkActive="activeLink"  [routerLink]="['/user','dashboardUser']">
                             <img class="sizeDashboardImg" src="/assets/img/dashboardImg.png" alt="photo">
                         </button>
                     </div>
                     <div fxLayoutAlign="center center" class="mt20">
-                        <button mat-icon-button class="navbar-button" [routerLink]="['/user','stafflist']">
+                        <button mat-icon-button routerLinkActive="activeLink"  class="navbar-button" [routerLink]="['/user','stafflist']">
                             <img src="/assets/img/people.png" alt="">
                         </button>
                     </div>
                     <div fxLayoutAlign="center center" class="mt20">
-                        <button mat-icon-button class="navbar-button" [routerLink]="['/user','calendar']">
+                        <button mat-icon-button routerLinkActive="activeLink"  class="navbar-button" [routerLink]="['/user','calendar']">
                             <img src="/assets/img/bag.png" alt=""><br>
                         </button>
                     </div>
-                    <div fxLayoutAlign="center center" class="exitPhoto mt20">
+                    <div fxLayoutAlign="center center" routerLinkActive="activeLink"  class="exitPhoto mt20">
                         <button (click)="logout()" mat-icon-button>
                             <img src="/assets/img/exit.svg" alt=""><br>
                         </button>
@@ -26,7 +26,7 @@
                 </div>
                 <div fxFlex="6">
                     <div>
-                        <button mat-icon-button class="navbar-button" [routerLink]="['/user','messageUser']">
+                        <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" [routerLink]="['/user','messageUser']">
                             <div class="circle-sms">{{requestCount}}</div>
                             <img src="/assets/img/msg.png" alt="">
                         </button>

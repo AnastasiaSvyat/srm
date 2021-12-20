@@ -4,36 +4,33 @@
       <div fxLayout="column" fxLayoutAlign="space-evenly center" class="h100pr w100">
         <div fxFlex="85">
           <div fxLayoutAlign="center center" class="mt99">
-            <button mat-icon-button [routerLink]="['/admin','dashboardAdmin']">
+            <button mat-icon-button routerLinkActive="activeLink" [routerLink]="['/admin','dashboardAdmin']">
               <img class="sizeDashboardImg" src="/assets/img/dashboardImg.png" alt="photo">
             </button>
           </div>
           <div fxLayoutAlign="center center" class="mt20">
-            <button mat-icon-button class="navbar-button" [routerLink]="['/admin','stafflist']">
+            <button mat-icon-button class="navbar-button" routerLinkActive="activeLink" [routerLink]="['/admin','stafflist']">
               <img src="/assets/img/people.png" alt="">
             </button>
           </div>
           <div fxLayoutAlign="center center" class="mt20">
-            <button mat-icon-button class="navbar-button" [routerLink]="['/admin','calendar']">
+            <button mat-icon-button class="navbar-button" routerLinkActive="activeLink" [routerLink]="['/admin','calendar']">
               <img src="/assets/img/bag.png" alt=""><br>
             </button>
           </div>
           <div fxLayoutAlign="center center" class="exitPhoto mt20">
-            <button (click)="logout()" mat-icon-button>
+            <button (click)="logout()" routerLinkActive="activeLink" mat-icon-button>
               <img src="/assets/img/exit.svg" alt=""><br>
             </button>
           </div>
         </div>
         <div fxFlex="6">
           <div>
-            <button *ngIf="requestCount !== 0" mat-icon-button class="navbar-button"
-              [routerLink]="['/admin','messageAdmin']">
-              <div class="circle-sms">{{requestCount}}</div>
-              <img src="/assets/img/msg.png" alt="">
-            </button>
-            <button *ngIf="requestCount == 0" mat-icon-button class="navbar-button"
+            <button mat-icon-button class="navbar-button" routerLinkActive="activeLink"
               [routerLink]="['/admin','messageAdmin']">
               <img src="/assets/img/msg.png" alt="">
+              <span *ngIf="requestCount !== 0" class="circle-sms">{{requestCount}}</span>
+
             </button>
           </div>
         </div>

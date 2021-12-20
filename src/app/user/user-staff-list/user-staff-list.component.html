@@ -10,7 +10,7 @@
     </ng-container>
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef fxFlex="15%"> EMPLOYEE </mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="15%">
+      <mat-cell *matCellDef="let element" fxFlex="14%">
         <cdk-virtual-scroll-viewport itemSize="1" class="viewport">
           <p class="overflow-ellipsis">
             {{element.skype}}
@@ -28,11 +28,11 @@
     </ng-container>
     <ng-container matColumnDef="phone">
       <mat-header-cell *matHeaderCellDef fxFlex="15%"> PHONE </mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="15%"> {{element.phone}} </mat-cell>
+      <mat-cell *matCellDef="let element" fxFlex="14%"> {{element.phone}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef fxFlex="15%"> EMAIL </mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="15%">
+      <mat-cell *matCellDef="let element" fxFlex="10%">
         <p class="overflow-ellipsis">
           {{element.email}}
         </p>
