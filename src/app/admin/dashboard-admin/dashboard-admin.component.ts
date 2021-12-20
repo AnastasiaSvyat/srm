@@ -144,6 +144,9 @@ export class DashboardAdminComponent implements OnInit {
 
   onChange($event: any, task: any) {
     this.isChecked = $event.checked;
+    console.log($event);
+    task.select = this.isChecked;
+    console.log(task);
     if (this.isChecked) {
       this.taskService.DeleteTask(task._id)
         .subscribe((res) => {

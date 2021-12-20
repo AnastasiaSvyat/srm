@@ -165,15 +165,16 @@
             <span class="fontColorGrey fontGilroy fs14">No tasks</span>
         </div>
         <cdk-virtual-scroll-viewport itemSize="3" class="viewport viewportTodolist">
-            <div fxFlex='80%' class="w100">
-                <div *ngIf="toDoListToday?.length">
+            <div fxFlex='100%' class="w100">
+                <div *ngIf="toDoListToday?.length" class="w100 y">
                     <div class="fs18 fontColorGrey fontGilroy mt16 ml24">Today {{today | date:'dd/MM' }} </div>
                     <div fxLayout="row" fxLayoutAlign="space-between center"
-                        *ngFor="let task of toDoListToday; let i = index" class="w100 item mt7">
-                        <div class="ml24">
-                            <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
-                                <span [ngClass]="isChecked ? 'active' : ''" class="fs14 ml8">{{task.task}}</span>
+                        *ngFor="let task of toDoListToday; let i = index" class="w100 mt7">
+                        <div class="ml24 w100">
+                            <mat-checkbox type='checkbox' [checked]="task.select"  class="w100" (change)="onChange($event,task)">
+                                <span [ngClass]="task.select ? 'active' : ''" class="fs14 ml8">{{task.task}}</span>
                             </mat-checkbox>
+
                         </div>
                         <div>
                             <button mat-icon-button [matMenuTriggerFor]="menu"
@@ -198,7 +199,7 @@
                     *ngFor="let task of toDoListTomorrow; let i = index" class="w100 item mt7">
                     <div class="ml24">
                         <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
-                            <span [ngClass]="isChecked ? 'active' : ''" class="fs14 ml8">{{task.task}}</span>
+                            <span [ngClass]="task.select ? 'active' : ''" class="fs14 ml8">{{task.task}}</span>
                         </mat-checkbox>
                     </div>
                     <div>
@@ -222,7 +223,7 @@
                     class="w100 todolostLater">
                     <div class="ml26 mt10">
                         <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
-                            <span [ngClass]="isChecked ? 'active' : ''" class="fs14 ml8">{{task.task}}</span>
+                            <span [ngClass]="task.select ? 'active' : ''" class="fs14 ml8">{{task.task}}</span>
                         </mat-checkbox><br>
                         <span class="fontColorGrey fs12">{{task.date | date:'dd/MM' }} </span>
                     </div>
