@@ -20,3 +20,12 @@ label{
     width: 30px;
     width: 100%;
 }
+
+span{ 
+    white-space: normal !important; 
+    word-break: break-word;
+
+}
+// mat-checkbox span { white-space: pre-wrap;
+// height: 100%;
+// }
