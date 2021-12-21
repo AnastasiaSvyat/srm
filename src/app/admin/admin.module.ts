@@ -11,6 +11,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { MsgAdminComponent } from './msg-admin/msg-admin.component';
 import { InfoAboutUserComponent } from './info-about-user/info-about-user.component';
+import { DescriptionEventComponent } from './description-event/description-event.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { InfoAboutUserComponent } from './info-about-user/info-about-user.compon
     AddUserComponent,
     AddTaskComponent,
     MsgAdminComponent,
-    InfoAboutUserComponent
+    InfoAboutUserComponent,
+    DescriptionEventComponent
   ],
   imports: [
     CommonModule,

@@ -4,8 +4,8 @@
         <mat-form-field>
             <mat-label>Type</mat-label>
             <mat-select formControlName="type">
-                <mat-option value="publicHoliday">Public holiday</mat-option>
-                <mat-option value="corporatEvent">Corporate event</mat-option>
+                <mat-option value="Holiday">Public holiday</mat-option>
+                <mat-option value="Corporate">Corporate event</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-error *ngIf="type?.invalid && (type?.dirty || type?.touched)" class="helper-text red-text">
@@ -31,10 +31,6 @@
             <textarea placeholder="Enter description..." formControlName="description" name="description"
                 matInput></textarea>
         </mat-form-field>
-        <mat-error *ngIf="description?.invalid && (description?.dirty || description?.touched)"
-            class="helper-text red-text">
-            <span *ngIf="description?.errors?.required">Description is required.</span>
-        </mat-error>
         <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
             <div>
                 <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>

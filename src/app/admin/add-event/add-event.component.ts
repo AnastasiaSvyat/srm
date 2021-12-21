@@ -30,7 +30,7 @@ export class AddEventComponent implements OnInit {
       name: new FormControl(this.data.eventData.name, [Validators.required]),
       type: new FormControl(this.data.eventData.type, [Validators.required]),
       date: new FormControl(this.data.eventData.date, [Validators.required]),
-      description: new FormControl(this.data.eventData.description, [Validators.required]),
+      description: new FormControl(this.data.eventData.description),
       id: new FormControl(this.data.eventData._id)
     });
   }

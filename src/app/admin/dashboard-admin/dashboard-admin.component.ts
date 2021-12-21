@@ -16,6 +16,7 @@ import { UploadPhoto } from 'src/app/model/UploadPhoto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Overlay } from '@angular/cdk/overlay';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DescriptionEventComponent } from '../description-event/description-event.component';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -277,6 +278,21 @@ export class DashboardAdminComponent implements OnInit {
       this.snackBar.open('ERROR! Try again.', '', {
         duration: this.duration
       });
+    });
+  }
+
+  descriotionEvent(event: Events){
+    const dialogRef = this.dialog.open(DescriptionEventComponent, {
+      width: '398px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '100px',
+      height: 'auto',
+      data: { eventData: event }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+      }
     });
   }
 

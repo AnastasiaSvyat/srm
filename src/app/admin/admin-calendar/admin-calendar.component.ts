@@ -90,7 +90,8 @@ export class AdminCalendarComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       width: '398px',
       minHeight: '491px',
-      height: 'auto'
+      height: 'auto',
+      data: { head: 'Add event:', btn: 'ADD', eventData: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
