@@ -12,17 +12,21 @@
       <!-- select Event -->
       <div fxFlex='55%' class="mt24 colorBlock">
         <div class="ml24 pt28">
-          <div class="fs14 ml8  fontColorGrey">{{selectedDate | date:'dd.MM.yy'}} </div>
+          <div class="fs14 ml8 mt7 fontColorGrey">{{selectedDate | date:'dd.MM.yy'}} </div>
         </div>
-        <div class="ml24">
-          <div class="mt14" *ngFor="let birth of birthSelectDate">
-            {{birth.name}} birthday
+        <cdk-virtual-scroll-viewport itemSize="20" class="viewport viewport">
+          <div class="ml24">
+            <div class="mt7 item" *ngFor="let birth of birthSelectDate">
+              <span class="fs14 fontRobotoBold">{{birth.name}} </span>
+              <span> - birthday</span>
+            </div>
+            <div class="mt7 item" *ngFor="let eventToday of eventSelectedDate">
+              <span class="fs14 fontRobotoBold">{{eventToday.name}}</span>
+               <span> - {{eventToday.type}} event</span>
+            </div>
           </div>
-          <div class="mt14" *ngFor="let eventToday of eventSelectedDate">
-            {{eventToday.name }} - {{eventToday.type}}
-          </div>
-        </div>
-        <div class="ml24 fontColorGrey" *ngIf="!birthSelectDate?.length && !eventSelectedDate?.length">
+        </cdk-virtual-scroll-viewport>
+        <div class="ml24 fontColorGrey" *ngIf="!birthSelectDate?.length  && !eventSelectedDate?.length">
           <div>No events today</div>
         </div>
       </div>
@@ -30,39 +34,48 @@
     <!-- planned Event -->
     <div fxFlex='74%' class="rightBox ml24 colorBlock">
       <div class="ml24 pt28 fs24 fontGilroy">Planned events</div>
-      <div *ngIf="!eventsPlannedToday?.length && !eventsPlannedMonth?.length && !eventsPlannedLater?.length"
-        class="mt16 ml24">
-        <span class="fontColorGrey fs14">No event yet.</span>
-      </div>
-      <div *ngIf="eventsPlannedToday?.length || eventsPlannedMonth?.length || eventsPlannedLater?.length"
-        class="mt16 ml24">
-        <div>
-          <p class="fontColorGrey fontGilroy fs18 mt16">Today</p>
-          <div *ngIf="!eventsPlannedToday?.length">
-            <span class="fontColorGrey fs14">No event today</span>
+      <cdk-virtual-scroll-viewport itemSize="20" class="viewport mt20">
+        <div *ngIf="!eventsPlannedToday?.length && !eventsPlannedMonth?.length && !eventsPlannedLater?.length"
+          class="mt16 ml24">
+          <span class="fontColorGrey fontGilroy fs14">No event yet.</span>
+        </div>
+        <div *ngIf="eventsPlannedToday?.length || eventsPlannedMonth?.length || eventsPlannedLater?.length"
+          class="mt16 ml24">
+          <div>
+            <p class="fontColorGrey fontGilroy fs18 mt16">Today</p>
+            <div *ngIf="!eventsPlannedToday?.length">
+              <span class="fontColorGrey fs14">No event today</span>
+            </div>
+            <div *ngIf="eventsPlannedToday?.length">
+              <div *ngFor="let item of eventsPlannedToday" class="item mt7">
+                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
+                <span class="fs14 fontRobotoBold"> {{item.name}}</span> -
+                <span class="fs14"> {{item.type}} event.</span>
+                <span class="fs14"> {{item?.description}}</span>
+              </div>
+            </div>
           </div>
-          <div *ngIf="eventsPlannedToday?.length">
-            <div *ngFor="let item of eventsPlannedToday">
+          <div *ngIf="eventsPlannedMonth?.length" class="mt16">
+            <p class="fontColorGrey fs18 fontGilroy mt16">This month</p>
+            <div *ngFor="let item of eventsPlannedMonth" class="item mt7">
               <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
-              <span class="fs14"> {{item.name}}</span>
+              <span class="fs14 ml8 fontRobotoBold"> {{item.name}}</span> -
+              <span class="fs14"> {{item.type}} event.</span>
+              <span class="fs14"> {{item?.description}}</span>
+            </div>
+          </div>
+          <div *ngIf="eventsPlannedLater?.length" class="mt16">
+            <p class="fontColorGrey fs18 fontGilroy mt16">Later</p>
+            <div *ngFor="let item of eventsPlannedLater" class="item mt7">
+              <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
+              <span class="fs14 fontRobotoBold ml8"> {{item.name}}</span> -
+              <span class="fs14"> {{item.type}} event.</span>
+              <span class="fs14"> {{item?.description}}</span>
             </div>
           </div>
         </div>
-        <div *ngIf="eventsPlannedMonth?.length" class="mt16">
-          <p class="fontColorGrey fs18 fontGilroy mt16">This month</p>
-          <div *ngFor="let item of eventsPlannedMonth">
-            <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
-            <span class="fs14"> {{item.name}}</span>
-          </div>
-        </div>
-        <div class="mt16" *ngIf="eventsPlannedLater?.length">
-          <p class="fontColorGrey fontGilroy fs18 mt16">Later</p>
-          <div *ngFor="let item of eventsPlannedLater">
-            <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
-            <span class="fs14"> {{item.name}}</span>
-          </div>
-        </div>
-      </div><br>
+        <br>
+      </cdk-virtual-scroll-viewport>
     </div>
   </div>
 </div>

@@ -18,7 +18,7 @@
           <div class="fs14 ml8 mt7 fontColorGrey">{{selectedDate | date:'dd.MM.yy'}} </div>
         </div>
         <cdk-virtual-scroll-viewport itemSize="20" class="viewport viewport">
-          <div class="ml12">
+          <div class="ml24">
             <div class="mt7 item" *ngFor="let birth of birthSelectDate">
               <span class="fs14 fontRobotoBold">{{birth.name}} </span>
               <span> - birthday</span>
