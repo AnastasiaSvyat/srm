@@ -27,10 +27,11 @@ export class AddEventComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      type: new FormControl('', [Validators.required]),
-      date: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required])
+      name: new FormControl(this.data.eventData.name, [Validators.required]),
+      type: new FormControl(this.data.eventData.type, [Validators.required]),
+      date: new FormControl(this.data.eventData.date, [Validators.required]),
+      description: new FormControl(this.data.eventData.description, [Validators.required]),
+      id: new FormControl(this.data.eventData._id)
     });
   }
 
@@ -43,19 +44,46 @@ export class AddEventComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  saveEvent(result: Events) {
-    if (result) {
-      this.eventService.AddEvent(result)
+  getEvent(event: Events){
+    if (event) {
+      if (this.data.btn === 'ADD') {
+        this.addEvent(event);
+      }
+      if (this.data.btn === 'EDIT') {
+        this.updateEvent(event);
+      }
+    }
+  }
+
+  addEvent(event: Events) {
+    if (event) {
+      this.eventService.AddEvent(event)
         .subscribe(() => {
           this.snackBar.open('Congratulations! Event has been added!', '', {
             duration: this.duration
           });
-          this.dialogRef.close(result);
+          this.dialogRef.close(event);
         }, (err) => {
           this.snackBar.open('ERROR! Try again.', '', {
             duration: this.duration
           });
         });
     }
+  }
+
+  updateEvent(event: Events){
+    console.log(event);
+    this.eventService.UpdateEvent(event.id, event)
+    .subscribe(() => {
+      this.dialogRef.close(event);
+      this.snackBar.open('Congratulations! Event has been changed!', '', {
+        duration: this.duration
+      });
+    }, (err) => {
+      this.snackBar.open('ERROR! Try again.', '', {
+        duration: this.duration
+      });
+    });
+
   }
 }

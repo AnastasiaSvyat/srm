@@ -1,5 +1,5 @@
 <div class="add-event-container">
-    <h2 class="mt24" mat-dialog-title>Add event</h2>
+    <h2 class="mt24" mat-dialog-title>{{data.head}}</h2>
     <form [formGroup]="eventForm" mat-dialog-content>
         <mat-form-field>
             <mat-label>Type</mat-label>
@@ -40,8 +40,8 @@
                 <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button (click)='saveEvent(eventForm.value)' [disabled]="!eventForm.valid" class="btn w155"
-                    mat-stroked-button>Add</button>
+                <button (click)='getEvent(eventForm.value)' [disabled]="!eventForm.valid" class="btn w155"
+                    mat-stroked-button>{{data.btn}}</button>
             </div>
         </div>
     </form>

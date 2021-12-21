@@ -15,6 +15,7 @@ import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.se
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Overlay } from '@angular/cdk/overlay';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -39,6 +40,7 @@ export class DashboardAdminComponent implements OnInit {
   staffBirthLater: Employee[] = [];
   urlPhoto!: string;
   photoStaffArr: UploadPhoto[] = [];
+  duration = 5000;
 
   constructor(
     public dialog: MatDialog,
@@ -48,6 +50,7 @@ export class DashboardAdminComponent implements OnInit {
     private requestService: RequestService,
     private uploadPhotoService: UploadPhotoService,
     private taskService: ToDoListService,
+    private snackBar: MatSnackBar,
     private overlay: Overlay) {
   }
 
@@ -116,8 +119,7 @@ export class DashboardAdminComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '100px',
-      height: 'auto',
+      height: '930px',
       data: {
         head: 'Edit user:',
         btn: 'SAVE',
@@ -160,9 +162,17 @@ export class DashboardAdminComponent implements OnInit {
     }
   }
 
-  deleteTask(event: ToDoList) {
-    this.taskService.DeleteTask(event.id).subscribe((res) => {
+  deleteTask(event: any) {
+    this.taskService.DeleteTask(event._id)
+    .subscribe((res) => {
       this.getAllTask();
+      this.snackBar.open('Task has been deleted!', '', {
+        duration: this.duration
+      });
+    }, (err) => {
+      this.snackBar.open('ERROR! Try again.', '', {
+        duration: this.duration
+      });
     });
   }
 
@@ -178,6 +188,7 @@ export class DashboardAdminComponent implements OnInit {
         this.toDoListToday = res;
       });
   }
+
 
   getTaskWeek() {
     this.taskService.GetAllTaskWeek(this.employee)
@@ -229,13 +240,43 @@ export class DashboardAdminComponent implements OnInit {
     const dialogRef = this.dialog.open(AddEventComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '591px',
+      minHeight: '491px',
       height: 'auto',
+      data: { head: 'Add event:', btn: 'ADD', eventData: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.getAllEvent();
       }
+    });
+  }
+
+  updateEvent(event: Events){
+    const dialogRef = this.dialog.open(AddEventComponent, {
+      width: '398px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '461px',
+      height: 'auto',
+      data: { head: 'Edit event:', btn: 'EDIT', eventData: event }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getAllEvent();
+      }
+    });
+  }
+
+  deleteEvent(event: any){
+    this.eventService.DeleteEvent(event._id)
+    .subscribe((res) => {
+      this.getAllEvent();
+      this.snackBar.open('Event has been deleted!', '', {
+        duration: this.duration
+      });
+    }, (err) => {
+      this.snackBar.open('ERROR! Try again.', '', {
+        duration: this.duration
+      });
     });
   }
 

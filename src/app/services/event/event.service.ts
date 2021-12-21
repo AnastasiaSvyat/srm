@@ -45,6 +45,14 @@ export class EventService {
     return this.httpClient.get<Events[]>(API_URL);
   }
 
+  UpdateEvent(id: string, event: Events): Observable<Events> {
+    const API_URL = `${this.careService.REST_API}/update-event/${id}`;
+    return this.httpClient.put<Events>(API_URL, event, { headers: this.careService.httpHeaders })
+      .pipe(
+        catchError(this.careService.handleError)
+      );
+  }
+
   DeleteEvent(id: string): Observable<Event> {
     const API_URL = `${this.careService.REST_API}/delete-event/${id}`;
     return this.httpClient.delete<Event>(API_URL, { headers: this.careService.httpHeaders }).pipe(
