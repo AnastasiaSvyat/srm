@@ -154,7 +154,7 @@ export class AddUserComponent implements OnInit {
           });
         },
         error =>
-          this.snackBar.open('ERROR! Try again.', '', {
+          this.snackBar.open( error.error.massage || 'ERROR! Try again.', '', {
             duration: this.duration
           })
       );

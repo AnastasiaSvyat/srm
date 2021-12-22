@@ -14,7 +14,6 @@ export class DescriptionEventComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log( this.data.dataEvent.type);
   }
 
   onNoClick(): void {
