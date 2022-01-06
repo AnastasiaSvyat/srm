@@ -11,6 +11,7 @@ import { AddInfoUserComponent } from './add-info-user/add-info-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { AddRequestUserComponent } from './add-request-user/add-request-user.component';
 import { InfoAboutUserComponent } from './info-about-user/info-about-user.component';
+import { UserOpenMenuComponentComponent } from './user-open-menu-component/user-open-menu-component.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { InfoAboutUserComponent } from './info-about-user/info-about-user.compon
     AddInfoUserComponent,
     UpdateUserComponent,
     AddRequestUserComponent,
-    InfoAboutUserComponent
+    InfoAboutUserComponent,
+    UserOpenMenuComponentComponent
   ],
   imports: [
     CommonModule,

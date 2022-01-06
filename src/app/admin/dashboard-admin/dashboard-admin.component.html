@@ -1,21 +1,29 @@
-<div class="admin-dashboard-container" fxLayout='row' fxFlex='100%'>
-    <div fxLayout='column' fxFlex='70%' class="mt24">
+<div class="admin-dashboard-container" fxLayout.gt-sm='row' fxLayout='column' fxFlex='98%'>
+    <div fxLayout='column' fxFlex.gt-xs='52%' fxFlex.gt-sm='70%' fxFlex='100%' class="mt24">
         <!-- header -->
-        <div fxLayoutAlign="space-around center" class="h95 ml16 colorBlock">
-            <div fxFlex="15%">
+        <div fxFlex='10%' fxLayoutAlign="space-around center" class="h95 ml16 colorBlock">
+            <div fxFlex="15%" class="displayNonePhoto">
                 <img class="photo photoHeader ml16" [src]="urlPhoto ? urlPhoto : '../../../assets/img/nouser.jpeg'"
                     alt="">
             </div>
             <div fxFlex="35%">
-                <div class="fs18 mb0">{{employee.name}}</div>
+                <div class="fs18 mb0 fontRobotoBold">{{employee.name}}</div>
                 <div class="fs14 mb0 fontColorGrey">Manager</div>
             </div>
             <div fxFlex="30%">
-                <div class="fs14 mb0"><span class="fontColorGrey">Phone:</span>{{employee.phone}}</div>
-                <div class="fs14 mb0"><span class="fontColorGrey">Email:</span>{{employee.email}}</div>
+                <div class="fs14 mb0">
+                    <span class="fontColorGrey">Phone:</span>
+                    {{employee.phone}}
+                </div>
+                <div class="fs14 mb0">
+                    <span class="fontColorGrey">Email:</span>
+                    {{employee.email}}
+                </div>
             </div>
             <div class="mb13" fxFlex="15%">
-                <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>{{employee.date | date:'shortDate' }}
+                <div class="fs14 mb0">
+                    <span class="fontColorGrey">Birthday:</span>
+                    {{employee.date | date:'shortDate' }}
                 </div>
             </div>
             <div class="btnEditUser" fxFlex="5%">
@@ -25,12 +33,12 @@
                 </button>
             </div>
         </div>
-        <div fxFlex='100%' fxLayout="row">
+        <div fxFlex='100%' fxLayout.gt-xs="row" fxLayout='column'>
             <!-- Events -->
             <div fxFlex='33.33%' fxLayout="column" fxLayoutAlign="space-between start"
                 class="ml16 mt16 dashboard-content mb20 colorBlock">
                 <div fxFlex='2%' class="fs24 fontGilroy ml24 mt24">Events</div>
-                <div *ngIf="eventLaterList?.length || eventDayList?.length || eventMonthList?.length" fxFlex='100%'
+                <div *ngIf="eventLaterList?.length || eventDayList?.length || eventMonthList?.length" fxFlex='90%'
                     class="w90 ml24">
                     <cdk-virtual-scroll-viewport itemSize="3" class="viewport">
                         <div class="w100 mt20">
@@ -192,7 +200,7 @@
                     <span class="fontColorGrey fontGilroy fs14">No vacations yet</span>
                 </div>
                 <cdk-virtual-scroll-viewport itemSize="3" class="viewport mt16">
-                    <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start">
+                    <div class="ml18" fxLayout="column" fxLayoutAlign="space-around start">
                         <div *ngIf="vacationMonthList?.length" class="mt16">
                             <p class="fontColorGrey fontGilroy fs18 mt16">This month</p>
                             <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of vacationMonthList"
@@ -201,9 +209,9 @@
                                     date:'dd.MM.yy'}}
                                 </div>
                                 <div>
-                                    <img class="photo photoSmall ml12" [src]="getEmployeePhotoById(item.idEmployee)">
+                                    <img class="photo photoSmall ml8" [src]="getEmployeePhotoById(item.idEmployee)">
                                 </div>
-                                <div class="fs14 ml8">{{item.name}}</div>
+                                <div class="fs14 ml8 ml1"> {{item.name}}</div>
                             </div>
                         </div>
                         <div *ngIf="vacationLaterList?.length" class="mt16">
@@ -225,14 +233,14 @@
     </div>
 
     <!-- ToDoList -->
-    <div fxFlex='28%' fxLayout="column" fxLayoutAlign="space-between start"
-        class="mt24 container_right colorBlock ml16">
+    <div fxFlex.gt-sm='27%' fxFlex='20%' fxLayout="column" fxLayoutAlign="space-between start"
+        class="mt24 container_right colorBlock ml16 mt98">
         <div fxFlex='2%' class="fs24 fontGilroy ml24 mt24">ToDoList</div>
         <div *ngIf="!toDoListWeek?.length && !toDoListToday?.length && !toDoListTomorrow?.length"
             class="text-center w100">
             <span class="fontColorGrey fontGilroy fs14">No tasks</span>
         </div>
-        <cdk-virtual-scroll-viewport itemSize="3" class="viewport viewportTodolist">
+        <cdk-virtual-scroll-viewport itemSize="3" class="viewport">
             <div fxFlex='100%' class="w100">
                 <div *ngIf="toDoListToday?.length" class="w100">
                     <div class="fs18 fontColorGrey fontGilroy mt16 ml24">Today {{today | date:'dd/MM' }} </div>

@@ -1,0 +1,82 @@
+@media screen and (min-width: 815px) and (max-width: 1100px) {
+   .photoSmall{
+       display: none;
+   }
+   .ml1{
+       margin-left: 1px;
+   }
+   .photoHeader{
+       width: 60px;
+       height: 60px;
+   }
+    .displayNone{
+        display: none;
+    }
+  }
+  @media screen and (max-width: 950px) {
+     .h100Adpt{
+         height: 100vh;
+     }
+     .mr20{
+         margin-right: 20px;
+     }
+     .mr50{
+        margin-right: 50px;
+     }
+     .mt26{
+        margin-top: 26px;
+    }
+     .w95pr{
+        width: 95%;
+     }
+     .w89pr{
+        width: 89%;
+     }
+     .ml24Tel{
+         margin-left: 24px;
+     }
+   }
+
+   @media screen and (max-width: 950px) {
+    .displayNonePhoto{
+        display: none;
+      }
+    .fs30{
+          font-size: 20px;
+    }
+    .fs20{
+        font-size: 20px;
+    }
+   }
+
+   @media screen and (min-width: 600px) {
+    .displayTel{
+        display: none !important;
+      }
+   }
+
+   @media screen and (max-width: 680px) {
+    .displayNoneTel{
+        display: none !important;
+      }
+      .viewportPlanned {
+        height: 300px;
+    }
+   }
+
+   @media screen and (min-width: 680px) {
+    .displayNoneBtnSheet{
+        display: none !important;
+      }
+   }
+
+   @media screen and (max-width: 600px) {
+    .mt25{
+        margin-top: 25px;
+    }
+    .mt98{
+        margin-top: 98px;
+    }
+}
+ 
+  

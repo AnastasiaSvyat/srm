@@ -28,7 +28,7 @@ export class MsgUserComponent implements OnInit {
   confirmRequestList: Request[] = [];
   declineRequestList: Request[] = [];
 
-  displayedColumns: string[] = ['startDate', 'type', 'date', 'description'];
+  displayedColumns: string[] = ['type', 'date', 'description'];
 
   ngOnInit(): void {
     this.getEmloyee();

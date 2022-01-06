@@ -24,7 +24,8 @@ export class AppComponent {
     public formBuilder: FormBuilder,
     public uplServ: UploadFileService,
     private authService: AuthService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar
+  ) {
     this.employeeLoginForm = this.formBuilder.group({
       email: [''],
       password: [''],

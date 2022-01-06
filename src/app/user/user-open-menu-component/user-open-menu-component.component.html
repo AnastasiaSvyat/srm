@@ -1,0 +1,30 @@
+<div fxLayout="column" fxLayoutAlign="center center" class="h100pr">
+    <div fxFlex="100%">
+        <div fxLayoutAlign="center center">
+            <button (click)="openLink($event)" mat-icon-button routerLinkActive="activeLink"  [routerLink]="['/user','dashboardUser']">
+                <img class="sizeDashboardImg" src="/assets/img/dashboardImg.png" alt="photo">
+            </button>
+        </div>
+        <div fxLayoutAlign="center center" class="mt20">
+            <button (click)="openLink($event)" mat-icon-button routerLinkActive="activeLink"  class="navbar-button" [routerLink]="['/user','stafflist']">
+                <img src="/assets/img/people.png" alt="">
+            </button>
+        </div>
+        <div fxLayoutAlign="center center" class="mt20">
+            <button (click)="openLink($event)" mat-icon-button routerLinkActive="activeLink"  class="navbar-button" [routerLink]="['/user','calendar']">
+                <img src="/assets/img/bag.png" alt=""><br>
+            </button>
+        </div>
+        <div fxLayoutAlign="center center" class="mt20">
+            <button (click)="openLink($event)" mat-icon-button class="navbar-button" routerLinkActive="activeLink" [routerLink]="['/user','messageUser']">
+                <img src="/assets/img/msg.png" alt="">
+                <span class="circle-sms">{{requestCount}}</span>
+            </button>
+        </div>
+        <div fxLayoutAlign="center center" routerLinkActive="activeLink"  class="exitPhoto mt20">
+            <button (click)="openLink($event)" (click)="logout()" mat-icon-button>
+                <img src="/assets/img/exit.svg" alt=""><br>
+            </button>
+        </div>
+    </div>
+</div>

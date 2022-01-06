@@ -12,6 +12,7 @@ import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.compo
 import { MsgAdminComponent } from './msg-admin/msg-admin.component';
 import { InfoAboutUserComponent } from './info-about-user/info-about-user.component';
 import { DescriptionEventComponent } from './description-event/description-event.component';
+import { AdminOpenMenuComponentComponent } from './admin-open-menu-component/admin-open-menu-component.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DescriptionEventComponent } from './description-event/description-event
     AddTaskComponent,
     MsgAdminComponent,
     InfoAboutUserComponent,
-    DescriptionEventComponent
+    DescriptionEventComponent,
+    AdminOpenMenuComponentComponent
   ],
   imports: [
     CommonModule,

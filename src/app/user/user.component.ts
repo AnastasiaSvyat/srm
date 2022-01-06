@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Employee } from '../model/Employee';
 import { AuthService } from '../services/auth/auth.service';
 import { RequestService } from '../services/request/request.service';
+import { UserOpenMenuComponentComponent } from './user-open-menu-component/user-open-menu-component.component';
 
 @Component({
   selector: 'app-user',
@@ -15,7 +17,9 @@ export class UserComponent implements OnInit {
 
   constructor(
     private requestService: RequestService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private bottomSheet: MatBottomSheet
+  ) { }
 
   ngOnInit(): void {
     this.employee = this.authService.user;
@@ -30,6 +34,9 @@ export class UserComponent implements OnInit {
   }
   logout() {
     this.authService.logout();
+  }
+  openBottomSheet(): void {
+    this.bottomSheet.open(UserOpenMenuComponentComponent);
   }
 
 }

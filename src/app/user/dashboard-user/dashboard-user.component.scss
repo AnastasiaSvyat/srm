@@ -24,5 +24,9 @@
     word-break: break-word;
     width: 90%;
 }
-
-  
+@media screen and (max-width: 600px) {
+    .displayNoneDashboard{
+        display: none !important;
+        background-color: aquamarine;
+      }
+   }

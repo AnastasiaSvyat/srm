@@ -1,7 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Request } from 'src/app/model/Request';
+import { UploadPhoto } from 'src/app/model/UploadPhoto';
 import { CountRequestService } from 'src/app/services/countRequest/count-request.service';
 import { RequestService } from 'src/app/services/request/request.service';
+import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
 
 @Component({
   selector: 'app-msg-admin',
@@ -12,11 +14,13 @@ export class MsgAdminComponent implements OnInit {
 
   constructor(
     private requestService: RequestService,
-    private countRequestService: CountRequestService) { }
+    private countRequestService: CountRequestService,
+    private uloadPhotoService: UploadPhotoService) { }
 
   pendingRequestList: Request[] = [];
   confirmRequestList: Request[] = [];
   dataCountRequest!: number;
+  photoEmployee: UploadPhoto[] = [];
 
   displayedColumns: string[] = ['startDate', 'type', 'date', 'description', 'decline', 'confirm'];
   displayedColumnsConfirm: string[] = ['startDate', 'type', 'date', 'con', 'description'];
@@ -24,6 +28,7 @@ export class MsgAdminComponent implements OnInit {
   ngOnInit(): void {
     this.pendingRequest();
     this.confirmRequest();
+    this.getPhotoEmployee();
     this.countRequestService.data$.subscribe((result) => {
       this.dataCountRequest = result;
     });
@@ -32,10 +37,23 @@ export class MsgAdminComponent implements OnInit {
     this.countRequestService.changeData(count);
   }
 
+  getPhotoEmployee() {
+    this.uloadPhotoService.GetPhoto()
+      .subscribe((res) => {
+        this.photoEmployee = res;
+      });
+  }
+
+  getEmployeePhoto(userId: string) {
+    const imgResult = this.photoEmployee.find(img => img.idEmployee === userId);
+    return imgResult?.imagePath ?? '../../../assets/img/nouser.jpeg';
+  }
+
   pendingRequest() {
     this.requestService.GetPendingRequest()
       .subscribe((res) => {
         this.pendingRequestList = res;
+        console.log(this.pendingRequestList);
         this.countRequestService.data$.subscribe((result) => {
           this.dataCountRequest = result;
         });

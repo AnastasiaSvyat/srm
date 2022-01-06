@@ -1,0 +1,27 @@
+@media(max-width: 650px) {
+    .mat-row{ 
+      flex-direction: column;
+      align-items: start;
+      padding: 8px 24px;
+      width: 90%;
+    }
+    mat-table{
+        margin-left: 0;
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto;
+    }
+    .mobile-label {
+        width: 100%;
+      }
+      .displayNone{
+        display: none;
+      }
+  }
+  @media(min-width: 650px) {
+    .mobile-label {
+       display: none;
+      }
+  }
+  

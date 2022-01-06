@@ -1,3 +1,15 @@
 .viewport {
     height: 83%;
 }
+.j{
+    background-color: aquamarine;
+}
+@media screen and (max-width: 680px) {
+    .viewport{
+        height: 300px;  
+    }
+    .viewportSelect{
+        height: 90px;
+    }
+   }
+

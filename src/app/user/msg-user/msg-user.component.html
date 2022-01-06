@@ -3,14 +3,8 @@
     <!-- Pending -->
     <div>
       <mat-table [dataSource]="pendingRequestList" class="mat-elevation-z8 table w100 mt16">
-        <ng-container matColumnDef="startDate">
-          <mat-header-cell *matHeaderCellDef class="fs24">Pending...</mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <img src={{element.photo}} alt="">{{element.date| date:"dd.MM.yy" }}
-          </mat-cell>
-        </ng-container>
         <ng-container matColumnDef="type">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef fxFlex="100%" class="fs24">Pending... </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="date">
@@ -33,14 +27,8 @@
     <!-- Confirmed -->
     <div class="mt24">
       <mat-table [dataSource]="confirmRequestList" class="mat-elevation-z8 table w100 mt16">
-        <ng-container matColumnDef="startDate">
-          <mat-header-cell *matHeaderCellDef class="fs24">Confirmed...</mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <img src={{element.photo}} alt="">{{element.date | date:"dd.MM.yy"}}
-          </mat-cell>
-        </ng-container>
         <ng-container matColumnDef="type">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef fxFlex="100%" class="fs24">Confirmed...</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="date">
@@ -63,14 +51,8 @@
     <!-- Declined -->
     <div class="mt24">
       <mat-table [dataSource]="declineRequestList" class="mat-elevation-z8 table w100 mt16">
-        <ng-container matColumnDef="startDate">
-          <mat-header-cell *matHeaderCellDef class="fs24">Declined...</mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <img src={{element.photo}} alt="">{{element.date | date:"dd.MM.yy"}}
-          </mat-cell>
-        </ng-container>
         <ng-container matColumnDef="type">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-header-cell *matHeaderCellDef fxFlex="100%" class="fs24">Declined...</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="date">

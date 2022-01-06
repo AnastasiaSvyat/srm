@@ -4,9 +4,12 @@
     <div>
       <mat-table [dataSource]="pendingRequestList" class="mat-elevation-z8 mt16">
         <ng-container matColumnDef="startDate">
-          <mat-header-cell *matHeaderCellDef class="fs24">Pending...</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef class="fs24" fxFlex="100%">Pending...</mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <img src={{element.photo}} alt="">{{element.date | date:"dd.MM.yy"}}
+            <span class="sizePhotoStaffList">
+              <img [src]="getEmployeePhoto(element?.idEmployee)">
+            </span>
+            <span class="ml8">{{element.name}}</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="type">
@@ -26,12 +29,15 @@
         <ng-container matColumnDef="decline">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button (click)="actionRequest(false,element)" class="ml24" mat-button>decline</button>
+            <div class="w100" fxLayout="row" fxLayoutAlign="space-around center">
+              <button (click)="actionRequest(false,element)" class="ml24" mat-button>decline</button>
+              <button mat-button class="mobile-label" (click)="actionRequest(true,element)">confirm</button>
+            </div>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="confirm">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element">
+          <mat-header-cell *matHeaderCellDef class="displayNone"></mat-header-cell>
+          <mat-cell *matCellDef="let element" class="displayNone">
             <button mat-button (click)="actionRequest(true,element)">confirm</button>
           </mat-cell>
         </ng-container>
@@ -47,9 +53,12 @@
     <div class="mt24">
       <mat-table [dataSource]="confirmRequestList" class="mat-elevation-z8 table w100">
         <ng-container matColumnDef="startDate">
-          <mat-header-cell *matHeaderCellDef class="fs24">Confirmed...</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef class="fs24" fxFlex="100%">Confirmed...</mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <img src={{element.photo}} alt="">{{element.date | date:"dd.MM.yy"}}
+            <span class="sizePhotoStaffList">
+              <img [src]="getEmployeePhoto(element?.idEmployee)">
+            </span>
+            <span class="ml8">{{element.name}}</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="type">
@@ -63,7 +72,7 @@
         </ng-container>
         <ng-container matColumnDef="con">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.confirm}} </mat-cell>
+          <mat-cell *matCellDef="let element"> Confirmed </mat-cell>
         </ng-container>
         <ng-container matColumnDef="description">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
