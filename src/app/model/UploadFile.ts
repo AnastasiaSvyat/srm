@@ -1,7 +1,7 @@
 export class UploadFile {
     id!: string;
     name!: string;
-    cv!: any;
+    cv!: File;
     idEmployee!: string;
     imagePath!: string;
 }

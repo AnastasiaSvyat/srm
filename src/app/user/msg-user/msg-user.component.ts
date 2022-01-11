@@ -68,6 +68,7 @@ export class MsgUserComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '416px',
       height: 'auto',
+      disableClose: true,
       data: { employee: this.employee }
     });
     dialogRef.afterClosed().subscribe(result => {

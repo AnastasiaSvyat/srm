@@ -1,17 +1,15 @@
-.container_right{
-    height: 49rem;
-}
 label{
     display: block;
   }
 .active{
     text-decoration: line-through;
 }
-.viewportTodolist,.dashboard-content{
-    height: 43rem;
+.dashboard-content{
+    height: 95%;
 }
 .todolistLater{
     height: 50px;
+    background-color: royalblue;
 }
 span{ 
     white-space: normal !important; 
@@ -35,3 +33,6 @@ span{
         margin-top: 98px;
     }
    }
+.j{
+    background-color: red;
+}

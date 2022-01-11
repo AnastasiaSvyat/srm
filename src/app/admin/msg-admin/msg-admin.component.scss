@@ -15,13 +15,20 @@
     .mobile-label {
         width: 100%;
       }
-      .displayNone{
+      .displayNoneMsgAdmin{
         display: none;
       }
   }
   @media(min-width: 650px) {
-    .mobile-label {
+    .mobile-labelMsgAdmin{
        display: none;
-      }
+    }
   }
-  
+.underline{
+    text-decoration: underline;
+}
+.declineImg{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

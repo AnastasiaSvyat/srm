@@ -15,7 +15,7 @@
     display: none;
 }
 .plannedVacation{
-    line-height: 1em;
+    line-height: 0.8em;
 }
 .itemPlannedVacation{
     height: 70px;
@@ -29,4 +29,10 @@
         display: none !important;
         background-color: aquamarine;
       }
-   }
+}
+// @media screen and (max-width: 1150px) {
+//     .displayNoneDashboard{
+//         display: none !important;
+//         background-color: aquamarine;
+//       }
+// }

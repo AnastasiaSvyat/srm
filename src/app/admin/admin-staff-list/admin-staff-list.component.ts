@@ -142,8 +142,8 @@ export class AdminStaffListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '680px',
-      height: 'auto',
+      height: '930px',
+      disableClose: true,
       data: {
         head: 'Add user:',
         btn: 'ADD',
@@ -152,6 +152,7 @@ export class AdminStaffListComponent implements OnInit {
         changeUser: '',
         showRole: true,
         showCV: true,
+        disableClose: true,
         showPassword: true,
         showLastPerf: false,
       }
@@ -171,6 +172,7 @@ export class AdminStaffListComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '100px',
       height: 'auto',
+      disableClose: true,
       data: {
         user: employee,
       }
@@ -185,8 +187,8 @@ export class AdminStaffListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '680px',
-      height: 'auto',
+      height: '930px',
+      disableClose: true,
       data: {
         head: 'Edit user:',
         btn: 'SAVE',

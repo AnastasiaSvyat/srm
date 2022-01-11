@@ -1,11 +1,26 @@
 .viewport {
     height: 83%;
 }
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 960px) {
     .viewport{
         height: 300px;  
     }
     .viewportSelect{
         height: 90px;
     }
-   }
+}
+.viewportSelect{
+    height: 220px;
+    margin-top: 20px;
+}
+@media screen and (min-width: 600px) {
+    .viewportSelect{
+        height: 220px;
+        margin-top: 20px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .viewportSelect{
+        height: 90px;
+    }
+}

@@ -72,6 +72,7 @@ export class UserStaffListComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '100px',
       height: 'auto',
+      disableClose: true,
       data: {
         user: employee,
       }

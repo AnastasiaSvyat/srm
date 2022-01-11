@@ -34,6 +34,7 @@ export class DashboardUserComponent implements OnInit {
   cvForm!: FormGroup;
   docPDF!: any;
   urlCV!: string;
+  nextVacation!: Request;
 
   constructor(
     public dialog: MatDialog,
@@ -83,6 +84,7 @@ export class DashboardUserComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '298px',
       height: 'auto',
+      disableClose: true,
       data: {
         updateEmployee: employee,
       }
@@ -101,6 +103,7 @@ export class DashboardUserComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '680px',
       height: 'auto',
+      disableClose: true,
       data: {
         head: 'Edit user:',
         btn: 'SAVE',
@@ -149,6 +152,7 @@ export class DashboardUserComponent implements OnInit {
       this.uploadFileName = file.name;
       this.uploadFileService.uploadFile(this.cvForm.value.name, this.cvForm.value.cv, this.employee.id)
         .subscribe((res: any) => {
+          console.log(res);
           this.getUploadFile();
         });
     }
@@ -172,6 +176,7 @@ export class DashboardUserComponent implements OnInit {
     this.requestService.ConfirmRequestByIdLater(this.employee)
       .subscribe((res) => {
         this.vacationPlannedList = res;
+        this.nextVacation = this.vacationPlannedList[0];
       });
   }
 

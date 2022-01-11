@@ -91,6 +91,7 @@ export class AdminCalendarComponent implements OnInit {
       width: '398px',
       minHeight: '491px',
       height: 'auto',
+      disableClose: true,
       data: { head: 'Add event:', btn: 'ADD', eventData: '' }
     });
     dialogRef.afterClosed().subscribe(result => {

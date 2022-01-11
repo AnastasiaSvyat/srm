@@ -1,12 +1,11 @@
-
-
-<div class="calendar-container h100Adpt" fxLayout="column" >
+<div class="calendar-container h100Adpt" fxLayout="column">
   <!-- button -->
   <div fxLayoutAlign="end none" fxFlex.gt-sm='20%' fxFlex='5%' class="mr24 mt16 btnAddLeft">
     <button class="btn h48 w155 fontGilroy" (click)='addEvent()' mat-stroked-button>ADD EVENT</button>
   </div>
   <div fxLayout.gt-sm='row' fxLayout="column" fxFlex='100%' class="mb29 mt16">
-    <div fxFlex.gt-sm='20%' fxFlex='80%' fxLayout.gt-sm='column' fxLayout.gt-xs='row' fxLayout="column" class="ml48 ml24Tel">
+    <div fxFlex.gt-sm='20%' fxFlex='120%' fxLayout.gt-sm='column' fxLayout.gt-xs='row' fxLayout="column"
+      class="ml48 ml24Tel">
       <!-- calendar -->
       <div fxFlex.gt-xs='50%' class="mr20">
         <mat-card class="colorBlock">
@@ -15,12 +14,12 @@
         </mat-card>
       </div>
       <!-- select Event -->
-      <div fxFlex='49%' class="w100 w95pr h100pr mt25 mr50 colorBlock">
+      <div fxFlex='49%' class="w100 w95pr mt25 mr50 colorBlock">
         <div class="ml24 pt28">
           <div class="fs14 ml8 mt7 fontColorGrey">{{selectedDate | date:'dd.MM.yy'}} </div>
         </div>
-        <cdk-virtual-scroll-viewport itemSize="20" class="viewport viewportSelect"
-        *ngIf="birthSelectDate?.length  || eventSelectedDate?.length">
+        <cdk-virtual-scroll-viewport itemSize="20" class=" viewportSelect"
+          *ngIf="birthSelectDate?.length  || eventSelectedDate?.length">
           <div class="ml24">
             <div class="mt7 item" *ngFor="let birth of birthSelectDate">
               <span class="fs14 fontRobotoBold">{{birth.name}} </span>
@@ -28,24 +27,25 @@
             </div>
             <div class="mt7 item" *ngFor="let eventToday of eventSelectedDate">
               <span class="fs14 fontRobotoBold">{{eventToday.name}}</span>
-               <span> - {{eventToday.type}} event</span>
+              <span> - {{eventToday.type}} event</span>
             </div>
           </div>
         </cdk-virtual-scroll-viewport>
-        <div class="ml24 fontColorGrey" *ngIf="!birthSelectDate?.length  && !eventSelectedDate?.length">
+        <div class="ml24 fontColorGrey t" *ngIf="!birthSelectDate?.length  && !eventSelectedDate?.length">
           <div>No events today</div>
         </div>
       </div>
     </div>
     <!-- planned Event -->
-    <div fxFlex.gt-sm='70%' fxFlex='50%' class="rightBox ml24 mt26 mt98 w90 colorBlock">
+    <div fxFlex.gt-sm='70%' fxFlex='0%' class="rightBox ml24 w91pr mt26 colorBlock">
       <div class="ml24 pt28 fs24 fontGilroy">Planned events</div>
       <div *ngIf="!eventsPlannedToday?.length && !eventsPlannedMonth?.length && !eventsPlannedLater?.length"
-          class=" ml24">
-          <span class="fontColorGrey fontGilroy fs14">No event yet.</span>
+        class="ml24">
+        <span class="fontColorGrey l fontGilroy fs14">No event yet.</span>
       </div>
-      <cdk-virtual-scroll-viewport *ngIf="eventsPlannedToday?.length || eventsPlannedMonth?.length || eventsPlannedLater?.length"
-      itemSize="20" class="viewport">
+      <cdk-virtual-scroll-viewport
+        *ngIf="eventsPlannedToday?.length || eventsPlannedMonth?.length || eventsPlannedLater?.length" itemSize="20"
+        class="viewport">
         <div class="mt16 ml24">
           <div>
             <p class="fontColorGrey fontGilroy fs18 mt16">Today</p>

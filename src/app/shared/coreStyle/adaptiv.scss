@@ -13,6 +13,7 @@
         display: none;
     }
   }
+
   @media screen and (max-width: 950px) {
      .h100Adpt{
          height: 100vh;
@@ -29,8 +30,8 @@
      .w95pr{
         width: 95%;
      }
-     .w89pr{
-        width: 89%;
+     .w91pr{
+        width: 91%;
      }
      .ml24Tel{
          margin-left: 24px;
@@ -54,6 +55,12 @@
         display: none !important;
       }
    }
+
+   @media screen and (max-width: 959px) {
+    .mt26{
+        margin-top: 26px;
+    }
+  }
 
    @media screen and (max-width: 680px) {
     .displayNoneTel{

@@ -22,8 +22,8 @@ export class MsgAdminComponent implements OnInit {
   dataCountRequest!: number;
   photoEmployee: UploadPhoto[] = [];
 
-  displayedColumns: string[] = ['startDate', 'type', 'date', 'description', 'decline', 'confirm'];
-  displayedColumnsConfirm: string[] = ['startDate', 'type', 'date', 'con', 'description'];
+  displayedColumns: string[] = ['employee', 'type', 'date', 'description', 'decline', 'confirm'];
+  displayedColumnsConfirm: string[] = ['employee', 'type', 'date', 'confirmad', 'description', 'decline'];
 
   ngOnInit(): void {
     this.pendingRequest();
@@ -69,7 +69,15 @@ export class MsgAdminComponent implements OnInit {
   }
 
   actionRequest(res: any, elem: any) {
-    res ? elem.confirm = true : elem.decline = true;
+    console.log(res);
+    console.log(elem);
+    if (res) {
+      elem.confirm = true;
+      elem.decline = false;
+    } else {
+      elem.confirm = false;
+      elem.decline = true;
+    }
     this.requestService.UpdateRequest(elem._id, elem)
       .subscribe(() => {
         this.confirmRequest();

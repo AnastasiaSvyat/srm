@@ -72,7 +72,6 @@ export class AddEventComponent implements OnInit {
   }
 
   updateEvent(event: Events){
-    console.log(event);
     this.eventService.UpdateEvent(event.id, event)
     .subscribe(() => {
       this.dialogRef.close(event);

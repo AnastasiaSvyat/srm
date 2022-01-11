@@ -26,7 +26,6 @@
                 </div>
             </div>
             <!-- smallbox -->
-
             <div fxFlex.gt-sm='43.1%' fxFlex='63.1%' fxLayout='column'>
                 <div fxLayout='row' fxFlex='40%'>
                     <div fxFlex.gt-xs='33.33%' fxFlex='100%' class="content_top mt16 ml16 colorBlock">
@@ -53,15 +52,12 @@
                         <div class="mt24 ml24">
                             <p class="fs18 fontColorGrey">Planned vacation</p>
                             <div *ngIf="vacationPlannedList?.length">
-                                <cdk-virtual-scroll-viewport itemSize="1" class="viewport">
-                                    <div *cdkVirtualFor="let vacation of vacationPlannedList"
-                                        class="itemPlannedVacation">
+                                <div class="">
                                         <span class="fw500 fontRobotoBold plannedVacation fs36 fs20">
-                                            {{vacation.date | date:'dd.MM.YYYY'}} - {{vacation.endDate |
-                                            date:'dd.MM.YYYY'}}
+                                            {{nextVacation.date | date:'dd.MM.YYYY'}} 
+                                            - {{nextVacation.endDate | date:'dd.MM.YYYY'}}
                                         </span>
-                                    </div>
-                                </cdk-virtual-scroll-viewport>
+                                </div>
                                 <div class="displayTel">
                                     Vacation days left: 
                                     <span class="ml8">7</span>
@@ -86,21 +82,19 @@
                                     <span class="fontColorGrey fs14">{{event.date | date:'dd.MM'}}</span>
                                     <span class="ml8 fs14">{{event.name}}</span>
                                 </div>
+                                <p *ngIf="!birthMonthList?.length" class="plannedVacation fs24 fontColorGrey">
+                                    No event this month
+                                </p>
                             </cdk-virtual-scroll-viewport>
-                            <p *ngIf="!birthMonthList?.length" class="plannedVacation fs24 fontColorGrey">
-                                No event this month
-                            </p>
                         </div>
                     </div>
                 </div>
-               
             </div>
-        <!-- </div> -->
-
             <div fxFlex='25%' class="mt16 mt26 ml16 colorBlock displayNoneDashboard" fxLayout="row" fxLayoutAlign="end end">
                 <button class="btnOpen-dashboard-user w155 h48 btn" mat-stroked-button>OPEN FILE</button>
             </div>
         </div>
+        
         <!-- About -->
         <div fxLayout.gt-sm='column' fxLayout='column' fxLayout.gt-xs='row' class="h100" fxFlex='30%'>
             <div fxFlex.gt-sm='57.1%' fxFlex.gt-xs='50%' fxFlex='100%' fxLayout="column" fxLayoutAlign="space-between start"

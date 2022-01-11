@@ -121,6 +121,7 @@ export class DashboardAdminComponent implements OnInit {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       height: '930px',
+      disableClose: true,
       data: {
         head: 'Edit user:',
         btn: 'SAVE',
@@ -165,16 +166,16 @@ export class DashboardAdminComponent implements OnInit {
 
   deleteTask(event: any) {
     this.taskService.DeleteTask(event._id)
-    .subscribe((res) => {
-      this.getAllTask();
-      this.snackBar.open('Task has been deleted!', '', {
-        duration: this.duration
+      .subscribe((res) => {
+        this.getAllTask();
+        this.snackBar.open('Task has been deleted!', '', {
+          duration: this.duration
+        });
+      }, (err) => {
+        this.snackBar.open('ERROR! Try again.', '', {
+          duration: this.duration
+        });
       });
-    }, (err) => {
-      this.snackBar.open('ERROR! Try again.', '', {
-        duration: this.duration
-      });
-    });
   }
 
   getAllTask() {
@@ -211,6 +212,7 @@ export class DashboardAdminComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '361px',
       height: 'auto',
+      disableClose: true,
       data: { head: 'Add task:', btn: 'ADD', eventData: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -226,6 +228,7 @@ export class DashboardAdminComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '361px',
       height: 'auto',
+      disableClose: true,
       data: { head: 'Edit task:', btn: 'EDIT', eventData: event }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -243,6 +246,7 @@ export class DashboardAdminComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '491px',
       height: 'auto',
+      disableClose: true,
       data: { head: 'Add event:', btn: 'ADD', eventData: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -252,12 +256,13 @@ export class DashboardAdminComponent implements OnInit {
     });
   }
 
-  updateEvent(event: Events){
+  updateEvent(event: Events) {
     const dialogRef = this.dialog.open(AddEventComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '461px',
       height: 'auto',
+      disableClose: true,
       data: { head: 'Edit event:', btn: 'EDIT', eventData: event }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -267,26 +272,27 @@ export class DashboardAdminComponent implements OnInit {
     });
   }
 
-  deleteEvent(event: any){
+  deleteEvent(event: any) {
     this.eventService.DeleteEvent(event._id)
-    .subscribe((res) => {
-      this.getAllEvent();
-      this.snackBar.open('Event has been deleted!', '', {
-        duration: this.duration
+      .subscribe((res) => {
+        this.getAllEvent();
+        this.snackBar.open('Event has been deleted!', '', {
+          duration: this.duration
+        });
+      }, (err) => {
+        this.snackBar.open('ERROR! Try again.', '', {
+          duration: this.duration
+        });
       });
-    }, (err) => {
-      this.snackBar.open('ERROR! Try again.', '', {
-        duration: this.duration
-      });
-    });
   }
 
-  descriotionEvent(event: Events){
+  descriotionEvent(event: Events) {
     const dialogRef = this.dialog.open(DescriptionEventComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '100px',
       height: 'auto',
+      disableClose: true,
       data: { eventData: event }
     });
     dialogRef.afterClosed().subscribe(result => {

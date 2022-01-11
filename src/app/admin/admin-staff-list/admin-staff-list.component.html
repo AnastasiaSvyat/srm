@@ -34,42 +34,42 @@
       </ng-container>
       <ng-container matColumnDef="position">
         <mat-header-cell *matHeaderCellDef fxFlex="5%"> POSITION </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="4%"> 
+        <mat-cell *matCellDef="let element" fxFlex="4%">
           <span class="mobile-label fontColorBlue">POSITION: </span>
-          <span class="ml6">{{element?.position}}</span>
+          <span>{{element?.position}}</span>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="birthday">
         <mat-header-cell *matHeaderCellDef fxFlex="5%"> BIRTH DATE </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="5%"> 
+        <mat-cell *matCellDef="let element" fxFlex="5%">
           <span class="mobile-label fontColorBlue">BIRTH DATE:</span>
           <span class="ml6">{{element?.date | date:"dd.MM.yy"}}</span>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="salary">
         <mat-header-cell *matHeaderCellDef fxFlex="5%"> SALARY </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="5%"> 
+        <mat-cell *matCellDef="let element" fxFlex="5%">
           <span class="mobile-label fontColorBlue">SALARY:</span>
           <span class="ml6">{{element?.salary}}$</span>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="firstDay">
         <mat-header-cell *matHeaderCellDef fxFlex="5%"> FIRST DAY </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="6%"> 
+        <mat-cell *matCellDef="let element" fxFlex="6%">
           <span class="mobile-label fontColorBlue">FIRST DAY:</span>
           <span class="ml6">{{element?.birth}}</span>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="lastPerf">
         <mat-header-cell *matHeaderCellDef fxFlex="10%"> LAST PERFORMANCE </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="7%"> 
+        <mat-cell *matCellDef="let element" fxFlex="7%">
           <span class="mobile-label fontColorBlue">LAST PERFORMANCE:</span>
           <span class="ml6">{{element?.lastPerf | date:"dd.MM.yy"}} </span>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="phone">
         <mat-header-cell *matHeaderCellDef fxFlex="10%"> PHONE </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="8%"> 
+        <mat-cell *matCellDef="let element" fxFlex="8%">
           <span class="mobile-label fontColorBlue">PHONE:</span>
           <span class="ml6">{{element?.phone}} </span>
         </mat-cell>
@@ -129,5 +129,4 @@
       </mat-paginator>
     </div>
   </div>
-  
 </div>
