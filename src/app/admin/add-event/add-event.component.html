@@ -7,10 +7,10 @@
                 <mat-option value="Holiday">Public holiday</mat-option>
                 <mat-option value="Corporate">Corporate event</mat-option>
             </mat-select>
+            <mat-error *ngIf="type?.invalid && (type?.dirty || type?.touched)" class="helper-text red-text">
+                <span *ngIf="type?.errors?.required">Type is required.</span>
+            </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="type?.invalid && (type?.dirty || type?.touched)" class="helper-text red-text">
-            <span *ngIf="type?.errors?.required">Type is required.</span>
-        </mat-error>
         <mat-form-field>
             <input [min]="today" matInput 
                 formControlName="date" 
@@ -21,17 +21,17 @@
                 readonly>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
+                <span *ngIf="date?.errors?.required">Date is required.</span>
+            </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
-            <span *ngIf="date?.errors?.required">Date is required.</span>
-        </mat-error>
         <mat-form-field>
             <mat-label>Name</mat-label>
             <input type="text" placeholder="Enter title event..." formControlName="name" name="name" matInput />
+            <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="helper-text red-text">
+                <span *ngIf="name?.errors?.required">Name is required.</span>
+            </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="helper-text red-text">
-            <span *ngIf="name?.errors?.required">Name is required.</span>
-        </mat-error>
         <mat-form-field>
             <mat-label>Description</mat-label>
             <textarea placeholder="Enter description..." formControlName="description" name="description"

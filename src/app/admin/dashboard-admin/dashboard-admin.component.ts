@@ -120,7 +120,7 @@ export class DashboardAdminComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      height: '930px',
+      height: '870px',
       disableClose: true,
       data: {
         head: 'Edit user:',

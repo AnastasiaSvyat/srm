@@ -45,7 +45,6 @@ export class AppComponent {
         if (loginEmploee.role === 'user') {
           this.router.navigate(['user']);
           this.router.navigate(['user'], { state: { data: this.user } });
-
         } else if (loginEmploee.role === 'admin') {
           this.router.navigate(['/admin', 'dashboardAdmin'], { state: { data: this.user } });
         }

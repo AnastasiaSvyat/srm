@@ -13,8 +13,7 @@
         background-color: #ECEFF1;
     }
 }
-.loginBox,
-.admin-staff-container{
+.loginBox{
     mat-form-field{
          width: 325px;
          height: 48px;
@@ -32,4 +31,21 @@
         display: none;
     }
  }
-
+ .admin-staff-container{
+     mat-form-field{
+          width: 325px;
+          height: 48px;
+          margin-top: 10px;
+ 
+      }
+     .mat-form-field-appearance-outline .mat-form-field-outline {
+         background-color: #ddeffc;
+     }
+     .mat-form-field-outline-thick {
+         color: rgb(51, 121, 153);
+     }
+     .mat-form-field-underline {
+         display: none;
+     }
+ }
+//  .mat-radio-button.mat-accent .mat-radio-inner-circle,

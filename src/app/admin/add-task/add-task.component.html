@@ -2,26 +2,27 @@
     <h2 class="mt24" mat-dialog-title>{{dataTask.head}}</h2>
     <form [formGroup]="infoAboutUserForm" mat-dialog-content>
         <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea placeholder="Enter description..." formControlName="task" name="description" matInput></textarea>
+            <mat-error *ngIf="task?.invalid && (task?.dirty || task?.touched)">
+                <span *ngIf="task?.errors?.required">Name is required.</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
             <input [min]="today"
              matInput formControlName="date" 
              [matDatepicker]="picker" 
              placeholder="Choose a date"
              (focus)="picker.open()"
              (click)="picker.open()"
-             readonly>
+             readonly
+            >
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
+                <span *ngIf="date?.errors?.required">Date is required.</span>
+            </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
-            <span *ngIf="date?.errors?.required">Date is required.</span>
-        </mat-error>
-        <mat-form-field>
-            <mat-label>Description</mat-label>
-            <textarea placeholder="Enter description..." formControlName="task" name="description" matInput></textarea>
-        </mat-form-field>
-        <mat-error *ngIf="task?.invalid && (task?.dirty || task?.touched)">
-            <span *ngIf="task?.errors?.required">Name is required.</span>
-        </mat-error>
         <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
             <div>
                 <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>

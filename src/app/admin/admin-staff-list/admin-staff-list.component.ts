@@ -142,7 +142,7 @@ export class AdminStaffListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      height: '930px',
+      height: '890px',
       disableClose: true,
       data: {
         head: 'Add user:',
@@ -187,7 +187,7 @@ export class AdminStaffListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      height: '930px',
+      height: '870px',
       disableClose: true,
       data: {
         head: 'Edit user:',

@@ -23,7 +23,8 @@ export class AddEventComponent implements OnInit {
     private eventService: EventService,
     private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public formBuilder: FormBuilder) { }
+    public formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
     this.eventForm = new FormGroup({

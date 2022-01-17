@@ -4,10 +4,10 @@
     <button class="btn h48 w155 fontGilroy" (click)='addEvent()' mat-stroked-button>ADD EVENT</button>
   </div>
   <div fxLayout.gt-sm='row' fxLayout="column" fxFlex='100%' class="mb29 mt16">
-    <div fxFlex.gt-sm='20%' fxFlex='120%' fxLayout.gt-sm='column' fxLayout.gt-xs='row' fxLayout="column"
+    <div fxFlex.gt-sm='20%' fxFlex='120%' fxFlex.gt-xs='42%' fxLayout.gt-sm='column' fxLayout.gt-xs='row' fxLayout="column"
       class="ml48 ml24Tel">
       <!-- calendar -->
-      <div fxFlex.gt-xs='50%' class="mr20">
+      <div fxFlex.gt-xs='50%' class="mr20 calendar">
         <mat-card class="colorBlock">
           <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)">
           </mat-calendar>
