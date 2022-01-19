@@ -45,7 +45,7 @@ export class AddEventComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getEvent(event: Events){
+  getEvent(event: Events) {
     if (event) {
       if (this.data.btn === 'ADD') {
         this.addEvent(event);
@@ -72,18 +72,17 @@ export class AddEventComponent implements OnInit {
     }
   }
 
-  updateEvent(event: Events){
+  updateEvent(event: Events) {
     this.eventService.UpdateEvent(event.id, event)
-    .subscribe(() => {
-      this.dialogRef.close(event);
-      this.snackBar.open('Congratulations! Event has been changed!', '', {
-        duration: this.duration
+      .subscribe(() => {
+        this.dialogRef.close(event);
+        this.snackBar.open('Congratulations! Event has been changed!', '', {
+          duration: this.duration
+        });
+      }, (err) => {
+        this.snackBar.open('ERROR! Try again.', '', {
+          duration: this.duration
+        });
       });
-    }, (err) => {
-      this.snackBar.open('ERROR! Try again.', '', {
-        duration: this.duration
-      });
-    });
-
   }
 }

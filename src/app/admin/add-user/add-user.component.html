@@ -41,13 +41,9 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Birthday</mat-label>
-            <input matInput formControlName="date" 
-                [matDatepicker]="picker" 
-                placeholder="Choose a date"
-                (focus)="picker.open()"
-                (click)="picker.open()"
-                readonly>
-            <mat-datepicker-toggle matSuffix  [for]="picker"></mat-datepicker-toggle>
+            <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date"
+                (focus)="picker.open()" (click)="picker.open()" readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
                 <span *ngIf="date?.errors?.required">Birthday is required.</span>
@@ -62,12 +58,9 @@
         </mat-form-field>
         <mat-form-field *ngIf="dataUser.showLastPerf">
             <mat-label>Last Performance</mat-label>
-            <input matInput formControlName="lastPerf" 
-                [matDatepicker]="pickerLastPerf"
-                placeholder="Choose your last performance"
-                (focus)="pickerLastPerf.open()"
-                (click)="pickerLastPerf.open()"
-                readonly>
+            <input matInput formControlName="lastPerf" [matDatepicker]="pickerLastPerf"
+                placeholder="Choose your last performance" (focus)="pickerLastPerf.open()"
+                (click)="pickerLastPerf.open()" readonly>
             <mat-datepicker-toggle matSuffix [for]="pickerLastPerf"></mat-datepicker-toggle>
             <mat-datepicker #pickerLastPerf></mat-datepicker>
         </mat-form-field>

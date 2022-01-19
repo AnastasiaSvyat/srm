@@ -4,8 +4,8 @@
     <button class="btn h48 w155 fontGilroy" (click)='addEvent()' mat-stroked-button>ADD EVENT</button>
   </div>
   <div fxLayout.gt-sm='row' fxLayout="column" fxFlex='100%' class="mb29 mt16">
-    <div fxFlex.gt-sm='20%' fxFlex='120%' fxFlex.gt-xs='42%' fxLayout.gt-sm='column' fxLayout.gt-xs='row' fxLayout="column"
-      class="ml48 ml24Tel">
+    <div fxFlex.gt-sm='20%' fxFlex='100%' fxFlex.gt-xs='42%' fxLayout.gt-sm='column' fxLayout.gt-xs='row'
+      fxLayout="column" class="ml48 ml24Tel">
       <!-- calendar -->
       <div fxFlex.gt-xs='50%' class="mr20 calendar">
         <mat-card class="colorBlock">
@@ -14,11 +14,11 @@
         </mat-card>
       </div>
       <!-- select Event -->
-      <div fxFlex='49%' class="w100 w95pr mt25 mr50 colorBlock">
+      <div fxFlex='49%' fxFlex.gt-xs='90%' class="w100 calendar calendarSelect w95pr mt25 j mr50 colorBlock">
         <div class="ml24 pt28">
           <div class="fs14 ml8 mt7 fontColorGrey">{{selectedDate | date:'dd.MM.yy'}} </div>
         </div>
-        <cdk-virtual-scroll-viewport itemSize="20" class=" viewportSelect"
+        <cdk-virtual-scroll-viewport itemSize="20" class="viewportSelect"
           *ngIf="birthSelectDate?.length  || eventSelectedDate?.length">
           <div class="ml24">
             <div class="mt7 item" *ngFor="let birth of birthSelectDate">

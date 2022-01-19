@@ -13,11 +13,21 @@
         display: none;
     }
   }
-@media screen and (min-width: 1600px) {
-    .calendar{
-        max-width: 320px;
-    }
+.calendar{
+    max-width: 320px;
 }
+
+@media screen and (max-width: 600px) {
+   .calendar{
+    max-width: 520px;
+   }
+}
+@media screen and (min-width: 432px) and (max-width: 600px) {
+    .viewportSelect{
+        height: 40%;
+    }
+ }
+
   @media screen and (max-width: 950px) {
      .h100Adpt{
          height: 100vh;
