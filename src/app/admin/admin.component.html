@@ -3,7 +3,10 @@
     <mat-drawer class="navbar displayNoneTel" mode="side" opened>
       <div fxLayout="column" fxLayoutAlign="space-evenly center" class="h100pr w100">
         <div fxFlex="85">
-          <div fxLayoutAlign="center center" class="mt99">
+          <div>
+            <img src="../../assets/img/logo.png" alt="">
+          </div>
+          <div fxLayoutAlign="center center" class="mt49">
             <button mat-icon-button routerLinkActive="activeLink" [routerLink]="['/admin','dashboardAdmin']">
               <img class="sizeDashboardImg" src="/assets/img/dashboardImg.png" alt="photo">
             </button>
@@ -40,11 +43,6 @@
         <button class="menuTel" (click)="openBottomSheet()">
           <img src="../../assets/img/menu.png" alt="">
         </button>
-      </div>
-      <div class="header pt11 w100" fxLayout="row" fxLayoutAlign="center center">
-        <div>
-          <img src="../../assets/img/logo.png" alt="">
-        </div>
       </div>
       <router-outlet></router-outlet>
     </mat-drawer-content>

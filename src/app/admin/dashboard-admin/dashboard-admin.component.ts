@@ -52,7 +52,8 @@ export class DashboardAdminComponent implements OnInit {
     private uploadPhotoService: UploadPhotoService,
     private taskService: ToDoListService,
     private snackBar: MatSnackBar,
-    private overlay: Overlay) {
+    private overlay: Overlay
+    ) {
   }
 
   ngOnInit(): void {
