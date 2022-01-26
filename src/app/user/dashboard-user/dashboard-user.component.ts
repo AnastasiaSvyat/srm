@@ -187,8 +187,10 @@ export class DashboardUserComponent implements OnInit {
         this.emoloyeeService.GetEmplBirthMonth()
           .subscribe((result) => {
             this.birthMonthList = result;
+            console.log(this.birthMonthList);
             this.eventMonthList.forEach((element: any) => {
               this.birthMonthList.push(element);
+              console.log(this.birthMonthList);
             });
           });
       });

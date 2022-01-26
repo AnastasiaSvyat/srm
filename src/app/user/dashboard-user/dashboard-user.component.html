@@ -79,7 +79,7 @@
                             <p class="fs18 fontColorGrey">Events this month</p>
                             <cdk-virtual-scroll-viewport itemSize="3" class="viewport">
                                 <div *cdkVirtualFor="let event of birthMonthList" class="item">
-                                    <span class="fontColorGrey fs14">{{event.date | date:'dd.MM'}}</span>
+                                    <span class="fontColorGrey fs14">{{event.date | date:'dd.MM'}}m,m</span>
                                     <span class="ml8 fs14">{{event.name}}</span>
                                 </div>
                                 <p *ngIf="!birthMonthList?.length" class="plannedVacation fs24 fontColorGrey">
