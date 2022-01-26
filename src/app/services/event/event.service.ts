@@ -46,8 +46,25 @@ export class EventService {
   }
 
   UpdateEvent(id: string, event: Events): Observable<Events> {
+    console.log(event);
     const API_URL = `${this.careService.REST_API}/update-event/${id}`;
     return this.httpClient.put<Events>(API_URL, event, { headers: this.careService.httpHeaders })
+      .pipe(
+        catchError(this.careService.handleError)
+      );
+  }
+
+  getEvents(): Observable<Events[]> {
+    const API_URL = `${this.careService.REST_API}/events`;
+    return this.httpClient.get<Events[]>(API_URL)
+      .pipe(
+        catchError(this.careService.handleError)
+      );
+  }
+
+  getEventById(id: string): Observable<Events> {
+    const API_URL = `${this.careService.REST_API}/event/${id}`;
+    return this.httpClient.get<Events>(API_URL)
       .pipe(
         catchError(this.careService.handleError)
       );

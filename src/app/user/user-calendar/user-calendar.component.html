@@ -50,30 +50,121 @@
               <span class="fontColorGrey fs14">No event today</span>
             </div>
             <div *ngIf="eventsPlannedToday?.length">
-              <div *ngFor="let item of eventsPlannedToday" class="item mt7">
-                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
-                <span class="fs14 fontRobotoBold"> {{item.name}}</span> -
-                <span class="fs14"> {{item.type}} event.</span>
-                <span class="fs14"> {{item?.description}}</span>
+              <div *ngFor="let item of eventsPlannedToday" fxLayout="row" fxLayoutAlign="space-between center"
+                class="item mt7 eventPlannedStyle">
+                <div class="ml8">
+                  <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
+                  <span class="fs14 fontRobotoBold"> {{item.name}}</span> -
+                  <span class="fs14"> {{item.type}} event.</span>
+                  <span class="fs14"> {{item?.description}}</span>
+                </div>
+                <div class="mr30" *ngIf='!getConfirm(item) && !getDecline(item)'>
+                  <span (click)="actionEvent(true,item)" class="fs14 mr30 fontColorGreen">
+                    <img class="actionImg" src="../../../assets/img/okIcon.png" alt="">
+                  </span>
+                  <span (click)="actionEvent(false,item)" class="fs14 fontColorRed">
+                    <img class="actionImg" src="../../../assets/img/close.png" alt="">
+                  </span>
+                </div>
+                <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
+                  <span class="fs14 mr30 cursor fontColorBlue">You are going!</span>
+                </div>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editChoose(item)">
+                    <mat-icon>edit</mat-icon>
+                    <span>edit choice</span>
+                  </button>
+                </mat-menu>
+                <div *ngIf='getDecline(item)' [matMenuTriggerFor]="menu">
+                  <span class="fs14 mr30 cursor fontColorRed">You are not going!</span>
+                </div>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editChoose(item)">
+                    <mat-icon>edit</mat-icon>
+                    <span>edit choice</span>
+                  </button>
+                </mat-menu>
               </div>
             </div>
           </div>
+
           <div *ngIf="eventsPlannedMonth?.length" class="mt16">
             <p class="fontColorGrey fs18 fontGilroy mt16">This month</p>
-            <div *ngFor="let item of eventsPlannedMonth" class="item mt7">
-              <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
-              <span class="fs14 ml8 fontRobotoBold"> {{item.name}}</span> -
-              <span class="fs14"> {{item.type}} event.</span>
-              <span class="fs14"> {{item?.description}}</span>
+            <div *ngFor="let item of eventsPlannedMonth" class="item mt7 eventPlannedStyle" fxLayout="row"
+              fxLayoutAlign="space-between center">
+              <div class="ml8">
+                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
+                <span class="fs14 ml8 fontRobotoBold"> {{item.name}}</span> -
+                <span class="fs14"> {{item.type}} event.</span>
+                <span class="fs14"> {{item?.description}}</span>
+              </div>
+              <div class="mr30" *ngIf='!getConfirm(item) && !getDecline(item)'>
+                <span (click)="actionEvent(true,item)" class="fs14 mr30 fontColorGreen">
+                  <img class="actionImg" src="../../../assets/img/okIcon.png" alt="">
+                </span>
+                <span (click)="actionEvent(false,item)" class="fs14 fontColorRed">
+                  <img class="actionImg" src="../../../assets/img/close.png" alt="">
+                </span>
+              </div>
+              <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
+                <span class="fs14 mr30 cursor fontColorBlue">You are going!</span>
+              </div>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editChoose(item)">
+                  <mat-icon>edit</mat-icon>
+                  <span>edit choice</span>
+                </button>
+              </mat-menu>
+              <div *ngIf='getDecline(item)' [matMenuTriggerFor]="menu">
+                <span class="fs14 mr30 cursor fontColorRed">You are not going!</span>
+              </div>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editChoose(item)">
+                  <mat-icon>edit</mat-icon>
+                  <span>Edit</span>
+                </button>
+              </mat-menu>
             </div>
           </div>
+
           <div *ngIf="eventsPlannedLater?.length" class="mt16">
             <p class="fontColorGrey fs18 fontGilroy mt16">Later</p>
-            <div *ngFor="let item of eventsPlannedLater" class="item mt7">
-              <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
-              <span class="fs14 fontRobotoBold ml8"> {{item.name}}</span> -
-              <span class="fs14"> {{item.type}} event.</span>
-              <span class="fs14"> {{item?.description}}</span>
+            <div *ngFor="let item of eventsPlannedLater" class="item mt7 eventPlannedStyle" fxLayout="row"
+              fxLayoutAlign="space-between center">
+              <div class="ml8">
+                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
+                <span class="fs14 fontRobotoBold ml8"> {{item.name}}</span> -
+                <span class="fs14"> {{item.type}} event.</span>
+                <span class="fs14"> {{item?.description}}</span>
+              </div>
+              <div class="mr30">
+                <div *ngIf='!getConfirm(item) && !getDecline(item)'>
+                  <span (click)="actionEvent(true,item)" class="fs14 mr30 fontColorGreen">
+                    <img class="actionImg" src="../../../assets/img/okIcon.png" alt="">
+                  </span>
+                  <span (click)="actionEvent(false,item)" class="fs14 fontColorRed">
+                    <img class="actionImg" src="../../../assets/img/close.png" alt="">
+                  </span>
+                </div>
+                <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
+                  <span class="fs14 cursor fontColorBlue">You are going!</span>
+                </div>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editChoose(item)">
+                    <mat-icon>edit</mat-icon>
+                    <span>edit choice</span>
+                  </button>
+                </mat-menu>
+                <div *ngIf='getDecline(item)' [matMenuTriggerFor]="menu">
+                  <span class="fs14 cursor fontColorRed">You are not going!</span>
+                </div>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editChoose(item)">
+                    <mat-icon>edit</mat-icon>
+                    <span>edit choice</span>
+                  </button>
+                </mat-menu>
+              </div>
             </div>
           </div>
         </div>

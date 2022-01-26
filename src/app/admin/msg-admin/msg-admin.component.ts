@@ -69,8 +69,6 @@ export class MsgAdminComponent implements OnInit {
   }
 
   actionRequest(res: any, elem: any) {
-    console.log(res);
-    console.log(elem);
     if (res) {
       elem.confirm = true;
       elem.decline = false;
