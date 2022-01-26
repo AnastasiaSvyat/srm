@@ -21,7 +21,7 @@ import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,

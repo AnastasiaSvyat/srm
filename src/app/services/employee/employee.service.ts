@@ -6,6 +6,7 @@ import { Employee } from '../../model/Employee';
 import { CareService } from '../care/care.service';
 import * as moment from 'moment';
 import { ParamsStaffPag } from 'src/app/admin/admin-staff-list/admin-staff-list.component';
+import { NewPassword } from 'src/app/model/NewPassword';
 
 interface StaffListDto {
   totalItems: number;
@@ -58,6 +59,14 @@ export class EmployeeService {
   updateEmployee(id: string, employee: Employee): Observable<Employee> {
     const API_URL = `${this.careService.REST_API}/update-employee/${id}`;
     return this.httpClient.put<Employee>(API_URL, employee, { headers: this.careService.httpHeaders })
+      .pipe(
+        catchError(this.careService.handleError)
+      );
+  }
+
+  updatePassword(id: string, password: NewPassword): Observable<Employee> {
+    const API_URL = `${this.careService.REST_API}/update-password/${id}`;
+    return this.httpClient.put<Employee>(API_URL, password, { headers: this.careService.httpHeaders })
       .pipe(
         catchError(this.careService.handleError)
       );

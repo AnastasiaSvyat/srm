@@ -1,9 +1,12 @@
+import { Overlay } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
 import { Employee } from '../model/Employee';
 import { AuthService } from '../services/auth/auth.service';
 import { RequestService } from '../services/request/request.service';
 import { UserOpenMenuComponentComponent } from './user-open-menu-component/user-open-menu-component.component';
+import { UserUpdatePasswordComponent } from './user-update-password/user-update-password.component';
 
 @Component({
   selector: 'app-user',
@@ -15,10 +18,15 @@ export class UserComponent implements OnInit {
   requestCount!: number;
   employee!: Employee;
 
+  hide = true;
+  hideRepeat = true;
+
   constructor(
     private requestService: RequestService,
     private authService: AuthService,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private overlay: Overlay,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -32,9 +40,26 @@ export class UserComponent implements OnInit {
         this.requestCount = result.length;
       });
   }
+
+  updatePassword() {
+    const dialogRef = this.dialog.open(UserUpdatePasswordComponent, {
+      width: '398px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '321px',
+      height: 'auto',
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+      }
+    });
+  }
+
   logout() {
     this.authService.logout();
   }
+
   openBottomSheet(): void {
     this.bottomSheet.open(UserOpenMenuComponentComponent);
   }

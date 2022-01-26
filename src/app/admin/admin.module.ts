@@ -13,6 +13,7 @@ import { MsgAdminComponent } from './msg-admin/msg-admin.component';
 import { InfoAboutUserComponent } from './info-about-user/info-about-user.component';
 import { DescriptionEventComponent } from './description-event/description-event.component';
 import { AdminOpenMenuComponentComponent } from './admin-open-menu-component/admin-open-menu-component.component';
+import { AdminUpdatePasswordComponent } from './admin-update-password/admin-update-password.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AdminOpenMenuComponentComponent } from './admin-open-menu-component/adm
     MsgAdminComponent,
     InfoAboutUserComponent,
     DescriptionEventComponent,
-    AdminOpenMenuComponentComponent
+    AdminOpenMenuComponentComponent,
+    AdminUpdatePasswordComponent
   ],
   imports: [
     CommonModule,

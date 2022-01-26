@@ -12,6 +12,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import { AddRequestUserComponent } from './add-request-user/add-request-user.component';
 import { InfoAboutUserComponent } from './info-about-user/info-about-user.component';
 import { UserOpenMenuComponentComponent } from './user-open-menu-component/user-open-menu-component.component';
+import { UserUpdatePasswordComponent } from './user-update-password/user-update-password.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserOpenMenuComponentComponent } from './user-open-menu-component/user-
     UpdateUserComponent,
     AddRequestUserComponent,
     InfoAboutUserComponent,
-    UserOpenMenuComponentComponent
+    UserOpenMenuComponentComponent,
+    UserUpdatePasswordComponent
   ],
   imports: [
     CommonModule,

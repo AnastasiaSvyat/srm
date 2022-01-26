@@ -1,9 +1,12 @@
+import { Overlay } from '@angular/cdk/overlay';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../services/auth/auth.service';
 import { CountRequestService } from '../services/countRequest/count-request.service';
 import { RequestService } from '../services/request/request.service';
 import { AdminOpenMenuComponentComponent } from './admin-open-menu-component/admin-open-menu-component.component';
+import { AdminUpdatePasswordComponent } from './admin-update-password/admin-update-password.component';
 
 
 
@@ -19,7 +22,9 @@ export class AdminComponent implements OnInit {
     private requestService: RequestService,
     private auth: AuthService,
     private countRequestService: CountRequestService,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private overlay: Overlay,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +41,23 @@ export class AdminComponent implements OnInit {
     this.bottomSheet.open(AdminOpenMenuComponentComponent);
   }
 
+  updatePassword(){
+    const dialogRef = this.dialog.open(AdminUpdatePasswordComponent, {
+      width: '398px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '321px',
+      height: 'auto',
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+      }
+    });
+  }
+
   logout() {
     this.auth.logout();
   }
+
 }
