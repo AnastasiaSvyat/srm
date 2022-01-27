@@ -67,7 +67,7 @@
                   </span>
                 </div>
                 <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
-                  <span class="fs14 mr30 cursor fontColorBlue">You are going!</span>
+                  <span class="fs14 mr30 cursor fontColorGreen">You are going!</span>
                 </div>
                 <mat-menu #menu="matMenu">
                   <button mat-menu-item (click)="editChoose(item)">
@@ -107,7 +107,7 @@
                 </span>
               </div>
               <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
-                <span class="fs14 mr30 cursor fontColorBlue">You are going!</span>
+                <span class="fs14 mr30 cursor fontColorGreen">You are going!</span>
               </div>
               <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="editChoose(item)">
@@ -147,7 +147,7 @@
                   </span>
                 </div>
                 <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
-                  <span class="fs14 cursor fontColorBlue">You are going!</span>
+                  <span class="fs14 cursor fontColorGreen">You are going!</span>
                 </div>
                 <mat-menu #menu="matMenu">
                   <button mat-menu-item (click)="editChoose(item)">
