@@ -133,8 +133,11 @@ export class UpdateUserComponent implements OnInit {
 
   getCV() {
     this.uploadFileService.getUplFileById(this.dataUser.updateEmployee)
-      .subscribe((result) => {
-        this.urlCV = result.imagePath;
+      .subscribe((res) => {
+        if (res != null){
+          this.urlCV = res.imagePath;
+        }
+        console.log(this.urlCV);
         const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
         this.docPDF = window.open();
         this.docPDF.document.write(iframe);
@@ -157,6 +160,12 @@ export class UpdateUserComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.urlCV = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+      console.log(this.urlCV);
       this.cvForm.patchValue({ cv: file });
       this.cvForm.patchValue({ name: file.name });
       this.uploadFileName = file.name;

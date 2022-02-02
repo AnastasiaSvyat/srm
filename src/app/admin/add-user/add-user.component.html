@@ -112,7 +112,7 @@
                     <button class="cvButton">{{dataUser.addCV}}</button>
                 </div>
                 <div *ngIf="dataUser.showArhiveUser" class="addCV-box">
-                    <button class="cvButton">Arhive user</button>
+                    <button (click)='deleteEmployee(addEmployeeForm.value.id)' class="cvButton">Delete user</button>
                 </div>
             </div>
         </form>

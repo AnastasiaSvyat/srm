@@ -164,7 +164,9 @@ export class AddUserComponent implements OnInit {
   getCV() {
     this.uploadFileService.getUplFileById(this.dataUser.changeUser)
       .subscribe((res) => {
-        this.urlCV = res.imagePath;
+        if (res != null){
+          this.urlCV = res.imagePath;
+        }
         const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
         this.docPDF = window.open();
         this.docPDF.document.write(iframe);
@@ -191,6 +193,11 @@ export class AddUserComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.urlCV = reader.result as string;
+      };
+      reader.readAsDataURL(file);
       this.cvForm.patchValue({ cv: file });
       this.cvForm.patchValue({ name: file.name });
       this.selectFile = file;
@@ -219,6 +226,22 @@ export class AddUserComponent implements OnInit {
         if (this.uploadFileList) {
           this.cv = this.uploadFileList;
           this.uploadFileName = this.cv.name;
+        }
+      });
+  }
+
+  deleteEmployee(id: string) {
+    this.employeeService.deleteEmployee(id)
+      .subscribe((res) => {
+        if (res) {
+          this.dialogRef.close();
+          this.snackBar.open('Congratulations! Employee has been deleted!', '', {
+            duration: this.duration
+          });
+        } else {
+          this.snackBar.open('ERROR! Try again.', '', {
+            duration: this.duration
+          });
         }
       });
   }

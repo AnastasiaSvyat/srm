@@ -112,10 +112,13 @@ export class DashboardUserComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if (result) {
         this.employee = result;
         this.getUploadFile();
         this.getPhotoEmployee();
+        this.getUploadFile();
+      }else{
         this.getUploadFile();
       }
     });
@@ -135,8 +138,10 @@ export class DashboardUserComponent implements OnInit {
 
   getCV() {
     this.uploadFileService.getUplFileById(this.employee)
-      .subscribe((result) => {
-        this.urlCV = result.imagePath;
+      .subscribe((res) => {
+        if (res != null){
+          this.urlCV = res.imagePath;
+        }
         const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
         this.docPDF = window.open();
         this.docPDF.document.write(iframe);
@@ -147,6 +152,11 @@ export class DashboardUserComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.urlCV = reader.result as string;
+      };
+      reader.readAsDataURL(file);
       this.cvForm.patchValue({ cv: file });
       this.cvForm.patchValue({ name: file.name });
       this.uploadFileName = file.name;
