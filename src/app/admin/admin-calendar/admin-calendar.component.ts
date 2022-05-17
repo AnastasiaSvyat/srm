@@ -140,11 +140,7 @@ export class AdminCalendarComponent implements OnInit {
     }
     this.eventService.UpdateEvent(event._id, event)
       .subscribe((res) => {
-<<<<<<< HEAD
         // console.log(res);
-=======
-        console.log(res);
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
       });
   }
 
@@ -165,22 +161,11 @@ export class AdminCalendarComponent implements OnInit {
   }
 
   editChoose(event: any) {
-<<<<<<< HEAD
     if (event.decline.indexOf(this.employee.id) !== -1) {
       event.decline.splice(event.decline.indexOf(this.employee.id), 1);
     }
     if (event.confirm.indexOf(this.employee.id) !== -1) {
       event.confirm.splice(event.confirm.indexOf(this.employee.id), 1);
-=======
-    console.log(event);
-    if (event.decline.indexOf(this.employee.id) !== -1) {
-      event.decline.splice(event.decline.indexOf(this.employee.id), 1);
-      console.log(event.decline);
-    }
-    if (event.confirm.indexOf(this.employee.id) !== -1) {
-      event.confirm.splice(event.confirm.indexOf(this.employee.id), 1);
-      console.log(event.confirm);
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
     }
     this.eventService.UpdateEvent(event._id, event)
       .subscribe((res) => {

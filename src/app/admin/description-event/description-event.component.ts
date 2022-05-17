@@ -34,10 +34,6 @@ export class DescriptionEventComponent implements OnInit {
   getListOfVoters(){
     this.eventService.getEventById(this.data.eventData._id)
     .subscribe((res) => {
-<<<<<<< HEAD
-=======
-      console.log(res.confirm);
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
       if (res.confirm){
         res.confirm.forEach(element => {
           this.employeeService.GetEmployee(element)

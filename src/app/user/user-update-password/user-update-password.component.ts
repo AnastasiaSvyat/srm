@@ -39,21 +39,12 @@ export class UserUpdatePasswordComponent implements OnInit {
       });
 
     this.passwordForm = new FormGroup({
-<<<<<<< HEAD
       password: new FormControl('', [Validators.required, Validators.minLength(6),Validators.pattern(/^\S{0,}$/)]),
       repeatPassword: new FormControl('', [Validators.required, Validators.minLength(6),Validators.pattern(/^\S{0,}$/)])
     });
   }
 
   get password() { return this.passwordForm.get('password'); }
-=======
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      repeatPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    });
-  }
-
-  get newPassword() { return this.passwordForm.get('newPassword'); }
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
   get repeatPassword() { return this.passwordForm.get('repeatPassword'); }
 
   onNoClick(): void {
@@ -61,18 +52,10 @@ export class UserUpdatePasswordComponent implements OnInit {
   }
 
   updatePassword(password: NewPassword) {
-<<<<<<< HEAD
-    if (password.password === password.repeatPassword) {
-      this.employeeService.updatePassword(this.employee.id, password)
-        .subscribe((res) => {
-          (res);
-=======
-    console.log(password);
     if (password.password === password.repeatPassword) {
       this.employeeService.updatePassword(this.employee.id, password)
         .subscribe((res) => {
           console.log(res);
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
           this.snackBar.open('Congratulations! Event has been added!', '', {
             duration: this.duration
           });

@@ -72,7 +72,7 @@ export class EmployeeService {
       );
   }
 
-<<<<<<< HEAD
+
   GetEmplBirthLaterStart(): Observable<Employee[]> {
     const API_URL = `${this.careService.REST_API}/getEmpl-LaterStart`;
     return this.httpClient.get<Employee[]>(API_URL);
@@ -80,10 +80,6 @@ export class EmployeeService {
 
   GetEmplBirthLaterEnd(): Observable<Employee[]> {
     const API_URL = `${this.careService.REST_API}/getEmpl-LaterEnd`;
-=======
-  GetEmplBirthLater(): Observable<Employee[]> {
-    const API_URL = `${this.careService.REST_API}/getEmpl-Later`;
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
     return this.httpClient.get<Employee[]>(API_URL);
   }
 

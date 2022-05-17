@@ -98,20 +98,7 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   
-  updatePassword(){
-    const dialogRef = this.dialog.open(AdminUpdatePasswordComponent, {
-      width: '398px',
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '321px',
-      height: 'auto',
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // console.log(result);
-      }
-    });
-  }
+
 
   getPhotoEmployee() {
     this.uploadPhotoService.GetPhoto()
@@ -254,17 +241,18 @@ export class DashboardAdminComponent implements OnInit {
     });
   }
 
-  updatePassword(){
-    const dialogRef = this.dialog.open(AddTaskComponent, {
+
+    updatePassword(){
+    const dialogRef = this.dialog.open(AdminUpdatePasswordComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '361px',
+      minHeight: '321px',
       height: 'auto',
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
+        // console.log(result);
       }
     });
   }

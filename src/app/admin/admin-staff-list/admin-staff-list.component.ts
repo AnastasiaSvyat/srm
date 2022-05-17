@@ -47,14 +47,9 @@ export class AdminStaffListComponent implements OnInit {
   pageSize = 10;
   docPDF!: any;
   private unsubscribe = new Subject();
-<<<<<<< HEAD
-
   displayedColumns: string[] = ['photo', 'name', 'position', 'birthday', 'salary',
    'phone', 'firstDay', 'skype', 'email', 'vacation','sickLeave', 'about', 'cv', 'change'];
-=======
-  displayedColumns: string[] = ['photo', 'name', 'position', 'birthday', 'salary',
-  'firstDay', 'lastPerf', 'phone', 'skype', 'email', 'about', 'cv', 'change'];
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
+
 
   constructor(
     private employeeService: EmployeeService,

@@ -265,11 +265,7 @@ export class AddUserComponent implements OnInit {
     this.employeeService.deleteEmployee(id)
       .subscribe((res) => {
         if (res) {
-<<<<<<< HEAD
           this.dialogRef.close('delete');
-=======
-          this.dialogRef.close();
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
           this.snackBar.open('Congratulations! Employee has been deleted!', '', {
             duration: this.duration
           });

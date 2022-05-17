@@ -2,18 +2,12 @@ import { Overlay } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
-<<<<<<< HEAD
 import { Router } from '@angular/router';
-=======
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
 import { Employee } from '../model/Employee';
 import { AuthService } from '../services/auth/auth.service';
 import { RequestService } from '../services/request/request.service';
 import { UserOpenMenuComponentComponent } from './user-open-menu-component/user-open-menu-component.component';
-<<<<<<< HEAD
-=======
 import { UserUpdatePasswordComponent } from './user-update-password/user-update-password.component';
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
 
 @Component({
   selector: 'app-user',
@@ -28,21 +22,13 @@ export class UserComponent implements OnInit {
   hide = true;
   hideRepeat = true;
 
-<<<<<<< HEAD
-  
-
-=======
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
   constructor(
     private requestService: RequestService,
     private authService: AuthService,
     private bottomSheet: MatBottomSheet,
-<<<<<<< HEAD
-    private router: Router
-=======
+    private router: Router,
     private overlay: Overlay,
     private dialog: MatDialog
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
   ) { }
 
   ngOnInit(): void {
@@ -58,8 +44,6 @@ export class UserComponent implements OnInit {
       });
   }
 
-<<<<<<< HEAD
-=======
   updatePassword() {
     const dialogRef = this.dialog.open(UserUpdatePasswordComponent, {
       width: '398px',
@@ -74,7 +58,6 @@ export class UserComponent implements OnInit {
       }
     });
   }
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
 
   logout() {
     this.authService.logout();
@@ -82,9 +65,9 @@ export class UserComponent implements OnInit {
 
   }
 
-  openBottomSheet(): void {
-    this.bottomSheet.open(UserOpenMenuComponentComponent);
-  }
+  // openBottomSheet(): void {
+  //   this.bottomSheet.open(UserOpenMenuComponentComponent);
+  // }
 
   openBottomSheet(): void {
     this.bottomSheet.open(UserOpenMenuComponentComponent);

@@ -6,7 +6,6 @@
       width: 90%;
     }
     mat-table{
-<<<<<<< HEAD
       margin-left: 0;
       width: 90%;
       display: flex;
@@ -19,27 +18,12 @@
     .displayNoneMsgAdmin{
       display: none;
     }
-=======
-        margin-left: 0;
-        width: 90%;
-        display: flex;
-        flex-wrap: wrap;
-        margin: auto;
-    }
-    .mobile-label {
-        width: 100%;
-      }
-      .displayNoneMsgAdmin{
-        display: none;
-      }
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
   }
   @media(min-width: 650px) {
     .mobile-labelMsgAdmin{
        display: none;
     }
   }
-<<<<<<< HEAD
   
 .underline{
   text-decoration: underline;
@@ -49,13 +33,4 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-=======
-.underline{
-    text-decoration: underline;
-}
-.declineImg{
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
 }

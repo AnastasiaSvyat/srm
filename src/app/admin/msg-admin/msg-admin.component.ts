@@ -2,21 +2,15 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { CountRequest } from 'src/app/model/countRequest';
 import { Request } from 'src/app/model/Request';
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
-<<<<<<< HEAD
 import { CountServiceService } from 'src/app/services/countReq/count-service.service';
-=======
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
 import { CountRequestService } from 'src/app/services/countRequest/count-request.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { RequestService } from 'src/app/services/request/request.service';
 import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.service';
-<<<<<<< HEAD
 import * as moment from 'moment';
 import { Employee } from 'src/app/model/Employee';
 import { LogTimeVacationService } from 'src/app/services/LogTimeVacation/log-time-vacation.service';
 import { LogTimeVacationInNewYer } from 'src/app/model/LogTimeVacationInNewYear';
-=======
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
 
 @Component({
   selector: 'app-msg-admin',
@@ -28,21 +22,16 @@ export class MsgAdminComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private countRequestService: CountRequestService,
-<<<<<<< HEAD
     private countService: CountServiceService,
     private uloadPhotoService: UploadPhotoService,
     private employeeService: EmployeeService,
     private logTimeVacationService: LogTimeVacationService
   ) { }
-=======
-    private uloadPhotoService: UploadPhotoService) { }
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
 
   pendingRequestList: Request[] = [];
   confirmRequestList: Request[] = [];
   dataCountRequest!: number;
   photoEmployee: UploadPhoto[] = [];
-<<<<<<< HEAD
   staffList: Employee[] = [];
   employeeInLogTimeRequestList!: boolean;
 
@@ -53,9 +42,6 @@ export class MsgAdminComponent implements OnInit {
   countRequestInNewYear!: LogTimeVacationInNewYer;
 
 
-=======
-
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
   displayedColumns: string[] = ['employee', 'type', 'date', 'description', 'decline', 'confirm'];
   displayedColumnsConfirm: string[] = ['employee', 'type', 'date', 'confirmad', 'description', 'decline'];
 
@@ -63,10 +49,7 @@ export class MsgAdminComponent implements OnInit {
     this.pendingRequest();
     this.confirmRequest();
     this.getPhotoEmployee();
-<<<<<<< HEAD
     this.getStaffList();
-=======
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
     this.countRequestService.data$.subscribe((result) => {
       this.dataCountRequest = result;
     });
@@ -76,7 +59,6 @@ export class MsgAdminComponent implements OnInit {
     this.countRequestService.changeData(count);
   }
 
-<<<<<<< HEAD
   getStaffList() {
     this.employeeService.GetStaff()
       .subscribe((res) => {
@@ -84,8 +66,6 @@ export class MsgAdminComponent implements OnInit {
       })
   }
 
-=======
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
   getPhotoEmployee() {
     this.uloadPhotoService.GetPhoto()
       .subscribe((res) => {
@@ -98,14 +78,11 @@ export class MsgAdminComponent implements OnInit {
     return imgResult?.imagePath ?? '../../../assets/img/nouser.jpeg';
   }
 
-<<<<<<< HEAD
   getEmployee(userId: string) {
     const imgResult = this.staffList.find(empl => empl.id === userId);
     return imgResult ? imgResult.name + ' ' + imgResult.lastName : '-';
   }
 
-=======
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
   pendingRequest() {
     this.requestService.GetPendingRequest()
       .subscribe((res) => {
@@ -126,10 +103,6 @@ export class MsgAdminComponent implements OnInit {
   }
 
   actionRequest(res: any, elem: any) {
-<<<<<<< HEAD
-
-=======
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
     if (res) {
       elem.confirm = true;
       elem.decline = false;
@@ -137,10 +110,6 @@ export class MsgAdminComponent implements OnInit {
       elem.confirm = false;
       elem.decline = true;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
     this.requestService.UpdateRequest(elem._id, elem)
       .subscribe((res) => {
         console.log(res);
