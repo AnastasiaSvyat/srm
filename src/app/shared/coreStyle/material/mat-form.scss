@@ -2,19 +2,19 @@
 .add-task-container,
 .add-user-container,
 .add-request-container,
+.user-add-task-container,
 .app-add-info-user{
    mat-form-field{
-        width: 325px;
+        width: 90%;
         height: 40px;
         margin-top: 25px;
-        margin-right: 36px;
+        margin-left: 15px;
     }
     .mat-form-field-flex{
         background-color: #ECEFF1;
     }
 }
-.loginBox,
-.admin-staff-container{
+.loginBox{
     mat-form-field{
          width: 325px;
          height: 48px;
@@ -32,4 +32,20 @@
         display: none;
     }
  }
-
+ .admin-staff-container, .admin-log-time-container{
+     mat-form-field{
+          width: 325px;
+          height: 48px;
+          margin-top: 10px;
+ 
+      }
+     .mat-form-field-appearance-outline .mat-form-field-outline {
+         background-color: #ddeffc;
+     }
+     .mat-form-field-outline-thick {
+         color: rgb(51, 121, 153);
+     }
+     .mat-form-field-underline {
+         display: none;
+     }
+ }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { MatDialog } from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
@@ -13,6 +13,11 @@ import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Overlay } from '@angular/cdk/overlay';
 import { InfoAboutUserComponent } from '../info-about-user/info-about-user.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { LogTimeVacationService } from 'src/app/services/LogTimeVacation/log-time-vacation.service';
+import * as moment from 'moment';
+import { LogTimeVacationInNewYer } from 'src/app/model/LogTimeVacationInNewYear';
 
 export interface ParamsStaffPag {
   page: number;
@@ -28,20 +33,23 @@ export interface ParamsStaffPag {
 
 export class AdminStaffListComponent implements OnInit {
 
+
+
   staffList: Employee[] = [];
   employee: Employee[] = [];
   duration = 5000;
   urlCV!: string;
   photoEmployee: UploadPhoto[] = [];
   searchByName = new FormControl();
+  logTimeRequest: LogTimeVacationInNewYer[] = [];
   page = 0;
   count = 0;
   pageSize = 10;
   docPDF!: any;
   private unsubscribe = new Subject();
 
-  displayedColumns: string[] = ['photo', 'name', 'position',
-    'birthday', 'salary', 'firstDay', 'lastPerf', 'phone', 'skype', 'email', 'about', 'cv', 'change'];
+  displayedColumns: string[] = ['photo', 'name', 'position', 'birthday', 'salary',
+   'phone', 'firstDay', 'skype', 'email', 'vacation','sickLeave', 'about', 'cv', 'change'];
 
   constructor(
     private employeeService: EmployeeService,
@@ -51,6 +59,7 @@ export class AdminStaffListComponent implements OnInit {
     private snackBar: MatSnackBar,
     private overlay: Overlay,
     private authService: AuthService,
+    private logTimeVacationService: LogTimeVacationService
   ) {
     this.searchByName.valueChanges
       .pipe(
@@ -75,10 +84,12 @@ export class AdminStaffListComponent implements OnInit {
       });
   }
 
+
   ngOnInit(): void {
     this.employee = this.authService.user;
     this.retrieveStaff();
     this.getPhotoEmployee();
+    this.getCountVacation();
   }
 
   ngOnDesttroy() {
@@ -96,6 +107,27 @@ export class AdminStaffListComponent implements OnInit {
   getEmployeePhoto(userId: string) {
     const imgResult = this.photoEmployee.find(img => img.idEmployee === userId);
     return imgResult?.imagePath ?? '../../../assets/img/nouser.jpeg';
+  }
+
+  
+
+  getCountVacation() {
+    this.logTimeVacationService.GetCurrentRequest()
+    .subscribe((res) => {
+      this.logTimeRequest = res;
+      console.log(res);
+      
+    })
+  }
+
+  getVacationEmployee(userId: string) {
+    const requestResult = this.logTimeRequest.find(req => req.idEmployee === userId);
+    return requestResult?.vacation ?? '0';
+  }
+
+  getSickLeaveEmployee(userId: string) {
+    const requestResult = this.logTimeRequest.find(req => req.idEmployee === userId);
+    return requestResult?.sickLeave ?? '0';
   }
 
   retrieveStaff(): void {
@@ -142,8 +174,8 @@ export class AdminStaffListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '680px',
-      height: 'auto',
+      height: '890px',
+      disableClose: true,
       data: {
         head: 'Add user:',
         btn: 'ADD',
@@ -152,11 +184,12 @@ export class AdminStaffListComponent implements OnInit {
         changeUser: '',
         showRole: true,
         showCV: true,
+        disableClose: true,
         showPassword: true,
         showLastPerf: false,
       }
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {      
       if (result) {
         this.retrieveStaff();
         this.getPhotoEmployee();
@@ -171,6 +204,7 @@ export class AdminStaffListComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '100px',
       height: 'auto',
+      disableClose: true,
       data: {
         user: employee,
       }
@@ -179,14 +213,15 @@ export class AdminStaffListComponent implements OnInit {
       if (result) {
       }
     });
+    
   }
 
   editUser(event: Employee): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '680px',
-      height: 'auto',
+      height: '870px',
+      disableClose: true,
       data: {
         head: 'Edit user:',
         btn: 'SAVE',

@@ -17,6 +17,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { Overlay } from '@angular/cdk/overlay';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DescriptionEventComponent } from '../description-event/description-event.component';
+import { AdminUpdatePasswordComponent } from '../admin-update-password/admin-update-password.component';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -42,6 +43,7 @@ export class DashboardAdminComponent implements OnInit {
   urlPhoto!: string;
   photoStaffArr: UploadPhoto[] = [];
   duration = 5000;
+  staffList: Employee[] = [];
 
   constructor(
     public dialog: MatDialog,
@@ -52,7 +54,8 @@ export class DashboardAdminComponent implements OnInit {
     private uploadPhotoService: UploadPhotoService,
     private taskService: ToDoListService,
     private snackBar: MatSnackBar,
-    private overlay: Overlay) {
+    private overlay: Overlay
+    ) {
   }
 
   ngOnInit(): void {
@@ -68,6 +71,19 @@ export class DashboardAdminComponent implements OnInit {
     this.emoloyeeService.GetStaff();
     this.getAllBirth();
     this.getAllVacations();
+    this.getStaffList();
+  }
+
+  getStaffList(){
+    this.emoloyeeService.GetStaff()
+    .subscribe((res) => {
+      this.staffList = res;
+    })
+  }
+
+  getEmployeeName(userId: string) {
+    const emplResult = this.staffList.find(empl => empl.id === userId);
+    return emplResult ? emplResult.name + ' ' + emplResult.lastName : '=';
   }
 
   // PHOTO
@@ -81,12 +97,30 @@ export class DashboardAdminComponent implements OnInit {
       });
   }
 
+  
+  updatePassword(){
+    const dialogRef = this.dialog.open(AdminUpdatePasswordComponent, {
+      width: '398px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '321px',
+      height: 'auto',
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // console.log(result);
+      }
+    });
+  }
+
   getPhotoEmployee() {
     this.uploadPhotoService.GetPhoto()
       .subscribe((res) => {
         this.photoStaffArr = res;
       });
   }
+
+
 
   getEmployeePhotoById(userId: string) {
     const imgResult = this.photoStaffArr.find(img => img.idEmployee === userId);
@@ -120,7 +154,8 @@ export class DashboardAdminComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      height: '930px',
+      height: '870px',
+      disableClose: true,
       data: {
         head: 'Edit user:',
         btn: 'SAVE',
@@ -147,34 +182,32 @@ export class DashboardAdminComponent implements OnInit {
 
   onChange($event: any, task: any) {
     this.isChecked = $event.checked;
-    console.log($event);
     task.select = this.isChecked;
-    console.log(task);
     if (this.isChecked) {
       this.taskService.DeleteTask(task._id)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
         });
     } else {
       this.taskService.AddTask(task)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
         });
     }
   }
 
   deleteTask(event: any) {
     this.taskService.DeleteTask(event._id)
-    .subscribe((res) => {
-      this.getAllTask();
-      this.snackBar.open('Task has been deleted!', '', {
-        duration: this.duration
+      .subscribe((res) => {
+        this.getAllTask();
+        this.snackBar.open('Task has been deleted!', '', {
+          duration: this.duration
+        });
+      }, (err) => {
+        this.snackBar.open('ERROR! Try again.', '', {
+          duration: this.duration
+        });
       });
-    }, (err) => {
-      this.snackBar.open('ERROR! Try again.', '', {
-        duration: this.duration
-      });
-    });
   }
 
   getAllTask() {
@@ -211,6 +244,7 @@ export class DashboardAdminComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '361px',
       height: 'auto',
+      disableClose: true,
       data: { head: 'Add task:', btn: 'ADD', eventData: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -226,6 +260,7 @@ export class DashboardAdminComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '361px',
       height: 'auto',
+      disableClose: true,
       data: { head: 'Edit task:', btn: 'EDIT', eventData: event }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -243,6 +278,7 @@ export class DashboardAdminComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '491px',
       height: 'auto',
+      disableClose: true,
       data: { head: 'Add event:', btn: 'ADD', eventData: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -252,12 +288,13 @@ export class DashboardAdminComponent implements OnInit {
     });
   }
 
-  updateEvent(event: Events){
+  updateEvent(event: Events) {
     const dialogRef = this.dialog.open(AddEventComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '461px',
       height: 'auto',
+      disableClose: true,
       data: { head: 'Edit event:', btn: 'EDIT', eventData: event }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -267,31 +304,32 @@ export class DashboardAdminComponent implements OnInit {
     });
   }
 
-  deleteEvent(event: any){
+  deleteEvent(event: any) {
     this.eventService.DeleteEvent(event._id)
-    .subscribe((res) => {
-      this.getAllEvent();
-      this.snackBar.open('Event has been deleted!', '', {
-        duration: this.duration
+      .subscribe((res) => {
+        this.getAllEvent();
+        this.snackBar.open('Event has been deleted!', '', {
+          duration: this.duration
+        });
+      }, (err) => {
+        this.snackBar.open('ERROR! Try again.', '', {
+          duration: this.duration
+        });
       });
-    }, (err) => {
-      this.snackBar.open('ERROR! Try again.', '', {
-        duration: this.duration
-      });
-    });
   }
 
-  descriotionEvent(event: Events){
+  descriotionEvent(event: Events) {
     const dialogRef = this.dialog.open(DescriptionEventComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '100px',
       height: 'auto',
+      disableClose: true,
       data: { eventData: event }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
+        // console.log(result);
       }
     });
   }
@@ -346,9 +384,15 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   getBirth() {
-    this.emoloyeeService.GetEmplBirthLater()
+    this.emoloyeeService.GetEmplBirthLaterStart()
       .subscribe((res) => {
         this.staffBirthLater = res;
+        this.emoloyeeService.GetEmplBirthLaterEnd()
+        .subscribe((resEnd) => {
+          resEnd.forEach(element => {
+            this.staffBirthLater.push(element)
+          });
+        })
       });
   }
 }

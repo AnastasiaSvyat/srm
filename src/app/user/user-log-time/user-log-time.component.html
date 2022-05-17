@@ -1,0 +1,24 @@
+<div class="user-log-time-container w100 mt30" fxLayoutAlign="center center">
+    <div fxLayoutAlign="start center" fxFlex="95%" class="colorBlock h90vh monthContainer">
+        <h2>Log Time</h2>
+        <div class="monthContainer" fxLayoutAlign="space-around center">
+            <div fxLayout="column" fxFlex="26%" *ngFor='let selectMonth of monthArr' class="colorBlock monthBox mt7">
+                <div>
+                    {{selectMonth?.name}}
+                </div>
+                <div fxLayoutAlign="center center" class="w100 mt14 hour fs14" *ngIf='selectMonth.id <= month'>
+                    {{logTimeSelectMonth(selectMonth?.id)}}
+                </div>
+                <div class="w100 mt14 hour fs14" fxLayoutAlign="center center" *ngIf='selectMonth.id > month'>
+                    It is not yet possible to add hours worked for a given month
+                </div>
+                <div class="w100 mt20" fxLayoutAlign="end center" *ngIf='selectMonth.id <= month'>
+                    <button *ngIf='showBtn(selectMonth?.id)' (click)='logTime(selectMonth)' mat-icon-button
+                        color="primary" aria-label="Example icon button with a home icon">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

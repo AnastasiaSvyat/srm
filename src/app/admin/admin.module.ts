@@ -12,6 +12,10 @@ import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.compo
 import { MsgAdminComponent } from './msg-admin/msg-admin.component';
 import { InfoAboutUserComponent } from './info-about-user/info-about-user.component';
 import { DescriptionEventComponent } from './description-event/description-event.component';
+import { AdminOpenMenuComponentComponent } from './admin-open-menu-component/admin-open-menu-component.component';
+import { AdminUpdatePasswordComponent } from './admin-update-password/admin-update-password.component';
+import { AdminLogTimeComponent } from './admin-log-time/admin-log-time.component';
+import { AdminAddStandartHoursComponent } from './admin-add-standart-hours/admin-add-standart-hours.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,12 @@ import { DescriptionEventComponent } from './description-event/description-event
     AddTaskComponent,
     MsgAdminComponent,
     InfoAboutUserComponent,
-    DescriptionEventComponent
+    DescriptionEventComponent,
+    AdminOpenMenuComponentComponent,
+    AdminUpdatePasswordComponent,
+    AdminLogTimeComponent,
+    AdminAddStandartHoursComponent,
+
   ],
   imports: [
     CommonModule,

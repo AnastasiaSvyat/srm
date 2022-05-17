@@ -7,17 +7,30 @@
     height: 48px;
     border-radius: 10px;
 }
+button:disabled,
+button[disabled]{
+  background-color: #6493c2;
+  color: #989999 !important;
+}
 .navbar{
     width: 72px;
 }
 .header{
-    height: 3.5rem;
+    height: 2.7rem;
 }
 .colorBlock{
     background-color: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
+.changepass{
+    color: rgb(66, 141, 252);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 900;
+    margin-right: 42px;
+}
+
 .navbar-button{
     width: 60px;
     height: 60px;
@@ -47,14 +60,13 @@ h2{
     color: #546E7A;
 }
 .photoHeader{
-    height: 82px;
-    width: 82px;
+    height: 75px;
+    width: 75px;
 }
 .photo{
     border-radius: 50%;
-    background: rgb(163, 245, 218);
     text-align: center;
-    margin-top: 3px;
+    margin-top: 5px;
 }
 .photoSmall{
     height: 20px;
@@ -125,6 +137,12 @@ h2{
     margin-top: 5px;
     border-radius: 50%;
 }
+.menuTel img,.menuTel{
+    background-color: none;
+    width: 36px;
+    height: 36px;
+    border: none;
+}
 .exitPhoto,.exitPhoto img{
     height: 45px;
     width: 45px; 
@@ -137,9 +155,18 @@ h2{
     text-overflow: ellipsis;
 }
 .viewport {
-    height: 80px;
+    height: 100%;
     width: 100%;
 }
+@media screen and (max-width: 600px) {
+    .viewport {
+        height: 180px;
+        width: 100%;
+    }
+ }
+ .cursor{
+     cursor: pointer;
+ }
 .item {
     height: 100%;
     word-break: break-word;
@@ -147,7 +174,5 @@ h2{
 .word-break{
     word-break: break-word;
 }
-// .mat-dialog-container {
-//     height: 100%;
-// }
+
 

@@ -7,4 +7,6 @@ export class Events {
     year!: string;
     type!: string;
     description!: string;
+    confirm!: Array<string>;
+    decline!: Array<string>;
 }

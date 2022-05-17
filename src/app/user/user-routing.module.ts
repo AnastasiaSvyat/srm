@@ -7,6 +7,7 @@ import { UserStaffListComponent } from './user-staff-list/user-staff-list.compon
 import { UserCalendarComponent } from './user-calendar/user-calendar.component';
 import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
 import { MsgUserComponent } from './msg-user/msg-user.component';
+import { UserLogTimeComponent } from './user-log-time/user-log-time.component';
 
 export const routes: Routes = [
   {
@@ -14,6 +15,7 @@ export const routes: Routes = [
       { path: 'stafflist', component: UserStaffListComponent },
       { path: 'calendar', component: UserCalendarComponent },
       { path: 'dashboardUser', component: DashboardUserComponent },
+      { path: 'logTime', component: UserLogTimeComponent },
       { path: 'messageUser', component: MsgUserComponent },
       { path: '', redirectTo: 'dashboardUser', pathMatch: 'full' },
       { path: '**', redirectTo: 'dashboardUser' },

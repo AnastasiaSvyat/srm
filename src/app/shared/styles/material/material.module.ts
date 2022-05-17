@@ -21,6 +21,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+
 
 
 @NgModule({
@@ -47,7 +49,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatMenuModule,
     MatSnackBarModule,
     ScrollingModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatBottomSheetModule
   ],
   exports: [
     MatFormFieldModule,
@@ -71,7 +74,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatMenuModule,
     MatSnackBarModule,
     ScrollingModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatBottomSheetModule
   ]
 })
 export class MaterialModule { }

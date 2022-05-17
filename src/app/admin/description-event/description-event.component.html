@@ -1,8 +1,33 @@
 <div class="admin-description-event-user">
-    <h1 mat-dialog-title class="text-center">Description of the {{data.eventData.type}} 
+    <h1 mat-dialog-title class="text-center">Description of the {{data.eventData.type}}
         event {{data.eventData.name}}</h1>
     <mat-dialog-content class="mt24 word-break">
-        {{data.eventData.description ? data.eventData.description : 'No description yet.'}}
+        <div>
+            {{data.eventData.description ? data.eventData.description : 'No description yet.'}}
+        </div>
+        <div class="mt7">
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+                <div fxFlex="50%" class="actionStyle">
+                    Confirmed
+                </div>
+                <div fxFlex="50%" class="actionStyle">
+                    Declined
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+                <div fxFlex="50%" class="mt5">
+                    <div *ngFor='let employee of listOfVotersConfirmaed'>
+                        {{employee?.name}} {{employee?.lastName}}
+                    </div>
+                </div>
+                <div fxFlex="50%" class="mt5">
+                    <div *ngFor='let employee of listOfVotersDeclined'>
+                        {{employee?.name}} {{employee?.lastName}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </mat-dialog-content>
     <div fxLayout="row" fxLayoutAlign="end end">
         <button mat-button mat-dialog-close class="btn" (click)="onNoClick()">Cancel</button>

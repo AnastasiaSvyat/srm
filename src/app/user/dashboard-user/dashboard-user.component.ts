@@ -15,6 +15,11 @@ import { UploadPhotoService } from 'src/app/services/uploadPhoto/upload-photo.se
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Overlay } from '@angular/cdk/overlay';
+import { UserAddTaskComponent } from '../user-add-task/user-add-task.component';
+import { ToDoList } from 'src/app/model/ToDoList';
+import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserUpdatePasswordComponent } from '../user-update-password/user-update-password.component';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -34,6 +39,14 @@ export class DashboardUserComponent implements OnInit {
   cvForm!: FormGroup;
   docPDF!: any;
   urlCV!: string;
+  nextVacation!: Request;
+  toDoListToday: ToDoList[] = [];
+  toDoListWeek: ToDoList[] = [];
+  toDoListTomorrow: ToDoList[] = [];
+  isChecked!: boolean;
+  duration = 5000;
+  today = new Date();
+
 
   constructor(
     public dialog: MatDialog,
@@ -43,7 +56,10 @@ export class DashboardUserComponent implements OnInit {
     private requestService: RequestService,
     private uploadPhotoService: UploadPhotoService,
     private auth: AuthService,
-    private eventService: EventService) {
+    private eventService: EventService,
+    private taskService: ToDoListService,
+    private snackBar: MatSnackBar
+    ) {
   }
 
   ngOnInit(): void {
@@ -58,6 +74,7 @@ export class DashboardUserComponent implements OnInit {
     this.getVacationsPlanned();
     this.getEventMonth();
     this.getPhotoEmployee();
+    this.getAllTask();
   }
 
   getEmployeeById() {
@@ -65,6 +82,22 @@ export class DashboardUserComponent implements OnInit {
       .subscribe((res) => {
         this.employee = res;
       });
+  }
+
+  
+  updatePassword() {
+    const dialogRef = this.dialog.open(UserUpdatePasswordComponent, {
+      width: '398px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '321px',
+      height: 'auto',
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+      }
+    });
   }
 
   getPhotoEmployee() {
@@ -79,10 +112,11 @@ export class DashboardUserComponent implements OnInit {
 
   addNewInfo(employee: Employee): void {
     const dialogRef = this.dialog.open(AddInfoUserComponent, {
-      width: '398px',
+      width: '458px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '298px',
+      minHeight: '398px',
       height: 'auto',
+      disableClose: true,
       data: {
         updateEmployee: employee,
       }
@@ -101,6 +135,7 @@ export class DashboardUserComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '680px',
       height: 'auto',
+      disableClose: true,
       data: {
         head: 'Edit user:',
         btn: 'SAVE',
@@ -113,6 +148,8 @@ export class DashboardUserComponent implements OnInit {
         this.employee = result;
         this.getUploadFile();
         this.getPhotoEmployee();
+        this.getUploadFile();
+      }else{
         this.getUploadFile();
       }
     });
@@ -132,8 +169,10 @@ export class DashboardUserComponent implements OnInit {
 
   getCV() {
     this.uploadFileService.getUplFileById(this.employee)
-      .subscribe((result) => {
-        this.urlCV = result.imagePath;
+      .subscribe((res) => {
+        if (res != null){
+          this.urlCV = res.imagePath;
+        }
         const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
         this.docPDF = window.open();
         this.docPDF.document.write(iframe);
@@ -144,6 +183,11 @@ export class DashboardUserComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.urlCV = reader.result as string;
+      };
+      reader.readAsDataURL(file);
       this.cvForm.patchValue({ cv: file });
       this.cvForm.patchValue({ name: file.name });
       this.uploadFileName = file.name;
@@ -172,6 +216,7 @@ export class DashboardUserComponent implements OnInit {
     this.requestService.ConfirmRequestByIdLater(this.employee)
       .subscribe((res) => {
         this.vacationPlannedList = res;
+        this.nextVacation = this.vacationPlannedList[0];
       });
   }
 
@@ -187,5 +232,96 @@ export class DashboardUserComponent implements OnInit {
             });
           });
       });
+  }
+
+  addTask(): void {
+    const dialogRef = this.dialog.open(UserAddTaskComponent, {
+      width: '398px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '361px',
+      height: 'auto',
+      disableClose: true,
+      data: { head: 'Add task:', btn: 'ADD', eventData: '' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getAllTask();
+      }
+    });
+  }
+
+  onChange($event: any, task: any) {
+    this.isChecked = $event.checked;
+    task.select = this.isChecked;
+    if (this.isChecked) {
+      this.taskService.DeleteTask(task._id)
+        .subscribe((res) => {
+          console.log(res);
+        });
+    } else {
+      this.taskService.AddTask(task)
+        .subscribe((res) => {
+          console.log(res);
+        });
+    }
+  }
+
+  deleteTask(event: any) {
+    this.taskService.DeleteTask(event._id)
+      .subscribe((res) => {
+        this.getAllTask();
+        this.snackBar.open('Task has been deleted!', '', {
+          duration: this.duration
+        });
+      }, (err) => {
+        this.snackBar.open('ERROR! Try again.', '', {
+          duration: this.duration
+        });
+      });
+  }
+
+  getAllTask() {
+    this.getTaskDay();
+    this.getTaskWeek();
+    this.getTaskTomorrow();
+  }
+
+  getTaskDay() {
+    this.taskService.GetAllTaskDate(this.employee)
+      .subscribe((res) => {
+        this.toDoListToday = res;
+      });
+  }
+
+
+  getTaskWeek() {
+    this.taskService.GetAllTaskWeek(this.employee)
+      .subscribe((res) => {
+        this.toDoListWeek = res;
+      });
+  }
+
+  getTaskTomorrow() {
+    this.taskService.GetAllTaskTomorrow(this.employee)
+      .subscribe((res) => {
+        this.toDoListTomorrow = res;
+      });
+  }
+
+
+  updateTask(event: ToDoList): void {
+    const dialogRef = this.dialog.open(UserAddTaskComponent, {
+      width: '398px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '361px',
+      height: 'auto',
+      disableClose: true,
+      data: { head: 'Edit task:', btn: 'EDIT', eventData: event }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getAllTask();
+      }
+    });
   }
 }

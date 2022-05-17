@@ -7,6 +7,7 @@ import { Events } from 'src/app/model/Events';
 import { Employee } from 'src/app/model/Employee';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Overlay } from '@angular/cdk/overlay';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-admin-calendar',
@@ -23,18 +24,28 @@ export class AdminCalendarComponent implements OnInit {
   eventsPlannedLater: Events[] = [];
   duration = 5000;
 
+  employee!: Employee;
+
   constructor(
     public dialog: MatDialog,
     private eventService: EventService,
     private employeeService: EmployeeService,
     private snackBar: MatSnackBar,
-    private overlay: Overlay) {
+    private overlay: Overlay,
+    private auth: AuthService,
+    ) {
   }
 
   ngOnInit(): void {
     this.selectedDate = new Date();
     this.onSelect(this.selectedDate);
     this.getPlannedEvent();
+
+    this.employee = this.auth.user;
+    this.employeeService.GetEmployee(this.employee.id)
+      .subscribe((res) => {
+        this.employee = res;
+      });
   }
 
   onSelect(event: any) {
@@ -91,27 +102,77 @@ export class AdminCalendarComponent implements OnInit {
       width: '398px',
       minHeight: '491px',
       height: 'auto',
+      disableClose: true,
       data: { head: 'Add event:', btn: 'ADD', eventData: '' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.eventService.AddEvent(result)
-          .subscribe((res) => {
-            this.snackBar.open('Congratulations! Event has been added!', '', {
-              duration: this.duration
-            });
+        // this.eventService.AddEvent(result)
+        //   .subscribe((res) => {
+        //     this.snackBar.open('Congratulations! Event has been added!', '', {
+        //       duration: this.duration
+        //     });
             this.resetResults();
             this.getPlannedEvent();
             this.getEventSelectDate();
-          }, (err) => {
-            this.snackBar.open('Event was not added!', '', {
-              duration: this.duration
-            });
-          }
-          );
+          // }, (err) => {
+          //   this.snackBar.open('Event was not added!', '', {
+          //     duration: this.duration
+          //   });
+          // }
+          // );
       }
     });
   }
+
+
+  actionEvent(action: boolean, event: any) {
+    if (action) {
+      event.confirm.push(this.employee.id);
+      if (event.decline.indexOf(this.employee.id) !== -1) {
+        event.decline.splice(event.decline.indexOf(this.employee.id), 1);
+      }
+    } else {
+      event.decline.push(this.employee.id);
+      if (event.confirm.indexOf(this.employee.id) !== -1) {
+        event.confirm.splice(event.confirm.indexOf(this.employee.id), 1);
+      }
+    }
+    this.eventService.UpdateEvent(event._id, event)
+      .subscribe((res) => {
+        // console.log(res);
+      });
+  }
+
+  getConfirm(item: Events): any {
+    if (item.confirm.includes(this.employee.id)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getDecline(item: Events): any {
+    if (item.decline.includes(this.employee.id)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  editChoose(event: any) {
+    if (event.decline.indexOf(this.employee.id) !== -1) {
+      event.decline.splice(event.decline.indexOf(this.employee.id), 1);
+    }
+    if (event.confirm.indexOf(this.employee.id) !== -1) {
+      event.confirm.splice(event.confirm.indexOf(this.employee.id), 1);
+    }
+    this.eventService.UpdateEvent(event._id, event)
+      .subscribe((res) => {
+        // console.log(res);
+      });
+  }
+
 
   resetResults() {
     this.eventSelectedDate = [];

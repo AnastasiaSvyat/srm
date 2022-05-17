@@ -1,0 +1,132 @@
+<div class="admin-log-time-container h100 mt30">
+    <div class="col-md-8">
+      <div fxLayout="row" class="mb-3 ml8">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input matInput type="text" class="form-control" placeholder="Search by employee name..."
+            [formControl]="searchByName" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="w100 mt44" fxLayout="row" fxLayoutAlign="center center">
+        <span class="fs36 blue">{{currentMonth}}</span>
+        <span *ngIf='standartHour' class="ml16 blue fs30"> {{standartHour.time}} hours</span>
+        <span *ngIf='standartHour' class="changepass ml16" (click)='updateHours(standartHour)'>change hours</span>
+        <span *ngIf='!standartHour'>
+            <div (click)='addStandartMonthHours()' class="changepass ml16">add hours</div>
+        </span>
+    </div>
+    <div>
+
+    <mat-table [dataSource]="staffList" class="mat-elevation-z8 margin-auto mt20">
+
+      <ng-container matColumnDef="photo">
+        <mat-header-cell *matHeaderCellDef fxFlex="10%" class="displayNone"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="10%" class="displayNone">
+          <div class="sizePhotoStaffList">
+            <img [src]="getEmployeePhoto(element.id)" />
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef fxFlex="30%"> EMPLOYEE </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="50%">
+          <span class="mobile-label fontColorBlue">{{element?.name | uppercase}}</span>
+          <cdk-virtual-scroll-viewport itemSize="1" class="viewport displayNone">
+            <p class="overflow-ellipsis">
+              {{element?.name}} {{element?.lastName}}
+            </p>
+          </cdk-virtual-scroll-viewport>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="workTime">
+        <mat-header-cell *matHeaderCellDef fxFlex="15%"> WORKTIME </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="15%"> 
+          <span class="mobile-label fontColorBlue">WORKTIME: </span>
+          <span class="ml24">{{workTime(element.id)}}</span>
+        </mat-cell>
+      </ng-container>
+     
+      <ng-container matColumnDef="salary">
+        <mat-header-cell *matHeaderCellDef fxFlex="15%"> SALARY </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="15%">
+          <span class="mobile-label fontColorBlue">SALARY:</span>
+          <span class="ml6">{{element?.salary}}$</span>
+        </mat-cell>
+      </ng-container>
+      
+      <!-- <ng-container matColumnDef="dayOff">
+        <mat-header-cell *matHeaderCellDef fxFlex="15%"> EMERGENCY DAY </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="15%">
+          <span class="mobile-label fontColorBlue">EMERGENCY DAY: </span>
+          <span class="ml6">{{emergencyDay(element.id)}}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="dayOff">
+        <mat-header-cell *matHeaderCellDef fxFlex="15%"> SICK LEAVES </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="15%">
+          <span class="mobile-label fontColorBlue">SICK LEAVES : </span>
+          <span class="ml6">{{sickLeavesDay(element.id)}}</span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="dayOff">
+        <mat-header-cell *matHeaderCellDef fxFlex="15%"> DAY OFF </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="15%">
+          <span class="mobile-label fontColorBlue">DAY OFF: </span>
+          <span class="ml6">{{dayOff(element.id)}}</span>
+        </mat-cell>
+      </ng-container>-->
+
+      <!-- <ng-container matColumnDef="dayOff">
+        <mat-header-cell *matHeaderCellDef fxFlex="15%"> DayOff </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="15%">
+          <span class="mobile-label fontColorBlue">VACATION: </span>
+          <span class="ml12">{{dayOff(element.id)}}</span>
+        </mat-cell>
+      </ng-container>  -->
+
+      <ng-container matColumnDef="sum">
+        <mat-header-cell *matHeaderCellDef fxFlex="15%"> SUM </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="15%"> 
+          <span class="mobile-label fontColorBlue">SUM: </span>
+          <span class="ml12">{{workTimeSum(element?.id, element?.salary)}}</span>
+        </mat-cell>
+      </ng-container>
+
+<!--    
+      <ng-container matColumnDef="about">
+        <mat-header-cell *matHeaderCellDef fxFlex="5%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="5%">
+          <div class="w100" fxLayout="row">
+            <button mat-button (click)="aboutUser(element)" class="underline">about</button>
+            <button class="ml24 mobile-label" (click)="getCV(element)" mat-button>CV</button>
+            <button mat-button (click)="editUser(element)" class="underline mobile-label">change log</button>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="cv">
+        <mat-header-cell *matHeaderCellDef class="displayNone" fxFlex="5%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" class="displayNone" fxFlex="5%">
+          <button class="ml24" (click)="getCV(element)" mat-button>CV</button>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="change">
+        <mat-header-cell *matHeaderCellDef class="displayNone" fxFlex="9%"></mat-header-cell>
+        <mat-cell *matCellDef="let element" class="displayNone" fxFlex="12%">
+          <button mat-button (click)="editUser(element)" class="underline">change log</button>
+        </mat-cell>
+      </ng-container> -->
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row fxLayout="column" fxLayout.gt-md="row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <div fxLayoutAlign="center center" class="col-md-12 staff-paginator mt7 mr25">
+      <mat-paginator [length]="count" [pageSize]="pageSize" [showFirstLastButtons]="true"
+        (page)="handlePageChange($event)">
+      </mat-paginator>
+    </div>
+  </div>
+  

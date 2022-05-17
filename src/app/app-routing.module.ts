@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
 import { AppRoutingGuard } from './routing/app-routing.guard';
 
 
@@ -21,11 +22,18 @@ const routes: Routes = [
         canLoad: [AppRoutingGuard],
         canActivate: [AppRoutingGuard],
       },
+      // {
+      //   path: '',
+      //   redirectTo: '',
+      //   pathMatch: 'full',
+      //   canActivate: [AppRoutingGuard],
+      // },
       {
-        path: '',
+        path: 'sign-in',
         redirectTo: '',
-        pathMatch: 'full'
-      },
+        component: AppComponent,
+        canActivate: [AppRoutingGuard],
+    },
     ]
   },
 ];

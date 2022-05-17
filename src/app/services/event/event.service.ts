@@ -30,7 +30,7 @@ export class EventService {
   }
 
   GetSelectEvents(selectDate: any): Observable<Events[]> {
-    selectDate = moment(selectDate).format('YYYY-MM-DD');
+    selectDate = moment(selectDate).format('yyyy-MM-DD');
     const API_URL = `${this.careService.REST_API}/getEvent-Select/?date=${selectDate}`;
     return this.httpClient.get<Events[]>(API_URL);
   }
@@ -48,6 +48,22 @@ export class EventService {
   UpdateEvent(id: string, event: Events): Observable<Events> {
     const API_URL = `${this.careService.REST_API}/update-event/${id}`;
     return this.httpClient.put<Events>(API_URL, event, { headers: this.careService.httpHeaders })
+      .pipe(
+        catchError(this.careService.handleError)
+      );
+  }
+
+  getEvents(): Observable<Events[]> {
+    const API_URL = `${this.careService.REST_API}/events`;
+    return this.httpClient.get<Events[]>(API_URL)
+      .pipe(
+        catchError(this.careService.handleError)
+      );
+  }
+
+  getEventById(id: string): Observable<Events> {
+    const API_URL = `${this.careService.REST_API}/event/${id}`;
+    return this.httpClient.get<Events>(API_URL)
       .pipe(
         catchError(this.careService.handleError)
       );

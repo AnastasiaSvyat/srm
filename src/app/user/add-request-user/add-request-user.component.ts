@@ -4,6 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RequestService } from 'src/app/services/request/request.service';
 import { Request } from 'src/app/model/Request';
+import { EmployeeService } from 'src/app/services/employee/employee.service';
+import { CountServiceService } from 'src/app/services/countReq/count-service.service';
+import { CountRequest } from 'src/app/model/countRequest';
 
 @Component({
   selector: 'app-add-request-user',
@@ -20,13 +23,13 @@ export class AddRequestUserComponent implements OnInit {
     public dialogRef: MatDialogRef<AddRequestUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public requestService: RequestService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private countRequestService: CountServiceService,
   ) { }
 
   ngOnInit(): void {
     this.requestForm = new FormGroup({
       idEmployee: new FormControl(this.data.employee.id),
-      name: new FormControl(this.data.employee.name),
       type: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
       endDate: new FormControl('', [Validators.required]),
@@ -36,6 +39,7 @@ export class AddRequestUserComponent implements OnInit {
       month: new FormControl(''),
       id: new FormControl('')
     });
+
   }
 
   get type() { return this.requestForm.get('type'); }

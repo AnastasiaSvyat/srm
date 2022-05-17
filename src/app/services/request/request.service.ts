@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { RequestHelper } from 'src/app/helpers/requestHelper';
 import { Employee } from 'src/app/model/Employee';
 import { Request } from 'src/app/model/Request';
 import { CareService } from '../care/care.service';
@@ -11,6 +12,8 @@ import { CareService } from '../care/care.service';
 })
 
 export class RequestService {
+
+  type!: any;
 
   constructor(
     private httpClient: HttpClient,
@@ -54,6 +57,17 @@ export class RequestService {
       );
   }
 
+  ConfirmRequestVacation(id: number): Observable<Request[]> {
+      this.type = RequestHelper[id]
+    const API_URL = `${this.careService.REST_API}/true-request-vacation`;
+    return this.httpClient.get<Request[]>(API_URL, { params: { confirm: 'true', type: this.type } })
+      .pipe(map((res: any) => {
+        return res || {};
+      }),
+        catchError(this.careService.handleError)
+      );
+  }
+
   GetRequestConfirmMonth(): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/trueRequest-month`;
     return this.httpClient.get<Request[]>(API_URL, { params: { confirm: 'true' } });
@@ -76,6 +90,16 @@ export class RequestService {
 
   ConfirmRequestByIdLater(employee: Employee): Observable<Request[]> {
     const API_URL = `${this.careService.REST_API}/trueRequestEmployee-Later/?idEmployee=${employee.id}`;
+    return this.httpClient.get<Request[]>(API_URL, { params: { confirm: 'true' } })
+      .pipe(map((res: any) => {
+        return res || {};
+      }),
+        catchError(this.careService.handleError)
+      );
+  }
+
+  ConfirmRequestById(employeeId: number | string): Observable<Request[]> {
+    const API_URL = `${this.careService.REST_API}/trueRequest-monthbyId/?idEmployee=${employeeId}`;
     return this.httpClient.get<Request[]>(API_URL, { params: { confirm: 'true' } })
       .pipe(map((res: any) => {
         return res || {};

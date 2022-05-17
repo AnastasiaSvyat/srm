@@ -13,7 +13,8 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   public user!: any;
-  private userSubject: BehaviorSubject<any>;
+  public employee!: Employee;
+  public userSubject: BehaviorSubject<any>;
 
   constructor(
     private httpClient: HttpClient,
@@ -21,6 +22,7 @@ export class AuthService {
     private careService: CareService) {
     this.userSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('user') || 'null'));
   }
+
 
   isAuthorized() {
     this.user = this.userSubject.value;
@@ -31,6 +33,18 @@ export class AuthService {
     localStorage.removeItem('user');
     this.userSubject.next(null);
     this.router.navigate(['/']);
+    // this.removeTokensFromStorage();
+    // this.user = undefined;
+    this.router.navigate(['/sign-in'])
+  }
+
+  public removeTokensFromStorage() {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+}
+
+  getEmployee(){
+    this.employee =  this.userSubject.value
   }
 
   hasRole(role: Role) {

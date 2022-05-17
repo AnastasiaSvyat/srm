@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Employee } from 'src/app/model/Employee';
 import { ToDoList } from 'src/app/model/ToDoList';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
 
 @Component({
@@ -18,14 +19,18 @@ export class AddTaskComponent implements OnInit {
   employee!: Employee;
   today = new Date();
   duration = 5000;
+  staffList!: Employee[];
 
   constructor(
     public dialogRef: MatDialogRef<AddTaskComponent>,
     @Inject(MAT_DIALOG_DATA) public dataTask: any,
     private authService: AuthService,
     private taskService: ToDoListService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private employeeService: EmployeeService,
+    ) {
     this.employee = this.authService.user;
+    this.initStaff();
   }
 
   ngOnInit(): void {
@@ -60,7 +65,7 @@ export class AddTaskComponent implements OnInit {
     this.taskService.AddTask(result)
       .subscribe(() => {
         this.dialogRef.close(result);
-        this.snackBar.open('Congratulations! Event has been added!', '', {
+        this.snackBar.open('Congratulations! Task has been added!', '', {
           duration: this.duration
         });
       }, (err) => {
@@ -70,11 +75,18 @@ export class AddTaskComponent implements OnInit {
       });
   }
 
+  initStaff(){
+    this.employeeService.GetStaff()
+    .subscribe((res) => {
+      this.staffList = res;
+    });
+  }
+
   updateTask(result: ToDoList) {
     this.taskService.UpdateTask(result.id, result)
       .subscribe((res) => {
         this.dialogRef.close(result);
-        this.snackBar.open('Congratulations! Employee has been changed!', '', {
+        this.snackBar.open('Congratulations! Task has been changed!', '', {
           duration: this.duration
         });
       }, (err) => {

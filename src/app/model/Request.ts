@@ -9,4 +9,5 @@ export class Request {
     decline!: boolean;
     name!: string;
     month!: string;
+    endMonth!: string;
 }

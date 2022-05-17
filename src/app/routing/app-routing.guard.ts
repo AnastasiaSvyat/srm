@@ -14,7 +14,7 @@ export class AppRoutingGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.authService.isAuthorized()) {
-      if (localStorage.get('token')) {
+      if (localStorage.getItem('token')) {
         return true;
       }
       else {

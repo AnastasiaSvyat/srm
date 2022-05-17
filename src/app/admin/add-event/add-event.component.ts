@@ -23,7 +23,8 @@ export class AddEventComponent implements OnInit {
     private eventService: EventService,
     private snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public formBuilder: FormBuilder) { }
+    public formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
     this.eventForm = new FormGroup({
@@ -44,7 +45,7 @@ export class AddEventComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getEvent(event: Events){
+  getEvent(event: Events) {
     if (event) {
       if (this.data.btn === 'ADD') {
         this.addEvent(event);
@@ -71,19 +72,17 @@ export class AddEventComponent implements OnInit {
     }
   }
 
-  updateEvent(event: Events){
-    console.log(event);
+  updateEvent(event: Events) {
     this.eventService.UpdateEvent(event.id, event)
-    .subscribe(() => {
-      this.dialogRef.close(event);
-      this.snackBar.open('Congratulations! Event has been changed!', '', {
-        duration: this.duration
+      .subscribe(() => {
+        this.dialogRef.close(event);
+        this.snackBar.open('Congratulations! Event has been changed!', '', {
+          duration: this.duration
+        });
+      }, (err) => {
+        this.snackBar.open('ERROR! Try again.', '', {
+          duration: this.duration
+        });
       });
-    }, (err) => {
-      this.snackBar.open('ERROR! Try again.', '', {
-        duration: this.duration
-      });
-    });
-
   }
 }

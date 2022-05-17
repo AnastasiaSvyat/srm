@@ -1,10 +1,12 @@
 export class Employee {
     id!: string;
     name!: string;
+    lastName!: string;
     email!: string;
     position!: string;
     date!: string;
     skype!: string;
+    startDate!: string;
     dateWithOutYear!: string;
     salary!: number;
     password!: number;

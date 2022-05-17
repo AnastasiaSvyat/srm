@@ -1,20 +1,15 @@
-.container_right{
-    height: 49.6rem;
-}
 label{
     display: block;
   }
 .active{
     text-decoration: line-through;
 }
-.viewport{
-    height: 35.8rem;
-}
-.viewportTodolist,.dashboard-content{
-    height: 43rem;
+.dashboard-content{
+    height: 95%;
 }
 .todolistLater{
     height: 50px;
+    background-color: royalblue;
 }
 span{ 
     white-space: normal !important; 
@@ -26,4 +21,15 @@ span{
 .viewport {
     height: 36rem;
     width: 100%;
+}
+
+@media screen and (max-width: 650px) {
+    .viewport{
+        height: 16rem;
+    }
+}
+@media screen and (min-width: 600px) and (max-width: 650px) {
+    .mt98{
+        margin-top: 98px;
+    }
 }

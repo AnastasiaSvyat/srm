@@ -1,0 +1,30 @@
+.user-photo{
+    border: 3px solid white ;
+    border-radius: 50%;
+    width: 49px;
+    height: 49px;
+}
+.circle-sms{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    line-height: 16px; 
+    text-align: center;  
+    background: #12B2C6;
+    font-size: 8px;
+    position: fixed;
+    color: white;
+}
+.activeLink{
+    background-color: rgb(201, 232, 247);
+    width: 60px;
+    height: 60px;
+    color: rgb(14, 66, 66);
+}
+.activeLink mat-icon{
+    color: rgb(68, 181, 209);
+}
+mat-icon{
+    color: rgb(167, 176, 177);
+    transform: scale(1.5);
+}

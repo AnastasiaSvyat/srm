@@ -1,47 +1,63 @@
-<div class="user-staff-container h100">
+<div class="user-staff-container h100 mt30">
   <mat-table [dataSource]="staffList" class="mat-elevation-z8 margin-auto mt16">
     <ng-container matColumnDef="photo">
-      <mat-header-cell *matHeaderCellDef fxFlex="5%"></mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="5%">
+      <mat-header-cell *matHeaderCellDef fxFlex="9%" class="displayNone"></mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="5%" class="displayNone">
         <div class="sizePhotoStaffList">
           <img [src]="getEmployeePhoto(element.id)" />
         </div>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef fxFlex="15%"> EMPLOYEE </mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="14%">
-        <cdk-virtual-scroll-viewport itemSize="1" class="viewport">
+      <mat-header-cell *matHeaderCellDef fxFlex="11%"> EMPLOYEE </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="14.6%">
+        <span class="mobile-label word-break fontColorBlue">{{element?.name | uppercase}}</span>
+        <cdk-virtual-scroll-viewport itemSize="1" class="viewport displayNone">
           <p class="overflow-ellipsis">
-            {{element.skype}}
+            {{element?.name}} {{element?.lastName}}
           </p>
         </cdk-virtual-scroll-viewport>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef fxFlex="15%"> POSITION </mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="15%"> {{element.position}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="13%"> POSITION </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="13%">
+        <span class="mobile-label fontColorBlue">POSITION: </span>
+        <span class="ml6">{{element?.position}}</span>
+      </mat-cell>
     </ng-container>
     <ng-container matColumnDef="birthday">
       <mat-header-cell *matHeaderCellDef fxFlex="10%"> BIRTH DATE </mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="10%"> {{element.date | date:"dd.MM.yy"}} </mat-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10%">
+        <span class="mobile-label fontColorBlue">BIRTH DATE: </span>
+        <span class="ml6">{{element?.date | date:"dd.MM.yyyy"}}</span>
+      </mat-cell>
     </ng-container>
     <ng-container matColumnDef="phone">
-      <mat-header-cell *matHeaderCellDef fxFlex="15%"> PHONE </mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="14%"> {{element.phone}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef fxFlex="12%"> PHONE </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="12.1%">
+        <span class="mobile-label fontColorBlue">PHONE: </span>
+        <span class="ml6">{{element?.phone}}</span>
+      </mat-cell>
     </ng-container>
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef fxFlex="15%"> EMAIL </mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="10%">
-        <p class="overflow-ellipsis">
-          {{element.email}}
-        </p>
+      <mat-cell *matCellDef="let element" fxFlex="15.1%">
+        <span class="mobile-label fontColorBlue">EMAIL: </span>
+        <span class="ml6 word-break mobile-label">{{element?.email}}</span>
+        <cdk-virtual-scroll-viewport itemSize="1" class="viewport displayNone w90">
+          <p class="overflow-ellipsis displayNone">
+            {{element.email}}
+          </p>
+        </cdk-virtual-scroll-viewport>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="skype">
       <mat-header-cell *matHeaderCellDef fxFlex="15%"> SKYPE </mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="15%">
-        <cdk-virtual-scroll-viewport itemSize="1" class="viewport">
+      <mat-cell *matCellDef="let element" fxFlex="15.1%">
+        <span class="mobile-label fontColorBlue">SKYPE: </span>
+        <span class="ml6 word-break mobile-label">{{element?.skype}}</span>
+        <cdk-virtual-scroll-viewport itemSize="1" class="viewport displayNone w90">
           <p class="overflow-ellipsis">
             {{element.skype}}
           </p>
@@ -50,12 +66,13 @@
     </ng-container>
     <ng-container matColumnDef="about">
       <mat-header-cell *matHeaderCellDef fxFlex="10%"></mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="10%">
+      <mat-cell *matCellDef="let element" fxFlex="10%" class="ml24">
+        <span class="mobile-label fontColorBlue">ABOUT EMPLOYEE: </span>
         <button mat-button (click)="aboutUser(element)" class="underline">about</button>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row fxLayout="column" fxLayout.gt-md="row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
   <div fxLayoutAlign="center center" class="col-md-12 staff-paginator mt7 mr25">
     <mat-paginator [length]="count" [pageSize]="pageSize" [showFirstLastButtons]="true"
