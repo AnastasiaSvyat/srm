@@ -9,7 +9,11 @@
             <span class="sizePhotoStaffList">
               <img [src]="getEmployeePhoto(element?.idEmployee)">
             </span>
+<<<<<<< HEAD
             <span class="ml8">{{getEmployee(element?.idEmployee)}}</span>
+=======
+            <span class="ml8">{{element?.name}}</span>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="type">
@@ -18,8 +22,13 @@
         </ng-container>
         <ng-container matColumnDef="date">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
+<<<<<<< HEAD
           <mat-cell *matCellDef="let element" fxFlex="15%"> {{element?.date | date:"dd.MM.yyyy"}} - {{element?.endDate |
             date:"dd.MM.yyyy"}}
+=======
+          <mat-cell *matCellDef="let element" fxFlex="15%"> {{element?.date | date:"dd.MM.yy"}} - {{element?.endDate |
+            date:"dd.mm.yy"}}
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="description">
@@ -60,7 +69,11 @@
             <span class="sizePhotoStaffList">
               <img [src]="getEmployeePhoto(element?.idEmployee)">
             </span>
+<<<<<<< HEAD
             <span class="ml8">{{getEmployee(element?.idEmployee)}}</span>
+=======
+            <span class="ml8">{{element?.name}}</span>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="type">
@@ -69,8 +82,13 @@
         </ng-container>
         <ng-container matColumnDef="date">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
+<<<<<<< HEAD
           <mat-cell *matCellDef="let element" fxFlex="15%"> {{element?.date | date:"dd.MM.yyyy"}} - {{element?.endDate |
             date:"dd.MM.yyyy"}} </mat-cell>
+=======
+          <mat-cell *matCellDef="let element" fxFlex="15%"> {{element?.date | date:"dd.MM.yy"}} - {{element?.endDate |
+            date:"dd.MM.yy"}} </mat-cell>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
         </ng-container>
         <ng-container matColumnDef="confirmad">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>

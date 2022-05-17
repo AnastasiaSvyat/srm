@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <div class="calendar-container h100Adpt mt30" fxLayout="column">
+=======
+<div class="calendar-container h100Adpt" fxLayout="column">
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
   <!-- button -->
   <div fxLayout.gt-sm='row' fxLayout="column" fxFlex='100%' class="mb29 mt16">
     <div fxFlex.gt-sm='20%' fxFlex='100%' fxFlex.gt-xs='42%' fxLayout.gt-sm='column' fxLayout.gt-xs='row'
@@ -53,7 +57,11 @@
               <div *ngFor="let item of eventsPlannedToday" fxLayout="row" fxLayoutAlign="space-between center"
                 class="item mt7 eventPlannedStyle">
                 <div class="ml8">
+<<<<<<< HEAD
                   <span class="fontColorGrey fs14">{{item.date | date:'dd.MM.yyyy'}} </span>
+=======
+                  <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
                   <span class="fs14 fontRobotoBold"> {{item.name}}</span> -
                   <span class="fs14"> {{item.type}} event.</span>
                   <span class="fs14"> {{item?.description}}</span>
@@ -93,7 +101,11 @@
             <div *ngFor="let item of eventsPlannedMonth" class="item mt7 eventPlannedStyle" fxLayout="row"
               fxLayoutAlign="space-between center">
               <div class="ml8">
+<<<<<<< HEAD
                 <span class="fontColorGrey fs14">{{item.date | date:'dd.MM.yyyy'}} </span>
+=======
+                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
                 <span class="fs14 ml8 fontRobotoBold"> {{item.name}}</span> -
                 <span class="fs14"> {{item.type}} event.</span>
                 <span class="fs14"> {{item?.description}}</span>
@@ -132,7 +144,11 @@
             <div *ngFor="let item of eventsPlannedLater" class="item mt7 eventPlannedStyle" fxLayout="row"
               fxLayoutAlign="space-between center">
               <div class="ml8">
+<<<<<<< HEAD
                 <span class="fontColorGrey fs14">{{item.date | date:'dd.MM.yyyy'}} </span>
+=======
+                <span class="fontColorGrey fs14">{{item.date | date:'dd/MM'}} </span>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
                 <span class="fs14 fontRobotoBold ml8"> {{item.name}}</span> -
                 <span class="fs14"> {{item.type}} event.</span>
                 <span class="fs14"> {{item?.description}}</span>

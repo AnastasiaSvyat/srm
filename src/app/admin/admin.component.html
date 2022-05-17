@@ -39,8 +39,15 @@
         </div>
         <div fxFlex="6">
           <div>
+<<<<<<< HEAD
             <button (click)="logout()" routerLinkActive="activeLink" mat-icon-button>
               <mat-icon>exit_to_app</mat-icon>
+=======
+            <button mat-icon-button class="navbar-button" routerLinkActive="activeLink"
+              [routerLink]="['/admin','messageAdmin']">
+              <img src="/assets/img/msg.png" alt="">
+              <span *ngIf="requestCount !== 0" class="circle-sms">{{requestCount}}</span>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
             </button>
           </div>
         </div>
@@ -51,6 +58,12 @@
         <button class="menuTel" (click)="openBottomSheet()">
           <img src="../../assets/img/menu.png" alt="">
         </button>
+<<<<<<< HEAD
+=======
+      </div>
+      <div class="header pt11 w100" fxLayout="row" fxLayoutAlign="end center">
+        <div (click)='updatePassword()' class="changepass">change password</div>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
       </div>
       <router-outlet></router-outlet>
     </mat-drawer-content>

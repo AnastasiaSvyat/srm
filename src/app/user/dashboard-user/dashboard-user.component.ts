@@ -40,6 +40,7 @@ export class DashboardUserComponent implements OnInit {
   docPDF!: any;
   urlCV!: string;
   nextVacation!: Request;
+<<<<<<< HEAD
   toDoListToday: ToDoList[] = [];
   toDoListWeek: ToDoList[] = [];
   toDoListTomorrow: ToDoList[] = [];
@@ -47,6 +48,8 @@ export class DashboardUserComponent implements OnInit {
   duration = 5000;
   today = new Date();
 
+=======
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
 
   constructor(
     public dialog: MatDialog,
@@ -144,6 +147,7 @@ export class DashboardUserComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if (result) {
         this.employee = result;
         this.getUploadFile();
@@ -193,6 +197,7 @@ export class DashboardUserComponent implements OnInit {
       this.uploadFileName = file.name;
       this.uploadFileService.uploadFile(this.cvForm.value.name, this.cvForm.value.cv, this.employee.id)
         .subscribe((res: any) => {
+          console.log(res);
           this.getUploadFile();
         });
     }
@@ -227,8 +232,10 @@ export class DashboardUserComponent implements OnInit {
         this.emoloyeeService.GetEmplBirthMonth()
           .subscribe((result) => {
             this.birthMonthList = result;
+            console.log(this.birthMonthList);
             this.eventMonthList.forEach((element: any) => {
               this.birthMonthList.push(element);
+              console.log(this.birthMonthList);
             });
           });
       });

@@ -30,6 +30,7 @@
                 <span *ngIf="name?.errors?.required">Name is required.</span>
             </mat-error>
         </mat-form-field>
+<<<<<<< HEAD
 
         <mat-form-field>
             <mat-label>Last name</mat-label>
@@ -39,6 +40,8 @@
             </mat-error>
         </mat-form-field>
 
+=======
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
         <mat-form-field>
             <mat-label>Position</mat-label>
             <mat-select formControlName="position">
@@ -60,15 +63,25 @@
                 <mat-option value="Digital Marketing Manager">Digital Marketing Manager</mat-option>
                 <mat-option value="Humane Resource Business Partner">Humane Resource Business Partner</mat-option>
             </mat-select>
+            <mat-error *ngIf="position?.invalid && (position?.dirty || position?.touched)" class="helper-text red-text">
+                <span *ngIf="position?.errors?.required">Position is required.</span>
+            </mat-error>
         </mat-form-field>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
         <mat-form-field>
             <mat-label>Birthday</mat-label>
             <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date"
                 (focus)="picker.open()" (click)="picker.open()" readonly>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
+                <span *ngIf="date?.errors?.required">Birthday is required.</span>
+            </mat-error>
         </mat-form-field>
+<<<<<<< HEAD
 
         <mat-form-field>
             <mat-label>Salary</mat-label>
@@ -99,15 +112,37 @@
             <mat-error *ngIf="startDate?.invalid && (startDate?.dirty || startDate?.touched)" class="helper-text red-text">
                 <span *ngIf="startDate?.errors?.required">First day is required.</span>
             </mat-error>
+=======
+        <mat-form-field>
+            <mat-label>Salary</mat-label>
+            <input type="number" placeholder="Enter salary..." formControlName="salary" matInput />
+            <mat-error *ngIf="salary?.invalid && (salary?.dirty || salary?.touched)" class="helper-text red-text">
+                <span *ngIf="salary?.errors?.required">Salary is required.</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="dataUser.showLastPerf">
+            <mat-label>Last Performance</mat-label>
+            <input matInput formControlName="lastPerf" [matDatepicker]="pickerLastPerf"
+                placeholder="Choose your last performance" (focus)="pickerLastPerf.open()"
+                (click)="pickerLastPerf.open()" readonly>
+            <mat-datepicker-toggle matSuffix [for]="pickerLastPerf"></mat-datepicker-toggle>
+            <mat-datepicker #pickerLastPerf></mat-datepicker>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
         </mat-form-field>
 
         <mat-form-field>
             <mat-label>Phone</mat-label>
+<<<<<<< HEAD
             <input type="text" placeholder="Enter phone..." formControlName="phone" matInput />
             <mat-error *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="helper-text red-text">
                 <span *ngIf="phone?.errors?.pattern" class="error">
                     Only number.
                 </span>
+=======
+            <input type="tel" placeholder="Enter phone..." formControlName="phone" matInput />
+            <mat-error *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="helper-text red-text">
+                <span *ngIf="phone?.errors?.required">Phone is required.</span>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
             </mat-error>
         </mat-form-field>
         <mat-form-field>
@@ -118,7 +153,11 @@
             <mat-label>Email</mat-label>
             <input type="email" placeholder="pat@example.com" formControlName="email" matInput />
             <mat-error *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="helper-text red-text">
+<<<<<<< HEAD
                 <span *ngIf="email?.errors?.required">Email is required.</span>
+=======
+                <span *ngIf="email?.errors?.required">email is required.</span>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
                 <span *ngIf="email?.errors?.email">Enter correct email.</span>
             </mat-error>
         </mat-form-field>

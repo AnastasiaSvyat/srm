@@ -254,6 +254,21 @@ export class DashboardAdminComponent implements OnInit {
     });
   }
 
+  updatePassword(){
+    const dialogRef = this.dialog.open(AddTaskComponent, {
+      width: '398px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '361px',
+      height: 'auto',
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+      }
+    });
+  }
+
   updateTask(event: ToDoList): void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '398px',

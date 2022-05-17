@@ -138,6 +138,10 @@ export class UpdateUserComponent implements OnInit {
         if (res != null){
           this.urlCV = res.imagePath;
         }
+<<<<<<< HEAD
+=======
+        console.log(this.urlCV);
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
         const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
         this.docPDF = window.open();
         this.docPDF.document.write(iframe);
@@ -165,6 +169,10 @@ export class UpdateUserComponent implements OnInit {
         this.urlCV = reader.result as string;
       };
       reader.readAsDataURL(file);
+<<<<<<< HEAD
+=======
+      console.log(this.urlCV);
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
       this.cvForm.patchValue({ cv: file });
       this.cvForm.patchValue({ name: file.name });
       this.uploadFileName = file.name;

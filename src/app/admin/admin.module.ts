@@ -14,8 +14,11 @@ import { InfoAboutUserComponent } from './info-about-user/info-about-user.compon
 import { DescriptionEventComponent } from './description-event/description-event.component';
 import { AdminOpenMenuComponentComponent } from './admin-open-menu-component/admin-open-menu-component.component';
 import { AdminUpdatePasswordComponent } from './admin-update-password/admin-update-password.component';
+<<<<<<< HEAD
 import { AdminLogTimeComponent } from './admin-log-time/admin-log-time.component';
 import { AdminAddStandartHoursComponent } from './admin-add-standart-hours/admin-add-standart-hours.component';
+=======
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
 
 @NgModule({
   declarations: [
@@ -30,10 +33,14 @@ import { AdminAddStandartHoursComponent } from './admin-add-standart-hours/admin
     InfoAboutUserComponent,
     DescriptionEventComponent,
     AdminOpenMenuComponentComponent,
+<<<<<<< HEAD
     AdminUpdatePasswordComponent,
     AdminLogTimeComponent,
     AdminAddStandartHoursComponent,
 
+=======
+    AdminUpdatePasswordComponent
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
   ],
   imports: [
     CommonModule,

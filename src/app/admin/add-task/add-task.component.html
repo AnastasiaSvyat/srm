@@ -5,7 +5,11 @@
             <mat-label>Description</mat-label>
             <textarea placeholder="Enter description..." formControlName="task" name="description" matInput></textarea>
             <mat-error *ngIf="task?.invalid && (task?.dirty || task?.touched)">
+<<<<<<< HEAD
                 <span *ngIf="task?.errors?.required">Description is required.</span>
+=======
+                <span *ngIf="task?.errors?.required">Name is required.</span>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
             </mat-error>
         </mat-form-field>
         <mat-form-field>
@@ -16,6 +20,7 @@
             <mat-error *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
                 <span *ngIf="date?.errors?.required">Date is required.</span>
             </mat-error>
+<<<<<<< HEAD
         </mat-form-field>
 
         <mat-form-field class="w100">
@@ -25,6 +30,8 @@
                     {{employee.name}} {{employee.lastName}}
                 </mat-option>
             </mat-select>
+=======
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
             <div>

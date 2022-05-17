@@ -13,9 +13,12 @@ import { AddRequestUserComponent } from './add-request-user/add-request-user.com
 import { InfoAboutUserComponent } from './info-about-user/info-about-user.component';
 import { UserOpenMenuComponentComponent } from './user-open-menu-component/user-open-menu-component.component';
 import { UserUpdatePasswordComponent } from './user-update-password/user-update-password.component';
+<<<<<<< HEAD
 import { UserAddTaskComponent } from './user-add-task/user-add-task.component';
 import { UserLogTimeComponent } from './user-log-time/user-log-time.component';
 import { UserAddMonthLogTimeComponent } from './user-add-month-log-time/user-add-month-log-time.component';
+=======
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
 
 @NgModule({
   declarations: [
@@ -29,10 +32,14 @@ import { UserAddMonthLogTimeComponent } from './user-add-month-log-time/user-add
     AddRequestUserComponent,
     InfoAboutUserComponent,
     UserOpenMenuComponentComponent,
+<<<<<<< HEAD
     UserUpdatePasswordComponent,
     UserAddTaskComponent,
     UserLogTimeComponent,
     UserAddMonthLogTimeComponent
+=======
+    UserUpdatePasswordComponent
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
   ],
   imports: [
     CommonModule,

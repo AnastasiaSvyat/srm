@@ -20,11 +20,16 @@
     }
   
     100% {
+<<<<<<< HEAD
     dow: 0 0 0 4px rgba(7, 67, 145, 0.3);
+=======
+    box-shadow: 0 0 0 4px rgba(7, 67, 145, 0.3);
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
     }
   }
 .activeLink{
     background-color: rgb(201, 232, 247);
+<<<<<<< HEAD
     width: 60px;
     height: 60px;
     color: rgb(14, 66, 66);
@@ -36,3 +41,8 @@ mat-icon{
     color: rgb(167, 176, 177);
     transform: scale(1.5);
 }
+=======
+    width: 50px;
+    height: 50px;
+}
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191

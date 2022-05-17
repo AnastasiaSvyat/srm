@@ -31,8 +31,12 @@ export class AppComponent {
     public formBuilder: FormBuilder,
     public uplServ: UploadFileService,
     private authService: AuthService,
+<<<<<<< HEAD
     private snackBar: MatSnackBar,
     private location: Location
+=======
+    private snackBar: MatSnackBar
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
   ) {
     this.employeeLoginForm = this.formBuilder.group({
       email: [''],

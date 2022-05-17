@@ -1,4 +1,5 @@
 <div fxLayout="column" fxLayoutAlign="space-evenly center" class="h100pr w100">
+<<<<<<< HEAD
   <div fxFlex="100%">
     
     <div fxLayoutAlign="center center" class="mt20">
@@ -43,3 +44,50 @@
   
   </div>
 </div>
+=======
+    <div fxFlex="100%">
+      <div fxLayoutAlign="center center" class="mt20">
+        <button (click)="openLink($event)" mat-icon-button routerLinkActive="activeLink" [routerLink]="['/admin','dashboardAdmin']">
+          <img class="sizeDashboardImg" src="/assets/img/dashboardImg.png" alt="photo">
+        </button>
+        <span>PROFILE</span>
+      </div>
+      <div fxLayoutAlign="center center" class="mt20">
+        <button (click)="openLink($event)" mat-icon-button class="navbar-button" routerLinkActive="activeLink" [routerLink]="['/admin','stafflist']">
+          <img src="/assets/img/people.png" alt="">
+        </button>
+        <span>STAFF LIST</span>
+
+      </div>
+      <div fxLayoutAlign="center center" class="mt20">
+        <button (click)="openLink($event)" mat-icon-button class="navbar-button" routerLinkActive="activeLink" [routerLink]="['/admin','calendar']">
+          <img src="/assets/img/bag.png" alt=""><br>
+        </button>
+        <span>CALENDAR</span>
+
+      </div>
+      <div class="mt20">
+        <button (click)="openLink($event)" mat-icon-button class="navbar-button" routerLinkActive="activeLink"
+          [routerLink]="['/admin','messageAdmin']">
+          <img src="/assets/img/msg.png" alt="">
+          <span *ngIf="requestCount !== 0" class="circle-sms">{{requestCount}}</span>
+
+        </button>
+        <span>MESSAGE</span>
+
+      </div>
+      <div class="exitPhoto mt20">
+        <button (click)="openLink($event)" (click)="logout()" routerLinkActive="activeLink" mat-icon-button>
+          <img src="/assets/img/exit.svg" alt="">
+        <span>EXIT</span>
+
+        </button>
+
+      </div>
+     
+    </div>
+   
+   
+
+  </div>
+>>>>>>> d387566ec0979b27dffcb7e2bfa2d8adeff10191
