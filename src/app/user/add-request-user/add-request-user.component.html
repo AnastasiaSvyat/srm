@@ -34,9 +34,9 @@
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                     <mat-error *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)"
-                class="helper-text mr24 red-text">
-                <span *ngIf="endDate?.errors?.required">End date is required.</span>
-            </mat-error>
+                        class="helper-text mr24 red-text">
+                        <span *ngIf="endDate?.errors?.required">End date is required.</span>
+                    </mat-error>
                 </mat-form-field>
             </div>
         </div>

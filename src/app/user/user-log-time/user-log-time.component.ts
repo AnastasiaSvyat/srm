@@ -32,38 +32,38 @@ export class UserLogTimeComponent implements OnInit {
   ngOnInit(): void {
 
     this.employee = this.auth.user;
-    
+
     this.monthArr = MonthArr
     this.month = this.date.getMonth()
     this.logTimeByEmployeeId();
-   
+
   }
 
-  logTimeByEmployeeId(){
+  logTimeByEmployeeId() {
     this.logTimeService.LogTimeByEmployeeId(this.employee.id)
-    .subscribe((res) => {
-      this.monthArrWithHour = res
-    })
+      .subscribe((res) => {
+        this.monthArrWithHour = res
+      })
   }
 
-  logTimeSelectMonth(monthId: any){
+  logTimeSelectMonth(monthId: any) {
     const timeResult = this.monthArrWithHour.find(el => el.month === monthId);
-      return timeResult?.time ?? 'Add hours worked for a given month';
+    return timeResult?.time ?? 'Add hours worked for a given month';
   }
 
-  showBtn(monthId: any){
+  showBtn(monthId: any) {
     const timeResult = this.monthArrWithHour.find(el => el.month === monthId);
     return timeResult?.time ? false : true
   }
 
-  logTime(month: Month | undefined){
+  logTime(month: Month | undefined) {
     const dialogRef = this.dialog.open(UserAddMonthLogTimeComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '281px',
       height: 'auto',
       disableClose: true,
-      data: {month: month}
+      data: { month: month }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

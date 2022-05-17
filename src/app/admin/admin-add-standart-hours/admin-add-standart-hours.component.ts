@@ -34,12 +34,12 @@ export class AdminAddStandartHoursComponent implements OnInit {
   }
 
   get time() { return this.standartHourForm.get('time'); }
-  
-  onNoClick(){
+
+  onNoClick() {
     this.dialogRef.close();
   }
 
-  standartHour(hour: StandartHours){
+  standartHour(hour: StandartHours) {
     if (hour) {
       if (this.data.btn === 'ADD') {
         this.addStandartHours(hour);
@@ -50,32 +50,32 @@ export class AdminAddStandartHoursComponent implements OnInit {
     }
   }
 
-  addStandartHours(hour: StandartHours){
+  addStandartHours(hour: StandartHours) {
     this.standartHourService.AddStandartHours(hour)
-    .subscribe((res) => {
-      this.dialogRef.close(res);
-      this.snackBar.open('Congratulations! Hours has been added!', '', {
-        duration: this.duration
+      .subscribe((res) => {
+        this.dialogRef.close(res);
+        this.snackBar.open('Congratulations! Hours has been added!', '', {
+          duration: this.duration
+        });
+      }, (err) => {
+        this.snackBar.open('ERROR! Try again.', '', {
+          duration: this.duration
+        });
       });
-    }, (err) => {
-      this.snackBar.open('ERROR! Try again.', '', {
-        duration: this.duration
-      });
-    });
   }
 
-  updateStandartHours(hour: any){
+  updateStandartHours(hour: any) {
     this.standartHourService.UpdateStandartHours(hour.id, hour)
-    .subscribe((res) => {
-      this.dialogRef.close(res);
-      this.snackBar.open('Congratulations! Hours has been changed!', '', {
-        duration: this.duration
+      .subscribe((res) => {
+        this.dialogRef.close(res);
+        this.snackBar.open('Congratulations! Hours has been changed!', '', {
+          duration: this.duration
+        });
+      }, (err) => {
+        this.snackBar.open('ERROR! Try again.', '', {
+          duration: this.duration
+        });
       });
-    }, (err) => {
-      this.snackBar.open('ERROR! Try again.', '', {
-        duration: this.duration
-      });
-    });
   }
 
 }

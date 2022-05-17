@@ -4,9 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RequestService } from 'src/app/services/request/request.service';
 import { Request } from 'src/app/model/Request';
-import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { CountServiceService } from 'src/app/services/countReq/count-service.service';
-import { CountRequest } from 'src/app/model/countRequest';
 
 @Component({
   selector: 'app-add-request-user',
@@ -24,7 +22,6 @@ export class AddRequestUserComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public requestService: RequestService,
     private snackBar: MatSnackBar,
-    private countRequestService: CountServiceService,
   ) { }
 
   ngOnInit(): void {

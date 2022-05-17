@@ -1,8 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { Employee } from 'src/app/model/Employee';
@@ -37,13 +34,7 @@ export interface ParamsStaffPag {
 })
 export class AdminLogTimeComponent implements OnInit {
 
-  displayedColumns: string[] = ['photo', 'name', 'workTime', 'salary',
-  // 'dayOff',
-  //  'emergency', 'sickLeaves',
-  //   'dayOff', 'vacation', 
-    'sum'
-    // 'about', 'cv', 'change'
-  ];
+  displayedColumns: string[] = ['photo', 'name', 'workTime', 'salary', 'sum'];
 
   searchByName = new FormControl();
   private unsubscribe = new Subject();
@@ -65,7 +56,7 @@ export class AdminLogTimeComponent implements OnInit {
   month!: any
   currentMonth!: any
 
- 
+
 
 
   constructor(
@@ -101,9 +92,9 @@ export class AdminLogTimeComponent implements OnInit {
         }
       });
 
-      this.previousDate = moment().subtract(1, 'months').calendar();   
-      this.month = moment().subtract(1, 'months').format('MM');
-      this.currentMonth = moment().subtract(1, 'months').locale('en').format('MMMM')
+    this.previousDate = moment().subtract(1, 'months').calendar();
+    this.month = moment().subtract(1, 'months').format('MM');
+    this.currentMonth = moment().subtract(1, 'months').locale('en').format('MMMM')
   }
 
 
@@ -118,11 +109,11 @@ export class AdminLogTimeComponent implements OnInit {
   }
 
 
-  getStandartMonthHours(){
+  getStandartMonthHours() {
     this.standartHoursService.getStandartHours()
-    .subscribe((res) => {
-      this.standartHour = res;      
-    })
+      .subscribe((res) => {
+        this.standartHour = res;
+      })
   }
 
   workTimeSum(userId: string, salary: string) {
@@ -130,14 +121,14 @@ export class AdminLogTimeComponent implements OnInit {
     return reqResult ? Math.ceil(Number(salary) / this.standartHour?.time * reqResult?.time) + '$' : '-';
   }
 
-  addStandartMonthHours(){
+  addStandartMonthHours() {
     const dialogRef = this.dialog.open(AdminAddStandartHoursComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '281px',
       height: 'auto',
       disableClose: true,
-      data: {hours: '', btn: 'ADD'}
+      data: { hours: '', btn: 'ADD' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -146,14 +137,14 @@ export class AdminLogTimeComponent implements OnInit {
     });
   }
 
-  updateHours(hours: StandartHours){
+  updateHours(hours: StandartHours) {
     const dialogRef = this.dialog.open(AdminAddStandartHoursComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '281px',
       height: 'auto',
       disableClose: true,
-      data: {hours: hours, btn: 'SAVE'}
+      data: { hours: hours, btn: 'SAVE' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -164,16 +155,16 @@ export class AdminLogTimeComponent implements OnInit {
 
   getDayOffCurrentMonth() {
     this.countService.currentMonthRequest(this.month)
-    .subscribe((res) => {
-      this.dayOffList = res;
-    })
+      .subscribe((res) => {
+        this.dayOffList = res;
+      })
   }
 
-  getWorkTimeCurrentMonth(){
+  getWorkTimeCurrentMonth() {
     this.logTimeService.currentMonthRequestLogTime(this.month)
-    .subscribe((res) => {
-      this.workTimeList = res;
-    })
+      .subscribe((res) => {
+        this.workTimeList = res;
+      })
   }
 
   getPhotoEmployee() {
@@ -203,10 +194,10 @@ export class AdminLogTimeComponent implements OnInit {
 
   dayOff(userId: string) {
     const reqResult = this.dayOffList.find(req => req.idEmployee === userId);
-    return reqResult?.day? reqResult?.day + 'H' : '-';
+    return reqResult?.day ? reqResult?.day + 'H' : '-';
   }
 
- 
+
   handlePageChange(event: any): void {
     this.page = event.pageIndex;
     this.retrieveStaff();

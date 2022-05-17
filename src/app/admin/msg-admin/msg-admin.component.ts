@@ -113,7 +113,7 @@ export class MsgAdminComponent implements OnInit {
     this.requestService.UpdateRequest(elem._id, elem)
       .subscribe((res) => {
         console.log(res);
-        
+
         if (elem.confirm && elem.type == 'DayOff') {
           if (elem.month == elem.endMonth) {
             this.requestInOneMonth(elem)
@@ -204,7 +204,7 @@ export class MsgAdminComponent implements OnInit {
 
   UpdateCountRequest(elem: Request) {
     console.log(elem);
-    
+
     if (elem.month == elem.endMonth) {
       this.requestInOneMonth(elem);
     } else {
@@ -229,14 +229,14 @@ export class MsgAdminComponent implements OnInit {
           console.log(res);
         })
     }
-    if(elem.decline){
+    if (elem.decline) {
       this.declineRequest(elem);
-      
+
     }
   }
 
 
-  declineRequest(request: Request){
+  declineRequest(request: Request) {
     if (request.decline && request.type == 'Vacation') {
       this.logTimeVacationService.UpdateDeclineLogTimeCurrentVacationById({
         sickLeave: 0,
@@ -259,7 +259,5 @@ export class MsgAdminComponent implements OnInit {
         })
     }
   }
-
-
 
 }

@@ -59,7 +59,7 @@ export class DashboardUserComponent implements OnInit {
     private eventService: EventService,
     private taskService: ToDoListService,
     private snackBar: MatSnackBar
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -84,7 +84,7 @@ export class DashboardUserComponent implements OnInit {
       });
   }
 
-  
+
   updatePassword() {
     const dialogRef = this.dialog.open(UserUpdatePasswordComponent, {
       width: '398px',
@@ -150,7 +150,7 @@ export class DashboardUserComponent implements OnInit {
         this.getUploadFile();
         this.getPhotoEmployee();
         this.getUploadFile();
-      }else{
+      } else {
         this.getUploadFile();
       }
     });
@@ -171,7 +171,7 @@ export class DashboardUserComponent implements OnInit {
   getCV() {
     this.uploadFileService.getUplFileById(this.employee)
       .subscribe((res) => {
-        if (res != null){
+        if (res != null) {
           this.urlCV = res.imagePath;
         }
         const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';

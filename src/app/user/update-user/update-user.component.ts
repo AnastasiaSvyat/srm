@@ -135,7 +135,7 @@ export class UpdateUserComponent implements OnInit {
   getCV() {
     this.uploadFileService.getUplFileById(this.dataUser.updateEmployee)
       .subscribe((res) => {
-        if (res != null){
+        if (res != null) {
           this.urlCV = res.imagePath;
         }
         const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';

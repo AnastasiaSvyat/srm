@@ -28,7 +28,7 @@ export class UserAddTaskComponent implements OnInit {
     private taskService: ToDoListService,
     private snackBar: MatSnackBar,
     private employeeService: EmployeeService,
-    ) {
+  ) {
     this.employee = this.authService.user;
     this.initStaff();
   }
@@ -75,11 +75,11 @@ export class UserAddTaskComponent implements OnInit {
       });
   }
 
-  initStaff(){
+  initStaff() {
     this.employeeService.GetStaff()
-    .subscribe((res) => {
-      this.staffList = res;
-    });
+      .subscribe((res) => {
+        this.staffList = res;
+      });
   }
 
   updateTask(result: ToDoList) {

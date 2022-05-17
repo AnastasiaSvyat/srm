@@ -19,7 +19,7 @@ import { AdminUpdatePasswordComponent } from './admin-update-password/admin-upda
 export class AdminComponent implements OnInit {
 
   requestCount!: number;
-  
+
   constructor(
     private requestService: RequestService,
     private auth: AuthService,
@@ -45,7 +45,7 @@ export class AdminComponent implements OnInit {
   }
 
 
-  updatePassword(){
+  updatePassword() {
     const dialogRef = this.dialog.open(AdminUpdatePasswordComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),

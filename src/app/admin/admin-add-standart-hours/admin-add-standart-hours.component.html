@@ -1,16 +1,16 @@
 <div class="admin-add-standart-hours-container">
     <h2 class="mt24" mat-dialog-title>Log time</h2>
     <form [formGroup]="standartHourForm" mat-dialog-content>
-        
-          <mat-form-field appearance="fill" class="w100 mt14">
+
+        <mat-form-field appearance="fill" class="w100 mt14">
             <mat-label>Standart hours</mat-label>
             <input placeholder="Enter standart hours..." formControlName="time" matInput>
             <mat-error *ngIf="time?.invalid && (time?.dirty || time?.touched)" class="helper-text red-text">
                 <span *ngIf="time?.errors?.required">Hours is required.</span>
                 <span *ngIf="time?.errors?.pattern">Hours is number.</span>
             </mat-error>
-          </mat-form-field>
-       
+        </mat-form-field>
+
         <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
             <div>
                 <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>

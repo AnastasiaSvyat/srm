@@ -55,7 +55,7 @@ export class DashboardAdminComponent implements OnInit {
     private taskService: ToDoListService,
     private snackBar: MatSnackBar,
     private overlay: Overlay
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -74,11 +74,11 @@ export class DashboardAdminComponent implements OnInit {
     this.getStaffList();
   }
 
-  getStaffList(){
+  getStaffList() {
     this.emoloyeeService.GetStaff()
-    .subscribe((res) => {
-      this.staffList = res;
-    })
+      .subscribe((res) => {
+        this.staffList = res;
+      })
   }
 
   getEmployeeName(userId: string) {
@@ -97,7 +97,7 @@ export class DashboardAdminComponent implements OnInit {
       });
   }
 
-  
+
 
 
   getPhotoEmployee() {
@@ -242,7 +242,7 @@ export class DashboardAdminComponent implements OnInit {
   }
 
 
-    updatePassword(){
+  updatePassword() {
     const dialogRef = this.dialog.open(AdminUpdatePasswordComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
@@ -391,11 +391,11 @@ export class DashboardAdminComponent implements OnInit {
       .subscribe((res) => {
         this.staffBirthLater = res;
         this.emoloyeeService.GetEmplBirthLaterEnd()
-        .subscribe((resEnd) => {
-          resEnd.forEach(element => {
-            this.staffBirthLater.push(element)
-          });
-        })
+          .subscribe((resEnd) => {
+            resEnd.forEach(element => {
+              this.staffBirthLater.push(element)
+            });
+          })
       });
   }
 }

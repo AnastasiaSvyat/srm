@@ -1,33 +1,37 @@
 <div fxLayout="column" fxLayoutAlign="center center" class="h100pr">
     <div fxFlex="100%">
         <div fxLayoutAlign="center center">
-            <button (click)="openLink($event)" mat-icon-button routerLinkActive="activeLink"  [routerLink]="['/user','dashboardUser']">
+            <button (click)="openLink($event)" mat-icon-button routerLinkActive="activeLink"
+                [routerLink]="['/user','dashboardUser']">
                 <mat-icon>dashboard</mat-icon>
             </button>
         </div>
         <div fxLayoutAlign="center center" class="mt20">
-            <button (click)="openLink($event)" mat-icon-button routerLinkActive="activeLink"  class="navbar-button" [routerLink]="['/user','stafflist']">
+            <button (click)="openLink($event)" mat-icon-button routerLinkActive="activeLink" class="navbar-button"
+                [routerLink]="['/user','stafflist']">
                 <mat-icon>perm_contact_calendar</mat-icon>
             </button>
         </div>
         <div fxLayoutAlign="center center" class="mt20">
-            <button (click)="openLink($event)" mat-icon-button routerLinkActive="activeLink"  class="navbar-button" [routerLink]="['/user','calendar']">
+            <button (click)="openLink($event)" mat-icon-button routerLinkActive="activeLink" class="navbar-button"
+                [routerLink]="['/user','calendar']">
                 <mat-icon>card_travel</mat-icon>
             </button>
         </div>
         <div fxLayoutAlign="center center" class="mt20">
-            <button (click)="openLink($event)" mat-icon-button class="navbar-button" routerLinkActive="activeLink" 
+            <button (click)="openLink($event)" mat-icon-button class="navbar-button" routerLinkActive="activeLink"
                 [routerLink]="['/user','logTime']">
-              <mat-icon>access_time</mat-icon>
+                <mat-icon>access_time</mat-icon>
             </button>
-          </div>
+        </div>
         <div fxLayoutAlign="center center" class="mt20">
-            <button (click)="openLink($event)" mat-icon-button class="navbar-button" routerLinkActive="activeLink" [routerLink]="['/user','messageUser']">
+            <button (click)="openLink($event)" mat-icon-button class="navbar-button" routerLinkActive="activeLink"
+                [routerLink]="['/user','messageUser']">
                 <mat-icon>message</mat-icon>
                 <span class="circle-sms">{{requestCount}}</span>
             </button>
         </div>
-        <div fxLayoutAlign="center center" routerLinkActive="activeLink"  class="exitPhoto mt20 ml7">
+        <div fxLayoutAlign="center center" routerLinkActive="activeLink" class="exitPhoto mt20 ml7">
             <button (click)="openLink($event)" (click)="logout()" mat-icon-button>
                 <mat-icon>exit_to_app</mat-icon>
             </button>

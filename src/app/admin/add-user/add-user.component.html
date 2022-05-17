@@ -89,24 +89,24 @@
         <mat-form-field *ngIf="dataUser.showLastPerf">
             <mat-label>Last Performance</mat-label>
             <input matInput formControlName="lastPerf" [matDatepicker]="pickerLastPerf"
-                placeholder="Choose last performance" (focus)="pickerLastPerf.open()"
-                (click)="pickerLastPerf.open()" readonly>
+                placeholder="Choose last performance" (focus)="pickerLastPerf.open()" (click)="pickerLastPerf.open()"
+                readonly>
             <mat-datepicker-toggle matSuffix [for]="pickerLastPerf"></mat-datepicker-toggle>
             <mat-datepicker #pickerLastPerf></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field *ngIf="!dataUser.changeUser.startDate">
             <mat-label>First day</mat-label>
-            <input matInput formControlName="startDate" [matDatepicker]="pickerStartDate"
-                placeholder="Choose first daн" (focus)="pickerStartDate.open()"
-                (click)="pickerStartDate.open()" readonly>
+            <input matInput formControlName="startDate" [matDatepicker]="pickerStartDate" placeholder="Choose first daн"
+                (focus)="pickerStartDate.open()" (click)="pickerStartDate.open()" readonly>
             <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
             <mat-datepicker #pickerStartDate></mat-datepicker>
-            <mat-error *ngIf="startDate?.invalid && (startDate?.dirty || startDate?.touched)" class="helper-text red-text">
+            <mat-error *ngIf="startDate?.invalid && (startDate?.dirty || startDate?.touched)"
+                class="helper-text red-text">
                 <span *ngIf="startDate?.errors?.required">First day is required.</span>
             </mat-error>
         </mat-form-field>
-        
+
         <mat-form-field>
             <mat-label>Phone</mat-label>
             <input type="text" placeholder="Enter phone..." formControlName="phone" matInput />
@@ -130,7 +130,7 @@
                 <span *ngIf="email?.errors?.email">Enter correct email.</span>
             </mat-error>
         </mat-form-field>
-        
+
         <mat-form-field *ngIf="dataUser.showPassword">
             <mat-label>Password</mat-label>
             <input type="password" placeholder="Enter password..." formControlName="password" matInput />
@@ -177,6 +177,6 @@
                     mat-stroked-button>{{dataUser.btn}}</button>
             </div>
         </div>
-        
+
     </form>
 </div>

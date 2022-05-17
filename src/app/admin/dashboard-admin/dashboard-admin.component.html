@@ -2,7 +2,7 @@
     <div class="w100" fxLayout="row" fxLayoutAlign="end center">
         <div (click)='updatePassword()' class="changepass">change password</div>
     </div>
-    <div fxLayout.gt-sm='row' fxLayout='column' >
+    <div fxLayout.gt-sm='row' fxLayout='column'>
 
         <div fxLayout='column' fxFlex.gt-xs='52%' fxFlex.gt-sm='70%' fxFlex='100%' class="mt24">
             <!-- header -->
@@ -179,7 +179,8 @@
                                 <p class="fontColorGrey fs18 mt16 fontGilroy">This month</p>
                                 <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of monthBirthList"
                                     class="item">
-                                    <div fxFlex='31%' class="fontColorGrey fs14">{{item?.date | date:'dd.MM.yyyy'}}</div>
+                                    <div fxFlex='31%' class="fontColorGrey fs14">{{item?.date | date:'dd.MM.yyyy'}}
+                                    </div>
                                     <div>
                                         <img class="photo photoSmall" [src]="getEmployeePhotoById(item.id)">
                                     </div>

@@ -32,9 +32,6 @@ export interface ParamsStaffPag {
 })
 
 export class AdminStaffListComponent implements OnInit {
-
-
-
   staffList: Employee[] = [];
   employee: Employee[] = [];
   duration = 5000;
@@ -48,8 +45,7 @@ export class AdminStaffListComponent implements OnInit {
   docPDF!: any;
   private unsubscribe = new Subject();
   displayedColumns: string[] = ['photo', 'name', 'position', 'birthday', 'salary',
-   'phone', 'firstDay', 'skype', 'email', 'vacation','sickLeave', 'about', 'cv', 'change'];
-
+    'phone', 'firstDay', 'skype', 'email', 'vacation', 'sickLeave', 'about', 'cv', 'change'];
 
   constructor(
     private employeeService: EmployeeService,
@@ -84,7 +80,6 @@ export class AdminStaffListComponent implements OnInit {
       });
   }
 
-
   ngOnInit(): void {
     this.employee = this.authService.user;
     this.retrieveStaff();
@@ -109,15 +104,11 @@ export class AdminStaffListComponent implements OnInit {
     return imgResult?.imagePath ?? '../../../assets/img/nouser.jpeg';
   }
 
-  
-
   getCountVacation() {
     this.logTimeVacationService.GetCurrentRequest()
-    .subscribe((res) => {
-      this.logTimeRequest = res;
-      console.log(res);
-      
-    })
+      .subscribe((res) => {
+        this.logTimeRequest = res;
+      })
   }
 
   getVacationEmployee(userId: string) {
@@ -189,7 +180,7 @@ export class AdminStaffListComponent implements OnInit {
         showLastPerf: false,
       }
     });
-    dialogRef.afterClosed().subscribe(result => {      
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.retrieveStaff();
         this.getPhotoEmployee();
@@ -213,7 +204,7 @@ export class AdminStaffListComponent implements OnInit {
       if (result) {
       }
     });
-    
+
   }
 
   editUser(event: Employee): void {

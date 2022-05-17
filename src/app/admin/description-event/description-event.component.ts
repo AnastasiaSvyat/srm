@@ -31,25 +31,25 @@ export class DescriptionEventComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getListOfVoters(){
+  getListOfVoters() {
     this.eventService.getEventById(this.data.eventData._id)
-    .subscribe((res) => {
-      if (res.confirm){
-        res.confirm.forEach(element => {
-          this.employeeService.GetEmployee(element)
-          .subscribe((employee) => {
-            this.listOfVotersConfirmaed.push(employee);
+      .subscribe((res) => {
+        if (res.confirm) {
+          res.confirm.forEach(element => {
+            this.employeeService.GetEmployee(element)
+              .subscribe((employee) => {
+                this.listOfVotersConfirmaed.push(employee);
+              });
           });
-        });
-      }
-      if (res.decline){
-        res.decline.forEach(element => {
-          this.employeeService.GetEmployee(element)
-          .subscribe((employee) => {
-            this.listOfVotersDeclined.push(employee);
+        }
+        if (res.decline) {
+          res.decline.forEach(element => {
+            this.employeeService.GetEmployee(element)
+              .subscribe((employee) => {
+                this.listOfVotersDeclined.push(employee);
+              });
           });
-        });
-      }
-    });
+        }
+      });
   }
 }

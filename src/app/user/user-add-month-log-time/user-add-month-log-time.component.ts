@@ -21,7 +21,7 @@ export class UserAddMonthLogTimeComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<UserAddMonthLogTimeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    
+
     private auth: AuthService,
     private logTimeService: LogTimeService,
     private snackBar: MatSnackBar
@@ -39,23 +39,23 @@ export class UserAddMonthLogTimeComponent implements OnInit {
   }
 
   get time() { return this.logTimeForm.get('time'); }
-  
-  onNoClick(){
+
+  onNoClick() {
     this.dialogRef.close();
   }
 
-  logTime(time: any){
+  logTime(time: any) {
     this.logTimeService.LogTime(time)
-    .subscribe((res) => {
-      this.snackBar.open('Congratulations! Time has been added!', '', {
-        duration: this.duration
-      });
-      this.dialogRef.close(res);
-    }, (err) => {
-      this.snackBar.open('ERROR! Try again.', '', {
-        duration: this.duration
-      });
-    })
+      .subscribe((res) => {
+        this.snackBar.open('Congratulations! Time has been added!', '', {
+          duration: this.duration
+        });
+        this.dialogRef.close(res);
+      }, (err) => {
+        this.snackBar.open('ERROR! Try again.', '', {
+          duration: this.duration
+        });
+      })
   }
 
 }

@@ -39,8 +39,8 @@ export class UserUpdatePasswordComponent implements OnInit {
       });
 
     this.passwordForm = new FormGroup({
-      password: new FormControl('', [Validators.required, Validators.minLength(6),Validators.pattern(/^\S{0,}$/)]),
-      repeatPassword: new FormControl('', [Validators.required, Validators.minLength(6),Validators.pattern(/^\S{0,}$/)])
+      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern(/^\S{0,}$/)]),
+      repeatPassword: new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern(/^\S{0,}$/)])
     });
   }
 
@@ -65,7 +65,7 @@ export class UserUpdatePasswordComponent implements OnInit {
             duration: this.duration
           });
         });
-    }else{
+    } else {
       this.snackBar.open('Password mismatch! Try again.', '', {
         duration: this.duration
       });
