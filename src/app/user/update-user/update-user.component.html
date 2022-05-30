@@ -80,9 +80,12 @@
                 </div>
                 <p (click)="getCV()" class="fz5 fontColorGrey cvName">{{uploadFileName || ""}}</p>
             </div>
-            <div (click)="fileUpload.click()" type="file" class="addCV-box">
+            <div (click)="fileUpload.click()" type="file" class="addCV-box mb8">
                 <button class="cvButton">{{dataUser.addCV}}</button>
             </div>
+            <button type="button" class="changePass mha" (click)='updatePassword()'>
+                change password
+            </button>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
             <div>

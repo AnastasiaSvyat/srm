@@ -1,12 +1,14 @@
-.btnEditUser button{
-    width: 25px;
-    height: 25px;
+.btnEditUser {
+    position: absolute !important;
+    top: 16px;
+    right: 16px;
+    width: 24px !important;
+    height: 24px !important;
     background-color: #2062A3;
     border-radius: 50%;
-    margin-bottom: 38px;
     color: azure;
     border: none;
-    line-height: 0;
+    line-height: 0 !important;
 }
 .mat-checkbox .mat-checkbox-frame{
     border-color: #12B2C6;

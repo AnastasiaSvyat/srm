@@ -14,6 +14,6 @@ export class Employee {
     role!: string;
     info!: Array<any>;
     lastPerf!: string;
-    phone!: number;
+    phone!: string;
     infoUser!: string;
 }

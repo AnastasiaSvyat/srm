@@ -1,47 +1,118 @@
-.btnOpen-dashboard-user{
-    margin-bottom: 39px;
-    margin-right: 39px;
+.user-dashboard-container {
+  padding: 24px;
 }
-.user-dashboard-container{
-    margin-bottom: 25px;
-}
-.mb0{
-    margin-bottom: 0;
-}
-.ml33{
-    margin-left: 33px;
-}
-.file-input {
-    display: none;
-}
-.plannedVacation{
-    line-height: 0.8em;
-}
-.itemPlannedVacation{
-    height: 70px;
-}
-.itemAboutUser{
-    word-break: break-word;
-    width: 90%;
-}
-@media screen and (max-width: 600px) {
-    .displayNoneDashboard{
-        display: none !important;
-        background-color: aquamarine;
-      }
-}
-.viewport{
-    height: 65px;
-}
-.viewportTodoList{
-    height: 100%;
-}
-.viewport63pr{
-    height: 63%;
-}
-label{
-    display: block;
+
+.user-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 16px;
+
+  &__block {
+    padding: 16px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
+    &--title {
+        font-size: 14px;
+        color: #7b8386;
+        margin-bottom: 8px;
+    }
+
+    &--text {
+        font-size: 18px;
+    }
   }
-.active{
-    text-decoration: line-through;
+
+  .block-user {
+    position: relative;
+    grid-column: span 3;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    align-items: center;
+
+    &--text {
+      font-size: 14px;
+    }
+  }
+
+  .block-todo {
+    position: relative;
+    grid-row: span 3;
+    padding-bottom: 64px;
+  }
+
+  .block-file {
+    position: relative;
+    grid-column: span 2;
+  }
+
+  .block-cv {
+    position: relative;
+    padding-bottom: 48px;
+  }
+
+  .block-about {
+    position: relative;
+    padding-bottom: 48px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .displayNoneDashboard {
+    display: none !important;
+    background-color: aquamarine;
+  }
+}
+
+.active {
+  text-decoration: line-through;
+}
+
+@media screen and (max-width: 1024px) {
+  .user-dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+
+    .block-user {
+      grid-column: 1;
+      grid-template-columns: 1fr;
+    }
+
+    .block-vacationDaysLeft {
+      grid-row: 5;
+    }
+
+    .block-vacation {
+      grid-column: 2;
+      grid-row: 5;
+    }
+
+    .block-file {
+      height: 80px;
+    }
+
+    .block-cv {
+      grid-column: 1;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .user-dashboard-grid {
+    grid-template-columns: 1fr;
+
+    .block-file {
+      grid-column: 1;
+    }
+
+    .block-vacation,
+    .block-vacationDaysLeft {
+      grid-row: auto;
+      grid-column: 1;
+    }
+  }
 }

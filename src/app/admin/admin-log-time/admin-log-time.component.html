@@ -11,9 +11,9 @@
   <div class="w100 mt44" fxLayout="row" fxLayoutAlign="center center">
     <span class="fs36 blue">{{currentMonth}}</span>
     <span *ngIf='standartHour' class="ml16 blue fs30"> {{standartHour.time}} hours</span>
-    <span *ngIf='standartHour' class="changepass ml16" (click)='updateHours(standartHour)'>change hours</span>
+    <span *ngIf='standartHour' class="changePass ml16" (click)='updateHours(standartHour)'>change hours</span>
     <span *ngIf='!standartHour'>
-      <div (click)='addStandartMonthHours()' class="changepass ml16">add hours</div>
+      <div (click)='addStandartMonthHours()' class="changePass ml16">add hours</div>
     </span>
   </div>
   <div>

@@ -19,7 +19,6 @@ import { UserAddTaskComponent } from '../user-add-task/user-add-task.component';
 import { ToDoList } from 'src/app/model/ToDoList';
 import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserUpdatePasswordComponent } from '../user-update-password/user-update-password.component';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -82,22 +81,6 @@ export class DashboardUserComponent implements OnInit {
       .subscribe((res) => {
         this.employee = res;
       });
-  }
-
-
-  updatePassword() {
-    const dialogRef = this.dialog.open(UserUpdatePasswordComponent, {
-      width: '398px',
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '321px',
-      height: 'auto',
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log(result);
-      }
-    });
   }
 
   getPhotoEmployee() {

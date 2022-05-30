@@ -1,254 +1,190 @@
-<div class="user-dashboard-container mt30" fxLayout="column">
-    <div class="w100" fxLayout="row" fxLayoutAlign="end center">
-        <div (click)='updatePassword()' class="changepass">change password</div>
-    </div>
-    <div fxLayout='column' fxFlex='98%' fxLayout.gt-sm='row'>
-        <div fxLayout='column' fxFlex='72%' class="h100">
-            <div fxFlex='12%' fxLayout='row' fxLayoutAlign="space-around center" class=" ml16 mt24 colorBlock">
-                <div fxFlex="15%" class="displayNonePhoto">
-                    <img class="photo photoHeader ml16" [src]=" urlPhoto ? urlPhoto : '../../../assets/img/nouser.jpeg'"
-                        alt="">
-                </div>
-                <div fxFlex="35%">
-                    <div class="fs18 mb0 fontRobotoBold">{{employee?.name}} {{employee?.lastName}}</div>
-                </div>
-                <div fxFlex="30%">
-                    <div class="fs14 mb0"><span class="fontColorGrey">Phone:</span>{{employee?.phone}}</div>
-                    <div class="fs14 mb0"><span class="fontColorGrey">Email:</span>{{employee?.email}}</div>
-                </div>
-                <div class="mb13" fxFlex="15%">
-                    <div class="fs14 mb0"><span class="fontColorGrey">Birthday:</span>
-                        {{employee?.date | date: 'dd.MM.yyyy'}}
-                    </div>
-                </div>
-                <div class="btnEditUser" fxFlex="5%">
-                    <button (click)="editUser(employee)" class="pt0" mat-icon-button
-                        aria-label="Example icon-button with a menu">
-                        <mat-icon class="mb13">more_horiz</mat-icon>
-                    </button>
-                </div>
-            </div>
-            <!-- smallbox -->
-            <div fxFlex.gt-sm='43.1%' fxFlex='63.1%' fxLayout='column'>
-                <div fxLayout='row' fxFlex='40%'>
-                    <div fxFlex.gt-xs='33.33%' fxFlex='100%' class="content_top mt16 ml16 colorBlock">
-                        <div class="mt24 ml24">
-                            <p class="fs18 fontColorGrey">Salary</p>
-                            <p class="fs36 fs30 fontRobotoBold fw500">{{employee?.salary}}$</p>
-                        </div>
-                    </div>
-                    <div fxFlex='33.33%' class="content_top mt16 ml16 colorBlock displayNoneDashboard">
-                        <div class="mt24 ml24">
-                            <p class="fs18 fontColorGrey">First day</p>
-                            <p class="fs36 fs30 fontRobotoBold fw500">{{employee?.lastPerf | date:'dd.MM.yyyy'}}</p>
-                        </div>
-                    </div>
-                    <div fxFlex='33.33%' class="content_top mt16 ml16 colorBlock displayNoneDashboard">
-                        <div class="mt24 ml24">
-                            <p class="fs18 fontColorGrey">Last performance</p>
-                            <p class="fs36 fs30 fontRobotoBold fw500">{{employee?.lastPerf | date:'dd.MM.yyyy'}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div fxLayout.gt-xs='row' fxLayout='column' fxFlex='60%'>
-                    <div fxFlex='83.33%' fxFlex.gt-xs='33.33%' class="content_bottom mt16 ml16 colorBlock">
-                        <div class="mt24 ml24">
-                            <p class="fs18 fontColorGrey">Planned vacation</p>
-                            <div *ngIf="vacationPlannedList?.length">
-                                <div class="">
-                                    <span class="fw500 fontRobotoBold plannedVacation fs36 fs20">
-                                        {{nextVacation?.date | date:'dd.MM.yyyy'}}
-                                        - {{nextVacation?.endDate | date:'dd.MM.yyyy'}}
-                                    </span>
-                                </div>
-                                <div class="displayTel">
-                                    Vacation days left:
-                                    <span class="ml8">7</span>
-                                </div>
-                            </div>
-                            <p *ngIf="!vacationPlannedList?.length" class="plannedVacation fs24 fontColorGrey">
-                                No vacation this month
-                            </p>
-                        </div>
-                    </div>
-                    <div fxFlex='33.33%' class="content_bottom mt16 ml16 colorBlock displayNoneDashboard mt26">
-                        <div class="mt24 ml24">
-                            <p class="fs18 fontColorGrey">Vacation days left</p>
-                            <p class="fs36 fs30 fontRobotoBold fw500">7</p>
-                        </div>
-                    </div>
-                    <div fxFlex='83.33%' fxFlex.gt-xs='33.33%' class="content_bottom mt16 ml16 colorBlock">
-                        <div fxFlex='100%' class="mt24 ml24 h100pr">
-                            <p class="fs18 fontColorGrey">Events this month</p>
-                            <cdk-virtual-scroll-viewport itemSize="3" class="viewport h100pr viewport63pr">
-                                <div *cdkVirtualFor="let event of birthMonthList" class="item h100pr">
-                                    <span class="fontColorGrey fs14">{{event?.date | date:'dd.MM.yyyy'}}</span>
-                                    <span class="ml8 fs14">{{event?.name}}</span>
-                                </div>
-                                <p *ngIf="!birthMonthList?.length" class="plannedVacation fs24 fontColorGrey">
-                                    No event this month
-                                </p>
-                            </cdk-virtual-scroll-viewport>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div fxFlex='37%' class="mt16 mt26 ml16 displayNoneDashboard" fxLayout="row"
-                fxLayoutAlign="space-around center">
-                <div fxFlex='49%' class="colorBlock h100pr" fxLayoutAlign="end end">
-                    <button class="btnOpen-dashboard-user w155 h48 btn" mat-stroked-button>OPEN FILE</button>
-                </div>
-                <div fxFlex='49%' class="colorBlock h100pr" fxLayout="column" fxLayoutAlign="space-between start">
-                    <div class="mt24 ml24">
-                        <p class="fs24">CVs</p>
-                    </div>
-                    <input type="file" class="file-input" (change)="onFileSelected($event)" accept=".pdf,.doc"
-                        #fileUpload>
-                    <div class="file-upload ml16">
-                        <div class="uploadFileBox" *ngIf="uploadFileName">
-                            <button (click)="deleteCV()" class="fileImg" class="deleteBtn greyColor">x</button>
-                            <img src="../../../assets/img/cv.svg" alt="">
-                        </div>
-                        <p (click)="getCV()" class="cvName">{{uploadFileName || "No cv uploaded yet."}}</p>
-                    </div>
-                    <div class="w100">
-                        <button (click)="fileUpload.click()" type="file" class="w100 h48 btn" mat-stroked-button>
-                            ADD NEW
-                        </button>
-                    </div>
-                </div>
-            </div>
+<div class="user-dashboard-container">
+  <div class="user-dashboard-grid">
+    <!-- user -->
+    <div class="user-dashboard-grid__block block-user">
+      <div class="dfac">
+        <img class="photoHeader mr24" [src]=" urlPhoto ? urlPhoto : '../../../assets/img/nouser.jpeg'" alt="">
+        <div class="fs18 fontRobotoBold">
+          {{employee?.name}} {{employee?.lastName}} User User
         </div>
-
-
-        <div fxLayout.gt-sm='column' fxLayout='column' fxLayout.gt-xs='row' class="h100" fxFlex='30%'>
-
-            <!-- todoList -->
-            <div fxFlex.gt-sm='55%' fxFlex.gt-xs='50%' fxFlex='100%' fxLayout="column"
-                fxLayoutAlign="space-between start"
-                class="container_right mt24 ml18 colorBlock mt26 h100pr displayNoneDashboard dashboard-content r colorBlock ml16">
-                <div class="fs24 fontGilroy ml24 mt24">ToDoList</div>
-                <div *ngIf="!toDoListWeek?.length && !toDoListToday?.length && !toDoListTomorrow?.length"
-                    class="text-center w100">
-                    <span class="fontColorGrey fontGilroy fs14">No tasks</span>
-                </div>
-                <cdk-virtual-scroll-viewport itemSize="3" class="viewport viewportTodoList">
-                    <div fxFlex='100%' class="w100">
-                        <div *ngIf="toDoListToday?.length" class="w100">
-                            <div class="fs18 fontColorGrey fontGilroy mt16 ml24">Today {{today | date:'dd.MM.yyyy' }}
-                            </div>
-                            <div fxLayout="row" fxLayoutAlign="space-between center"
-                                *ngFor="let task of toDoListToday; let i = index" class="w100 mt7">
-                                <div class="ml24 w100">
-                                    <mat-checkbox type='checkbox' [checked]="task.select" class="w100"
-                                        (change)="onChange($event,task)">
-                                        <span [ngClass]="task.select ? 'active' : ''"
-                                            class="fs14 ml8">{{task?.task}}</span>
-                                    </mat-checkbox>
-                                </div>
-                                <div>
-                                    <button mat-icon-button [matMenuTriggerFor]="menu"
-                                        aria-label="Example icon-button with a menu">
-                                        <mat-icon>more_vert</mat-icon>
-                                    </button>
-                                    <mat-menu #menu="matMenu">
-                                        <button (click)="updateTask(task)" mat-menu-item>
-                                            <mat-icon>edit</mat-icon>
-                                            <span>Edit</span>
-                                        </button>
-                                        <button (click)="deleteTask(task)" mat-menu-item>
-                                            <mat-icon>delete</mat-icon>
-                                            <span>Delete</span>
-                                        </button>
-                                    </mat-menu>
-                                </div>
-                            </div>
-                        </div>
-                        <div *ngIf="toDoListTomorrow?.length" class="w100">
-                            <div class="fs18 fontColorGrey fontGilroy mt16 ml24">Tomorrow</div>
-                            <div fxLayout="row" fxLayoutAlign="space-between center"
-                                *ngFor="let task of toDoListTomorrow; let i = index" class="w100 mt7">
-                                <div class="ml24 w100">
-                                    <mat-checkbox type='checkbox' [checked]="task.select" class="w100"
-                                        (change)="onChange($event,task)">
-                                        <span [ngClass]="task.select ? 'active' : ''"
-                                            class="fs14 ml8">{{task?.task}}</span>
-                                    </mat-checkbox>
-                                </div>
-                                <div>
-                                    <button mat-icon-button [matMenuTriggerFor]="menu"
-                                        aria-label="Example icon-button with a menu">
-                                        <mat-icon>more_vert</mat-icon>
-                                    </button>
-                                    <mat-menu #menu="matMenu">
-                                        <button (click)="updateTask(task)" mat-menu-item>
-                                            <mat-icon>edit</mat-icon>
-                                            <span>Edit</span>
-                                        </button>
-                                        <button (click)="deleteTask(task)" mat-menu-item>
-                                            <mat-icon>delete</mat-icon>
-                                            <span>Delete</span>
-                                        </button>
-                                    </mat-menu>
-                                </div>
-                            </div>
-                        </div>
-                        <div *ngIf="toDoListWeek?.length" class="w100">
-
-                            <div *ngIf="toDoListWeek?.length" class="fs18 fontGilroy fontColorGrey mt16 ml24">This
-                                week</div>
-                            <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let task of toDoListWeek"
-                                class="w100 todolostLater">
-                                <div class="ml26 mt10">
-                                    <mat-checkbox type='checkbox' [checked]="task.select"
-                                        (change)="onChange($event,task)">
-                                        <span [ngClass]="task.select ? 'active' : ''"
-                                            class="fs14 ml8">{{task?.task}}</span>
-                                    </mat-checkbox><br>
-                                    <span class="fontColorGrey fs12">{{task?.date | date:'dd.MM.yyyy' }} </span>
-                                </div>
-                                <div>
-                                    <button mat-icon-button [matMenuTriggerFor]="menu"
-                                        aria-label="Example icon-button with a menu">
-                                        <mat-icon>more_vert</mat-icon>
-                                    </button>
-                                    <mat-menu #menu="matMenu">
-                                        <button (click)="updateTask(task)" mat-menu-item>
-                                            <mat-icon>edit</mat-icon>
-                                            <span>Edit</span>
-                                        </button>
-                                        <button (click)="updateTask(task)" mat-menu-item>
-                                            <mat-icon>delete</mat-icon>
-                                            <span>Delete</span>
-                                        </button>
-                                    </mat-menu>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </cdk-virtual-scroll-viewport>
-                <div class="w100">
-                    <button (click)='addTask()' class="w100 btn h48" mat-stroked-button>ADD TASK</button>
-                </div>
-            </div>
-
-            <!-- About -->
-
-            <div fxFlex.gt-sm='37%' fxFlex.gt-xs='50%' fxFlex='100%' fxLayout="column"
-                fxLayoutAlign="space-between start"
-                class="container_right mt16 ml18 colorBlock mt26 h100pr displayNoneDashboard">
-                <div class="fs24 ml24 mt24">About me</div>
-                <cdk-virtual-scroll-viewport fxFlex='80%' itemSize="3" class="viewport mt24 w100">
-                    <div class="itemAboutUser ml24">{{employee?.infoUser}}</div>
-                </cdk-virtual-scroll-viewport>
-                <div class="w100">
-                    <button (click)="addNewInfo(employee)" class="w100 h48  btn" mat-stroked-button>EDIT</button>
-                </div>
-            </div>
-            <div fxFlex='100%' class="mt48 displayTel" fxLayout="row" fxLayoutAlign="center center">
-                <button class="ml8 w155 h48 btn" mat-stroked-button>OPEN FILE</button>
-            </div>
-        </div>
+      </div>
+      <div class="fs14"><span class="user-dashboard-grid__block--title">Phone:</span> {{employee?.phone}}096 123 12 33</div>
+      <div class="fs14"><span class="user-dashboard-grid__block--title">Email:</span> {{employee?.email}}tester@i.ua</div>
+      <div class="fs14"><span class="user-dashboard-grid__block--title">Birthday:</span> {{employee?.date | date: 'dd.MM.yyyy'}}25.05.1995
+      </div>
+      <button class="btnEditUser" (click)="editUser(employee)" mat-icon-button>
+        <mat-icon>more_horiz</mat-icon>
+      </button>
     </div>
-
+    <!-- todo list -->
+    <div class="user-dashboard-grid__block block-todo">
+      <div class="user-dashboard-grid__block--title">Todo list</div>
+      <div *ngIf="!toDoListWeek?.length && !toDoListToday?.length && !toDoListTomorrow?.length" class="h100 dfc pb32">
+        <span class="user-dashboard-grid__block--text">No tasks</span>
+      </div>
+      <cdk-virtual-scroll-viewport itemSize="3" class="h100">
+        <div class="w100">
+          <div *ngIf="toDoListToday?.length" class="w100">
+            <div class="fs18 fontColorGrey fontGilroy mt16 ml24">Today {{today | date:'dd.MM.yyyy' }}
+            </div>
+            <div *ngFor="let task of toDoListToday; let i = index" class="w100 mt7">
+              <div class="ml24 w100">
+                <mat-checkbox type='checkbox' [checked]="task.select" class="w100" (change)="onChange($event,task)">
+                  <span [ngClass]="task.select ? 'active' : ''" class="fs14 ml8">{{task?.task}}</span>
+                </mat-checkbox>
+              </div>
+              <div>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button (click)="updateTask(task)" mat-menu-item>
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button (click)="deleteTask(task)" mat-menu-item>
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="toDoListTomorrow?.length" class="w100">
+            <div class="fs18 fontColorGrey fontGilroy mt16 ml24">Tomorrow</div>
+            <div fxLayout="row" fxLayoutAlign="space-between center"
+              *ngFor="let task of toDoListTomorrow; let i = index" class="w100 mt7">
+              <div class="ml24 w100">
+                <mat-checkbox type='checkbox' [checked]="task.select" class="w100" (change)="onChange($event,task)">
+                  <span [ngClass]="task.select ? 'active' : ''" class="fs14 ml8">{{task?.task}}</span>
+                </mat-checkbox>
+              </div>
+              <div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button (click)="updateTask(task)" mat-menu-item>
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button (click)="deleteTask(task)" mat-menu-item>
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="toDoListWeek?.length" class="w100">
+            <div *ngIf="toDoListWeek?.length" class="fs18 fontGilroy fontColorGrey mt16 ml24">
+              This week
+            </div>
+            <div *ngFor="let task of toDoListWeek" class="w100 todolostLater">
+              <div class="ml26 mt10">
+                <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
+                  <span [ngClass]="task.select ? 'active' : ''" class="fs14 ml8">{{task?.task}}</span>
+                </mat-checkbox><br>
+                <span class="fontColorGrey fs12">{{task?.date | date:'dd.MM.yyyy' }} </span>
+              </div>
+              <div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button (click)="updateTask(task)" mat-menu-item>
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button (click)="updateTask(task)" mat-menu-item>
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
+        </div>
+      </cdk-virtual-scroll-viewport>
+      <button (click)='addTask()' class="w100 btn btn-straight-border" mat-stroked-button>ADD TASK</button>
+    </div>
+    <!-- salary -->
+    <div class="user-dashboard-grid__block block-salary">
+      <p class="user-dashboard-grid__block--title">Salary</p>
+      <p class="user-dashboard-grid__block--text">{{employee?.salary}}1000$</p>
+    </div>
+    <!-- first day -->
+    <div class="user-dashboard-grid__block block-firstDay">
+      <p class="user-dashboard-grid__block--title">First day</p>
+      <p class="user-dashboard-grid__block--text">{{employee?.lastPerf | date:'dd.MM.yyyy'}}01.03.2022</p>
+    </div>
+    <!-- last performance -->
+    <div class="user-dashboard-grid__block block-lastPerformance">
+      <p class="user-dashboard-grid__block--title">Last performance</p>
+      <p class="user-dashboard-grid__block--text">{{employee?.lastPerf | date:'dd.MM.yyyy'}}24.05.2022</p>
+    </div>
+    <!-- planned vacation -->
+    <div class="user-dashboard-grid__block block-vacation">
+      <p class="user-dashboard-grid__block--title">Planned vacation</p>
+      <div *ngIf="vacationPlannedList?.length else noVacation">
+        <div class="user-dashboard-grid__block--text">
+          {{nextVacation?.date | date:'dd.MM.yyyy'}} - {{nextVacation?.endDate | date:'dd.MM.yyyy'}}
+        </div>
+        <div class="user-dashboard-grid__block--text">
+          Vacation days left:
+          <span>7</span>
+        </div>
+      </div>
+      <ng-template #noVacation>
+        <p class="user-dashboard-grid__block--text">
+          No vacation this month
+        </p>
+      </ng-template>
+    </div>
+    <!-- vacation days left -->
+    <div class="user-dashboard-grid__block block-vacationDaysLeft">
+      <p class="user-dashboard-grid__block--title">Vacation days left</p>
+      <p class="user-dashboard-grid__block--text">7</p>
+    </div>
+    <!-- events this month -->
+    <div class="user-dashboard-grid__block block-events">
+      <p class="user-dashboard-grid__block--title">Events this month</p>
+      <cdk-virtual-scroll-viewport itemSize="3" class="viewport user-dashboard-grid__block--text mb24">
+        <div *cdkVirtualFor="let event of birthMonthList" class="item h100pr">
+          <span>{{event?.date | date:'dd.MM.yyyy'}}</span>
+          <span>{{event?.name}}</span>
+        </div>
+        <p *ngIf="!birthMonthList?.length">
+          No event this month
+        </p>
+      </cdk-virtual-scroll-viewport>
+    </div>
+    <!-- open file -->
+    <div class="user-dashboard-grid__block block-file">
+      <button class="btn btn-file" mat-stroked-button>OPEN FILE</button>
+    </div>
+    <!-- cv -->
+    <div class="user-dashboard-grid__block block-cv">
+      <p class="user-dashboard-grid__block--title">CVs</p>
+      <input type="file" class="file-input" (change)="onFileSelected($event)" accept=".pdf,.doc" #fileUpload>
+      <div class="file-upload user-dashboard-grid__block--text mb16">
+        <div class="uploadFileBox" *ngIf="uploadFileName">
+          <button (click)="deleteCV()" class="fileImg" class="deleteBtn greyColor">x</button>
+          <img src="../../../assets/img/cv.svg" alt="">
+        </div>
+        <p (click)="getCV()" class="cvName">{{uploadFileName || "No cv uploaded yet."}}</p>
+      </div>
+      <button (click)="fileUpload.click()" type="file" class="w100 btn btn-straight-border" mat-stroked-button>
+        ADD NEW
+      </button>
+    </div>
+    <!-- About -->
+    <div class="user-dashboard-grid__block block-about">
+      <div class="user-dashboard-grid__block--title">About me</div>
+      <cdk-virtual-scroll-viewport itemSize="3" class="viewport mb32">
+        <div class="user-dashboard-grid__block--text word-break">{{employee?.infoUser}}No info</div>
+      </cdk-virtual-scroll-viewport>
+      <button (click)="addNewInfo(employee)" class="w100 btn btn-straight-border" mat-stroked-button>EDIT</button>
+    </div>
+  </div>
 </div>

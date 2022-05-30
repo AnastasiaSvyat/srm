@@ -1,178 +1,237 @@
-.btn{
-    background-color: #2062A3;
-    color: white;
-    text-align: center;
-    font-style: 18px;
-    border: none;
-    height: 48px;
-    border-radius: 10px;
+.btn {
+  background-color: #2062A3;
+  color: white;
+  text-align: center;
+  font-style: 18px;
+  border: none;
+  height: 48px;
+  border-radius: 8px !important;
 }
+
+.btn-straight-border {
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
+  border-radius: 0px 0px 8px 8px !important;
+}
+
+.btn-file {
+  position: absolute !important;
+  bottom: 16px;
+  right: 16px;
+}
+
 button:disabled,
-button[disabled]{
+button[disabled] {
   background-color: #6493c2;
   color: #989999 !important;
 }
-.navbar{
-    width: 72px;
-}
-.header{
-    height: 2.7rem;
-}
-.colorBlock{
-    background-color: #FFFFFF;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
-.changepass{
-    color: rgb(66, 141, 252);
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: 900;
-    margin-right: 42px;
+
+.navbar {
+  width: 72px;
 }
 
-.navbar-button{
-    width: 60px;
-    height: 60px;
+.header {
+  height: 2.7rem;
 }
 
-.leftBox_bottom{
-    height: 21.3rem;
+.colorBlock {
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
-.rightBox{
-    height: 48.77rem;
+
+.changePass {
+  display: block;
+  color: rgb(66, 141, 252);
+  cursor: pointer;
+  font-weight: 900;
+  background: none;
+  border: none;
 }
-.borderNone{
-    border: none;
+
+.navbar-button {
+  width: 60px;
+  height: 60px;
 }
-h2{
-    font-size: 20px;
-    font-weight: 500;
-    color: #263238;
-    text-align: center;
+
+.leftBox_bottom {
+  height: 21.3rem;
 }
-.greyColor{
-    background-color: #546E7A;
+
+.rightBox {
+  height: 48.77rem;
 }
-.btnCancel{
-    background-color: none;
-    border: 1px solid #546E7A;
-    color: #546E7A;
+
+.borderNone {
+  border: none;
 }
-.photoHeader{
-    height: 75px;
-    width: 75px;
+
+h2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #263238;
+  text-align: center;
 }
-.photo{
-    border-radius: 50%;
-    text-align: center;
-    margin-top: 5px;
+
+.greyColor {
+  background-color: #546E7A;
 }
-.photoSmall{
-    height: 20px;
-    width: 20px;
-    
+
+.btnCancel {
+  background-color: none;
+  border: 1px solid #546E7A;
+  color: #546E7A;
 }
-.noRequest{
-    border: 1px solid rgb(212, 208, 208);
-    background-color: white;
-    margin-top: 30px;
+
+.photoHeader {
+  height: 72px;
+  width: 72px;
+  border-radius: 50%;
 }
-.deleteBtn{
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    line-height: 8px; 
-    position: absolute;
-    left: 18px;
-    color: white;
-    bottom: 27px;
-    border: none;
+
+.photo {
+  border-radius: 50%;
 }
-.uploadFileBox{
-    position: relative;
-    width: 31px;
+
+.photoSmall {
+  height: 20px;
+  width: 20px;
+
 }
-.addCV-box{
-    text-align: center;
+
+.noRequest {
+  border: 1px solid rgb(212, 208, 208);
+  background-color: white;
+  margin-top: 30px;
 }
+
+.deleteBtn {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  line-height: 8px;
+  position: absolute;
+  left: 18px;
+  color: white;
+  bottom: 27px;
+  border: none;
+}
+
+.uploadFileBox {
+  position: relative;
+  width: 31px;
+}
+
+.addCV-box {
+  text-align: center;
+}
+
 .file-input {
-    display: none;
+  display: none;
 }
-.cvButton{
-    border: none; 
-    outline: none; 
-    background-color: none;
-    text-decoration: underline;
+
+.cvButton {
+  border: none;
+  outline: none;
+  background-color: none;
+  text-decoration: underline;
 }
-.addPhoto-box,.photoBox{
-    margin-left: 125px;
+
+.addPhoto-box,
+.photoBox {
+  margin-left: 125px;
 }
-.photoBox{
-    position: relative;
+
+.photoBox {
+  position: relative;
 }
-.addPhoto-box,.photoBox,.photoBoxImg{
-    width: 92px;
-    height: 92px;
-    border-radius: 50%;
+
+.addPhoto-box,
+.photoBox,
+.photoBoxImg {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
 }
-.addPhoto-box{
-    background-color: #C4C4C4;
-    text-align: center;
+
+.addPhoto-box {
+  background-color: #C4C4C4;
+  text-align: center;
 }
-.addPhoto-box{
-    padding-top: 38px;
-    text-decoration: underline;
+
+.addPhoto-box {
+  padding-top: 38px;
+  text-decoration: underline;
 }
-.updatePhoto{
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    margin-left: 63px;
-    position: absolute;
+
+.updatePhoto {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-left: 63px;
+  position: absolute;
 }
-.sizePhotoStaffList img{
-    height: 36px;
-    width: 36px;
-    margin-top: 5px;
-    border-radius: 50%;
+
+.sizePhotoStaffList img {
+  height: 36px;
+  width: 36px;
+  margin-top: 5px;
+  border-radius: 50%;
 }
-.menuTel img,.menuTel{
-    background-color: none;
-    width: 36px;
-    height: 36px;
-    border: none;
+
+.menuTel img,
+.menuTel {
+  background-color: none;
+  width: 32px;
+  height: 32px;
+  border: none;
+  padding: 0;
 }
-.exitPhoto,.exitPhoto img{
-    height: 45px;
-    width: 45px; 
+
+.exitPhoto,
+.exitPhoto img {
+  height: 45px;
+  width: 45px;
 }
-.cvName:hover{
-    color: rgb(1, 141, 141);
-    cursor: pointer;
+
+.cvName:hover {
+  color: rgb(1, 141, 141);
+  cursor: pointer;
 }
+
 .overflow-ellipsis {
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
+
 .viewport {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
+
 @media screen and (max-width: 600px) {
-    .viewport {
-        height: 180px;
-        width: 100%;
-    }
- }
- .cursor{
-     cursor: pointer;
- }
+  .viewport {
+    height: 180px;
+    width: 100%;
+  }
+}
+
+.cursor {
+  cursor: pointer;
+}
+
 .item {
-    height: 100%;
-    word-break: break-word;
-}
-.word-break{
-    word-break: break-word;
+  height: 100%;
+  word-break: break-word;
 }
 
+.word-break {
+  word-break: break-word;
+}
 
+@media screen and (max-width: 768px) {
+    .photoHeader {
+      height: 48px;
+      width: 48px;
+    }
+  }

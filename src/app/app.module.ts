@@ -16,7 +16,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -45,7 +44,7 @@ import { SharedModule } from './shared/shared.module';
     MatNativeDateModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
