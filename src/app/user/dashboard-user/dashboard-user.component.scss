@@ -3,7 +3,7 @@
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 104px repeat(3, 1fr);
+  grid-template-rows: 104px repeat(3, minmax(104px, 1fr));
   gap: 16px;
 
   &__block {
@@ -13,13 +13,13 @@
     border-radius: 8px;
 
     &--title {
-        font-size: 14px;
-        color: #7b8386;
-        margin-bottom: 8px;
+      font-size: 18px;
+      color: #7b8386;
+      margin-bottom: 8px;
     }
 
     &--text {
-        font-size: 18px;
+      font-size: 21px;
     }
   }
 
@@ -31,6 +31,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     align-items: center;
+    padding-right: 48px;
 
     &--text {
       font-size: 14px;
@@ -38,22 +39,28 @@
   }
 
   .block-todo {
-    position: relative;
     grid-row: span 3;
   }
 
-  .block-file {
-    position: relative;
-  }
-
-  .block-cv {
-    position: relative;
-  }
-
   .block-about {
-    position: relative;
     grid-column: span 2;
   }
+}
+
+.center {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -28px;
+}
+
+.centerBtn {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -36px;
 }
 
 .active {
@@ -61,26 +68,39 @@
 }
 
 .scrollbar {
-  max-height: 88%;
-  padding-right: 8px;
-  padding-bottom: 24px;
+  max-height: 92%;
+  padding-bottom: 8px;
 }
 
 .scrollbar-about {
-  max-height: 200px;
-  padding-bottom: 40px;
+  padding-right: 8px;
 }
 
-.btn-br-corner {
+.btn-dashboard {
   background-color: #2062A3;
   color: white;
   border-radius: 50% !important;
   line-height: 0% !important;
   padding: 4px !important;
   min-width: auto !important;
+}
+
+.btn-tr-corner {
   position: absolute !important;
-  bottom: 16px;
+  top: 16px;
   right: 16px;
+}
+
+@media screen and (min-width: 1366px) {
+  .block-vacationDaysLeft,
+  .block-salary {
+    .user-dashboard-grid__block--text {
+      font-size: 24px;
+    }
+  }
+  .scrollbar-about {
+    max-height: 88%;
+  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -92,31 +112,30 @@
     .block-user {
       grid-column: 1;
       grid-template-columns: 1fr;
+      justify-items: start;
     }
 
-    .block-vacationDaysLeft {
-      grid-row: 5;
-    }
-
-    .block-vacation {
-      grid-column: 2;
-      grid-row: 5;
-    }
-
-    .block-file {
-      min-height: 80px;
+    .block-todo {
+      grid-row: span 7;
     }
 
     .block-cv {
       grid-column: 2;
     }
 
+    .center,
+    .centerBtn {
+      height: auto;
+      display: block;
+      margin-top: 0;
+    }
+
     .scrollbar {
-      padding-bottom: 0;
+      max-height: 100%;
     }
 
     .scrollbar-about {
-      padding-bottom: 40px;
+      padding-right: 0;
     }
   }
 }
@@ -135,15 +154,6 @@
     .block-about {
       grid-row: auto;
       grid-column: 1;
-    }
-
-    .scrollbar {
-      max-height: 100%;
-      padding-bottom: 32px;
-    }
-
-    .scrollbar-about {
-      padding-right: 0;
     }
   }
 }

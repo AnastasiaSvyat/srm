@@ -15,15 +15,28 @@
 }
 .fontRobotoBold{
     font-family: "RobotoBold";
+    line-height: 24px;
 }
 .fs18{
     font-size: 18px;
+}
+.fs15 {
+    font-size: 15px;
+}
+.fs16 {
+    font-size: 16px;
+}
+.fs21 {
+    font-size: 21px;
 }
 .fs14{
     font-size: 14px;
 }
 .fs24{
     font-size: 24px;
+}
+.fs32 {
+    font-size: 32px !important;
 }
 .fontColorGrey{
     color: #7b8386;
@@ -48,4 +61,7 @@
 }
 .fw500{
     font-weight: 500;
+}
+.fw700 {
+    font-weight: 700;
 }

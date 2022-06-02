@@ -4,36 +4,43 @@
     <div class="user-dashboard-grid__block block-user">
       <div class="dfac">
         <img class="photoHeader mr24" [src]=" urlPhoto ? urlPhoto : '../../../assets/img/nouser.jpeg'" alt="">
-        <div class="fs18 fontRobotoBold">
+        <div class="fs21 fontRobotoBold">
           {{employee?.name}} {{employee?.lastName}}
         </div>
       </div>
-      <div class="fs14">
+      <div class="fs18">
         <span class="user-dashboard-grid__block--title">Phone:</span> {{employee?.phone}}
       </div>
-      <div class="fs14">
+      <div class="fs18">
         <span class="user-dashboard-grid__block--title">Email:</span> {{employee?.email}}
       </div>
-      <div class="fs14">
+      <div class="fs18">
         <span class="user-dashboard-grid__block--title">Birthday:</span> {{employee?.date | date: 'dd.MM.yyyy'}}
       </div>
-      <button class="btn-br-corner" (click)="editUser(employee)" mat-flat-button>
+      <button class="btn-dashboard btn-tr-corner" (click)="editUser(employee)" mat-flat-button>
         <mat-icon>more_horiz</mat-icon>
       </button>
     </div>
     <!-- todo list -->
     <div class="user-dashboard-grid__block block-todo">
-      <div class="user-dashboard-grid__block--title">Todo list</div>
-      <div *ngIf="!toDoListWeek?.length && !toDoListToday?.length && !toDoListTomorrow?.length" class="h100 dfc user-dashboard-grid__block--text">
+      <div class="user-dashboard-grid__block--title dffssb">
+        <p>Todo list</p>
+        <button (click)='addTask()' class="btn-dashboard" mat-flat-button>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="!toDoListWeek?.length && !toDoListToday?.length && !toDoListTomorrow?.length"
+        class="user-dashboard-grid__block--text centerBtn">
         <p>No tasks</p>
       </div>
-      <perfect-scrollbar *ngIf="toDoListWeek?.length || toDoListToday?.length || toDoListTomorrow?.length" class="scrollbar">
-        <div>  
-        <div *ngIf="toDoListToday?.length">
-            <div class="fs14 fontGilroy">
+      <perfect-scrollbar *ngIf="toDoListWeek?.length || toDoListToday?.length || toDoListTomorrow?.length"
+        class="scrollbar">
+        <div>
+          <div *ngIf="toDoListToday?.length">
+            <div class="fs18 fontGilroy mb8">
               Today {{today | date:'dd.MM.yyyy' }}
             </div>
-            <div *ngFor="let task of toDoListToday;" class="dfsb">
+            <div *ngFor="let task of toDoListToday;" class="dfsb fs16">
               <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
                 <span [ngClass]="task.select ? 'active' : ''">{{task?.task}}</span>
               </mat-checkbox>
@@ -53,11 +60,11 @@
             </div>
           </div>
           <div *ngIf="toDoListTomorrow?.length">
-            <div class="fs14 fontGilroy">Tomorrow</div>
-            <div class="dfsb" *ngFor="let task of toDoListTomorrow;">
+            <div class="fs18 fontGilroy mt16 mb8">Tomorrow</div>
+            <div class="dfsb fs16" *ngFor="let task of toDoListTomorrow;">
               <div>
                 <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
-                  <span [ngClass]="task.select ? 'active' : ''" class="fs14">{{task?.task}}</span>
+                  <span [ngClass]="task.select ? 'active' : ''">{{task?.task}}</span>
                 </mat-checkbox>
               </div>
               <div>
@@ -78,15 +85,14 @@
             </div>
           </div>
           <div *ngIf="toDoListWeek?.length">
-            <div class="fs14 fontGilroy">
+            <div class="fs18 fontGilroy mt16 mb8">
               This week
             </div>
-            <div *ngFor="let task of toDoListWeek" class="dfsb mt4">
+            <div *ngFor="let task of toDoListWeek" class="dfsb fs16 mt4">
               <div>
                 <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
-                  <span [ngClass]="task.select ? 'active' : ''">{{task?.task}}</span>
+                  <span [ngClass]="task.select ? 'active' : ''">{{task?.task}}</span> <span class="fontColorGrey"> ({{task?.date | date:'dd.MM.yyyy'}})</span>
                 </mat-checkbox><br>
-                <span class="fontColorGrey fs12">{{task?.date | date:'dd.MM.yyyy' }} </span>
               </div>
               <div>
                 <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -107,24 +113,21 @@
           </div>
         </div>
       </perfect-scrollbar>
-      <button (click)='addTask()' class="btn-br-corner" mat-flat-button>
-          <mat-icon>add</mat-icon>
-      </button>
     </div>
     <!-- salary -->
     <div class="user-dashboard-grid__block block-salary">
       <p class="user-dashboard-grid__block--title">Salary</p>
-      <p class="user-dashboard-grid__block--text">{{employee?.salary}}$</p>
+      <p class="user-dashboard-grid__block--text center fw700">{{employee?.salary}}$</p>
     </div>
     <!-- first day -->
     <div class="user-dashboard-grid__block block-firstDay">
       <p class="user-dashboard-grid__block--title">First day</p>
-      <p class="user-dashboard-grid__block--text">{{(employee?.startDate | date:'dd.MM.yyyy') || '-'}}</p>
+      <p class="user-dashboard-grid__block--text center">{{(employee?.startDate | date:'dd.MM.yyyy') || '-'}}</p>
     </div>
     <!-- last performance -->
     <div class="user-dashboard-grid__block block-lastPerformance">
       <p class="user-dashboard-grid__block--title">Last performance</p>
-      <p class="user-dashboard-grid__block--text">{{(employee?.lastPerf | date:'dd.MM.yyyy') || '-'}}</p>
+      <p class="user-dashboard-grid__block--text center">{{(employee?.lastPerf | date:'dd.MM.yyyy') || '-'}}</p>
     </div>
     <!-- planned vacation -->
     <div class="user-dashboard-grid__block block-vacation">
@@ -135,7 +138,7 @@
         </div>
       </div>
       <ng-template #noVacation>
-        <p class="user-dashboard-grid__block--text">
+        <p class="user-dashboard-grid__block--text center">
           No vacation this month
         </p>
       </ng-template>
@@ -143,55 +146,61 @@
     <!-- vacation days left -->
     <div class="user-dashboard-grid__block block-vacationDaysLeft">
       <p class="user-dashboard-grid__block--title">Vacation days left</p>
-      <p class="user-dashboard-grid__block--text">7</p>
+      <p class="user-dashboard-grid__block--text center fw700">7</p>
     </div>
     <!-- events this month -->
     <div class="user-dashboard-grid__block block-events">
       <p class="user-dashboard-grid__block--title">Events this month</p>
-      <perfect-scrollbar class="scrollbar user-dashboard-grid__block--text">
+      <perfect-scrollbar *ngIf="birthMonthList?.length else noEvents"
+        class="scrollbar user-dashboard-grid__block--text">
         <div *ngFor="let event of birthMonthList" class="item">
-          <span>{{event?.date | date:'dd.MM.yyyy'}}</span>
-          <span>{{event?.name}}</span>
+          {{event?.date | date:'dd.MM.yyyy'}} {{event?.name}}
         </div>
-        <p *ngIf="!birthMonthList?.length">
-          No event this month
-        </p>
       </perfect-scrollbar>
+      <ng-template #noEvents>
+        <div class="user-dashboard-grid__block--text center">
+          No event this month
+        </div>
+      </ng-template>
     </div>
     <!-- open file -->
-    <div class="user-dashboard-grid__block block-file">
-        <div class="user-dashboard-grid__block--title">House rules</div>
-        <button class="btn-br-corner" mat-flat-button>
-            <mat-icon>open_in_new</mat-icon>
-        </button>
+    <div class="user-dashboard-grid__block block-file dffssb">
+      <div class="user-dashboard-grid__block--title">House rules</div>
+      <button class="btn-dashboard" mat-flat-button>
+        <mat-icon>open_in_new</mat-icon>
+      </button>
     </div>
     <!-- cv -->
     <div class="user-dashboard-grid__block block-cv">
-      <div class="user-dashboard-grid__block--title">CVs</div>
+      <div class="user-dashboard-grid__block--title dffssb">
+        <p>CVs</p>
+        <button (click)="fileUpload.click()" type="file" class="btn-dashboard" mat-flat-button>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
       <input type="file" class="file-input" (change)="onFileSelected($event)" accept=".pdf,.doc" #fileUpload>
-      <div class="file-upload user-dashboard-grid__block--text">
+      <div class="file-upload user-dashboard-grid__block--text h100">
         <div class="uploadFileBox" *ngIf="uploadFileName">
           <button (click)="deleteCV()" class="fileImg" class="deleteBtn greyColor">x</button>
           <img src="../../../assets/img/cv.svg" alt="">
         </div>
         <p *ngIf="uploadFileName else noFile;" (click)="getCV()" class="cvName">{{uploadFileName}}</p>
         <ng-template #noFile>
-            <p>No cv uploaded yet</p>
+          <div class="centerBtn">No cv uploaded yet</div>
         </ng-template>
       </div>
-      <button (click)="fileUpload.click()" type="file" class="btn-br-corner" mat-flat-button>
-        <mat-icon>add</mat-icon>
-      </button>
     </div>
     <!-- About -->
     <div class="user-dashboard-grid__block block-about">
-      <div class="user-dashboard-grid__block--title">About me</div>
+      <div class="user-dashboard-grid__block--title dffssb">
+        <p>About me</p>
+        <button (click)="addNewInfo(employee)" class="btn-dashboard" mat-flat-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
       <perfect-scrollbar class="user-dashboard-grid__block--text word-break scrollbar scrollbar-about">
         <div>{{employee?.infoUser || 'No info'}}</div>
       </perfect-scrollbar>
-      <button (click)="addNewInfo(employee)" class="btn-br-corner" mat-flat-button>
-        <mat-icon>edit</mat-icon>
-      </button>
     </div>
   </div>
 </div>
