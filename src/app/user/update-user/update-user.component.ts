@@ -114,16 +114,14 @@ export class UpdateUserComponent implements OnInit {
 
   updatePassword() {
     const dialogRef = this.dialog.open(UserUpdatePasswordComponent, {
-      width: '398px',
+      width: '400px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '321px',
+      minHeight: '320px',
       height: 'auto',
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log(result);
-      }
+
     });
   }
 

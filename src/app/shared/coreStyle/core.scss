@@ -1,5 +1,7 @@
+@import "./reset.scss";
 @import "indentionStyle.scss";
 @import "./material/mat-table.scss";
+@import "./material/mat-button.scss";
 @import "./material/mat-form.scss";
 @import "./material/mat-typography.scss";
 @import "./material/mat-paginator.scss";
@@ -9,7 +11,4 @@
 @import "./layout.scss";
 @import "./fontStyle.scss";
 @import "./material/mat-icon.scss";
-@import "./adaptiv.scss";
-
-
-
+@import "./adaptive.scss";

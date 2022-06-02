@@ -1,11 +1,9 @@
-.user-dashboard-container {
-  padding: 24px;
-}
-
 .user-dashboard-grid {
+  padding: 16px;
+  height: 100vh;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: 104px repeat(3, 1fr);
   gap: 16px;
 
   &__block {
@@ -42,29 +40,19 @@
   .block-todo {
     position: relative;
     grid-row: span 3;
-    padding-bottom: 64px;
   }
 
   .block-file {
     position: relative;
-    grid-column: span 2;
   }
 
   .block-cv {
     position: relative;
-    padding-bottom: 48px;
   }
 
   .block-about {
     position: relative;
-    padding-bottom: 48px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .displayNoneDashboard {
-    display: none !important;
-    background-color: aquamarine;
+    grid-column: span 2;
   }
 }
 
@@ -72,10 +60,34 @@
   text-decoration: line-through;
 }
 
+.scrollbar {
+  max-height: 88%;
+  padding-right: 8px;
+  padding-bottom: 24px;
+}
+
+.scrollbar-about {
+  max-height: 200px;
+  padding-bottom: 40px;
+}
+
+.btn-br-corner {
+  background-color: #2062A3;
+  color: white;
+  border-radius: 50% !important;
+  line-height: 0% !important;
+  padding: 4px !important;
+  min-width: auto !important;
+  position: absolute !important;
+  bottom: 16px;
+  right: 16px;
+}
+
 @media screen and (max-width: 1024px) {
   .user-dashboard-grid {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
+    height: 100%;
 
     .block-user {
       grid-column: 1;
@@ -92,11 +104,19 @@
     }
 
     .block-file {
-      height: 80px;
+      min-height: 80px;
     }
 
     .block-cv {
-      grid-column: 1;
+      grid-column: 2;
+    }
+
+    .scrollbar {
+      padding-bottom: 0;
+    }
+
+    .scrollbar-about {
+      padding-bottom: 40px;
     }
   }
 }
@@ -110,9 +130,20 @@
     }
 
     .block-vacation,
-    .block-vacationDaysLeft {
+    .block-vacationDaysLeft,
+    .block-cv,
+    .block-about {
       grid-row: auto;
       grid-column: 1;
+    }
+
+    .scrollbar {
+      max-height: 100%;
+      padding-bottom: 32px;
+    }
+
+    .scrollbar-about {
+      padding-right: 0;
     }
   }
 }

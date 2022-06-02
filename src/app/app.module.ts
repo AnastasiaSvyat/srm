@@ -44,7 +44,7 @@ import { SharedModule } from './shared/shared.module';
     MatNativeDateModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatSelectModule,
+    MatSelectModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }

@@ -5,20 +5,7 @@
   font-style: 18px;
   border: none;
   height: 48px;
-  border-radius: 8px !important;
-}
-
-.btn-straight-border {
-  position: absolute !important;
-  bottom: 0;
-  left: 0;
-  border-radius: 0px 0px 8px 8px !important;
-}
-
-.btn-file {
-  position: absolute !important;
-  bottom: 16px;
-  right: 16px;
+  border-radius: 8px;
 }
 
 button:disabled,
@@ -230,8 +217,8 @@ h2 {
 }
 
 @media screen and (max-width: 768px) {
-    .photoHeader {
-      height: 48px;
-      width: 48px;
-    }
+  .photoHeader {
+    height: 48px;
+    width: 48px;
   }
+}
