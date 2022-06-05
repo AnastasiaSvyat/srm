@@ -91,7 +91,8 @@
             <div *ngFor="let task of toDoListWeek" class="dfsb fs16 mt4">
               <div>
                 <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
-                  <span [ngClass]="task.select ? 'active' : ''">{{task?.task}}</span> <span class="fontColorGrey"> ({{task?.date | date:'dd.MM.yyyy'}})</span>
+                  <span [ngClass]="task.select ? 'active' : ''">{{task?.task}}</span> <span class="fontColorGrey">
+                    ({{task?.date | date:'dd.MM.yyyy'}})</span>
                 </mat-checkbox><br>
               </div>
               <div>
