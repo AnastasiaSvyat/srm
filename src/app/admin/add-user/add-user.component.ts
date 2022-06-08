@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Overlay } from '@angular/cdk/overlay';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UploadFileService } from 'src/app/services/UploadFile/upload-file.service';
 import { UploadFile } from 'src/app/model/UploadFile';
@@ -9,6 +10,7 @@ import { Employee } from 'src/app/model/Employee';
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LogTimeVacationService } from 'src/app/services/LogTimeVacation/log-time-vacation.service';
+import { AdminUpdatePasswordComponent } from '../admin-update-password/admin-update-password.component';
 
 @Component({
   selector: 'app-add-user',
@@ -37,6 +39,9 @@ export class AddUserComponent implements OnInit {
     public uploadPhotoService: UploadPhotoService,
     public dialogRef: MatDialogRef<AddUserComponent>,
     private logTimeVacationService: LogTimeVacationService,
+    public dialog: MatDialog,
+    private overlay: Overlay,
+
 
     @Inject(MAT_DIALOG_DATA) public dataUser: any,
 
@@ -246,6 +251,21 @@ export class AddUserComponent implements OnInit {
           this.getUploadFile();
         });
     }
+  }
+
+  updatePassword() {
+    const dialogRef = this.dialog.open(AdminUpdatePasswordComponent, {
+      width: '398px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '321px',
+      height: 'auto',
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // console.log(result);
+      }
+    });
   }
 
 

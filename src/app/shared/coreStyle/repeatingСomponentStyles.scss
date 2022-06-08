@@ -14,10 +14,6 @@ button[disabled] {
   color: #989999 !important;
 }
 
-.navbar {
-  width: 72px;
-}
-
 .header {
   height: 2.7rem;
 }
@@ -82,8 +78,8 @@ h2 {
 }
 
 .photoSmall {
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
 
 }
 
@@ -170,10 +166,9 @@ h2 {
 .menuTel img,
 .menuTel {
   background-color: none;
-  width: 32px;
-  height: 32px;
+  width: auto !important;
+  height: 24px !important;
   border: none;
-  padding: 0;
 }
 
 .exitPhoto,

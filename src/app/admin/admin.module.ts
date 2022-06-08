@@ -16,6 +16,13 @@ import { AdminOpenMenuComponentComponent } from './admin-open-menu-component/adm
 import { AdminUpdatePasswordComponent } from './admin-update-password/admin-update-password.component';
 import { AdminLogTimeComponent } from './admin-log-time/admin-log-time.component';
 import { AdminAddStandartHoursComponent } from './admin-add-standart-hours/admin-add-standart-hours.component';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   declarations: [
@@ -39,6 +46,13 @@ import { AdminAddStandartHoursComponent } from './admin-add-standart-hours/admin
     CommonModule,
     SharedModule,
     AdminRoutingModule,
+    PerfectScrollbarModule
+  ],
+  providers: [
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
   ]
 })
 
