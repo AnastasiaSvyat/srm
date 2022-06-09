@@ -1,1 +1,6 @@
 @import "./app/shared/coreStyle/core.scss";
+@media screen and (max-width: 1919px) {
+    html, body {
+      font-size: 14px;
+    }
+}

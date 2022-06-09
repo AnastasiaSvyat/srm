@@ -1,25 +1,35 @@
+@import '../../shared/coreStyle/colors.scss';
+
 .user-dashboard-grid {
+  // color: $black;
   padding: 16px;
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 104px repeat(3, minmax(104px, 1fr));
+  grid-template-rows: 120px repeat(3, minmax(120px, 1fr));
   gap: 16px;
 
   &__block {
-    padding: 16px;
-    background-color: #FFFFFF;
+    padding: 24px;
+    background-color: $white;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    border-radius: 16px;
 
     &--title {
-      font-size: 18px;
-      color: #7b8386;
+      font-size: 1.313rem;
+      font-family: 'Gilroy';
+      margin-bottom: 24px;
+    }
+
+    &--addTitle {
+      color: $grey;
+      font-size: 1.125rem;
+      font-weight: 600;
       margin-bottom: 8px;
     }
 
     &--text {
-      font-size: 21px;
+      font-size: 1.125rem;
     }
   }
 
@@ -28,39 +38,65 @@
     grid-column: span 3;
 
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1.4fr repeat(3, 1fr);
     gap: 16px;
     align-items: center;
     padding-right: 48px;
 
+    &--title {
+      font-size: 1rem;
+    }
+
     &--text {
-      font-size: 14px;
+      font-size: 0.875rem;
     }
   }
+}
 
-  .block-todo {
-    grid-row: span 3;
-  }
+.block-todo {
+  grid-row: span 3;
+}
 
-  .block-about {
-    grid-column: span 2;
+.block-about {
+  grid-column: span 2;
+}
+
+.block-divider {
+  margin-bottom: 24px;
+  :last-child {
+    margin-bottom: 0;
   }
 }
 
-.center {
-  height: 100%;
+.list-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: -28px;
+  font-size: 1.125rem;
+  margin-bottom: 8px;
+  :last-child {
+    margin-bottom: 0;
+  }
+  .date {
+    margin-left: 8px;
+    color: $grey;
+    font-size: 1rem;
+  }
 }
 
-.centerBtn {
-  height: 100%;
+.list-item--withMenu {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: -36px;
+  justify-content: space-between;
+  font-size: 1.125rem;
+  margin-bottom: 4px;
+  :last-child {
+    margin-bottom: 0;
+  }
+  .date {
+    margin-left: 4px;
+    color: $grey;
+    font-size: 1rem;
+  }
 }
 
 .active {
@@ -68,12 +104,7 @@
 }
 
 .scrollbar {
-  max-height: 92%;
-  padding-bottom: 8px;
-}
-
-.scrollbar-about {
-  padding-right: 8px;
+  max-height: calc(100% - 44px);
 }
 
 .btn-dashboard {
@@ -87,20 +118,21 @@
 
 .btn-tr-corner {
   position: absolute !important;
-  top: 16px;
-  right: 16px;
+  top: 24px;
+  right: 24px;
 }
 
-@media screen and (min-width: 1366px) {
-  .block-vacationDaysLeft,
-  .block-salary {
-    .user-dashboard-grid__block--text {
-      font-size: 24px;
+@media screen and (min-width: 1919px) {
+    .media-h100 {
+        height: 100%;
     }
-  }
-  .scrollbar-about {
-    max-height: 88%;
-  }
+    .center {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -44px;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -123,19 +155,10 @@
       grid-column: 2;
     }
 
-    .center,
-    .centerBtn {
+    .center {
       height: auto;
       display: block;
       margin-top: 0;
-    }
-
-    .scrollbar {
-      max-height: 100%;
-    }
-
-    .scrollbar-about {
-      padding-right: 0;
     }
   }
 }
