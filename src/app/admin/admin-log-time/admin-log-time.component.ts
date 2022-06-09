@@ -118,7 +118,7 @@ export class AdminLogTimeComponent implements OnInit {
 
   workTimeSum(userId: string, salary: string) {
     const reqResult = this.workTimeList.find(img => img.idEmployee === userId);
-    return reqResult ? Math.ceil(Number(salary) / this.standartHour?.time * reqResult?.time) + '$' : '-';
+    return reqResult ? Math.ceil(Number(salary) / this.standartHour?.time * reqResult?.sumHours) + '$' : '-';
   }
 
   addStandartMonthHours() {
@@ -188,7 +188,7 @@ export class AdminLogTimeComponent implements OnInit {
 
   workTime(userId: string) {
     const reqResult = this.workTimeList.find(img => img.idEmployee === userId);
-    return reqResult?.time ? reqResult?.time + 'H' : '-';
+    return reqResult?.sumHours ? reqResult?.sumHours + 'H' : '-';
   }
 
 

@@ -7,7 +7,7 @@ import { LogTime } from 'src/app/model/logTime';
 import { Month } from 'src/app/model/month';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LogTimeService } from 'src/app/services/logTime/log-time.service';
-import { UserAddMonthLogTimeComponent } from '../user-add-month-log-time/user-add-month-log-time.component';
+import { UserAddMonthLogTimeComponent } from './user-add-month-log-time/user-add-month-log-time.component';
 
 @Component({
   selector: 'app-user-log-time',
@@ -48,12 +48,12 @@ export class UserLogTimeComponent implements OnInit {
 
   logTimeSelectMonth(monthId: any) {
     const timeResult = this.monthArrWithHour.find(el => el.month === monthId);
-    return timeResult?.time ?? 'Add hours worked for a given month';
+    return timeResult?.sumHours ?? 'Add hours worked for a given month';
   }
 
   showBtn(monthId: any) {
     const timeResult = this.monthArrWithHour.find(el => el.month === monthId);
-    return timeResult?.time ? false : true
+    return timeResult?.sumHours ? false : true
   }
 
   logTime(month: Month | undefined) {

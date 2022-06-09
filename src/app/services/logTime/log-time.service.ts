@@ -16,6 +16,8 @@ export class LogTimeService {
     ) { }
 
   LogTime(data: LogTime): Observable<LogTime> {
+  console.log(data);
+  
     const API_URL = `${this.careService.REST_API}/logTime`;
     return this.httpClient.post<LogTime>(API_URL, data)
       .pipe(

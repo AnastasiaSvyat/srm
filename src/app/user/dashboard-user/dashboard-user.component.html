@@ -154,8 +154,11 @@
       <p class="user-dashboard-grid__block--title">Events this month</p>
       <perfect-scrollbar *ngIf="birthMonthList?.length else noEvents"
         class="scrollbar user-dashboard-grid__block--text">
-        <div *ngFor="let event of birthMonthList" class="item">
-          {{event?.date | date:'dd.MM.yyyy'}} {{event?.name}}
+        <div *ngFor="let employee of birthMonthList" class="item">
+          {{employee?.date | date:'dd.MM'}} {{employee?.name}} {{employee?.lastName}} - birthday
+        </div>
+        <div *ngFor="let event of eventMonthList" class="item">
+          {{event?.date | date:'dd.MM'}} {{event?.name}}
         </div>
       </perfect-scrollbar>
       <ng-template #noEvents>

@@ -1,0 +1,55 @@
+<div class="log-time-container">
+    <h2 class="mt24" mat-dialog-title>Log time:</h2>
+
+    <div class="add-lessons-form" [formGroup]="form">
+        <div fxLayout="row" fxLayoutAlign="end center" class="w100">
+            <button color="primary" mat-mini-fab (click)="addOneMoreProject()">
+                <mat-icon class='mb13' mb13>add</mat-icon>
+            </button>
+        </div>
+
+        <ng-container formArrayName="logTimeList">
+
+            <ng-container *ngFor="let logForm of logTimeList.controls; let i = index">
+                <div class="lesson-form-row" [formGroupName]="i" class="border" fxLayout="column"
+                    fxLayoutAlign="center center">
+                    <mat-form-field class="w96">
+                        <mat-label>Project name</mat-label>
+                        <input matInput formControlName="projectName" placeholder="Enter project name" matInput>
+                    </mat-form-field>
+
+                    <div fxLayout="row" fxLayoutAlign="space-around center" class="w96 mb13">
+                        <mat-form-field class="w47">
+                            <mat-label>Billable hours</mat-label>
+                            <input type="number" matInput formControlName="billableTime" placeholder="Enter billable hours" matInput>
+                        </mat-form-field>
+
+                        <mat-form-field class="w47">
+                            <mat-label>Unbillable hours</mat-label>
+                            <input type="number" matInput formControlName="unbillableTime" placeholder="Enter unbillable hours"
+                                matInput>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div fxLayout="row" fxLayoutAlign="end center" class="w100" *ngIf='i>0'>
+                        <mat-icon class="delete-btn cursor trash fontColorRed" (click)="deleteLesson(i)">
+                            delete_forever
+                        </mat-icon>
+                    </div>
+
+                </div>
+            </ng-container>
+        </ng-container>
+        <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
+            <div>
+                <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
+            </div>
+            <div>
+                <button (click)='logTime()' class="btn w155" mat-stroked-button>SAVE
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

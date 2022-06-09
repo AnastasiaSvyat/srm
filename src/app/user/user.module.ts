@@ -15,10 +15,10 @@ import { UserOpenMenuComponentComponent } from './user-open-menu-component/user-
 import { UserUpdatePasswordComponent } from './user-update-password/user-update-password.component';
 import { UserAddTaskComponent } from './user-add-task/user-add-task.component';
 import { UserLogTimeComponent } from './user-log-time/user-log-time.component';
-import { UserAddMonthLogTimeComponent } from './user-add-month-log-time/user-add-month-log-time.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { UserAddMonthLogTimeComponent } from './user-log-time/user-add-month-log-time/user-add-month-log-time.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -39,8 +39,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     UserUpdatePasswordComponent,
     UserAddTaskComponent,
     UserLogTimeComponent,
-    UserAddMonthLogTimeComponent
-
+    UserAddMonthLogTimeComponent,
   ],
   imports: [
     CommonModule,

@@ -30,8 +30,8 @@
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef fxFlex="30%"> EMPLOYEE </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="50%">
+        <mat-header-cell *matHeaderCellDef fxFlex="29%"> EMPLOYEE </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="27.3%">
           <span class="mobile-label fontColorBlue">{{element?.name | uppercase}}</span>
           <cdk-virtual-scroll-viewport itemSize="1" class="viewport displayNone">
             <p class="overflow-ellipsis">
@@ -42,16 +42,16 @@
       </ng-container>
 
       <ng-container matColumnDef="workTime">
-        <mat-header-cell *matHeaderCellDef fxFlex="15%"> WORKTIME </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="15%">
+        <mat-header-cell *matHeaderCellDef fxFlex="14.3%"> WORKTIME </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="15.6%">
           <span class="mobile-label fontColorBlue">WORKTIME: </span>
           <span class="ml24">{{workTime(element.id)}}</span>
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="salary">
-        <mat-header-cell *matHeaderCellDef fxFlex="15%"> SALARY </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="15%">
+        <mat-header-cell *matHeaderCellDef fxFlex="31%"> SALARY </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="31%">
           <span class="mobile-label fontColorBlue">SALARY:</span>
           <span class="ml6">{{element?.salary}}$</span>
         </mat-cell>
@@ -68,8 +68,8 @@
    
 
       <ng-container matColumnDef="sum">
-        <mat-header-cell *matHeaderCellDef fxFlex="15%"> SUM </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="15%">
+        <mat-header-cell *matHeaderCellDef fxFlex="5%"> SUM </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="5%">
           <span class="mobile-label fontColorBlue">SUM: </span>
           <span class="ml12">{{workTimeSum(element?.id, element?.salary)}}</span>
         </mat-cell>
