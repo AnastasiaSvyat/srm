@@ -1,337 +1,146 @@
-<div class="admin-dashboard-container mt30" fxLayout='column' fxFlex='98%'>
-    <div class="w100" fxLayout="row" fxLayoutAlign="end center">
-        <div (click)='updatePassword()' class="changePass">change password</div>
-    </div>
-    <div fxLayout.gt-sm='row' fxLayout='column'>
-
-        <div fxLayout='column' fxFlex.gt-xs='52%' fxFlex.gt-sm='70%' fxFlex='100%' class="mt24">
-            <!-- header -->
-            <div fxFlex='10%' fxLayoutAlign="space-around center" class="h95 ml16 colorBlock">
-                <div fxFlex="15%" class="displayNonePhoto">
-                    <img class="photo photoHeader ml16" [src]="urlPhoto ? urlPhoto : '../../../assets/img/nouser.jpeg'"
-                        alt="">
-                </div>
-                <div fxFlex="35%">
-                    <div class="fs18 mb0 fontRobotoBold">{{employee?.name}} {{employee?.lastName}}</div>
-                    <div class="fs14 mb0 fontColorGrey">Manager</div>
-                </div>
-                <div fxFlex="30%">
-                    <div class="fs14 mb0">
-                        <span class="fontColorGrey">Phone:</span>
-                        {{employee?.phone}}
-                    </div>
-                    <div class="fs14 mb0">
-                        <span class="fontColorGrey">Email:</span>
-                        {{employee?.email}}
-                    </div>
-                </div>
-                <div class="mb13" fxFlex="15%">
-                    <div class="fs14 mb0">
-                        <span class="fontColorGrey">Birthday:</span>
-                        {{employee?.date | date: 'dd.MM.yyyy'}}
-                    </div>
-                </div>
-                <div class="btnEditUser" fxFlex="5%">
-                    <button (click)="editUser(employee)" class="pt0" mat-icon-button
-                        aria-label="Example icon-button with a menu">
-                        <mat-icon class="mb13">more_horiz</mat-icon>
-                    </button>
+<div class="admin-dashboard-container">
+    <div class="admin-dashboard-grid">
+        <!-- admin -->
+        <div class="admin-dashboard-grid__block block-admin">
+            <div class="dfac">
+                <img class="photoHeader mr24" [src]=" urlPhoto ? urlPhoto : '../../../assets/img/nouser.jpeg'" alt="">
+                <div class="admin-dashboard-grid__block--title mb0">
+                    {{employee?.name}} {{employee?.lastName}}
                 </div>
             </div>
-            <div fxFlex='100%' fxLayout.gt-xs="row" fxLayout='column'>
-                <!-- Events -->
-                <div fxFlex='33.33%' fxLayout="column" fxLayoutAlign="space-between start"
-                    class="ml16 mt16 dashboard-content mb20 colorBlock">
-                    <div class="fs24 fontGilroy ml24 mt24">Events</div>
-                    <div *ngIf="eventLaterList?.length || eventDayList?.length || eventMonthList?.length" fxFlex='90%'
-                        class="w90 ml24">
-                        <cdk-virtual-scroll-viewport itemSize="3" class="viewport">
-                            <div class="w100 mt24">
-                                <p class="fontColorGrey fontGilroy fs18">Today</p>
-                                <div *ngIf="!eventDayList?.length">
-                                    <span class="fontColorGrey fontGilroy fs14">No event today</span>
-                                </div>
-                                <div *ngIf="eventDayList?.length">
-                                    <div *ngFor="let item of eventDayList" class="item" fxLayout="row"
-                                        fxLayoutAlign="space-between center">
-                                        <div class="item">
-                                            <span class="fontColorGrey fs14">{{item?.date | date:'dd.MM.yyyy'}} </span>
-                                            <span class="fs14 ml8">{{item?.name}}</span>
-                                        </div>
-                                        <div>
-                                            <button mat-icon-button [matMenuTriggerFor]="menu"
-                                                aria-label="Example icon-button with a menu">
-                                                <mat-icon>more_vert</mat-icon>
-                                            </button>
-                                            <mat-menu #menu="matMenu">
-                                                <button (click)="descriotionEvent(item)" mat-menu-item>
-                                                    <mat-icon>description</mat-icon>
-                                                    <span>Description</span>
-                                                </button>
-                                                <button (click)="updateEvent(item)" mat-menu-item>
-                                                    <mat-icon>edit</mat-icon>
-                                                    <span>Edit</span>
-                                                </button>
-                                                <button (click)="deleteEvent(item)" mat-menu-item>
-                                                    <mat-icon>description</mat-icon>
-                                                    <span>Delete</span>
-                                                </button>
-                                            </mat-menu>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="eventMonthList?.length" class="mt16">
-                                <p class="fontColorGrey fontGilroy fs18 mt16 ">This month</p>
-                                <div *ngFor="let item of eventMonthList" fxLayout="row"
-                                    fxLayoutAlign="space-between center">
-                                    <div class="item">
-                                        <span class="fontColorGrey fs14">{{item?.date | date:'dd.MM.yyyy'}} </span>
-                                        <span class="fs14 ml8">{{item?.name}}</span>
-                                    </div>
-                                    <div>
-                                        <button mat-icon-button [matMenuTriggerFor]="menu"
-                                            aria-label="Example icon-button with a menu">
-                                            <mat-icon>more_vert</mat-icon>
-                                        </button>
-                                        <mat-menu #menu="matMenu">
-                                            <button (click)="descriotionEvent(item)" mat-menu-item>
-                                                <mat-icon>description</mat-icon>
-                                                <span>Description</span>
-                                            </button>
-                                            <button (click)="updateEvent(item)" mat-menu-item>
-                                                <mat-icon>edit</mat-icon>
-                                                <span>Edit</span>
-                                            </button>
-                                            <button (click)="deleteEvent(item)" mat-menu-item>
-                                                <mat-icon>delete</mat-icon>
-                                                <span>Delete</span>
-                                            </button>
-                                        </mat-menu>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt16 w100" *ngIf="eventLaterList?.length">
-                                <p class="fontColorGrey fontGilroy fs18 mt16">Later</p>
-                                <div *ngFor="let item of eventLaterList" fxLayout="row"
-                                    fxLayoutAlign="space-between center">
-                                    <div>
-                                        <span class="fontColorGrey fs14">{{item?.date | date:'dd.MM.yyyy'}} </span>
-                                        <span class="fs14 ml8">{{item?.name}}</span>
-                                    </div>
-                                    <div>
-                                        <button mat-icon-button [matMenuTriggerFor]="menu"
-                                            aria-label="Example icon-button with a menu">
-                                            <mat-icon>more_vert</mat-icon>
-                                        </button>
-                                        <mat-menu #menu="matMenu">
-                                            <button (click)="descriotionEvent(item)" mat-menu-item>
-                                                <mat-icon>delete</mat-icon>
-                                                <span>Description</span>
-                                            </button>
-                                            <button (click)="updateEvent(item)" mat-menu-item>
-                                                <mat-icon>edit</mat-icon>
-                                                <span>Edit</span>
-                                            </button>
-                                            <button (click)="deleteEvent(item)" mat-menu-item>
-                                                <mat-icon>delete</mat-icon>
-                                                <span>Delete</span>
-                                            </button>
-                                        </mat-menu>
-                                    </div>
-                                </div>
-                            </div>
-                        </cdk-virtual-scroll-viewport>
-                    </div>
-                    <div *ngIf="!eventLaterList?.length && !eventDayList?.length && !eventMonthList?.length"
-                        class="text-center w100">
-                        <span fontGilroy class="fontColorGrey fs14">No events</span>
-                    </div>
-                    <div class="w100">
-                        <button (click)='addEvent()' class="w100 btn h48" mat-stroked-button>ADD EVENT</button>
-                    </div>
-                </div>
-
-                <!-- Birthdays -->
-                <div fxFlex='33.33%' class="dashboard-content mt16 ml16 colorBlock">
-                    <div class="fs24 ml24 mt24 fontGilroy">Birthdays</div>
-                    <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start">
-                        <cdk-virtual-scroll-viewport itemSize="3" class="viewport">
-                            <div class="mt24">
-                                <p class="fontColorGrey fontGilroy fs18 mt16">Today</p>
-                                <div *ngIf="!todayBirthList?.length">
-                                    <span class="fontGilroy fontColorGrey fs14">No birthday today</span>
-                                </div>
-                                <div *ngIf="todayBirthList?.length">
-                                    <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of todayBirthList"
-                                        class="item">
-                                        <div fxFlex='31%' class="fontColorGrey fs14">{{item?.date | date:'dd.MM.yyyy'}}
-                                        </div>
-                                        <div>
-                                            <img class="photo photoSmall" [src]="getEmployeePhotoById(item.id)">
-                                        </div>
-                                        <div class="fs14 ml8 overflow-ellipsis n">{{item?.name}} {{item?.lastName}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="monthBirthList?.length" class="mt16">
-                                <p class="fontColorGrey fs18 mt16 fontGilroy">This month</p>
-                                <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of monthBirthList"
-                                    class="item">
-                                    <div fxFlex='31%' class="fontColorGrey fs14">{{item?.date | date:'dd.MM.yyyy'}}
-                                    </div>
-                                    <div>
-                                        <img class="photo photoSmall" [src]="getEmployeePhotoById(item.id)">
-                                    </div>
-                                    <div class="fs14 ml8">{{item?.name}} {{item?.lastName}}</div>
-                                </div>
-                            </div>
-                            <div *ngIf="staffBirthLater?.length" class="mt16">
-                                <p class="fontColorGrey fs18 mt16 fontGilroy">Later</p>
-                                <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of staffBirthLater"
-                                    class="item">
-                                    <div fxFlex='31%' class="fontColorGrey fs14">{{item?.date | date:'dd.MM.yyyy'}}
-                                    </div>
-                                    <div>
-                                        <img class="photo photoSmall" [src]="getEmployeePhotoById(item.id)">
-                                    </div>
-                                    <div class="fs14 ml8">{{item?.name}} {{item?.lastName}}</div>
-                                </div>
-                            </div>
-                        </cdk-virtual-scroll-viewport>
-                    </div>
-                </div>
-                <!-- Vacations -->
-                <div fxFlex='33.33%' class="dashboard-content ml16 mt16 colorBlock">
-                    <div class="fs24 ml24 mt24 fontGilroy">Vacations</div>
-                    <div *ngIf="vacationMonthList?.length && vacationLaterList?.length">
-                        <span class="fontColorGrey fontGilroy fs14">No vacations yet</span>
-                    </div>
-                    <cdk-virtual-scroll-viewport itemSize="3" class="viewport">
-                        <div class="ml24" fxLayout="column" fxLayoutAlign="space-around start">
-                            <div *ngIf="vacationMonthList?.length" class="mt24">
-                                <p class="fontColorGrey fontGilroy fs18 mt16">This month</p>
-                                <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of vacationMonthList"
-                                    class="item">
-                                    <div fxFlex='30%' class="fontColorGrey fs14">{{item?.date | date: 'dd.MM.yyyy'}} -
-                                        {{item?.endDate | date:'dd.MM.yyyy'}}
-                                    </div>
-                                    <div>
-                                        <img class="photo photoSmall ml8" [src]="getEmployeePhotoById(item.idEmployee)">
-                                    </div>
-                                    <div class="fs14 ml8 ml1"> {{getEmployeeName(item.idEmployee)}}</div>
-                                </div>
-                            </div>
-                            <div *ngIf="vacationLaterList?.length" class="mt16">
-                                <p class="fontColorGrey fontGilroy fs18 mt16">Later</p>
-                                <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let item of vacationLaterList"
-                                    class="item">
-                                    <div fxFlex='45%' class="fontColorGrey fs14">{{item?.date | date:'dd.MM.yyyy'}} -
-                                        {{item?.endDate | date:'dd.MM.yyyy'}}</div>
-                                    <div>
-                                        <img class="photo photoSmall ml12"
-                                            [src]="getEmployeePhotoById(item.idEmployee)">
-                                    </div>
-                                    <div class="fs14 ml8">{{item?.name}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </cdk-virtual-scroll-viewport>
-                </div>
+            <div class="admin-dashboard-grid__block--text">
+                <span class="admin-dashboard-grid__block--addTitle">Phone:</span> {{employee?.phone}}
             </div>
+            <div class="admin-dashboard-grid__block--text">
+                <span class="admin-dashboard-grid__block--addTitle">Email:</span> {{employee?.email}}
+            </div>
+            <div class="admin-dashboard-grid__block--text">
+                <span class="admin-dashboard-grid__block--addTitle">Birthday:</span> {{employee?.date | date:
+                'dd.MM.yyyy'}}
+            </div>
+            <button class="btn-dashboard btn-tr-corner" (click)="editUser(employee)" mat-flat-button>
+                <mat-icon>more_horiz</mat-icon>
+            </button>
         </div>
-
-        <!-- ToDoList -->
-        <div fxFlex.gt-sm='30%' fxFlex='20%' fxLayout="column" fxLayoutAlign="space-between start"
-            class="mt24 dashboard-content colorBlock ml16">
-            <div class="fs24 fontGilroy ml24 mt24">ToDoList</div>
-            <div *ngIf="!toDoListWeek?.length && !toDoListToday?.length && !toDoListTomorrow?.length"
-                class="text-center w100">
-                <span class="fontColorGrey fontGilroy fs14">No tasks</span>
+        <!-- todo list -->
+        <div class="admin-dashboard-grid__block block-todo">
+            <div class="dffssb">
+                <div class="admin-dashboard-grid__block--title">Todo list</div>
+                <button (click)='addTask()' class="btn-dashboard" mat-flat-button>
+                    <mat-icon>add</mat-icon>
+                </button>
             </div>
-            <cdk-virtual-scroll-viewport itemSize="3" class="viewport">
-                <div fxFlex='100%' class="w100">
-                    <div *ngIf="toDoListToday?.length" class="w100">
-                        <div class="fs18 fontColorGrey fontGilroy mt16 ml24">Today {{today | date:'dd.MM.yyyy' }} </div>
-                        <div fxLayout="row" fxLayoutAlign="space-between center"
-                            *ngFor="let task of toDoListToday; let i = index" class="w100 mt7">
-                            <div class="ml24 w100">
-                                <mat-checkbox type='checkbox' [checked]="task.select" class="w100"
-                                    (change)="onChange($event,task)">
-                                    <span [ngClass]="task.select ? 'active' : ''" class="fs14 ml8">{{task?.task}}</span>
-                                </mat-checkbox>
-                            </div>
-                            <div>
-                                <button mat-icon-button [matMenuTriggerFor]="menu"
-                                    aria-label="Example icon-button with a menu">
-                                    <mat-icon>more_vert</mat-icon>
+            <perfect-scrollbar
+                *ngIf="toDoListWeek?.length || toDoListToday?.length || toDoListTomorrow?.length else noTasks"
+                class="scrollbar">
+                <div *ngIf="toDoListToday?.length" class="block-divider">
+                    <div class="admin-dashboard-grid__block--addTitle">
+                        Today
+                    </div>
+                    <div *ngFor="let task of toDoListToday;" class="list-item--withMenu">
+                        <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
+                            <span [ngClass]="task.select ? 'active' : ''">{{task?.task}}</span>
+                        </mat-checkbox>
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button (click)="updateTask(task)" mat-menu-item>
+                                <mat-icon>edit</mat-icon>
+                                <span>Edit</span>
+                            </button>
+                            <button (click)="deleteTask(task)" mat-menu-item>
+                                <mat-icon>delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
+                <div *ngIf="toDoListTomorrow?.length" class="block-divider">
+                    <div class="admin-dashboard-grid__block--addTitle">Tomorrow</div>
+                    <div *ngFor="let task of toDoListTomorrow;" class="list-item--withMenu">
+                        <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
+                            <span [ngClass]="task.select ? 'active' : ''">{{task?.task}}</span>
+                        </mat-checkbox>
+                        <div>
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button (click)="updateTask(task)" mat-menu-item>
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Edit</span>
                                 </button>
-                                <mat-menu #menu="matMenu">
-                                    <button (click)="updateTask(task)" mat-menu-item>
-                                        <mat-icon>edit</mat-icon>
-                                        <span>Edit</span>
-                                    </button>
-                                    <button (click)="deleteTask(task)" mat-menu-item>
-                                        <mat-icon>delete</mat-icon>
-                                        <span>Delete</span>
-                                    </button>
-                                </mat-menu>
-                            </div>
+                                <button (click)="deleteTask(task)" mat-menu-item>
+                                    <mat-icon>delete</mat-icon>
+                                    <span>Delete</span>
+                                </button>
+                            </mat-menu>
                         </div>
                     </div>
-                    <div *ngIf="toDoListTomorrow?.length" class="w100">
-                        <div class="fs18 fontColorGrey fontGilroy mt16 ml24">Tomorrow</div>
-                        <div fxLayout="row" fxLayoutAlign="space-between center"
-                            *ngFor="let task of toDoListTomorrow; let i = index" class="w100 mt7">
-                            <div class="ml24 w100">
-                                <mat-checkbox type='checkbox' [checked]="task.select" class="w100"
-                                    (change)="onChange($event,task)">
-                                    <span [ngClass]="task.select ? 'active' : ''" class="fs14 ml8">{{task?.task}}</span>
-                                </mat-checkbox>
-                            </div>
-                            <div>
-                                <button mat-icon-button [matMenuTriggerFor]="menu"
-                                    aria-label="Example icon-button with a menu">
-                                    <mat-icon>more_vert</mat-icon>
+                </div>
+                <div *ngIf="toDoListWeek?.length" class="block-divider">
+                    <div class="admin-dashboard-grid__block--addTitle">
+                        This week
+                    </div>
+                    <div *ngFor="let task of toDoListWeek" class="list-item--withMenu">
+                        <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
+                            <span [ngClass]="task.select ? 'active' : ''">{{task?.task}}</span><span class="date">
+                                ({{task?.date | date:'dd.MM.yyyy'}})</span>
+                        </mat-checkbox>
+                        <div>
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button (click)="updateTask(task)" mat-menu-item>
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Edit</span>
                                 </button>
-                                <mat-menu #menu="matMenu">
-                                    <button (click)="updateTask(task)" mat-menu-item>
-                                        <mat-icon>edit</mat-icon>
-                                        <span>Edit</span>
-                                    </button>
-                                    <button (click)="deleteTask(task)" mat-menu-item>
-                                        <mat-icon>delete</mat-icon>
-                                        <span>Delete</span>
-                                    </button>
-                                </mat-menu>
-                            </div>
+                                <button (click)="updateTask(task)" mat-menu-item>
+                                    <mat-icon>delete</mat-icon>
+                                    <span>Delete</span>
+                                </button>
+                            </mat-menu>
                         </div>
                     </div>
-                    <div *ngIf="toDoListWeek?.length" class="w100">
-
-                        <div *ngIf="toDoListWeek?.length" class="fs18 fontGilroy fontColorGrey mt16 ml24">This week
-                        </div>
-                        <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let task of toDoListWeek"
-                            class="w100 todolostLater">
-                            <div class="ml26 mt10">
-                                <mat-checkbox type='checkbox' [checked]="task.select" (change)="onChange($event,task)">
-                                    <span [ngClass]="task.select ? 'active' : ''" class="fs14 ml8">{{task?.task}}</span>
-                                </mat-checkbox><br>
-                                <span class="fontColorGrey fs12">{{task?.date | date:'dd.MM.yyyy' }} </span>
-                            </div>
+                </div>
+            </perfect-scrollbar>
+            <ng-template #noTasks>
+                <div class="admin-dashboard-grid__block--text center">No tasks</div>
+            </ng-template>
+        </div>
+        <!-- Events -->
+        <div class="admin-dashboard-grid__block block-events">
+            <div class="dffssb">
+                <div class="admin-dashboard-grid__block--title">Events</div>
+                <button (click)='addEvent()' class="btn-dashboard" mat-flat-button>
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <perfect-scrollbar
+                *ngIf="eventLaterList?.length || eventDayList?.length || eventMonthList?.length else noEvents"
+                class="scrollbar">
+                <div *ngIf="eventDayList?.length" class="block-divider">
+                    <p class="admin-dashboard-grid__block--addTitle">Today</p>
+                    <div *ngIf="eventDayList?.length">
+                        <div *ngFor="let item of eventDayList" class="list-item--withMenu">
+                            <div>{{item?.name}}<span class="date">({{item?.date | date:'dd.MM.yyyy'}})</span></div>
                             <div>
-                                <button mat-icon-button [matMenuTriggerFor]="menu"
-                                    aria-label="Example icon-button with a menu">
+                                <button mat-icon-button [matMenuTriggerFor]="menu">
                                     <mat-icon>more_vert</mat-icon>
                                 </button>
                                 <mat-menu #menu="matMenu">
-                                    <button (click)="updateTask(task)" mat-menu-item>
+                                    <button (click)="descriptionEvent(item)" mat-menu-item>
+                                        <mat-icon>description</mat-icon>
+                                        <span>Description</span>
+                                    </button>
+                                    <button (click)="updateEvent(item)" mat-menu-item>
                                         <mat-icon>edit</mat-icon>
                                         <span>Edit</span>
                                     </button>
-                                    <button (click)="updateTask(task)" mat-menu-item>
-                                        <mat-icon>delete</mat-icon>
+                                    <button (click)="deleteEvent(item)" mat-menu-item>
+                                        <mat-icon>description</mat-icon>
                                         <span>Delete</span>
                                     </button>
                                 </mat-menu>
@@ -339,11 +148,124 @@
                         </div>
                     </div>
                 </div>
-            </cdk-virtual-scroll-viewport>
-            <div class="w100">
-                <button (click)='addTask()' class="w100 btn h48" mat-stroked-button>ADD TASK</button>
-            </div>
+                <div *ngIf="eventMonthList?.length" class="block-divider">
+                    <p class="admin-dashboard-grid__block--addTitle">This month</p>
+                    <div *ngFor="let item of eventMonthList" class="list-item--withMenu">
+                        <div>{{item?.name}}<span class="date">({{item?.date | date:'dd.MM.yyyy'}})</span></div>
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button (click)="descriptionEvent(item)" mat-menu-item>
+                                <mat-icon>description</mat-icon>
+                                <span>Description</span>
+                            </button>
+                            <button (click)="updateEvent(item)" mat-menu-item>
+                                <mat-icon>edit</mat-icon>
+                                <span>Edit</span>
+                            </button>
+                            <button (click)="deleteEvent(item)" mat-menu-item>
+                                <mat-icon>delete</mat-icon>
+                                <span>Delete</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
+                <div *ngIf="eventLaterList?.length" class="block-divider">
+                    <p class="admin-dashboard-grid__block--addTitle">Later</p>
+                    <div *ngFor="let item of eventLaterList" class="list-item--withMenu">
+                        <div>{{item?.name}}<span class="date">({{item?.date | date:'dd.MM.yyyy'}})</span></div>
+                        <div>
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button (click)="descriptionEvent(item)" mat-menu-item>
+                                    <mat-icon>delete</mat-icon>
+                                    <span>Description</span>
+                                </button>
+                                <button (click)="updateEvent(item)" mat-menu-item>
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Edit</span>
+                                </button>
+                                <button (click)="deleteEvent(item)" mat-menu-item>
+                                    <mat-icon>delete</mat-icon>
+                                    <span>Delete</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </div>
+                </div>
+            </perfect-scrollbar>
+            <ng-template #noEvents>
+                <div class="admin-dashboard-grid__block--text center">No events</div>
+            </ng-template>
+        </div>
+        <!-- Birthdays -->
+        <div class="admin-dashboard-grid__block block-birthdays block-birthdays">
+            <div class="admin-dashboard-grid__block--title">Birthdays</div>
+            <perfect-scrollbar class="scrollbar">
+                <div *ngIf="todayBirthList?.length" class="block-divider">
+                    <p class="admin-dashboard-grid__block--addTitle">Today</p>
+                    <div *ngFor="let item of todayBirthList" class="list-item">
+                        <img class="photo photoSmall mr8" [src]="getEmployeePhotoById(item.id)">
+                        <div>
+                            {{item?.name}} {{item?.lastName}}<span class="date">({{item?.date |
+                                date:'dd.MM.yyyy'}})</span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="monthBirthList?.length" class="block-divider">
+                    <p class="admin-dashboard-grid__block--addTitle">This month</p>
+                    <div *ngFor="let item of monthBirthList" class="list-item">
+                        <img class="photo photoSmall mr8" [src]="getEmployeePhotoById(item.id)">
+                        <div>
+                            {{item?.name}} {{item?.lastName}}<span class="date">({{item?.date |
+                                date:'dd.MM.yyyy'}})</span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="staffBirthLater?.length" class="block-divider">
+                    <p class="admin-dashboard-grid__block--addTitle">Later</p>
+                    <div *ngFor="let item of staffBirthLater" class="list-item">
+                        <img class="photo photoSmall mr8" [src]="getEmployeePhotoById(item.id)">
+                        <div>
+                            {{item?.name}} {{item?.lastName}}<span class="date">({{item?.date |
+                                date:'dd.MM.yyyy'}})</span>
+                        </div>
+                    </div>
+                </div>
+            </perfect-scrollbar>
+        </div>
+        <!-- Vacations -->
+        <div class="admin-dashboard-grid__block block-vacations">
+            <div class="admin-dashboard-grid__block--title">Vacations</div>
+            <perfect-scrollbar *ngIf="vacationMonthList?.length && vacationLaterList?.length else noVacations"
+                class="scrollbar">
+                <div *ngIf="vacationMonthList?.length" class="block-divider">
+                    <p class="admin-dashboard-grid__block--addTitle">This month</p>
+                    <div *ngFor="let item of vacationMonthList" class="list-item">
+                        <img class="photo photoSmall mr8" [src]="getEmployeePhotoById(item.idEmployee)">
+                        <div>{{getEmployeeName(item.idEmployee)}}</div>
+                        <div>{{item?.name}}</div>
+                        <div class="date">({{item?.date | date:'dd.MM.yyyy'}} - {{item?.endDate | date:'dd.MM.yyyy'}})
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="vacationLaterList?.length" class="block-divider">
+                    <p class="admin-dashboard-grid__block--addTitle">Later</p>
+                    <div *ngFor="let item of vacationLaterList" class="list-item">
+                        <img class="photo photoSmall mr8" [src]="getEmployeePhotoById(item.idEmployee)">
+                        <div>{{getEmployeeName(item.idEmployee)}}</div>
+                        <div>{{item?.name}}</div>
+                        <div class="date">({{item?.date | date:'dd.MM.yyyy'}} - {{item?.endDate | date:'dd.MM.yyyy'}})
+                        </div>
+                    </div>
+                </div>
+            </perfect-scrollbar>
+            <ng-template #noVacations>
+                <div class="admin-dashboard-grid__block--text center">No vacations yet</div>
+            </ng-template>
         </div>
     </div>
-
 </div>

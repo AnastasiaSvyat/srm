@@ -1,49 +1,52 @@
 <div class="user-container">
-    <mat-drawer-container class="w100 h100">
-        <mat-drawer class="navbar displayNoneTel" mode="side" opened>
-            <div fxLayout="column" fxLayoutAlign="center center" class="h100pr">
-                <div fxFlex="85">
-                    <div>
-                        <img src="../../assets/img/logo.png" alt="">
-                    </div>
-                    <div fxLayoutAlign="center center" class="mt49">
-                        <button mat-icon-button routerLinkActive="activeLink" [routerLink]="['/user','dashboardUser']">
-                            <mat-icon>dashboard</mat-icon>
-                        </button>
-                    </div>
-                    <div fxLayoutAlign="center center" class="mt20">
-                        <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
-                            [routerLink]="['/user','stafflist']">
-                            <mat-icon>perm_contact_calendar</mat-icon>
-                        </button>
-                    </div>
-                    <div fxLayoutAlign="center center" class="mt20">
-                        <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
-                            [routerLink]="['/user','calendar']">
-                            <mat-icon>card_travel</mat-icon>
-                        </button>
-                    </div>
-                    <div fxLayoutAlign="center center" class="mt20">
-                        <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
-                            [routerLink]="['/user','logTime']">
-                            <mat-icon>access_time</mat-icon>
-                        </button>
-                    </div>
+    <mat-drawer-container>
+        <mat-drawer class="displayNoneTel sideMenu" mode="side" opened>
 
-                    <div fxLayoutAlign="center center" class="mt20">
-                        <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
-                            [routerLink]="['/user','messageUser']">
-                            <mat-icon>message</mat-icon>
-                            <span *ngIf='requestCount' class="circle-sms">{{requestCount}}</span>
-                        </button>
-                    </div>
-                </div>
-                <div fxFlex="6">
-                    <button (click)="logout()" mat-icon-button>
-                        <mat-icon>exit_to_app</mat-icon>
-                    </button>
-                </div>
+            <div class="sideMenu--item">
+                <img src="../../assets/img/logo.png" alt="">
             </div>
+
+            <div class="sideMenu--item">
+                <button mat-icon-button routerLinkActive="activeLink" [routerLink]="['/user','dashboardUser']">
+                    <mat-icon>dashboard</mat-icon>
+                </button>
+            </div>
+
+            <div class="sideMenu--item">
+                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
+                    [routerLink]="['/user','stafflist']">
+                    <mat-icon>perm_contact_calendar</mat-icon>
+                </button>
+            </div>
+
+            <div class="sideMenu--item">
+                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
+                    [routerLink]="['/user','calendar']">
+                    <mat-icon>card_travel</mat-icon>
+                </button>
+            </div>
+
+            <div class="sideMenu--item">
+                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
+                    [routerLink]="['/user','logTime']">
+                    <mat-icon>access_time</mat-icon>
+                </button>
+            </div>
+
+            <div class="sideMenu--item">
+                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
+                    [routerLink]="['/user','messageUser']">
+                    <mat-icon>message</mat-icon>
+                    <span *ngIf='requestCount' class="circle-sms">{{requestCount}}</span>
+                </button>
+            </div>
+
+            <div class="sideMenu--item">
+                <button (click)="logout()" mat-icon-button>
+                    <mat-icon>exit_to_app</mat-icon>
+                </button>
+            </div>
+
         </mat-drawer>
         <mat-drawer-content>
             <div class="menu displayNoneBtnSheet">

@@ -241,22 +241,6 @@ export class DashboardAdminComponent implements OnInit {
     });
   }
 
-
-  updatePassword() {
-    const dialogRef = this.dialog.open(AdminUpdatePasswordComponent, {
-      width: '398px',
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minHeight: '321px',
-      height: 'auto',
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // console.log(result);
-      }
-    });
-  }
-
   updateTask(event: ToDoList): void {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '398px',
@@ -321,7 +305,7 @@ export class DashboardAdminComponent implements OnInit {
       });
   }
 
-  descriotionEvent(event: Events) {
+  descriptionEvent(event: Events) {
     const dialogRef = this.dialog.open(DescriptionEventComponent, {
       width: '398px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),

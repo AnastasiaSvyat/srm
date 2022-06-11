@@ -67,6 +67,7 @@ export class DashboardUserComponent implements OnInit {
     this.cvForm = new FormGroup({
       name: new FormControl(null),
       cv: new FormControl(null)
+
     });
 
     this.getUploadFile();

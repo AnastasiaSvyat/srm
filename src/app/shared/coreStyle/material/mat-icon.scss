@@ -1,3 +1,9 @@
-.mat-checkbox .mat-checkbox-frame {
-    border-color: #12B2C6;
+.block-todo, .block-events {
+    .mat-icon-button {
+        width: 24px;
+        height: 24px;
+    }
+    .mat-icon-button .mat-button-wrapper>* {
+        vertical-align: inherit !important;
+    }
 }

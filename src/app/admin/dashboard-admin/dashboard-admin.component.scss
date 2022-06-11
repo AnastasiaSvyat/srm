@@ -1,35 +1,147 @@
-label{
-    display: block;
+@import '../../shared/coreStyle/colors.scss';
+
+.admin-dashboard-grid {
+  // color: $black;
+  padding: 16px;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 120px minmax(120px, 1fr);
+  gap: 16px;
+
+  &__block {
+    padding: 24px;
+    background-color: $white;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+
+    &--title {
+      font-size: 1.5rem;
+      font-family: 'Gilroy';
+      margin-bottom: 24px;
+    }
+
+    &--addTitle {
+      color: $grey;
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    &--text {
+      font-size: 1.125rem;
+    }
   }
-.active{
-    text-decoration: line-through;
-}
-.dashboard-content{
-    height: 95%;
-}
-.todolistLater{
-    height: 50px;
-    background-color: royalblue;
-}
-span{ 
-    white-space: normal !important; 
-    word-break: break-word;
-}
-.item{
-    height: 100%;
-}
-.viewport {
-    height: 36rem;
-    width: 100%;
+
+  .block-admin {
+    position: relative;
+    grid-column: span 3;
+
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+    gap: 16px;
+    align-items: center;
+    padding-right: 48px;
+
+    &--title {
+      font-size: 1rem;
+    }
+
+    &--text {
+      font-size: 0.875rem;
+    }
+  }
 }
 
-@media screen and (max-width: 650px) {
-    .viewport{
-        height: 16rem;
-    }
+.block-todo {
+  grid-row: span 2;
 }
-@media screen and (min-width: 600px) and (max-width: 650px) {
-    .mt98{
-        margin-top: 98px;
+
+.block-divider {
+  margin-bottom: 24px;
+  :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  font-size: 1.125rem;
+  margin-bottom: 8px;
+  :last-child {
+    margin-bottom: 0;
+  }
+  .date {
+    margin-left: 4px;
+    color: $grey;
+    font-size: 1rem;
+  }
+}
+
+.list-item--withMenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.125rem;
+  margin-bottom: 4px;
+  :last-child {
+    margin-bottom: 0;
+  }
+  .date {
+    margin-left: 4px;
+    color: $grey;
+    font-size: 1rem;
+  }
+}
+
+.center {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -44px;
+}
+
+.active {
+  text-decoration: line-through;
+}
+
+.scrollbar {
+  max-height: calc(100% - 44px);
+}
+
+.btn-dashboard {
+  background-color: $blue;
+  color: $white;
+  border-radius: 50% !important;
+  line-height: 0% !important;
+  padding: 4px !important;
+  min-width: auto !important;
+}
+
+.btn-tr-corner {
+  position: absolute !important;
+  top: 24px;
+  right: 24px;
+}
+
+@media screen and (max-width: 1024px) {
+  .admin-dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: 100%;
+
+    .block-admin {
+      grid-column: 1;
+      grid-template-columns: 1fr;
+      justify-items: start;
     }
+
+    .center {
+      height: auto;
+      display: block;
+      margin-top: 0;
+    }
+  }
 }
