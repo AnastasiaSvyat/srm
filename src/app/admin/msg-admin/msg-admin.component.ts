@@ -11,6 +11,8 @@ import * as moment from 'moment';
 import { Employee } from 'src/app/model/Employee';
 import { LogTimeVacationService } from 'src/app/services/LogTimeVacation/log-time-vacation.service';
 import { LogTimeVacationInNewYer } from 'src/app/model/LogTimeVacationInNewYear';
+import { AmountConfirmedRequestMonthService } from 'src/app/services/amountConfirmedRequestMonth/amount-confirmed-request-month.service';
+import { AmountConfirmedRequestMonth } from 'src/app/model/amountConfirmedRequestMonth';
 
 @Component({
   selector: 'app-msg-admin',
@@ -25,7 +27,8 @@ export class MsgAdminComponent implements OnInit {
     private countService: CountServiceService,
     private uloadPhotoService: UploadPhotoService,
     private employeeService: EmployeeService,
-    private logTimeVacationService: LogTimeVacationService
+    private logTimeVacationService: LogTimeVacationService,
+    private amountConfirmedRequestMonthService: AmountConfirmedRequestMonthService
   ) { }
 
   pendingRequestList: Request[] = [];
@@ -35,9 +38,14 @@ export class MsgAdminComponent implements OnInit {
   staffList: Employee[] = [];
   employeeInLogTimeRequestList!: boolean;
 
+  amountConfirmedRequestMonth!: AmountConfirmedRequestMonth;
+
   dateArr: any = []
   sortedDate: any = []
   day: number = 0;
+  dayCurrentMonth: number = 0;
+  date!: any;
+
 
   countRequestInNewYear!: LogTimeVacationInNewYer;
 
@@ -53,7 +61,26 @@ export class MsgAdminComponent implements OnInit {
     this.countRequestService.data$.subscribe((result) => {
       this.dataCountRequest = result;
     });
+
+    this.amountConfirmedRequestMonthService.amountConfirmedRequestMonth({
+      idEmployee: '6241d9b639c75c0d2065f641',
+      date: new Date(),
+      request:{
+        name: 'sickLeave' ,
+        count: 1
+      }
+      // sickLeave: 1,
+      // vacation: 1,
+      // oneToOne: 1,
+      // environment: 1
+    })
+      .subscribe((res) => {
+        console.log(res);
+
+      })
+
   }
+
 
   countRequest(count: any) {
     this.countRequestService.changeData(count);
@@ -113,64 +140,62 @@ export class MsgAdminComponent implements OnInit {
     this.requestService.UpdateRequest(elem._id, elem)
       .subscribe((res) => {
         console.log(res);
-
-        if (elem.confirm && elem.type == 'DayOff') {
-          if (elem.month == elem.endMonth) {
-            this.requestInOneMonth(elem)
-            const countReq: CountRequest = {
-              idEmployee: elem.idEmployee,
-              day: this.day + 1,
-              month: elem.month
-            }
-            this.countService.daysRequest(countReq)
-              .subscribe((res) => {
-                console.log(res);
-              }, (err) => {
-                console.log(err);
-              })
-          } else {
-            var start = new Date(elem.date);
-            let end = new Date(moment().format('yyyy-MM-31'));
-            const msec = end.getTime() - start.getTime();
-            var day = Math.floor(msec / (1000 * 60 * 60 * 24) % 30);
-            if (day < 0) {
-              day = 0
-            }
-            const countReq: CountRequest = {
-              idEmployee: elem.idEmployee,
-              day: day + 1,
-              month: elem.month
-            }
-            this.countService.daysRequest(countReq)
-              .subscribe((res) => {
-                console.log(res);
-              }, (err) => {
-                console.log(err);
-              })
-            var endDate = new Date(elem.endDate);
-            let startMonth = new Date(moment().format('yyyy-MM-1'));
-            const nextMonthsec = endDate.getTime() - startMonth.getTime();
-            var dayReqNextMonth = Math.floor(nextMonthsec / (1000 * 60 * 60 * 24) % 30);
-            if (day < 0) {
-              day = 0
-            }
-            const countNextMonthReq: CountRequest = {
-              idEmployee: elem.idEmployee,
-              day: dayReqNextMonth + 1,
-              month: elem.endMonth
-            }
-            this.countService.daysRequest(countNextMonthReq)
-              .subscribe((res) => {
-                console.log(res);
-              }, (err) => {
-                console.log(err);
-              })
-          }
-        }
         this.UpdateCountRequest(elem)
+        this.amountConfirmedRequestCurrentMonth(elem);
         this.confirmRequest();
         this.pendingRequest();
       });
+  }
+
+
+  amountConfirmedRequestCurrentMonth(elem: Request) {
+
+    if (elem.month == elem.endMonth) {
+      this.requestInOneMonth(elem);
+      this.date = elem.date;
+    } else {
+      this.requestInDifferentMonth(elem)
+      this.date = elem.endDate;
+    }
+    if (elem.confirm && elem.type == 'Vacation') {
+      this.amountConfirmedRequestMonth = {
+        idEmployee: elem.idEmployee,
+        date: this.date,
+        sickLeave: 0,
+        vacation: this.dayCurrentMonth,
+        oneToOne: 0,
+        environment: 0
+      }
+    }
+    if (elem.confirm && elem.type == 'Vacation') {
+      this.amountConfirmedRequestMonth = {
+        idEmployee: elem.idEmployee,
+        date: this.date,
+        sickLeave: 0,
+        vacation: this.dayCurrentMonth,
+        oneToOne: 0,
+        environment: 0
+      }
+    }
+    if (elem.confirm && elem.type == 'Vacation') {
+
+    }
+    if (elem.confirm && elem.type == 'Vacation') {
+
+    }
+
+    this.amountConfirmedRequestMonthService.amountConfirmedRequestMonth({
+      idEmployee: '6241d9b639c75c0d2065f641',
+      date: new Date(),
+      sickLeave: 1,
+      vacation: 1,
+      oneToOne: 1,
+      environment: 1
+    })
+      .subscribe((res) => {
+        console.log(res);
+
+      })
   }
 
   requestInOneMonth(elem: Request) {
@@ -181,8 +206,6 @@ export class MsgAdminComponent implements OnInit {
     if (this.day < 0) {
       this.day = 1
     }
-
-
   }
 
   requestInDifferentMonth(elem: Request) {
@@ -203,8 +226,6 @@ export class MsgAdminComponent implements OnInit {
   }
 
   UpdateCountRequest(elem: Request) {
-    console.log(elem);
-
     if (elem.month == elem.endMonth) {
       this.requestInOneMonth(elem);
     } else {
