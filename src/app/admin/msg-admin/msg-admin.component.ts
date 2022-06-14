@@ -43,7 +43,7 @@ export class MsgAdminComponent implements OnInit {
 
 
   displayedColumns: string[] = ['employee', 'type', 'date', 'description', 'decline', 'confirm'];
-  displayedColumnsConfirm: string[] = ['employee', 'type', 'date', 'confirmad', 'description', 'decline'];
+  displayedColumnsConfirm: string[] = ['employee', 'type', 'date', 'confirmed', 'description', 'decline'];
 
   ngOnInit(): void {
     this.pendingRequest();

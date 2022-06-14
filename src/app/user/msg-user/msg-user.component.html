@@ -1,81 +1,87 @@
-<div class="user-msg-container mt30">
-  <div>
-    <!-- Pending -->
-    <div>
-      <mat-table [dataSource]="pendingRequestList" class="mat-elevation-z8 table w100 mt16">
-        <ng-container matColumnDef="type">
-          <mat-header-cell *matHeaderCellDef fxFlex="100%" class="fs24">Pending... </mat-header-cell>
-          <mat-cell *matCellDef="let element" fxFlex="20%"> {{element.type}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="date">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element" fxFlex="30%"> {{element.date | date:"dd.MM.yyyy"}} - {{element.endDate |
-            date:"dd.MM.yyyy"}}
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="description">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element" fxFlex="50%"> {{element.description}} </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
-      <div class="noRequest w98 h48 ma" *ngIf="!pendingRequestList?.length">
-        <p class="pt11 pl8">You have no pending requests</p>
-      </div>
+<div class="user-msg-container">
+    <mat-tab-group mat-align-tabs="center">
+        <!-- Pending -->
+        <mat-tab label="Pending">
+            <mat-table [dataSource]="pendingRequestList" class="mat-elevation-z8">
+                <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.date | date:"dd.MM.yyyy"}} -
+                        {{element.endDate | date:"dd.MM.yyyy"}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <p class="text-truncate-ellipsis" [matTooltip]="element?.description" matTooltipClass="my-custom-tooltip">{{element?.description}}</p>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <div class="noRequest" *ngIf="!pendingRequestList?.length">
+                <p>You have no pending requests</p>
+            </div>
+        </mat-tab>
+        <!-- Confirmed -->
+        <mat-tab label="Confirmed">
+            <mat-table [dataSource]="confirmRequestList" class="mat-elevation-z8">
+                <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.date | date:"dd.MM.yyyy"}} -
+                        {{element.endDate | date:"dd.MM.yyyy"}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <p class="text-truncate-ellipsis" [matTooltip]="element?.description" matTooltipClass="my-custom-tooltip">{{element?.description}}</p>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <div class="noRequest" *ngIf="!confirmRequestList?.length">
+                <p>You have no confirmed requests</p>
+            </div>
+        </mat-tab>
+        <!-- Declined -->
+        <mat-tab label="Declined">
+            <mat-table [dataSource]="declineRequestList" class="mat-elevation-z8">
+                <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.date | date:"dd.MM.yyyy"}} -
+                        {{element.endDate | date:"dd.MM.yyyy"}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <p class="text-truncate-ellipsis" [matTooltip]="element?.description" matTooltipClass="my-custom-tooltip">{{element?.description}}</p>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <div class="noRequest" *ngIf="!declineRequestList?.length">
+                <p>You have no declined requests</p>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+    <div class="button-container">
+        <button (click)="addRequest()" class="btn-msg">
+            <mat-icon>add</mat-icon>
+        </button>
     </div>
-    <!-- Confirmed -->
-    <div class="mt24">
-      <mat-table [dataSource]="confirmRequestList" class="mat-elevation-z8 table w100 mt16">
-        <ng-container matColumnDef="type">
-          <mat-header-cell *matHeaderCellDef fxFlex="100%" class="fs24">Confirmed...</mat-header-cell>
-          <mat-cell *matCellDef="let element" fxFlex="20%"> {{element.type}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="date">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element" fxFlex="30%"> {{element.date | date:"dd.MM.yyyy"}} - {{element.endDate |
-            date:"dd.MM.yyyy"}}
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="description">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element" fxFlex="50%"> {{element.description}} </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
-      <div class="noRequest w98 h48 ma" *ngIf="!confirmRequestList?.length">
-        <p class="pt11 pl8">You have no confirmed requests</p>
-      </div>
-    </div>
-    <!-- Declined -->
-    <div class="mt24">
-      <mat-table [dataSource]="declineRequestList" class="mat-elevation-z8 table w100 mt16">
-        <ng-container matColumnDef="type">
-          <mat-header-cell *matHeaderCellDef fxFlex="100%" class="fs24">Declined...</mat-header-cell>
-          <mat-cell *matCellDef="let element" fxFlex="20%"> {{element.type}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="date">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element" fxFlex="30%"> {{element.date | date:"dd.MM.yyyy"}} - {{element.endDate |
-            date:"dd.MM.yyyy"}}
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="description">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element" fxFlex="50%"> {{element.description}} </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
-      <div class="noRequest w98 h48 ma" *ngIf="!declineRequestList?.length">
-        <p class="pt11 pl8">You have no declined requests</p>
-      </div>
-    </div>
-    <div class="mr16 mb16 mt20" fxLayout="row" fxLayoutAlign="end end">
-      <div class="button-container">
-        <button (click)="addRequest()" class="h48 btn">CREATE REQUEST</button>
-      </div>
-    </div>
-  </div>
 </div>

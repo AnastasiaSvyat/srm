@@ -25,7 +25,7 @@
         <ng-container matColumnDef="position">
             <mat-header-cell *matHeaderCellDef>Position</mat-header-cell>
             <mat-cell *matCellDef="let element">
-                <p>
+                <p class="text-truncate-ellipsis" [matTooltip]="element?.position" matTooltipClass="my-custom-tooltip">
                     <span class="mobile-view">Position: </span>{{element?.position || 'No info'}}
                 </p>
             </mat-cell>
@@ -52,7 +52,7 @@
         <ng-container matColumnDef="email">
             <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
             <mat-cell *matCellDef="let element">
-                <p>
+                <p class="text-truncate-ellipsis" [matTooltip]="element?.email" matTooltipClass="my-custom-tooltip">
                     <span class="mobile-view">Email: </span>{{element?.email || 'No info'}}
                 </p>
             </mat-cell>

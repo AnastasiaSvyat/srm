@@ -12,10 +12,11 @@
     border-radius: 50%;
     line-height: 16px; 
     text-align: center;  
-    background: $grey;
+    background: $bg-white;
     font-size: 8px;
-    position: fixed;
-    color: white;
+    position: absolute;
+    right: 0px;
+    color: $blue;
 }
 // .activeLink{
 //     background-color: rgb(201, 232, 247);
@@ -64,5 +65,8 @@ mat-icon {
             position: absolute;
             bottom: 16px;
         }
+        &:nth-child(6) {
+            position: relative;
+        } 
     }
 }

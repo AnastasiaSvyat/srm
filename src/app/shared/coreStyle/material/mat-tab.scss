@@ -1,0 +1,13 @@
+.admin-msg-container,
+.user-msg-container {
+    .mat-tab-label-container {
+        margin-bottom: 16px;
+    }
+    .mat-tab-header {
+        border: none !important;
+    }
+
+    .mat-tab-body-content {
+        overflow: hidden !important;
+    }
+}

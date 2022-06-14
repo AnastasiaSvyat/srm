@@ -11,7 +11,6 @@
         mat-header-row {
             height: 56px;
             background-color: $white;
-            box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
             border-radius: 16px;
             text-align: center;
             margin-bottom: 16px;
@@ -69,37 +68,44 @@
 .admin-log-time-container,
 .user-msg-container {
     mat-table {
-        width: 99%;
+        width: 100%;
         background-color: transparent;
         box-shadow: none;
-        margin: auto;
 
         mat-row {
-            margin-top: 8px;
-            margin-left: 8px;
-            background-color: #FFFFFF;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            height: 56px;
+            background-color: $white;
+            border-radius: 16px;
             text-align: center;
-        }
-
-        mat-header-cell,
-        mat-cell {
-            justify-content: center;
-        }
-
-        mat-cell {
-
-            // margin-left: 5px;
-            p {
-                white-space: nowrap;
-                overflow: hidden;
-                margin-top: 11px;
-            }
+            margin-bottom: 16px;
+            padding: 0 16px;
         }
 
         mat-header-row {
-            border-bottom: transparent;
+            display: none;
+        }
+
+        mat-cell {
+            padding: 0 8px !important;
+            overflow: hidden;
+            align-items: center;
+            justify-content: start;
+        }
+
+        mat-cell {
+            p {
+                font-size: 1.125rem;
+                overflow: hidden;
+            }
+        }
+    }
+}
+
+.admin-msg-container {
+    mat-cell {
+        &:nth-child(5),
+        &:nth-child(6) {
+            justify-content: end;
         }
     }
 }
@@ -129,6 +135,7 @@
                 justify-content: start;
                 align-items: flex-start;
                 position: relative !important;
+                box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
 
                 &::after {
                     min-height: auto !important;

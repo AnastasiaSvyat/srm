@@ -21,6 +21,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const material = [
   MatRadioModule,
@@ -45,7 +47,9 @@ const material = [
   MatSnackBarModule,
   ScrollingModule,
   MatCheckboxModule,
-  MatBottomSheetModule
+  MatBottomSheetModule,
+  MatTabsModule,
+  MatTooltipModule
 ]
 
 @NgModule({

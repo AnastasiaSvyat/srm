@@ -303,3 +303,19 @@
     align-items: flex-start;
     justify-content: space-between;
 }
+
+.text-truncate-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 1024px) {
+    .user-staff-container,
+    .admin-staff-container {
+        .text-truncate-ellipsis {
+            white-space:initial !important;
+            word-break: break-all !important;
+        }
+    }
+}
