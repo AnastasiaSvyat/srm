@@ -44,6 +44,9 @@ export class MsgAdminComponent implements OnInit {
   sortedDate: any = []
   day: number = 0;
   dayCurrentMonth: number = 0;
+  dayReqNextMonth!: any;
+  dayStart!: any;
+
   date!: any;
 
 
@@ -62,25 +65,7 @@ export class MsgAdminComponent implements OnInit {
       this.dataCountRequest = result;
     });
 
-    this.amountConfirmedRequestMonthService.amountConfirmedRequestMonth({
-      idEmployee: '6241d9b639c75c0d2065f641',
-      date: new Date(),
-      request:{
-        name: 'sickLeave' ,
-        count: 1
-      }
-      // sickLeave: 1,
-      // vacation: 1,
-      // oneToOne: 1,
-      // environment: 1
-    })
-      .subscribe((res) => {
-        console.log(res);
-
-      })
-
   }
-
 
   countRequest(count: any) {
     this.countRequestService.changeData(count);
@@ -151,51 +136,58 @@ export class MsgAdminComponent implements OnInit {
   amountConfirmedRequestCurrentMonth(elem: Request) {
 
     if (elem.month == elem.endMonth) {
+      console.log(elem.date);
+      console.log(this.dayCurrentMonth);
+      
       this.requestInOneMonth(elem);
       this.date = elem.date;
-    } else {
-      this.requestInDifferentMonth(elem)
-      this.date = elem.endDate;
-    }
-    if (elem.confirm && elem.type == 'Vacation') {
-      this.amountConfirmedRequestMonth = {
-        idEmployee: elem.idEmployee,
-        date: this.date,
-        sickLeave: 0,
-        vacation: this.dayCurrentMonth,
-        oneToOne: 0,
-        environment: 0
-      }
-    }
-    if (elem.confirm && elem.type == 'Vacation') {
-      this.amountConfirmedRequestMonth = {
-        idEmployee: elem.idEmployee,
-        date: this.date,
-        sickLeave: 0,
-        vacation: this.dayCurrentMonth,
-        oneToOne: 0,
-        environment: 0
-      }
-    }
-    if (elem.confirm && elem.type == 'Vacation') {
-
-    }
-    if (elem.confirm && elem.type == 'Vacation') {
-
-    }
-
+      
     this.amountConfirmedRequestMonthService.amountConfirmedRequestMonth({
-      idEmployee: '6241d9b639c75c0d2065f641',
-      date: new Date(),
-      sickLeave: 1,
-      vacation: 1,
-      oneToOne: 1,
-      environment: 1
+      idEmployee: elem.idEmployee,
+      date: elem.date,
+      request:{
+        name: elem.type ,
+        count: this.dayCurrentMonth
+      }
     })
       .subscribe((res) => {
         console.log(res);
 
       })
+    } else {
+      this.requestInDifferentMonth(elem)
+      this.date = elem.endDate;
+      console.log(this.dayStart);
+      console.log(this.dayReqNextMonth);
+      
+      this.amountConfirmedRequestMonthService.amountConfirmedRequestMonth({
+        idEmployee: elem.idEmployee,
+        date: elem.date,
+        request:{
+          name: elem.type ,
+          count: this.dayStart
+        }
+      })
+        .subscribe((res) => {
+          if(res){
+            
+    this.amountConfirmedRequestMonthService.amountConfirmedRequestMonth({
+      idEmployee: elem.idEmployee,
+      date: this.date,
+      request:{
+        name: elem.type ,
+        count: this.dayReqNextMonth
+      }
+    })
+      .subscribe((res) => {
+        console.log(res);
+
+      })
+          }
+  
+        })
+    }
+
   }
 
   requestInOneMonth(elem: Request) {
@@ -203,9 +195,11 @@ export class MsgAdminComponent implements OnInit {
     let end = new Date(elem.endDate);
     const msec = end.getTime() - start.getTime();
     this.day = Math.floor(msec / (1000 * 60 * 60 * 24) % 30) + 1;
+    this.dayCurrentMonth = this.day;
     if (this.day < 0) {
       this.day = 1
     }
+    this.dayCurrentMonth = this.day;
   }
 
   requestInDifferentMonth(elem: Request) {
@@ -222,7 +216,11 @@ export class MsgAdminComponent implements OnInit {
     this.day = dayStart + dayReqNextMonth;
     if (this.day < 0) {
       this.day = 1
+      this.dayCurrentMonth = this.day;
     }
+    this.dayStart = dayStart;
+    this.dayReqNextMonth =  dayReqNextMonth;
+
   }
 
   UpdateCountRequest(elem: Request) {
