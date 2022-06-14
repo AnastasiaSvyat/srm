@@ -1,17 +1,38 @@
+@import '../colors.scss';
+
 .admin-staff-container,
 .admin-log-time-container,
-.user-staff-container{
-    .staff-paginator{
-        .mat-paginator {
-            .mat-paginator-outer-container {
-                background-color: #eef6f8;
-                .mat-paginator-page-size,.mat-paginator-range-label{
-                    display: none;
-                }
-                .mat-icon-button {
-                    background-color: rgb(164, 207, 247);
-                }
+.user-staff-container {
+    .mat-paginator {
+        border-radius: 16px;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0 16px;
+
+        .mat-paginator-outer-container {
+            height: 56px;
+
+            .mat-icon-button {
+                background-color: none;
             }
         }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .mat-paginator {
+        margin-top: 16px;
+    }
+    .mat-paginator-container {
+        justify-content: center !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .mat-paginator-outer-container {
+        height: auto !important;
+    }
+    .mat-paginator-range-label {
+        display: none;
     }
 }
