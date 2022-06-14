@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Employee } from 'src/app/model/Employee';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,6 +7,8 @@ import { UploadPhoto } from 'src/app/model/UploadPhoto';
 import { ParamsStaffPag } from 'src/app/admin/admin-staff-list/admin-staff-list.component';
 import { InfoAboutUserComponent } from '../info-about-user/info-about-user.component';
 import { Overlay } from '@angular/cdk/overlay';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-user-staff-list',
@@ -15,12 +17,17 @@ import { Overlay } from '@angular/cdk/overlay';
 })
 
 export class UserStaffListComponent implements OnInit {
+  @ViewChild('paginator') paginator!: MatPaginator;
+
+  dataSource: MatTableDataSource<Employee> = new MatTableDataSource<Employee>();
+  displayedColumns: string[] = ['photo', 'name', 'position', 'birthday', 'phone', 'email', 'skype', 'about'];
 
   constructor(
     private employeeService: EmployeeService,
-    private uloadPhotoService: UploadPhotoService,
+    private uploadPhotoService: UploadPhotoService,
     private overlay: Overlay,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog
+    ) { }
 
   staffList: Employee[] = [];
   photoEmployee: UploadPhoto[] = [];
@@ -29,7 +36,6 @@ export class UserStaffListComponent implements OnInit {
   pageSize = 10;
   imagePath!: string;
 
-  displayedColumns: string[] = ['photo', 'name', 'position', 'birthday', 'phone', 'email', 'skype', 'about'];
 
   ngOnInit(): void {
     this.retrieveStaff();
@@ -37,7 +43,7 @@ export class UserStaffListComponent implements OnInit {
   }
 
   getPhotoEmployee() {
-    this.uloadPhotoService.GetPhoto()
+    this.uploadPhotoService.GetPhoto()
       .subscribe((res) => {
         this.photoEmployee = res;
       });
@@ -60,6 +66,8 @@ export class UserStaffListComponent implements OnInit {
           const { staffList, totalItems } = response;
           this.staffList = staffList;
           this.count = totalItems;
+          this.dataSource = new MatTableDataSource<Employee>(this.staffList);
+          this.dataSource.paginator = this.paginator;
         },
         error => {
           console.log(error);
@@ -68,7 +76,7 @@ export class UserStaffListComponent implements OnInit {
 
   aboutUser(employee: Employee): void {
     const dialogRef = this.dialog.open(InfoAboutUserComponent, {
-      width: '398px',
+      width: '400px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       minHeight: '100px',
       height: 'auto',

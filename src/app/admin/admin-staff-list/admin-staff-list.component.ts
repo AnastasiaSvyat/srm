@@ -44,14 +44,17 @@ export class AdminStaffListComponent implements OnInit {
   pageSize = 10;
   docPDF!: any;
   private unsubscribe = new Subject();
-  displayedColumns: string[] = ['photo', 'name', 'position', 'birthday', 'salary',
-    'phone', 'firstDay', 'skype', 'email', 'vacation', 'sickLeave', 'about', 'cv', 'change'];
+  
+  @ViewChild('paginator') paginator!: MatPaginator;
+  dataSource: MatTableDataSource<Employee> = new MatTableDataSource<Employee>();
+  displayedColumns: string[] = ['photo', 'name', 'position', 'salary', 'birthday',
+    'phone', 'skype', 'email', 'vacation', 'sickLeave', 'about', 'cv', 'changeLog'];
 
   constructor(
     private employeeService: EmployeeService,
     public dialog: MatDialog,
     public uplFileService: UploadFileService,
-    public uloadPhotoService: UploadPhotoService,
+    public uploadPhotoService: UploadPhotoService,
     private snackBar: MatSnackBar,
     private overlay: Overlay,
     private authService: AuthService,
@@ -93,7 +96,7 @@ export class AdminStaffListComponent implements OnInit {
   }
 
   getPhotoEmployee() {
-    this.uloadPhotoService.GetPhoto()
+    this.uploadPhotoService.GetPhoto()
       .subscribe((res) => {
         this.photoEmployee = res;
       });
@@ -133,6 +136,8 @@ export class AdminStaffListComponent implements OnInit {
           const { staffList, totalItems } = response;
           this.staffList = staffList;
           this.count = totalItems;
+          this.dataSource = new MatTableDataSource<Employee>(this.staffList);
+          this.dataSource.paginator = this.paginator;
         },
         error => {
           console.log(error);

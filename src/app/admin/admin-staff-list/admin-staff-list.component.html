@@ -1,164 +1,175 @@
-<div class="admin-staff-container h100 mt30">
-  <div class="col-md-8">
-    <div fxLayout="row" class="mb-3 ml8">
-      <mat-form-field appearance="outline">
-        <mat-label>Search</mat-label>
-        <input matInput type="text" class="form-control" placeholder="Search by employee name..."
-          [formControl]="searchByName" />
-      </mat-form-field>
+<div class="admin-staff-container">
+    <div class="search">
+        <mat-form-field appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" class="form-control" placeholder="Search by employee name..."
+                [formControl]="searchByName" />
+        </mat-form-field>
+        <button class="btn-staffList" (click)='addUser()' mat-flat-button>
+            <mat-icon>add</mat-icon>
+        </button>
     </div>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="end none" class="mr24 mt16 btnAddLeft">
-    <button class="btn w155" (click)='addUser()' mat-stroked-button>ADD USER</button>
-  </div>
-  <div>
+    <div>
 
-    <mat-table [dataSource]="staffList" class="mat-elevation-z8 margin-auto mt16">
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-      <ng-container matColumnDef="photo">
-        <mat-header-cell *matHeaderCellDef fxFlex="8%" class="displayNone"></mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="4.5%" class="displayNone">
-          <div class="sizePhotoStaffList">
-            <img [src]="getEmployeePhoto(element.id)" />
-          </div>
-        </mat-cell>
-      </ng-container>
+            <ng-container matColumnDef="photo" class="mat-column-photo">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <img [src]="getEmployeePhoto(element?.id)" class="sizePhotoStaffList">
+                </mat-cell>
+            </ng-container>
 
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef fxFlex="10.2%"> EMPLOYEE </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="13.3%">
-          <span class="mobile-label fontColorBlue">{{element?.name | uppercase}}</span>
-          <cdk-virtual-scroll-viewport itemSize="1" class="viewport displayNone">
-            <p class="overflow-ellipsis">
-              {{element?.name}} {{element?.lastName}}
-            </p>
-          </cdk-virtual-scroll-viewport>
-        </mat-cell>
-      </ng-container>
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="mat-cell--name">
+                    <p *ngIf="element.name && element.lastName else noName">
+                        {{element?.name}} {{element?.lastName}}
+                    </p>
+                    <ng-template #noName>
+                        <p>
+                            No Name
+                        </p>
+                    </ng-template>
+                </mat-cell>
+            </ng-container>
 
-      <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef fxFlex="8%"> POSITION </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="8%">
-          <span class="mobile-label fontColorBlue">POSITION: </span>
-          <span class="ml6">{{element?.position}}</span>
-        </mat-cell>
-      </ng-container>
+            <ng-container matColumnDef="position">
+                <mat-header-cell *matHeaderCellDef>Position</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p>
+                        <span class="mobile-view">Position: </span>{{element?.position || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
-      <ng-container matColumnDef="birthday">
-        <mat-header-cell *matHeaderCellDef fxFlex="6.1%"> BIRTH DATE </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="6.2%">
-          <span class="mobile-label fontColorBlue">BIRTH DATE: </span>
-          <span class="ml6">{{element?.date | date:"dd.MM.yyyy"}}</span>
-        </mat-cell>
-      </ng-container>
+            <ng-container matColumnDef="birthday">
+                <mat-header-cell *matHeaderCellDef>Birthday</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p>
+                        <span class="mobile-view">Birthday: </span>{{element?.date | date:"dd.MM.yyyy" || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
-      <ng-container matColumnDef="salary">
-        <mat-header-cell *matHeaderCellDef fxFlex="6%"> SALARY </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="6%">
-          <span class="mobile-label fontColorBlue">SALARY:</span>
-          <span class="ml6">{{element?.salary}}$</span>
-        </mat-cell>
-      </ng-container>
+            <ng-container matColumnDef="salary">
+                <mat-header-cell *matHeaderCellDef>Salary</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p *ngIf="element?.salary else noSalary">
+                        <span class="mobile-view">Salary: </span>{{element?.salary}}$
+                    </p>
+                    <ng-template #noSalary>
+                        <p>
+                            <span class="mobile-view">Salary: </span>No info
+                        </p>
+                    </ng-template>
+                </mat-cell>
+            </ng-container>
 
-      <ng-container matColumnDef="firstDay">
-        <mat-header-cell *matHeaderCellDef fxFlex="6%"> FIRST DAY </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="6%">
-          <span class="mobile-label fontColorBlue">FIRST DAY:</span>
-          <span class="ml6">{{element?.startDate | date:"dd.MM.yyyy"}}</span>
-        </mat-cell>
-      </ng-container>
+            <!-- <ng-container matColumnDef="firstDay">
+                <mat-header-cell *matHeaderCellDef>First day</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p *ngIf="element?.startDate else noStartDate">
+                        <span class="mobile-view">First day: </span>{{element?.startDate | date:"dd.MM.yyyy"}}
+                    </p>
+                    <ng-template #noStartDate>
+                        <p>
+                            <span class="mobile-view">First day: </span>No info
+                        </p>
+                    </ng-template>
+                </mat-cell>
+            </ng-container> -->
 
-      <!--  <ng-container matColumnDef="lastPerf">
-      <mat-header-cell *matHeaderCellDef fxFlex="10%"> LAST PERFORMANCE </mat-header-cell>
-      <mat-cell *matCellDef="let element" fxFlex="7%">
-        <span class="mobile-label fontColorBlue">LAST PERFORMANCE:</span>
-        <span class="ml6">{{element?.lastPerf | date:"dd.MM.yy"}} </span>
-      </mat-cell>
-    </ng-container> -->
+            <!-- <ng-container matColumnDef="lastPerf">
+                <mat-header-cell *matHeaderCellDef>Last Performance</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p *ngIf="element?.lastPerf else noStartDate">
+                        <span class="mobile-view">Last Performance: </span>{{element?.lastPerf | date:"dd.MM.yyyy"}}
+                    </p>
+                    <ng-template #noStartDate>
+                        <p>
+                            <span class="mobile-view">Last Performance: </span>No info
+                        </p>
+                    </ng-template>
+                </mat-cell>
+            </ng-container> -->
 
-      <ng-container matColumnDef="phone">
-        <mat-header-cell *matHeaderCellDef fxFlex="8%"> PHONE </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="8.1%">
-          <span class="mobile-label fontColorBlue">PHONE: </span>
-          <span class="ml6">{{element?.phone}}</span>
-        </mat-cell>
-      </ng-container>
+            <ng-container matColumnDef="phone">
+                <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p>
+                        <span class="mobile-view">Phone: </span>{{element?.phone || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p>
+                        <span class="mobile-view">Email: </span>{{element?.email || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
+            <ng-container matColumnDef="skype">
+                <mat-header-cell *matHeaderCellDef>Skype</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p>
+                        <span class="mobile-view">Skype: </span>{{element?.skype || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
-      <ng-container matColumnDef="skype">
-        <mat-header-cell *matHeaderCellDef fxFlex="10%"> SKYPE </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="10%">
-          <span class="mobile-label fontColorBlue">SKYPE: </span>
-          <span class="ml6 word-break mobile-label">{{element?.skype}}</span>
-          <cdk-virtual-scroll-viewport itemSize="1" class="viewport displayNone w90">
-            <p class="overflow-ellipsis">
-              {{element?.skype}}
-            </p>
-          </cdk-virtual-scroll-viewport>
-        </mat-cell>
-      </ng-container>
+            <ng-container matColumnDef="vacation">
+                <mat-header-cell *matHeaderCellDef>Vacation</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p>
+                        <span class="mobile-view">Vacation: </span>{{getVacationEmployee(element.id) || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
-      <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef fxFlex="12%"> EMAIL </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="12%">
-          <span class="mobile-label fontColorBlue">EMAIL: </span>
-          <span class="mobile-label word-break ml6">{{element?.email}}</span>
-          <cdk-virtual-scroll-viewport itemSize="1" class="w90 viewport displayNone">
-            <p class="overflow-ellipsis displayNone">
-              {{element?.email}}
-            </p>
-          </cdk-virtual-scroll-viewport>
-        </mat-cell>
-      </ng-container>
+            <ng-container matColumnDef="sickLeave">
+                <mat-header-cell *matHeaderCellDef>Sick leave</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p>
+                        <span class="mobile-view">Sick Leave: </span>{{getSickLeaveEmployee(element.id) || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
-      <ng-container matColumnDef="vacation">
-        <mat-header-cell *matHeaderCellDef fxFlex="5%"> VACATION </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="5.1%">
-          <span class="mobile-label fontColorBlue">VACATION: </span>
-          <span class="ml6">{{getVacationEmployee(element.id)}}</span>
-        </mat-cell>
-      </ng-container>
+            <ng-container matColumnDef="about">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button (click)="aboutUser(element)" class="underline">
+                        <p>about</p>
+                    </button>
+                </mat-cell>
+            </ng-container>
 
-      <ng-container matColumnDef="sickLeave">
-        <mat-header-cell *matHeaderCellDef fxFlex="5%"> SICK LEAVE </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="5%">
-          <span class="mobile-label fontColorBlue">Sick Leave: </span>
-          <span class="ml6">{{getSickLeaveEmployee(element.id)}}</span>
-        </mat-cell>
-      </ng-container>
+            <ng-container matColumnDef="cv">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button (click)="getCV(element)" class="underline">
+                        <p>CV</p>
+                    </button>
+                </mat-cell>
+            </ng-container>
 
-      <ng-container matColumnDef="about">
-        <mat-header-cell *matHeaderCellDef fxFlex="4%"></mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="4%">
-          <div class="w100" fxLayout="row">
-            <button mat-button (click)="aboutUser(element)" class="underline">about</button>
-            <button class="ml24 mobile-label" (click)="getCV(element)" mat-button>CV</button>
-            <button mat-button (click)="editUser(element)" class="underline mobile-label">change log</button>
-          </div>
-        </mat-cell>
-      </ng-container>
+            <ng-container matColumnDef="changeLog">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button (click)="editUser(element)" class="underline">
+                        <p>change log</p>
+                    </button>
+                </mat-cell>
+            </ng-container>
 
-      <ng-container matColumnDef="cv">
-        <mat-header-cell *matHeaderCellDef class="displayNone" fxFlex="4%"></mat-header-cell>
-        <mat-cell *matCellDef="let element" class="displayNone" fxFlex="4%">
-          <button class="ml24" (click)="getCV(element)" mat-button>CV</button>
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="change">
-        <mat-header-cell *matHeaderCellDef class="displayNone" fxFlex="4%"></mat-header-cell>
-        <mat-cell *matCellDef="let element" class="displayNone" fxFlex="6%">
-          <button mat-button (click)="editUser(element)" class="underline">change log</button>
-        </mat-cell>
-      </ng-container>
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row fxLayout="column" fxLayout.gt-md="row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    <div fxLayoutAlign="center center" class="col-md-12 staff-paginator mt7 mr25">
-      <mat-paginator [length]="count" [pageSize]="pageSize" [showFirstLastButtons]="true"
-        (page)="handlePageChange($event)">
-      </mat-paginator>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [length]="staffList.length" [pageSize]="6" [pageSizeOptions]="[2, 4, 6, 8, 10]"
+            showFirstLastButtons>
+        </mat-paginator>
     </div>
-  </div>
