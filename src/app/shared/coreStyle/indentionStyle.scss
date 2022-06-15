@@ -310,11 +310,23 @@
     white-space: nowrap;
 }
 
+.mobile-view {
+    display: none;
+}
+  
+
 @media screen and (max-width: 1024px) {
+    .mobile-view {
+        display: inline;
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
     .user-staff-container,
-    .admin-staff-container {
+    .admin-staff-container,
+    .user-msg-container,
+    .admin-msg-container {
         .text-truncate-ellipsis {
-            white-space:initial !important;
+            white-space: initial !important;
             word-break: break-all !important;
         }
     }

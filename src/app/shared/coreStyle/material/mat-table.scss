@@ -103,6 +103,7 @@
 
 .admin-msg-container {
     mat-cell {
+
         &:nth-child(5),
         &:nth-child(6) {
             justify-content: end;
@@ -135,7 +136,7 @@
                 justify-content: start;
                 align-items: flex-start;
                 position: relative !important;
-                box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+                // box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
 
                 &::after {
                     min-height: auto !important;
@@ -165,12 +166,66 @@
             }
         }
     }
+
+    .admin-msg-container,
+    .user-msg-container {
+        mat-table {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto;
+            gap: 16px;
+
+            mat-header-row {
+                display: none;
+            }
+
+            mat-row {
+                padding: 16px !important;
+                width: 100% !important;
+                height: auto !important;
+                text-align: start !important;
+                margin-bottom: 0 !important;
+                display: flex;
+                flex-direction: column;
+                justify-content: start;
+                align-items: flex-start;
+                position: relative !important;
+
+                &::after {
+                    min-height: auto !important;
+                }
+            }
+
+            mat-cell {
+                flex: unset !important;
+                padding: 0 !important;
+
+                &:nth-child(4) {
+                    margin-bottom: 48px;
+                }
+
+                &:nth-child(5) {
+                    position: absolute;
+                    bottom: 16px;
+                    right: 16px;
+                }
+
+                &:nth-child(6) {
+                    position: absolute;
+                    bottom: 16px;
+                    left: 16px;
+                }
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 768px) {
 
     .admin-staff-container,
-    .user-staff-container {
+    .user-staff-container,
+    .admin-msg-container,
+    .user-msg-container {
         mat-table {
             grid-template-columns: 1fr;
         }

@@ -3,3 +3,9 @@
     word-break: break-all !important;
     white-space: normal !important;
 }
+
+@media screen and (max-width: 1024px) {
+    .my-custom-tooltip {
+        display: none;
+    }
+}

@@ -1,109 +1,128 @@
 <div class="admin-msg-container">
     <!-- Pending -->
     <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Pending">
+        <mat-tab label="Pending">
 
-        <mat-table [dataSource]="pendingRequestList" class="mat-elevation-z8">
-            <ng-container matColumnDef="employee">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <span class="sizePhotoStaffList">
-                        <img [src]="getEmployeePhoto(element?.idEmployee)">
-                    </span>
-                    <span class="ml16">{{getEmployee(element?.idEmployee)}}</span>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="type">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element?.type}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="date">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element?.date | date:"dd.MM.yyyy"}} - {{element?.endDate | date:"dd.MM.yyyy"}}
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="description">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <p class="text-truncate-ellipsis" [matTooltip]="element?.description" matTooltipClass="my-custom-tooltip">{{element?.description}}</p>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="decline">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <div>
-                        <button (click)="actionRequest(false,element)" class="fontColorRed underline"
-                            mat-button>decline</button>
-                    </div>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="confirm">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <button mat-button (click)="actionRequest(true,element)"
-                        class="fontColorGreen underline">confirm</button>
-                </mat-cell>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
+            <mat-table [dataSource]="pendingRequestList" class="mat-elevation-z8">
+                <ng-container matColumnDef="employee">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <span class="sizePhotoStaffList">
+                            <img [src]="getEmployeePhoto(element?.idEmployee)">
+                        </span>
+                        <span class="ml16">{{getEmployee(element?.idEmployee)}}</span>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <p>
+                            <span class="mobile-view">Type: </span>{{element?.type}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <p>
+                            <span class="mobile-view">Date: </span>{{element?.date | date:"dd.MM.yyyy"}} - {{element?.endDate |
+                                date:"dd.MM.yyyy"}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <p class="text-truncate-ellipsis" [matTooltip]="element?.description" matTooltipClass="my-custom-tooltip">
+                            <span class="mobile-view">Description: </span>{{element?.description}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="decline">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <div>
+                            <button (click)="actionRequest(false,element)" class="fontColorRed underline"
+                                mat-button>decline</button>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="confirm">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <button mat-button (click)="actionRequest(true,element)"
+                            class="fontColorGreen underline">confirm</button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
 
-        <div class="noRequest" *ngIf="!pendingRequestList?.length">
-            <p>You have no pending requests</p>
-        </div>
+            <div class="noRequest" *ngIf="!pendingRequestList?.length">
+                <p>You have no pending requests</p>
+            </div>
 
-    </mat-tab>
+        </mat-tab>
 
-    <!-- Confirmed -->
-    <mat-tab label="Confirmed">
+        <!-- Confirmed -->
+        <mat-tab label="Confirmed">
 
-        <mat-table [dataSource]="confirmRequestList" class="mat-elevation-z8">
-            <ng-container matColumnDef="employee">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <span class="sizePhotoStaffList">
-                        <img [src]="getEmployeePhoto(element?.idEmployee)">
-                    </span>
-                    <span class="ml16">{{getEmployee(element?.idEmployee)}}</span>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="type">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element?.type}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="date">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element?.date | date:"dd.MM.yyyy"}} -
-                    {{element?.endDate |
-                    date:"dd.MM.yyyy"}} </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="confirmed">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element" class="fontColorGreen"> CONFIRMED </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="description">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <p class="text-truncate-ellipsis" [matTooltip]="element?.description" matTooltipClass="my-custom-tooltip">{{element?.description}}</p>
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="decline">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <button mat-button (click)="actionRequest(false,element)"
-                        class="fontColorRed underline">decline</button>
-                    <img class="declineImg mla" (click)="actionRequest(false,element)"
-                        src="../../../assets/img/close.png" alt="">
-                </mat-cell>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumnsConfirm"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsConfirm;"></mat-row>
-        </mat-table>
+            <mat-table [dataSource]="confirmRequestList" class="mat-elevation-z8">
+                <ng-container matColumnDef="employee">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <span class="sizePhotoStaffList">
+                            <img [src]="getEmployeePhoto(element?.idEmployee)">
+                        </span>
+                        <span class="ml16">{{getEmployee(element?.idEmployee)}}</span>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <p>
+                            <span class="mobile-view">Type: </span>{{element?.type}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <p>
+                            <span class="mobile-view">Date: </span>{{element?.date | date:"dd.MM.yyyy"}} - {{element?.endDate |
+                                date:"dd.MM.yyyy"}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+                <!-- <ng-container matColumnDef="confirmed">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="fontColorGreen"> CONFIRMED </mat-cell>
+                </ng-container> -->
+                <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <p class="text-truncate-ellipsis" [matTooltip]="element?.description" matTooltipClass="my-custom-tooltip">
+                            <span class="mobile-view">Description: </span>{{element?.description}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="decline">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <button mat-button (click)="actionRequest(false,element)"
+                            class="fontColorRed underline">decline</button>
+                        <!-- <img class="declineImg mla" (click)="actionRequest(false,element)"
+                            src="../../../assets/img/close.png" alt=""> -->
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumnsConfirm"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumnsConfirm;"></mat-row>
+            </mat-table>
 
-        <div class="noRequest" *ngIf="!this.confirmRequestList?.length">
-            <p>You have no confirmed requests</p>
-        </div>
+            <div class="noRequest" *ngIf="!this.confirmRequestList?.length">
+                <p>You have no confirmed requests</p>
+            </div>
 
-    </mat-tab>
-</mat-tab-group>
+        </mat-tab>
+    </mat-tab-group>
 </div>
