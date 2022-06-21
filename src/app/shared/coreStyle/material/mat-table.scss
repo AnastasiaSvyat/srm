@@ -65,7 +65,6 @@
 }
 
 .admin-msg-container,
-.admin-log-time-container,
 .user-msg-container {
     mat-table {
         width: 100%;
@@ -107,6 +106,37 @@
         &:nth-child(5),
         &:nth-child(6) {
             justify-content: end;
+        }
+    }
+}
+
+.admin-log-time-container {
+    mat-table {
+        width: 99%;
+        background-color: transparent;
+        box-shadow: none;
+        margin: auto;
+        mat-row{
+            margin-top: 8px;
+            margin-left: 8px;
+            background-color: #FFFFFF;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+        mat-header-cell, mat-cell {
+            justify-content: center;
+        }
+        mat-cell{
+            // margin-left: 5px;
+            p{
+                white-space: nowrap;
+                overflow: hidden;
+                margin-top: 11px;
+              }
+        }
+        mat-header-row{
+            border-bottom: transparent;
         }
     }
 }
