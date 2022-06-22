@@ -139,10 +139,10 @@
     <div class="calendar__block">
         <div class="calendar__block--title">{{selectedDate | date:'dd.MM.yyyy'}}</div>
         <perfect-scrollbar *ngIf="birthSelectDate?.length || eventSelectedDate?.length else noEvents" class="scrollbar">
-            <div *ngFor="let birth of birthSelectDate" class="calendar__block--text">
+            <div *ngFor="let birth of birthSelectDate" class="calendar__block--text mb8">
                 {{birth?.name}} <span class="date">(birthday)</span>
             </div>
-            <div *ngFor="let eventToday of eventSelectedDate" class="calendar__block--text">
+            <div *ngFor="let eventToday of eventSelectedDate" class="calendar__block--text mb8">
                 {{eventToday?.name}} <span class="date">({{eventToday?.type | lowercase}} event)</span>
             </div>
         </perfect-scrollbar>
