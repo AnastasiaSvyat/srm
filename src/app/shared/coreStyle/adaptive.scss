@@ -9,15 +9,7 @@
         display: none;
     }
   }
-.calendar{
-    max-width: 320px;
-}
 
-@media screen and (max-width: 600px) {
-   .calendar{
-    max-width: 520px;
-   }
-}
 @media screen and (min-width: 432px) and (max-width: 600px) {
     .viewportSelect{
         height: 40%;

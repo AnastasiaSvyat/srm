@@ -1,180 +1,160 @@
-<div class="calendar-container h100Adpt mt30" fxLayout="column">
-  <!-- button -->
-  <div fxLayoutAlign="end none" fxFlex.gt-sm='20%' fxFlex='5%' class="mr24 mt16 btnAddLeft">
-    <button class="btn h48 w155 fontGilroy" (click)='addEvent()' mat-stroked-button>ADD EVENT</button>
-  </div>
-  <!-- <div class="calendar-container h100Adpt" fxLayout="column"> -->
-  <!-- button -->
-  <div fxLayout.gt-sm='row' fxLayout="column" fxFlex='100%' class="mb29 mt16">
-    <div fxFlex.gt-sm='20%' fxFlex='100%' fxFlex.gt-xs='42%' fxLayout.gt-sm='column' fxLayout.gt-xs='row'
-      fxLayout="column" class="ml48 ml24Tel">
-      <!-- calendar -->
-      <div fxFlex.gt-xs='50%' class="mr20 calendar">
-        <mat-card class="colorBlock">
-          <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)">
-          </mat-calendar>
-        </mat-card>
-      </div>
-      <!-- select Event -->
-      <div fxFlex='49%' fxFlex.gt-xs='90%' class="w100 calendar calendarSelect w95pr mt25 j mr50 colorBlock">
-        <div class="ml24 pt28">
-          <div class="fs14 ml8 mt7 fontColorGrey">{{selectedDate | date:'dd.MM.yyyy'}} </div>
-        </div>
-        <cdk-virtual-scroll-viewport itemSize="20" class="viewportSelect"
-          *ngIf="birthSelectDate?.length  || eventSelectedDate?.length">
-          <div class="ml24">
-            <div class="mt7 item" *ngFor="let birth of birthSelectDate">
-              <span class="fs14 fontRobotoBold">{{birth?.name}} </span>
-              <span> - birthday</span>
-            </div>
-            <div class="mt7 item" *ngFor="let eventToday of eventSelectedDate">
-              <span class="fs14 fontRobotoBold">{{eventToday?.name}}</span>
-              <span> - {{eventToday?.type}} event</span>
-            </div>
-          </div>
-        </cdk-virtual-scroll-viewport>
-        <div class="ml24 fontColorGrey t" *ngIf="!birthSelectDate?.length  && !eventSelectedDate?.length">
-          <div>No events today</div>
-        </div>
-      </div>
+<div class="calendar-container">
+    <!-- calendar -->
+    <div class="calendar__block">
+        <mat-calendar [selected]="selectedDate" (selectedChange)="onSelect($event)">
+        </mat-calendar>
     </div>
     <!-- planned Event -->
-    <div fxFlex.gt-sm='70%' fxFlex='0%' class="rightBox ml24 w91pr mt26 colorBlock">
-      <div class="ml24 pt28 fs24 fontGilroy">Planned events</div>
-      <div *ngIf="!eventsPlannedToday?.length && !eventsPlannedMonth?.length && !eventsPlannedLater?.length"
-        class="ml24">
-        <span class="fontColorGrey l fontGilroy fs14">No event yet.</span>
-      </div>
-      <cdk-virtual-scroll-viewport
-        *ngIf="eventsPlannedToday?.length || eventsPlannedMonth?.length || eventsPlannedLater?.length" itemSize="20"
-        class="viewport">
-        <div class="mt16 ml24">
-          <div>
-            <p class="fontColorGrey fontGilroy fs18 mt16">Today</p>
-            <div *ngIf="!eventsPlannedToday?.length">
-              <span class="fontColorGrey fs14">No event today</span>
-            </div>
-            <div *ngIf="eventsPlannedToday?.length">
-              <div *ngFor="let item of eventsPlannedToday" fxLayout="row" fxLayoutAlign="space-between center"
-                class="item mt7 eventPlannedStyle">
-                <div class="ml8">
-                  <span class="fontColorGrey fs14">{{item.date | date:'dd.MM.yyyy'}} </span>
-                  <span class="fs14 fontRobotoBold"> {{item?.name}}</span> -
-                  <span class="fs14"> {{item?.type}} event.</span>
-                  <span class="fs14"> {{item?.description}}</span>
-                </div>
-                <div class="mr30" *ngIf='!getConfirm(item) && !getDecline(item)'>
-                  <span (click)="actionEvent(true,item)" class="fs14 mr30 fontColorGreen">
-                    <img class="actionImg" src="../../../assets/img/okIcon.png" alt="">
-                  </span>
-                  <span (click)="actionEvent(false,item)" class="fs14 fontColorRed">
-                    <img class="actionImg" src="../../../assets/img/close.png" alt="">
-                  </span>
-                </div>
-                <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
-                  <span class="fs14 mr30 cursor fontColorGreen">You are going!</span>
-                </div>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="editChoose(item)">
-                    <mat-icon>edit</mat-icon>
-                    <span>edit choice</span>
-                  </button>
-                </mat-menu>
-                <div *ngIf='getDecline(item)' [matMenuTriggerFor]="menu">
-                  <span class="fs14 mr30 cursor fontColorRed">You are not going!</span>
-                </div>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="editChoose(item)">
-                    <mat-icon>edit</mat-icon>
-                    <span>edit choice</span>
-                  </button>
-                </mat-menu>
-              </div>
-            </div>
-          </div>
-
-          <div *ngIf="eventsPlannedMonth?.length" class="mt16">
-            <p class="fontColorGrey fs18 fontGilroy mt16">This month</p>
-            <div *ngFor="let item of eventsPlannedMonth" class="item mt7 eventPlannedStyle" fxLayout="row"
-              fxLayoutAlign="space-between center">
-              <div class="ml8">
-                <span class="fontColorGrey fs14">{{item?.date | date:'dd.MM.yyyy'}} </span>
-                <span class="fs14 ml8 fontRobotoBold"> {{item?.name}}</span> -
-                <span class="fs14"> {{item?.type}} event.</span>
-                <span class="fs14"> {{item?.description}}</span>
-              </div>
-              <div class="mr30" *ngIf='!getConfirm(item) && !getDecline(item)'>
-                <span (click)="actionEvent(true,item)" class="fs14 mr30 fontColorGreen">
-                  <img class="actionImg" src="../../../assets/img/okIcon.png" alt="">
-                </span>
-                <span (click)="actionEvent(false,item)" class="fs14 fontColorRed">
-                  <img class="actionImg" src="../../../assets/img/close.png" alt="">
-                </span>
-              </div>
-              <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
-                <span class="fs14 mr30 cursor fontColorGreen">You are going!</span>
-              </div>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="editChoose(item)">
-                  <mat-icon>edit</mat-icon>
-                  <span>edit choice</span>
-                </button>
-              </mat-menu>
-              <div *ngIf='getDecline(item)' [matMenuTriggerFor]="menu">
-                <span class="fs14 mr30 cursor fontColorRed">You are not going!</span>
-              </div>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="editChoose(item)">
-                  <mat-icon>edit</mat-icon>
-                  <span>Edit</span>
-                </button>
-              </mat-menu>
-            </div>
-          </div>
-
-          <div *ngIf="eventsPlannedLater?.length" class="mt16">
-            <p class="fontColorGrey fs18 fontGilroy mt16">Later</p>
-            <div *ngFor="let item of eventsPlannedLater" class="item mt7 eventPlannedStyle" fxLayout="row"
-              fxLayoutAlign="space-between center">
-              <div class="ml8">
-                <span class="fontColorGrey fs14">{{item?.date | date:'dd.MM.yyyy'}} </span>
-                <span class="fs14 fontRobotoBold ml8"> {{item?.name}}</span> -
-                <span class="fs14"> {{item?.type}} event.</span>
-                <span class="fs14"> {{item?.description}}</span>
-              </div>
-              <div class="mr30">
-                <div *ngIf='!getConfirm(item) && !getDecline(item)'>
-                  <span (click)="actionEvent(true,item)" class="fs14 mr30 fontColorGreen">
-                    <img class="actionImg" src="../../../assets/img/okIcon.png" alt="">
-                  </span>
-                  <span (click)="actionEvent(false,item)" class="fs14 fontColorRed">
-                    <img class="actionImg" src="../../../assets/img/close.png" alt="">
-                  </span>
-                </div>
-                <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
-                  <span class="fs14 cursor fontColorGreen">You are going!</span>
-                </div>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="editChoose(item)">
-                    <mat-icon>edit</mat-icon>
-                    <span>edit choice</span>
-                  </button>
-                </mat-menu>
-                <div *ngIf='getDecline(item)' [matMenuTriggerFor]="menu">
-                  <span class="fs14 cursor fontColorRed">You are not going!</span>
-                </div>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="editChoose(item)">
-                    <mat-icon>edit</mat-icon>
-                    <span>edit choice</span>
-                  </button>
-                </mat-menu>
-              </div>
-            </div>
-          </div>
+    <div class="calendar__block planned-events">
+        <div class="dffssb">
+            <p class="calendar__block--title">Planned events</p>
+            <button class="btn-calendar" (click)='addEvent()' mat-flat-button>
+                <mat-icon>add</mat-icon>
+            </button>
         </div>
-        <br>
-      </cdk-virtual-scroll-viewport>
+        <perfect-scrollbar class="scrollbar"
+            *ngIf="eventsPlannedToday?.length || eventsPlannedMonth?.length || eventsPlannedLater?.length else noEvents">
+            <div class="block-divider">
+                <p class="calendar__block--addTitle">Today</p>
+
+                <div *ngIf="eventsPlannedToday?.length else noEvents">
+                    <div *ngFor="let item of eventsPlannedToday" class="dfsb mb8">
+                        <div class="calendar__block--text">
+                            <span class="date">{{item?.date | date:'dd.MM.yyyy'}}</span>
+                            <span class="fw700"> {{item?.name}} </span>
+                            <span class="date">({{item?.type | lowercase}} event)</span> {{item?.description}}
+                        </div>
+                        <div *ngIf='!getConfirm(item) && !getDecline(item)' class="dfac">
+                            <div (click)="actionEvent(true,item)" class="fontColorGreen mr16 actionImg">
+                                <img class="actionImg" src="../../../assets/img/okIcon.png" alt="">
+                            </div>
+                            <div (click)="actionEvent(false,item)" class="fontColorRed actionImg">
+                                <img class="actionImg" src="../../../assets/img/close.png" alt="">
+                            </div>
+                        </div>
+                        <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
+                            <span class="cursor fontColorGreen">You are going!</span>
+                        </div>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="editChoose(item)">
+                                <mat-icon>edit</mat-icon>
+                                <span>edit choice</span>
+                            </button>
+                        </mat-menu>
+                        <div *ngIf='getDecline(item)' [matMenuTriggerFor]="menu">
+                            <span class="cursor fontColorRed">You are not going!</span>
+                        </div>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="editChoose(item)">
+                                <mat-icon>edit</mat-icon>
+                                <span>edit choice</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
+
+                <ng-template #noEvents>
+                    <div class="calendar__block--text">
+                        No events today
+                    </div>
+                </ng-template>
+            </div>
+
+            <div *ngIf="eventsPlannedMonth?.length" class="block-divider">
+                <p class="calendar__block--addTitle">This month</p>
+                <div *ngFor="let item of eventsPlannedMonth" class="dfsb mb8">
+                    <div class="calendar__block--text">
+                        <span class="date">{{item?.date | date:'dd.MM.yyyy'}}</span>
+                        <span class="fw700"> {{item?.name}} </span>
+                        <span class="date">({{item?.type | lowercase}} event)</span> {{item?.description}}
+                    </div>
+                    <div *ngIf='!getConfirm(item) && !getDecline(item)' class="dfac">
+                        <div (click)="actionEvent(true,item)" class="fontColorGreen mr16 actionImg">
+                            <img class="actionImg" src="../../../assets/img/okIcon.png" alt="">
+                        </div>
+                        <div (click)="actionEvent(false,item)" class="fontColorRed actionImg">
+                            <img class="actionImg" src="../../../assets/img/close.png" alt="">
+                        </div>
+                    </div>
+                    <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
+                        <span class="cursor fontColorGreen">You are going!</span>
+                    </div>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="editChoose(item)">
+                            <mat-icon>edit</mat-icon>
+                            <span>edit choice</span>
+                        </button>
+                    </mat-menu>
+                    <div *ngIf='getDecline(item)' [matMenuTriggerFor]="menu">
+                        <span class="cursor fontColorRed">You are not going!</span>
+                    </div>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="editChoose(item)">
+                            <mat-icon>edit</mat-icon>
+                            <span>edit choice</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+
+            <div *ngIf="eventsPlannedLater?.length" class="block-divider">
+                <p class="calendar__block--addTitle">Later</p>
+                <div *ngFor="let item of eventsPlannedLater" class="dfsb mb8">
+                    <div class="calendar__block--text">
+                        <span class="date">{{item?.date | date:'dd.MM.yyyy'}}</span>
+                        <span class="fw700"> {{item?.name}} </span>
+                        <span class="date">({{item?.type | lowercase}} event)</span> {{item?.description}}
+                    </div>
+                    <div *ngIf='!getConfirm(item) && !getDecline(item)' class="dfac">
+                        <div (click)="actionEvent(true,item)" class="fontColorGreen mr16 actionImg">
+                            <img class="actionImg" src="../../../assets/img/okIcon.png" alt="">
+                        </div>
+                        <div (click)="actionEvent(false,item)" class="fontColorRed actionImg">
+                            <img class="actionImg" src="../../../assets/img/close.png" alt="">
+                        </div>
+                    </div>
+                    <div *ngIf='getConfirm(item)' [matMenuTriggerFor]="menu">
+                        <span class="cursor fontColorGreen">You are going!</span>
+                    </div>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="editChoose(item)">
+                            <mat-icon>edit</mat-icon>
+                            <span>edit choice</span>
+                        </button>
+                    </mat-menu>
+                    <div *ngIf='getDecline(item)' [matMenuTriggerFor]="menu">
+                        <span class="cursor fontColorRed">You are not going!</span>
+                    </div>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="editChoose(item)">
+                            <mat-icon>edit</mat-icon>
+                            <span>edit choice</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </perfect-scrollbar>
+        <ng-template #noEvents>
+            <div class="calendar__block--text">
+                No event yet.
+            </div>
+        </ng-template>
     </div>
-  </div>
+    <!-- select Event -->
+    <div class="calendar__block">
+        <div class="calendar__block--title">{{selectedDate | date:'dd.MM.yyyy'}}</div>
+        <perfect-scrollbar *ngIf="birthSelectDate?.length || eventSelectedDate?.length else noEvents" class="scrollbar">
+            <div *ngFor="let birth of birthSelectDate" class="calendar__block--text">
+                {{birth?.name}} <span class="date">(birthday)</span>
+            </div>
+            <div *ngFor="let eventToday of eventSelectedDate" class="calendar__block--text">
+                {{eventToday?.name}} <span class="date">({{eventToday?.type | lowercase}} event)</span>
+            </div>
+        </perfect-scrollbar>
+        <ng-template #noEvents>
+            <div class="calendar__block--text">
+                No events today
+            </div>
+        </ng-template>
+    </div>
 </div>

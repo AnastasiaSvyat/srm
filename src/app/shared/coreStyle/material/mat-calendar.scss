@@ -1,0 +1,14 @@
+@import '../colors.scss';
+
+.mat-calendar-body-cell-content {
+    border-radius: 50% !important;
+    border: none !important;
+}
+
+.mat-calendar-body-selected {
+    background: $blue !important;
+}
+
+.mat-calendar-body-today.mat-calendar-body-selected {
+    box-shadow: none !important;
+}
