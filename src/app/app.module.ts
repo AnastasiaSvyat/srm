@@ -17,10 +17,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from './shared/shared.module';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    SignInComponent,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
