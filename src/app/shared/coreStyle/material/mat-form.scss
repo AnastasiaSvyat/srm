@@ -3,8 +3,9 @@
 .add-user-container,
 .add-request-container,
 .user-add-task-container,
-.app-add-info-user {
-    mat-form-field {
+.app-add-info-user,
+.log-time-container{
+   mat-form-field{
         width: 90%;
         height: 40px;
         margin-top: 25px;

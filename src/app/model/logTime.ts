@@ -1,6 +1,7 @@
-export class LogTime {
-    idEmployee!: string;
-    month!: number;
-    time!: number;
-    monthString!:string
+export interface LogTime {
+    idEmployee: string;
+    month: number;
+    monthString: string;
+    timeInProject: any;
+    sumHours: number;
 }
