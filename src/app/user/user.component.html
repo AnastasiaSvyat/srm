@@ -7,34 +7,34 @@
             </div>
 
             <div class="sideMenu--item">
-                <button mat-icon-button routerLinkActive="activeLink" [routerLink]="['/user','dashboardUser']">
+                <button mat-icon-button routerLinkActive="activeLink" [routerLink]="['/user','dashboardUser']" matTooltip="Dashboard" matTooltipPosition="right">
                     <mat-icon>dashboard</mat-icon>
                 </button>
             </div>
 
             <div class="sideMenu--item">
-                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
+                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" matTooltip="Employees" matTooltipPosition="right"
                     [routerLink]="['/user','stafflist']">
                     <mat-icon>perm_contact_calendar</mat-icon>
                 </button>
             </div>
 
             <div class="sideMenu--item">
-                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
+                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" matTooltip="Events" matTooltipPosition="right"
                     [routerLink]="['/user','calendar']">
                     <mat-icon>card_travel</mat-icon>
                 </button>
             </div>
 
             <div class="sideMenu--item">
-                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
+                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" matTooltip="Log Time" matTooltipPosition="right"
                     [routerLink]="['/user','logTime']">
                     <mat-icon>access_time</mat-icon>
                 </button>
             </div>
 
             <div class="sideMenu--item">
-                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
+                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" matTooltip="Requests" matTooltipPosition="right"
                     [routerLink]="['/user','messageUser']">
                     <mat-icon>message</mat-icon>
                     <span *ngIf='requestCount' class="circle-sms">{{requestCount}}</span>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="sideMenu--item">
-                <button (click)="logout()" mat-icon-button>
+                <button (click)="logout()" mat-icon-button matTooltip="Logout" matTooltipPosition="right">
                     <mat-icon>exit_to_app</mat-icon>
                 </button>
             </div>

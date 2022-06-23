@@ -5,31 +5,31 @@
   </div>
 
   <div class="sideMenu--item">
-    <button mat-icon-button routerLinkActive="activeLink" [routerLink]="['/admin','dashboardAdmin']">
+    <button mat-icon-button routerLinkActive="activeLink" [routerLink]="['/admin','dashboardAdmin']" matTooltip="Dashboard" matTooltipPosition="right">
       <mat-icon>dashboard</mat-icon>
     </button>
   </div>
 
   <div class="sideMenu--item">
-    <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" [routerLink]="['/admin','stafflist']">
+    <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" [routerLink]="['/admin','stafflist']" matTooltip="Employees" matTooltipPosition="right">
       <mat-icon>perm_contact_calendar</mat-icon>
     </button>
   </div>
 
   <div class="sideMenu--item">
-    <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" [routerLink]="['/admin','calendar']">
+    <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" [routerLink]="['/admin','calendar']" matTooltip="Events" matTooltipPosition="right">
       <mat-icon>card_travel</mat-icon>
     </button>
   </div>
 
   <div class="sideMenu--item">
-    <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" [routerLink]="['/admin','logTime']">
+    <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" [routerLink]="['/admin','logTime']" matTooltip="Log Time" matTooltipPosition="right">
       <mat-icon>access_time</mat-icon>
     </button>
   </div>
 
   <div class="sideMenu--item">
-    <button mat-icon-button routerLinkActive="activeLink" class="navbar-button"
+    <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" matTooltip="Requests" matTooltipPosition="right"
       [routerLink]="['/admin','messageAdmin']">
       <mat-icon>message</mat-icon>
       <span *ngIf='requestCount' class="circle-sms">{{requestCount}}</span>
@@ -37,7 +37,7 @@
   </div>
 
   <div class="sideMenu--item">
-    <button (click)="logout()" mat-icon-button>
+    <button (click)="logout()" mat-icon-button matTooltip="Logout" matTooltipPosition="right">
       <mat-icon>exit_to_app</mat-icon>
     </button>
   </div>
