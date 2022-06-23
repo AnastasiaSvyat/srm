@@ -12,10 +12,11 @@
     border-radius: 50%;
     line-height: 16px; 
     text-align: center;  
-    background: $grey;
+    background: $bg-white;
     font-size: 8px;
-    position: fixed;
-    color: white;
+    position: absolute;
+    right: 0;
+    color: $blue;
 }
 // .activeLink{
 //     background-color: rgb(201, 232, 247);
@@ -23,7 +24,6 @@
 //     height: 60px;
 //     color: rgb(14, 66, 66);
 // }
-
 .activeLink mat-icon{
     color: $blue;
 }
@@ -32,6 +32,10 @@ mat-icon {
     color: $grey;
     width: 32px;
     font-size: 32px;
+    .mat-button-ripple.mat-ripple {
+        height: 40px;
+        width: 40px;
+    }
 }
 
 .menu {
