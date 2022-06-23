@@ -6,8 +6,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Employee } from 'src/app/model/Employee';
 import { LogTime } from 'src/app/model/logTime';
+import { Month } from 'src/app/model/month';
+import { MonthArr } from 'src/app/helpers/month';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LogTimeService } from 'src/app/services/logTime/log-time.service';
+import * as moment from 'moment';
+import { AmountConfirmedRequestMonthService } from 'src/app/services/amountConfirmedRequestMonth/amount-confirmed-request-month.service';
+import { AmountConfirmedRequestMonth } from 'src/app/model/amountConfirmedRequestMonth';
 
 @Component({
   selector: 'app-user-add-month-log-time',
@@ -20,10 +25,14 @@ export class UserAddMonthLogTimeComponent implements OnInit {
   logForm!: FormGroup;
 
   employee!: Employee;
-
+  currentMonth!: Month;
+  currentYear = moment().format('yyyy');
+  selectMonthAndYear: string = ''
   duration = 5000;
 
   sumHours: number = 0;
+
+  amountConfirmedRequestMonth!: any;
 
 
   constructor(
@@ -33,11 +42,17 @@ export class UserAddMonthLogTimeComponent implements OnInit {
     private auth: AuthService,
     private logTimeService: LogTimeService,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private amountConfirmedRequestMonthService: AmountConfirmedRequestMonthService
   ) { }
 
   ngOnInit(): void {
+
+    this.currentMonth = MonthArr[this.data.month.id - 1];
+    this.selectMonthAndYear =  this.currentMonth.month + '-01=' + this.currentYear
+    
     this.employee = this.auth.user;
+    this.initCountConfirmRequestCurrentMonth();
 
     this.form = this.fb.group({
       logTimeList: this.fb.array([
@@ -55,6 +70,14 @@ export class UserAddMonthLogTimeComponent implements OnInit {
     return this.form.controls["logTimeList"] as FormArray;
   }
 
+  initCountConfirmRequestCurrentMonth(){
+    this.amountConfirmedRequestMonthService.getRequestCurrentUser(this.employee.id, new Date(this.selectMonthAndYear))
+    .subscribe((res) => {
+      console.log(res);
+      this.amountConfirmedRequestMonth = res;
+      
+    })
+  }
 
   addOneMoreProject() {
     this.logForm = this.fb.group({

@@ -8,7 +8,7 @@
             </button>
         </div>
 
-        <ng-container formArrayName="logTimeList">
+        <form formArrayName="logTimeList">
 
             <ng-container *ngFor="let logForm of logTimeList.controls; let i = index">
                 <div class="lesson-form-row" [formGroupName]="i" class="border" fxLayout="column"
@@ -18,7 +18,7 @@
                         <input matInput formControlName="projectName" placeholder="Enter project name" matInput>
                     </mat-form-field>
 
-                    <div fxLayout="row" fxLayoutAlign="space-around center" class="w96 mb13">
+                    <div fxLayout="row" fxLayoutAlign="space-around center" class="w96 mb20">
                         <mat-form-field class="w47">
                             <mat-label>Billable hours</mat-label>
                             <input type="number" matInput formControlName="billableTime" placeholder="Enter billable hours" matInput>
@@ -40,7 +40,7 @@
 
                 </div>
             </ng-container>
-        </ng-container>
+        </form>
         <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
             <div>
                 <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
