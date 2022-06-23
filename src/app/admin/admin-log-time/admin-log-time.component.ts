@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
@@ -19,6 +19,8 @@ import { Overlay } from '@angular/cdk/overlay';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminAddStandartHoursComponent } from '../admin-add-standart-hours/admin-add-standart-hours.component';
 import { StandartHours } from 'src/app/model/standartHours';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 export interface ParamsStaffPag {
@@ -34,7 +36,10 @@ export interface ParamsStaffPag {
 })
 export class AdminLogTimeComponent implements OnInit {
 
-  displayedColumns: string[] = ['photo', 'name', 'workTime', 'salary', 'sum'];
+  @ViewChild('paginator') paginator!: MatPaginator;
+  
+  dataSource: MatTableDataSource<Employee> = new MatTableDataSource<Employee>();
+  displayedColumns: string[] = ['name', 'workTime', 'salary', 'sum'];
 
   searchByName = new FormControl();
   private unsubscribe = new Subject();
@@ -215,6 +220,8 @@ export class AdminLogTimeComponent implements OnInit {
           const { staffList, totalItems } = response;
           this.staffList = staffList;
           this.count = totalItems;
+          this.dataSource = new MatTableDataSource<Employee>(this.staffList);
+          this.dataSource.paginator = this.paginator;
         },
         error => {
           console.log(error);

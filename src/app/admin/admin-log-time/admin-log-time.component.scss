@@ -1,65 +1,44 @@
-.blue{
-    color: rgb(26, 82, 99);
-    font-size: 36px;
-    font-weight: 600;
+@import '../../shared/coreStyle/colors.scss';
+
+.admin-log-time-container {
+    padding: 16px;
+
+    .log-time {
+        &--title {
+            font-size: 1.5rem;
+            font-family: 'Gilroy';
+        }
+
+        &--text {
+            font-size: 1rem;
+            color: $grey;
+            margin: 0 8px;
+        }
+    }
+
+    .btn-logTime {
+        background-color: $blue;
+        color: $white;
+        border-radius: 50% !important;
+        line-height: 0% !important;
+        padding: 4px !important;
+        min-width: auto !important;
+    }
 }
-.fs30{
-    font-size: 24px;
+
+.mobile-view {
+    display: none;
 }
-.underline{
-    text-decoration: underline;
-  }
-  .viewport{
-    height: 43px;
-  }
-  @media(max-width: 1300px) {
-    .mobile-label {
-      display: inline-block;
-      font-weight: bold;
+
+
+@media screen and (max-width: 1024px) {
+    .mobile-view {
+        display: inline;
+        font-size: 1.125rem;
+        font-weight: 600;
     }
-    .ml6{
-      margin-left: 6px;
+
+    .log-time--month {
+        margin-bottom: 16px;
     }
-    mat-header-cell{
-      display: none;
-    }
-    .displayNone{
-      display: none;
-    }
-    mat-row{ 
-      background-color: aqua;
-      align-items: start;
-      padding: 8px 24px;
-      width: 48%;
-    }
-  
-    mat-table{
-        margin-left: 0;
-        width: 90%;
-        display: flex;
-        flex-wrap: wrap;
-        margin: auto;
-    }
-    mat-cell{
-        border: 1px ;
-    }
-  }
-  @media(min-width: 1300px) {
-    .mobile-label {
-      display: none;
-    }
-    .example-container {
-        display: flex;
-        max-height: 500px;
-      }
-      .mat-table {
-        overflow: auto;
-      }
-  }
-  @media(max-width: 620px) {
-    .mat-row{ 
-      width: 95%;
-    }
-  }
-  
-  
+}
