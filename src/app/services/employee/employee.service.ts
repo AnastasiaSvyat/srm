@@ -105,4 +105,12 @@ export class EmployeeService {
     return this.httpClient.get<StaffListDto>(API_URL, { params });
   }
 
+  getAllStaff(): Observable<Employee[]> {
+    const API_URL = `${this.careService.REST_API}/getStaffList`;
+    return this.httpClient.get<Employee[]>(API_URL)
+      .pipe(
+        catchError(this.careService.handleError)
+      );
+  }
+
 }

@@ -55,17 +55,10 @@ export class UserStaffListComponent implements OnInit {
   }
 
   retrieveStaff(): void {
-    const params: ParamsStaffPag = {
-      page: this.page,
-      size: this.pageSize,
-      name: '',
-    };
-    this.employeeService.getStaffListPagination(params)
+    this.employeeService.getAllStaff()
       .subscribe(
         response => {
-          const { staffList, totalItems } = response;
-          this.staffList = staffList;
-          this.count = totalItems;
+          this.staffList = response;
           this.dataSource = new MatTableDataSource<Employee>(this.staffList);
           this.dataSource.paginator = this.paginator;
         },

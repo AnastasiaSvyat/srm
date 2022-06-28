@@ -46,6 +46,7 @@ export class AdminStaffListComponent implements OnInit {
   private unsubscribe = new Subject();
   
   @ViewChild('paginator') paginator!: MatPaginator;
+
   dataSource: MatTableDataSource<Employee> = new MatTableDataSource<Employee>();
   displayedColumns: string[] = ['photo', 'name', 'position', 'salary', 'birthday',
     'phone', 'skype', 'email', 'vacation', 'sickLeave', 'about', 'cv', 'changeLog'];
@@ -130,12 +131,10 @@ export class AdminStaffListComponent implements OnInit {
       size: this.pageSize,
       name: ''
     };
-    this.employeeService.getStaffListPagination(params)
+    this.employeeService.getAllStaff()
       .subscribe(
         response => {
-          const { staffList, totalItems } = response;
-          this.staffList = staffList;
-          this.count = totalItems;
+          this.staffList = response;
           this.dataSource = new MatTableDataSource<Employee>(this.staffList);
           this.dataSource.paginator = this.paginator;
         },
@@ -143,6 +142,8 @@ export class AdminStaffListComponent implements OnInit {
           console.log(error);
         });
   }
+
+  
 
   handlePageChange(event: any): void {
     this.page = event.pageIndex;
