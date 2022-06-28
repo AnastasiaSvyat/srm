@@ -8,7 +8,13 @@
                 </div>
                 <div fxLayoutAlign="center center" class="w100 mt14 hour fs14" *ngIf='selectMonth.id <= month'>
                     {{logTimeSelectMonth(selectMonth?.id)}}
+                    
                 </div>
+                <!-- <div>
+                    {{ee(selectMonth?.month)}}
+                    
+                </div> -->
+                
                 <div class="w100 mt14 hour fs14" fxLayoutAlign="center center" *ngIf='selectMonth.id > month'>
                     It is not yet possible to add hours worked for a given month
                 </div>

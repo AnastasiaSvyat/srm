@@ -71,11 +71,11 @@ export class UserAddMonthLogTimeComponent implements OnInit {
   }
 
   initCountConfirmRequestCurrentMonth(){
-    this.amountConfirmedRequestMonthService.getRequestCurrentUser(this.employee.id, new Date(this.selectMonthAndYear))
+    const date = moment(new Date(this.selectMonthAndYear)).format('MM-YYYY')
+    
+    this.amountConfirmedRequestMonthService.getRequestCurrentUser(this.employee.id, date)
     .subscribe((res) => {
-      console.log(res);
-      this.amountConfirmedRequestMonth = res;
-      
+        this.amountConfirmedRequestMonth = res;
     })
   }
 

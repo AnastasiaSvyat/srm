@@ -8,6 +8,11 @@
             </button>
         </div>
 
+        <div class="mt4" *ngFor='let request of amountConfirmedRequestMonth?.request'>
+            <span class="fs21 fw300">{{request?.name}}:</span>
+            <span class="ml12 fs16 fw300">{{request?.count * 8}}H</span>
+        </div>
+
         <form formArrayName="logTimeList">
 
             <ng-container *ngFor="let logForm of logTimeList.controls; let i = index">
