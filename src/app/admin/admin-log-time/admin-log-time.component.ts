@@ -37,7 +37,7 @@ export interface ParamsStaffPag {
 export class AdminLogTimeComponent implements OnInit {
 
   @ViewChild('paginator') paginator!: MatPaginator;
-  
+
   dataSource: MatTableDataSource<Employee> = new MatTableDataSource<Employee>();
   displayedColumns: string[] = ['name', 'workTime', 'salary', 'sum'];
 
@@ -123,7 +123,7 @@ export class AdminLogTimeComponent implements OnInit {
 
   workTimeSum(userId: string, salary: string) {
     const reqResult = this.workTimeList.find(img => img.idEmployee === userId);
-    return reqResult ? Math.ceil(Number(salary) / this.standartHour?.time * reqResult?.sumHours) + '$' : '-';
+    return reqResult ? Math.ceil(Number(salary) / this.standartHour?.time * reqResult?.sumHours) : '-';
   }
 
   addStandartMonthHours() {
@@ -214,12 +214,10 @@ export class AdminLogTimeComponent implements OnInit {
       size: this.pageSize,
       name: ''
     };
-    this.employeeService.getStaffListPagination(params)
+    this.employeeService.getAllStaff()
       .subscribe(
         response => {
-          const { staffList, totalItems } = response;
-          this.staffList = staffList;
-          this.count = totalItems;
+          this.staffList = response;
           this.dataSource = new MatTableDataSource<Employee>(this.staffList);
           this.dataSource.paginator = this.paginator;
         },
@@ -227,5 +225,4 @@ export class AdminLogTimeComponent implements OnInit {
           console.log(error);
         });
   }
-
 }
