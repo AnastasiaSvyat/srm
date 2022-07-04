@@ -1,10 +1,12 @@
 <div class="admin-staff-container">
     <div class="search">
+
         <mat-form-field appearance="outline">
             <mat-label>Search</mat-label>
             <input matInput type="text" class="form-control" placeholder="Search by employee name..."
-                [formControl]="searchByName" />
+                (keyup)="applyFilter($event)" />
         </mat-form-field>
+
         <button class="btn-staffList" (click)='addUser()' mat-flat-button>
             <mat-icon>add</mat-icon>
         </button>
@@ -24,7 +26,7 @@
                 <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
                 <mat-cell *matCellDef="let element" class="mat-cell--name">
                     <p *ngIf="element.name && element.lastName else noName">
-                        {{element?.name}} {{element?.lastName}}
+                        {{element?.lastName | titlecase}} {{element?.name | titlecase}} 
                     </p>
                     <ng-template #noName>
                         <p>
@@ -37,8 +39,9 @@
             <ng-container matColumnDef="position">
                 <mat-header-cell *matHeaderCellDef>Position</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <p class="text-truncate-ellipsis" [matTooltip]="element?.position" matTooltipClass="my-custom-tooltip">
-                        <span class="mobile-view">Position: </span>{{element?.position || 'No info'}}
+                    <p class="text-truncate-ellipsis" [matTooltip]="element?.position"
+                        matTooltipClass="my-custom-tooltip">
+                        <span class="mobile-view">Position: </span>{{element?.position || '&#8212;'}}
                     </p>
                 </mat-cell>
             </ng-container>
@@ -47,8 +50,13 @@
                 <mat-header-cell *matHeaderCellDef>Birthday</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <p>
-                        <span class="mobile-view">Birthday: </span>{{element?.date | date:"dd.MM.yyyy" || 'No info' }}
+                        <span *ngIf='element?.date else noBirthDay' class="mobile-view">Birthday: </span>{{element?.date | date:"dd.MM.yyyy" || 'No info' }}
                     </p>
+                    <ng-template #noBirthDay>
+                        <p>
+                            <span class="mobile-view">Birthday: </span> &#8212;
+                        </p>
+                    </ng-template>
                 </mat-cell>
             </ng-container>
 
@@ -60,13 +68,13 @@
                     </p>
                     <ng-template #noSalary>
                         <p>
-                            <span class="mobile-view">Salary: </span>No info
+                            <span class="mobile-view">Salary: </span> &#8212;
                         </p>
                     </ng-template>
                 </mat-cell>
             </ng-container>
 
-            <!-- <ng-container matColumnDef="firstDay">
+            <ng-container matColumnDef="firstDay">
                 <mat-header-cell *matHeaderCellDef>First day</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <p *ngIf="element?.startDate else noStartDate">
@@ -78,7 +86,7 @@
                         </p>
                     </ng-template>
                 </mat-cell>
-            </ng-container> -->
+            </ng-container>
 
             <!-- <ng-container matColumnDef="lastPerf">
                 <mat-header-cell *matHeaderCellDef>Last Performance</mat-header-cell>
@@ -98,7 +106,7 @@
                 <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <p>
-                        <span class="mobile-view">Phone: </span>{{element?.phone || 'No info'}}
+                        <span class="mobile-view">Phone: </span>{{element?.phone || '&#8212;'}}
                     </p>
                 </mat-cell>
             </ng-container>
@@ -107,7 +115,7 @@
                 <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <p class="text-truncate-ellipsis" [matTooltip]="element?.email" matTooltipClass="my-custom-tooltip">
-                        <span class="mobile-view">Email: </span>{{element?.email || 'No info'}}
+                        <span class="mobile-view">Email: </span>{{element?.email || '&#8212;'}}
                     </p>
                 </mat-cell>
             </ng-container>
@@ -115,8 +123,8 @@
             <ng-container matColumnDef="skype">
                 <mat-header-cell *matHeaderCellDef>Skype</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <p>
-                        <span class="mobile-view">Skype: </span>{{element?.skype || 'No info'}}
+                    <p class="text-truncate-ellipsis" [matTooltip]="element?.skype" matTooltipClass="my-custom-tooltip">
+                        <span class="mobile-view">Skype: </span>{{element?.skype || '&#8212;'}}
                     </p>
                 </mat-cell>
             </ng-container>
@@ -125,7 +133,7 @@
                 <mat-header-cell *matHeaderCellDef>Vacation</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <p>
-                        <span class="mobile-view">Vacation: </span>{{getVacationEmployee(element.id) || 'No info'}}
+                        <span class="mobile-view">Vacation: </span>{{getVacationEmployee(element.id) || '&#8212;'}}
                     </p>
                 </mat-cell>
             </ng-container>
@@ -134,7 +142,7 @@
                 <mat-header-cell *matHeaderCellDef>Sick leave</mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <p>
-                        <span class="mobile-view">Sick Leave: </span>{{getSickLeaveEmployee(element.id) || 'No info'}}
+                        <span class="mobile-view">Sick Leave: </span>{{getSickLeaveEmployee(element.id) || '&#8212;'}}
                     </p>
                 </mat-cell>
             </ng-container>
@@ -169,7 +177,9 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
-        <mat-paginator #paginator [length]="staffList.length" [pageSize]="6" [pageSizeOptions]="[2, 4, 6, 8, 10]"
+        <!-- <mat-paginator #paginator [length]="staffList.length" [pageSize]="6" [pageSizeOptions]="[2, 4, 6, 8, 10]"
             showFirstLastButtons>
-        </mat-paginator>
+        </mat-paginator> -->
+        <mat-paginator [pageSizeOptions]="[100, 20, 50]" showFirstLastButtons></mat-paginator>
+
     </div>

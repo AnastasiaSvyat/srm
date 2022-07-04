@@ -1,85 +1,98 @@
 <div class="user-staff-container">
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-        <ng-container matColumnDef="photo">
-            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <img [src]="getEmployeePhoto(element?.id)" class="sizePhotoStaffList">
-            </mat-cell>
-        </ng-container>
+    <div class="search">
 
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-            <mat-cell *matCellDef="let element" class="mat-cell--name">
-                <p *ngIf="element.name && element.lastName else noName">
-                    {{element?.name}} {{element?.lastName}}
-                </p>
-                <ng-template #noName>
-                    <p>
-                        No Name
+        <mat-form-field appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" class="form-control" placeholder="Search by employee name..."
+                (keyup)="applyFilter($event)" />
+        </mat-form-field>
+    </div>
+
+    <div>
+
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="photo">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <img [src]="getEmployeePhoto(element?.id)" class="sizePhotoStaffList">
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="mat-cell--name">
+                    <p *ngIf="element.name && element.lastName else noName">
+                        {{element?.lastName | titlecase}} {{element?.name | titlecase}} 
                     </p>
-                </ng-template>
-            </mat-cell>
-        </ng-container>
+                    <ng-template #noName>
+                        <p>
+                            No Name
+                        </p>
+                    </ng-template>
+                </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="position">
-            <mat-header-cell *matHeaderCellDef>Position</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <p class="text-truncate-ellipsis" [matTooltip]="element?.position" matTooltipClass="my-custom-tooltip">
-                    <span class="mobile-view">Position: </span>{{element?.position || 'No info'}}
-                </p>
-            </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="position">
+                <mat-header-cell *matHeaderCellDef>Position</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p class="text-truncate-ellipsis" [matTooltip]="element?.position"
+                        matTooltipClass="my-custom-tooltip">
+                        <span class="mobile-view">Position: </span>{{element?.position || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="birthday">
-            <mat-header-cell *matHeaderCellDef>Birthday</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <p>
-                    <span class="mobile-view">Birthday: </span>{{element?.date | date:"dd.MM.yyyy" || 'No info'}}
-                </p>
-            </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="birthday">
+                <mat-header-cell *matHeaderCellDef>Birthday</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p>
+                        <span class="mobile-view">Birthday: </span>{{element?.date | date:"dd.MM.yyyy" || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="phone">
-            <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <p>
-                    <span class="mobile-view">Phone: </span>{{element?.phone || 'No info'}}
-                </p>
-            </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="phone">
+                <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p>
+                        <span class="mobile-view">Phone: </span>{{element?.phone || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <p class="text-truncate-ellipsis" [matTooltip]="element?.email" matTooltipClass="my-custom-tooltip">
-                    <span class="mobile-view">Email: </span>{{element?.email || 'No info'}}
-                </p>
-            </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p class="text-truncate-ellipsis" [matTooltip]="element?.email" matTooltipClass="my-custom-tooltip">
+                        <span class="mobile-view">Email: </span>{{element?.email || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="skype">
-            <mat-header-cell *matHeaderCellDef>Skype</mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <p>
-                    <span class="mobile-view">Skype: </span>{{element?.skype || 'No info'}}
-                </p>
-            </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="skype">
+                <mat-header-cell *matHeaderCellDef>Skype</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <p>
+                        <span class="mobile-view">Skype: </span>{{element?.skype || 'No info'}}
+                    </p>
+                </mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="about">
-            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <button (click)="aboutUser(element)" class="underline">
-                    <p>about</p>
-                </button>
-            </mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="about">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button (click)="aboutUser(element)" class="underline">
+                        <p>about</p>
+                    </button>
+                </mat-cell>
+            </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    <mat-paginator #paginator [length]="staffList.length" [pageSize]="6"
-        [pageSizeOptions]="[2, 4, 6, 8, 10]" showFirstLastButtons>
-    </mat-paginator>
-</div>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator [length]="staffList.length" [pageSize]="6" [pageSizeOptions]="[2, 4, 6, 8, 10]"
+            showFirstLastButtons>
+        </mat-paginator>
+    </div>

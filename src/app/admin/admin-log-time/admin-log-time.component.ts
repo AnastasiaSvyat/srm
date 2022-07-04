@@ -75,28 +75,6 @@ export class AdminLogTimeComponent implements OnInit {
     private overlay: Overlay,
     private dialog: MatDialog,
   ) {
-    this.searchByName.valueChanges
-      .pipe(
-        takeUntil(this.unsubscribe),
-        debounceTime(300),
-        switchMap((value: any) => {
-          const params: ParamsStaffPag = {
-            page: this.page,
-            size: this.pageSize,
-            name: this.searchByName.value
-          };
-          return this.employeeService.getStaffListPagination(params);
-        }),
-      ).subscribe((list: any) => {
-        if (list.staffList.length) {
-          const { staffList, totalItems } = list;
-          this.staffList = staffList;
-          this.count = totalItems;
-        } else {
-          this.staffList = [];
-        }
-      });
-
     this.previousDate = moment().subtract(1, 'months').calendar();
     this.month = moment().subtract(1, 'months').format('MM');
     this.currentMonth = moment().subtract(1, 'months').locale('en').format('MMMM')
@@ -113,6 +91,9 @@ export class AdminLogTimeComponent implements OnInit {
     this.getStandartMonthHours();
   }
 
+  applyFilter($event: any) {
+    this.dataSource.filter = (($event.target as HTMLInputElement).value).trim().toLowerCase();
+  }
 
   getStandartMonthHours() {
     this.standartHoursService.getStandartHours()
@@ -123,7 +104,7 @@ export class AdminLogTimeComponent implements OnInit {
 
   workTimeSum(userId: string, salary: string) {
     const reqResult = this.workTimeList.find(img => img.idEmployee === userId);
-    return reqResult ? Math.ceil(Number(salary) / this.standartHour?.time * reqResult?.sumHours) : '-';
+    return reqResult ? Math.ceil(Number(salary) / this.standartHour?.time * reqResult?.sumHours) + '$' : '-';
   }
 
   addStandartMonthHours() {

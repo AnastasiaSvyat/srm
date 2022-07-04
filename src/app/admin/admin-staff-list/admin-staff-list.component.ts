@@ -49,7 +49,7 @@ export class AdminStaffListComponent implements OnInit {
 
   dataSource: MatTableDataSource<Employee> = new MatTableDataSource<Employee>();
   displayedColumns: string[] = ['photo', 'name', 'position', 'salary', 'birthday',
-    'phone', 'skype', 'email', 'vacation', 'sickLeave', 'about', 'cv', 'changeLog'];
+    'phone', 'skype', 'email', 'firstDay', 'vacation', 'sickLeave', 'about', 'cv', 'changeLog'];
 
   constructor(
     private employeeService: EmployeeService,
@@ -60,29 +60,7 @@ export class AdminStaffListComponent implements OnInit {
     private overlay: Overlay,
     private authService: AuthService,
     private logTimeVacationService: LogTimeVacationService
-  ) {
-    this.searchByName.valueChanges
-      .pipe(
-        takeUntil(this.unsubscribe),
-        debounceTime(300),
-        switchMap((value: any) => {
-          const params: ParamsStaffPag = {
-            page: this.page,
-            size: this.pageSize,
-            name: this.searchByName.value
-          };
-          return this.employeeService.getStaffListPagination(params);
-        }),
-      ).subscribe((list: any) => {
-        if (list.staffList.length) {
-          const { staffList, totalItems } = list;
-          this.staffList = staffList;
-          this.count = totalItems;
-        } else {
-          this.staffList = [];
-        }
-      });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.employee = this.authService.user;
@@ -95,6 +73,11 @@ export class AdminStaffListComponent implements OnInit {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
+
+  applyFilter($event: any) {
+    this.dataSource.filter = (($event.target as HTMLInputElement).value).trim().toLowerCase();
+  }
+
 
   getPhotoEmployee() {
     this.uploadPhotoService.GetPhoto()
@@ -135,6 +118,7 @@ export class AdminStaffListComponent implements OnInit {
       .subscribe(
         response => {
           this.staffList = response;
+          console.log(this.staffList);
           this.dataSource = new MatTableDataSource<Employee>(this.staffList);
           this.dataSource.paginator = this.paginator;
         },

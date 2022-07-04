@@ -4,7 +4,7 @@
         <mat-form-field appearance="outline">
             <mat-label>Search</mat-label>
             <input matInput type="text" class="form-control" placeholder="Search by employee name..."
-                [formControl]="searchByName" />
+                (keyup)="applyFilter($event)" />
         </mat-form-field>
     </div>
 
@@ -34,7 +34,7 @@
                         <div class="sizePhotoStaffList mr16">
                             <img [src]="getEmployeePhoto(element.id)">
                         </div>
-                        {{element?.name}} {{element?.lastName}}
+                        {{element?.lastName | titlecase}} {{element?.name | titlecase}}
                     </div>
                 </mat-cell>
             </ng-container>
@@ -49,7 +49,7 @@
             <ng-container matColumnDef="salary">
                 <mat-header-cell *matHeaderCellDef>Salary</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <p><span class="mobile-view">Salary: </span>{{element?.salary ? element?.salary + '$' : '-'}}</p>
+                    <p><span class="mobile-view">Salary: </span>{{element?.salary ? element?.salary : '-'}}</p>
                 </mat-cell>
             </ng-container>
 

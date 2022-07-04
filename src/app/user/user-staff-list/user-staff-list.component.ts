@@ -67,6 +67,10 @@ export class UserStaffListComponent implements OnInit {
         });
   }
 
+  applyFilter($event: any) {
+    this.dataSource.filter = (($event.target as HTMLInputElement).value).trim().toLowerCase();
+  }
+
   aboutUser(employee: Employee): void {
     const dialogRef = this.dialog.open(InfoAboutUserComponent, {
       width: '400px',

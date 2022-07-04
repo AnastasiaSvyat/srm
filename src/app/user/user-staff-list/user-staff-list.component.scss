@@ -1,5 +1,14 @@
 .user-staff-container {
     padding: 16px;
+        .search {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 16px;
+          mat-form-field {
+            margin-right: 16px;
+          }
+        }
 }
 
 .underline {
