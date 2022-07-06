@@ -48,7 +48,7 @@ export class AdminStaffListComponent implements OnInit {
   @ViewChild('paginator') paginator!: MatPaginator;
 
   dataSource: MatTableDataSource<Employee> = new MatTableDataSource<Employee>();
-  displayedColumns: string[] = ['photo', 'name', 'position', 'salary', 'birthday',
+  displayedColumns: string[] = ['photo', 'name', 'position', 'birthday',
     'phone', 'skype', 'email', 'firstDay', 'vacation', 'sickLeave', 'about', 'cv', 'changeLog'];
 
   constructor(
