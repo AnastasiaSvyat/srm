@@ -13,6 +13,9 @@ import { LogTimeVacationService } from 'src/app/services/LogTimeVacation/log-tim
 import { LogTimeVacationInNewYer } from 'src/app/model/LogTimeVacationInNewYear';
 import { AmountConfirmedRequestMonthService } from 'src/app/services/amountConfirmedRequestMonth/amount-confirmed-request-month.service';
 import { AmountConfirmedRequestMonth } from 'src/app/model/amountConfirmedRequestMonth';
+import { ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-msg-admin',
@@ -20,6 +23,11 @@ import { AmountConfirmedRequestMonth } from 'src/app/model/amountConfirmedReques
   styleUrls: ['./msg-admin.component.scss']
 })
 export class MsgAdminComponent implements OnInit {
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginatoreee!: MatPaginator;
+
+  @ViewChild('paginatorDec') paginatorDec!: MatPaginator;
 
   constructor(
     private requestService: RequestService,
@@ -31,13 +39,19 @@ export class MsgAdminComponent implements OnInit {
     private amountConfirmedRequestMonthService: AmountConfirmedRequestMonthService
   ) { }
 
+  public dataSourcePending: MatTableDataSource<Request> = new MatTableDataSource();
+  public dataSourceConfirmed: MatTableDataSource<Request> = new MatTableDataSource();
+  public dataSourceDeclined: MatTableDataSource<Request> = new MatTableDataSource();
+
+
   pendingRequestList: Request[] = [];
   confirmRequestList: Request[] = [];
+  declinedRequestList: Request[] = [];
   dataCountRequest!: number;
   photoEmployee: UploadPhoto[] = [];
   staffList: Employee[] = [];
   employeeInLogTimeRequestList!: boolean;
-
+  decline!: boolean;
   amountConfirmedRequestMonth!: AmountConfirmedRequestMonth;
 
   dateArr: any = []
@@ -54,11 +68,11 @@ export class MsgAdminComponent implements OnInit {
 
 
   displayedColumns: string[] = ['employee', 'type', 'date', 'description', 'decline', 'confirm'];
-  displayedColumnsConfirm: string[] = ['employee', 'type', 'date', 'description', 'decline'];
+  displayedColumnsConfirm: string[] = ['employee', 'type', 'date', 'description'];
 
   ngOnInit(): void {
     this.pendingRequest();
-    this.confirmRequest();
+    // this.getConfirmRequest();
     this.getPhotoEmployee();
     this.getStaffList();
     this.countRequestService.data$.subscribe((result) => {
@@ -102,16 +116,58 @@ export class MsgAdminComponent implements OnInit {
         console.log(this.pendingRequestList);
         this.countRequestService.data$.subscribe((result) => {
           this.dataCountRequest = result;
+          this.dataSourcePending = new MatTableDataSource(res)
+          this.dataSourcePending.paginator = this.paginatoreee;
+         
+
+
+          
         });
         this.countRequest(this.pendingRequestList.length);
       });
   }
 
-  confirmRequest() {
+  getConfirmRequest() {
+    this.decline = false;
+
     this.requestService.ConfirmRequest()
       .subscribe((res) => {
         this.confirmRequestList = res;
+        this.dataSourceConfirmed = new MatTableDataSource(res)
+        this.dataSourceConfirmed.paginator = this.paginator;
+        console.log(this.dataSourceConfirmed.paginator);
       });
+  }
+
+  getDeclineRequestList() {
+    this.decline = true;
+    this.requestService.DeclineRequest()
+      .subscribe((res) => {
+        this.declinedRequestList = res;
+        this.dataSourceConfirmed = new MatTableDataSource(this.declinedRequestList)
+        this.dataSourceConfirmed.paginator = this.paginator;
+        console.log(this.dataSourceConfirmed.paginator);
+      });
+  }
+
+  toggleSelectedTab() {
+    
+  }
+
+  tabChanged(event: any){
+    if(event.index == 2){
+      this.getDeclineRequestList();
+
+    }
+
+    if(event.index == 1){
+      this.getConfirmRequest();
+
+    }
+    console.log(event);
+    
+
+    
   }
 
   actionRequest(res: any, elem: any) {
@@ -127,7 +183,7 @@ export class MsgAdminComponent implements OnInit {
         console.log(res);
         this.UpdateCountRequest(elem)
         this.amountConfirmedRequestCurrentMonth(elem);
-        this.confirmRequest();
+        this.getConfirmRequest();
         this.pendingRequest();
       });
   }
