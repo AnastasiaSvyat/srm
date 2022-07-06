@@ -119,7 +119,7 @@
 
             </mat-table>
 
-            <mat-paginator *ngIf='!decline' [pageSizeOptions]="[20, 20, 50]" showFirstLastButtons></mat-paginator>
+            <mat-paginator *ngIf='!decline && this.confirmRequestList?.length' [pageSizeOptions]="[20, 20, 50]" showFirstLastButtons></mat-paginator>
 
             <div class="noRequest" *ngIf="!this.confirmRequestList?.length">
                 <p>You have no confirmed requests</p>
@@ -177,7 +177,7 @@
 
             </mat-table>
 
-            <mat-paginator *ngIf='decline' [pageSizeOptions]="[20, 20, 50]" showFirstLastButtons></mat-paginator>
+            <mat-paginator *ngIf='decline && this.confirmRequestList?.length' [pageSizeOptions]="[20, 20, 50]" showFirstLastButtons></mat-paginator>
             
             <div class="noRequest" *ngIf="!this.confirmRequestList?.length">
                 <p>You have no declined requests</p>
