@@ -24,9 +24,14 @@ export class AmountConfirmedRequestMonthService {
   }
 
 
-  getRequestCurrentUser(emloyeeId: string, date: Date): Observable<AmountConfirmedRequestMonth[]> {
+  // getRequestCurrentUser(emloyeeId: string, date: Date): Observable<AmountConfirmedRequestMonth> {
+  //   const API_URL = `${this.careService.REST_API}/getRequestCurrentUser/?date=${date}&idEmployee=${emloyeeId}`;
+  //   return this.httpClient.get<AmountConfirmedRequestMonth>(API_URL);
+  // }
+
+  getRequestCurrentUser(emloyeeId: string, date: Date): Observable<any> {
     const API_URL = `${this.careService.REST_API}/getRequestCurrentUser/?date=${date}&idEmployee=${emloyeeId}`;
-    return this.httpClient.get<AmountConfirmedRequestMonth[]>(API_URL);
+    return this.httpClient.get<any>(API_URL);
   }
 
 }

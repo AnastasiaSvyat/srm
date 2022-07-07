@@ -49,7 +49,7 @@ export class UserAddMonthLogTimeComponent implements OnInit {
   ngOnInit(): void {
 
     this.currentMonth = MonthArr[this.data.month.id - 1];
-    this.selectMonthAndYear =  this.currentMonth.month + '-01=' + this.currentYear
+    this.selectMonthAndYear =  this.currentMonth.month + '-01-' + this.currentYear
     
     this.employee = this.auth.user;
     this.initCountConfirmRequestCurrentMonth();
@@ -64,6 +64,9 @@ export class UserAddMonthLogTimeComponent implements OnInit {
       ])
 
     });
+
+    console.log(this.selectMonthAndYear);
+    
   }
 
   get logTimeList() {
@@ -109,6 +112,8 @@ export class UserAddMonthLogTimeComponent implements OnInit {
       console.log(this.sumHours);
 
     });
+
+   
 
     this.logTimeService.LogTime({
       idEmployee: this.employee.id,

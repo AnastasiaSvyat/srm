@@ -53,4 +53,14 @@ export class LogTimeService {
       );
   }
 
+  getCurrentMonthRequestSelectEmployeeLogTime(month: string, employeeId: string | number): Observable<LogTime> {
+    const API_URL = `${this.careService.REST_API}/getLogTimeSelectEmployeeCurrentMonth?idEmployee=${employeeId}`;
+    return this.httpClient.get<LogTime>(API_URL, { params: { monthString: month} })
+      .pipe(map((res: any) => {
+        return res || {};
+      }),
+        catchError(this.careService.handleError)
+      );
+  }
+
 }

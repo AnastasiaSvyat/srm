@@ -21,6 +21,7 @@ import { AdminAddStandartHoursComponent } from '../admin-add-standart-hours/admi
 import { StandartHours } from 'src/app/model/standartHours';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AdminLogTimeDetailsComponent } from './admin-log-time-details/admin-log-time-details.component';
 
 
 export interface ParamsStaffPag {
@@ -58,7 +59,8 @@ export class AdminLogTimeComponent implements OnInit {
   count = 0;
   pageSize = 10;
   previousDate!: any
-  month!: any
+  month!: string
+  monthWithYear!: string;
   currentMonth!: any
 
 
@@ -77,11 +79,14 @@ export class AdminLogTimeComponent implements OnInit {
   ) {
     this.previousDate = moment().subtract(1, 'months').calendar();
     this.month = moment().subtract(1, 'months').format('MM');
+    this.monthWithYear = moment().subtract(1, 'months').format('MM-yyyy');
     this.currentMonth = moment().subtract(1, 'months').locale('en').format('MMMM')
   }
 
 
   ngOnInit(): void {
+    console.log(this.month);
+    
     this.employee = this.authService.user;
     this.retrieveStaff();
     this.getPhotoEmployee();
@@ -115,6 +120,22 @@ export class AdminLogTimeComponent implements OnInit {
       height: 'auto',
       disableClose: true,
       data: { hours: '', btn: 'ADD' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getStandartMonthHours()
+      }
+    });
+  }
+
+  openLogTimeDetails(employeeId: number | string){
+    const dialogRef = this.dialog.open(AdminLogTimeDetailsComponent, {
+      width: '398px',
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      minHeight: '200px',
+      height: 'auto',
+      disableClose: true,
+      data: { month: this.month ,monthWithYear: this.monthWithYear, employeeId: employeeId }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

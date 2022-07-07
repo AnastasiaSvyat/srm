@@ -29,7 +29,7 @@
 
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef>Employee</mat-header-cell>
-                <mat-cell *matCellDef="let element">
+                <mat-cell *matCellDef="let element" (click)='openLogTimeDetails(element.id)' >
                     <div class="dfac">
                         <div class="sizePhotoStaffList mr16">
                             <img [src]="getEmployeePhoto(element.id)">
@@ -41,27 +41,27 @@
 
             <ng-container matColumnDef="workTime">
                 <mat-header-cell *matHeaderCellDef>Worktime</mat-header-cell>
-                <mat-cell *matCellDef="let element">
+                <mat-cell *matCellDef="let element" (click)='openLogTimeDetails(element.id)'>
                     <p><span class="mobile-view">Worktime: </span>{{workTime(element.id) || '-'}}</p>
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="salary">
                 <mat-header-cell *matHeaderCellDef>Salary</mat-header-cell>
-                <mat-cell *matCellDef="let element">
+                <mat-cell *matCellDef="let element" (click)='openLogTimeDetails(element.id)'>
                     <p><span class="mobile-view">Salary: </span>{{element?.salary ? element?.salary : '-'}}</p>
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="sum">
                 <mat-header-cell *matHeaderCellDef>Summary</mat-header-cell>
-                <mat-cell *matCellDef="let element">
+                <mat-cell *matCellDef="let element" (click)='openLogTimeDetails(element.id)'>
                     <p><span class="mobile-view">Summary: </span>{{workTimeSum(element?.id, element?.salary) ? workTimeSum(element?.id, element?.salary) + '$' : '-'}}</p>
                 </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-row class="cursor" *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
         <mat-paginator #paginator [length]="staffList.length" [pageSize]="6" [pageSizeOptions]="[2, 4, 6, 8, 10]"
             showFirstLastButtons>

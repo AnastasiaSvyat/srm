@@ -1,0 +1,34 @@
+<div class="admin-log-time-details-container">
+    <h2 class="mt24" mat-dialog-title>Log time details:</h2>
+
+    <div *ngFor='let req of requestCurrentEmployee'>
+        <div class="mt7">
+            <span class="fw700">{{req.name}}:</span>
+            <span class="fw500 ml7">{{req.count * 8}} hours</span>
+        </div>
+    </div>
+    <div class="mt16" *ngFor='let req of timeInProjectCurrentEmployee'>
+        <div>
+            <span class="fw700">Project name:</span>
+            <span class="fw500 ml7">{{req.projectName}}</span>
+        </div>
+        <div class="mt7">
+            <span class="fw700">Billable time:</span>
+            <span class="fw500 ml7">{{req.billableTime}} hours</span>
+        </div>
+        <div class="mt7">
+            <span class="fw700">Unbillable time:</span>
+            <span class="fw500 ml7">{{req.unbillableTime}} hours</span>
+        </div>
+    </div>
+
+    <div class="fs16" *ngIf='!timeInProjectCurrentEmployee.length && !requestCurrentEmployee.length'>
+        No data yet!
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" class="mt50">
+        <div>
+            <button (click)='onNoClick()' class="w155 btn" mat-stroked-button>Cancel</button>
+        </div>
+    </div>
+</div>
