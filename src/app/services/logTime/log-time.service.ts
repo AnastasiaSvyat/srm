@@ -16,8 +16,6 @@ export class LogTimeService {
     ) { }
 
   LogTime(data: LogTime): Observable<LogTime> {
-  console.log(data);
-  
     const API_URL = `${this.careService.REST_API}/logTime`;
     return this.httpClient.post<LogTime>(API_URL, data)
       .pipe(
@@ -43,9 +41,9 @@ export class LogTimeService {
       );
   }
 
-  currentMonthRequestLogTime(month: string): Observable<LogTime[]> {
+  currentMonthRequestLogTime(selectMonthAndYear: string): Observable<LogTime[]> {
     const API_URL = `${this.careService.REST_API}/getLogTimeCurrentMonth`;
-    return this.httpClient.get<LogTime[]>(API_URL, { params: { monthString: month } })
+    return this.httpClient.get<LogTime[]>(API_URL, { params: { selectMonthAndYear: selectMonthAndYear } })
       .pipe(map((res: any) => {
         return res || {};
       }),
@@ -53,9 +51,9 @@ export class LogTimeService {
       );
   }
 
-  getCurrentMonthRequestSelectEmployeeLogTime(month: string, employeeId: string | number): Observable<LogTime> {
+  getCurrentMonthRequestSelectEmployeeLogTime(selectMonthAndYear: string, employeeId: string | number): Observable<LogTime> {
     const API_URL = `${this.careService.REST_API}/getLogTimeSelectEmployeeCurrentMonth?idEmployee=${employeeId}`;
-    return this.httpClient.get<LogTime>(API_URL, { params: { monthString: month} })
+    return this.httpClient.get<LogTime>(API_URL, { params: { selectMonthAndYear: selectMonthAndYear} })
       .pipe(map((res: any) => {
         return res || {};
       }),

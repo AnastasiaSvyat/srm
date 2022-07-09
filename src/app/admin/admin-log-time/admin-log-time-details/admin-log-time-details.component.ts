@@ -23,14 +23,18 @@ export class AdminLogTimeDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data);
+    console.log(this.data.monthWithYear);
     this.getAmountConfirmedRequestMonthService();
     this.getProjectSelectEmployeeCurrentMonth();
   }
 
   getAmountConfirmedRequestMonthService() {
+    console.log(this.data.monthWithYear);
+    
     this.amountConfirmedRequestMonthService.getRequestCurrentUser(this.data.employeeId, this.data.monthWithYear)
       .subscribe((res) => {
+        console.log(res);
+        
         if (res) {
           this.requestCurrentEmployee = res.request;
         }

@@ -1,7 +1,7 @@
 export interface LogTime {
     idEmployee: string;
     month: number;
-    monthString: string;
+    selectMonthAndYear: string;
     timeInProject: any;
     sumHours: number;
 }
