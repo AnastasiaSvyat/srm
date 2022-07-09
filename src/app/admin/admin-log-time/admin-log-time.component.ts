@@ -168,7 +168,7 @@ export class AdminLogTimeComponent implements OnInit {
   }
 
   getWorkTimeCurrentMonth() {
-    this.logTimeService.currentMonthRequestLogTime(this.month)
+    this.logTimeService.currentMonthRequestLogTime(this.monthWithYear)
       .subscribe((res) => {
         this.workTimeList = res;
       })
