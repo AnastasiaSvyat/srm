@@ -119,8 +119,6 @@ export class AddUserComponent implements OnInit {
   }
 
   addUser(employee: Employee, photo: UploadPhoto, cvFile: UploadFile) {
-    console.log(employee);
-    
     this.employeeService.AddEmployee(employee)
       .subscribe((success) => {
         if (photo.name) {
@@ -160,7 +158,7 @@ export class AddUserComponent implements OnInit {
       sickLeave!: 0
     })
     .subscribe((res) => {
-      console.log(res);
+      // console.log(res);
     })
   }
 

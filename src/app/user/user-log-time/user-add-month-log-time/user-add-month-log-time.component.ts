@@ -49,8 +49,8 @@ export class UserAddMonthLogTimeComponent implements OnInit {
   ngOnInit(): void {
 
     this.currentMonth = MonthArr[this.data.month.id - 1];
-    this.selectMonthAndYear =  this.currentMonth.month + '-' +this.currentYear
-    
+    this.selectMonthAndYear = this.currentMonth.month + '-' + this.currentYear
+
     this.employee = this.auth.user;
     this.initCountConfirmRequestCurrentMonth();
 
@@ -65,24 +65,18 @@ export class UserAddMonthLogTimeComponent implements OnInit {
 
     });
 
-    
+
   }
 
   get logTimeList() {
     return this.form.controls["logTimeList"] as FormArray;
   }
 
-  initCountConfirmRequestCurrentMonth(){
-    console.log(this.selectMonthAndYear);
-    console.log(this.employee.id);
-    
+  initCountConfirmRequestCurrentMonth() {
     this.amountConfirmedRequestMonthService.getRequestCurrentUser(this.employee.id, this.selectMonthAndYear)
-    .subscribe((res) => {
-      console.log(res);
-      this.amountConfirmedRequestMonth = res;
-      console.log(res);
-      
-    })
+      .subscribe((res) => {
+        this.amountConfirmedRequestMonth = res;
+      })
   }
 
   addOneMoreProject() {
@@ -106,17 +100,11 @@ export class UserAddMonthLogTimeComponent implements OnInit {
 
 
   logTime() {
-
-    this.logTimeList.value.forEach((element : any) => {
-      console.log(this.sumHours);
-      
-
-      this.sumHours =  this.sumHours  + Number(element.billableTime) + Number(element.unbillableTime)
-      console.log(this.sumHours);
-
+    this.logTimeList.value.forEach((element: any) => {
+      this.sumHours = this.sumHours + Number(element.billableTime) + Number(element.unbillableTime)
     });
 
-   
+
 
     this.logTimeService.LogTime({
       idEmployee: this.employee.id,
@@ -126,8 +114,6 @@ export class UserAddMonthLogTimeComponent implements OnInit {
       sumHours: this.sumHours
     })
       .subscribe((res) => {
-        console.log(res);
-
         this.snackBar.open('Congratulations! Time has been added!', '', {
           duration: this.duration
         });

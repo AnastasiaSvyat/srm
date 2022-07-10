@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RequestService } from 'src/app/services/request/request.service';
 import { Request } from 'src/app/model/Request';
-import { CountServiceService } from 'src/app/services/countReq/count-service.service';
 
 @Component({
   selector: 'app-add-request-user',
@@ -46,6 +45,11 @@ export class AddRequestUserComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  disableWeekendFromCalendar(selectDate: any){
+    const day = selectDate?.getDay();    
+    return day !== 0 && day !== 6;
   }
 
   getRequest(result: Request) {

@@ -85,8 +85,6 @@ export class AdminLogTimeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.month);
-    
     this.employee = this.authService.user;
     this.retrieveStaff();
     this.getPhotoEmployee();

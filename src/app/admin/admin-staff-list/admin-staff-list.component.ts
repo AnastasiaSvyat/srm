@@ -118,7 +118,6 @@ export class AdminStaffListComponent implements OnInit {
       .subscribe(
         response => {
           this.staffList = response;
-          console.log(this.staffList);
           this.dataSource = new MatTableDataSource<Employee>(this.staffList);
           this.dataSource.paginator = this.paginator;
         },

@@ -18,8 +18,8 @@
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <div>
-                <mat-form-field class="mt44 calendarWidth">
-                    <input [min]="today" formControlName="date" matInput [matDatepicker]="picker"
+                <mat-form-field class="mt44 calendarWidth"> 
+                    <input [matDatepickerFilter]="disableWeekendFromCalendar" [min]="today" formControlName="date" matInput [matDatepicker]="picker"
                         placeholder="Start day" (focus)="picker.open()" (click)="picker.open()" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
@@ -30,7 +30,7 @@
             </div>
             <div>
                 <mat-form-field class="mr25 mt44 calendarWidth">
-                    <input [min]="today" formControlName="endDate" matInput [matDatepicker]="picker1"
+                    <input [matDatepickerFilter]="disableWeekendFromCalendar" [min]="today" formControlName="endDate" matInput [matDatepicker]="picker1"
                         placeholder="End day" (focus)="picker1.open()" (click)="picker1.open()" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>

@@ -56,7 +56,7 @@
             <ng-container matColumnDef="sum">
                 <mat-header-cell *matHeaderCellDef>Summary</mat-header-cell>
                 <mat-cell *matCellDef="let element" (click)='openLogTimeDetails(element.id)'>
-                    <p><span class="mobile-view">Summary: </span>{{workTimeSum(element?.id, element?.salary) ? workTimeSum(element?.id, element?.salary) + '$' : '-'}}</p>
+                    <p><span class="mobile-view">Summary: </span>{{workTimeSum(element?.id, element?.salary) ? workTimeSum(element?.id, element?.salary) : '-'}}</p>
                 </mat-cell>
             </ng-container>
 

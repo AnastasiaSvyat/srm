@@ -23,27 +23,21 @@ export class AdminLogTimeDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data.monthWithYear);
     this.getAmountConfirmedRequestMonthService();
     this.getProjectSelectEmployeeCurrentMonth();
   }
 
   getAmountConfirmedRequestMonthService() {
-    console.log(this.data.monthWithYear);
-    
     this.amountConfirmedRequestMonthService.getRequestCurrentUser(this.data.employeeId, this.data.monthWithYear)
       .subscribe((res) => {
-        console.log(res);
-        
         if (res) {
           this.requestCurrentEmployee = res.request;
         }
-
       })
   }
 
   getProjectSelectEmployeeCurrentMonth() {
-    this.logTimeService.getCurrentMonthRequestSelectEmployeeLogTime(this.data.month, this.data.employeeId)
+    this.logTimeService.getCurrentMonthRequestSelectEmployeeLogTime(this.data.monthWithYear, this.data.employeeId)
       .subscribe((res) => {
         if (res) {
           this.timeInProjectCurrentEmployee = res.timeInProject;

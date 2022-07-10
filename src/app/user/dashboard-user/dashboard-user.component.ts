@@ -128,7 +128,6 @@ export class DashboardUserComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         this.employee = result;
         this.getUploadFile();
@@ -178,7 +177,6 @@ export class DashboardUserComponent implements OnInit {
       this.uploadFileName = file.name;
       this.uploadFileService.uploadFile(this.cvForm.value.name, this.cvForm.value.cv, this.employee.id)
         .subscribe((res: any) => {
-          console.log(res);
           this.getUploadFile();
         });
     }

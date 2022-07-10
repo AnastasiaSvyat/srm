@@ -54,9 +54,7 @@ export class AdminComponent implements OnInit {
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log(result);
-      }
+      
     });
   }
 

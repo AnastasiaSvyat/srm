@@ -55,7 +55,6 @@ export class UserUpdatePasswordComponent implements OnInit {
     if (password.password === password.repeatPassword) {
       this.employeeService.updatePassword(this.employee.id, password)
         .subscribe((res) => {
-          console.log(res);
           this.snackBar.open('Congratulations! Event has been added!', '', {
             duration: this.duration
           });

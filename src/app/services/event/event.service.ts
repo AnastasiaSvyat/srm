@@ -46,7 +46,6 @@ export class EventService {
   }
 
   UpdateEvent(id: string, event: Events): Observable<Events> {
-    console.log(event);
     const API_URL = `${this.careService.REST_API}/update-event/${id}`;
     return this.httpClient.put<Events>(API_URL, event, { headers: this.careService.httpHeaders })
       .pipe(
