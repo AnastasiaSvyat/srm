@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RequestService } from 'src/app/services/request/request.service';
 import { Request } from 'src/app/model/Request';
+import { LogTimeVacation } from 'src/app/model/logTimeVacation';
+import { LogTimeVacationService } from 'src/app/services/LogTimeVacation/log-time-vacation.service';
 
 @Component({
   selector: 'app-add-request-user',
@@ -21,9 +23,11 @@ export class AddRequestUserComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public requestService: RequestService,
     private snackBar: MatSnackBar,
+    private logTimeVacationService: LogTimeVacationService
   ) { }
 
   ngOnInit(): void {
+    this.checkCorrectUpdateDate();
     this.requestForm = new FormGroup({
       idEmployee: new FormControl(this.data.employee.id),
       type: new FormControl('', [Validators.required]),
@@ -50,6 +54,15 @@ export class AddRequestUserComponent implements OnInit {
   disableWeekendFromCalendar(selectDate: any){
     const day = selectDate?.getDay();    
     return day !== 0 && day !== 6;
+  }
+
+
+  checkCorrectUpdateDate(){
+    this.logTimeVacationService.checkCorrectUpdateDateOrCreateLogTimeVacation(this.data.employee.id)
+    .subscribe((res) => {
+      console.log(res);
+      
+    })
   }
 
   getRequest(result: Request) {

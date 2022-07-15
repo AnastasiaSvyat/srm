@@ -1,8 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { CountRequest } from 'src/app/model/countRequest';
 import { Request } from 'src/app/model/Request';
 import { UploadPhoto } from 'src/app/model/UploadPhoto';
-import { CountServiceService } from 'src/app/services/countReq/count-service.service';
 import { CountRequestService } from 'src/app/services/countRequest/count-request.service';
 import { EmployeeService } from 'src/app/services/employee/employee.service';
 import { RequestService } from 'src/app/services/request/request.service';
@@ -42,7 +40,7 @@ export class MsgAdminComponent implements OnInit {
   public dataSourceConfirmed: MatTableDataSource<Request> = new MatTableDataSource();
   public dataSourceDeclined: MatTableDataSource<Request> = new MatTableDataSource();
 
-
+  employee!: Employee | undefined;
   pendingRequestList: Request[] = [];
   confirmRequestList: Request[] = [];
   declinedRequestList: Request[] = [];
@@ -56,6 +54,8 @@ export class MsgAdminComponent implements OnInit {
   workingDaysCurrentMonth: number = 0;
   workingDaysSecondMonth!: any;
   workingDaysFirstMonth!: any;
+  checkUpdateLogTime: boolean = false;
+
 
   currentMonth!: any;
 
@@ -99,6 +99,7 @@ export class MsgAdminComponent implements OnInit {
 
   getEmployee(userId: string) {
     const imgResult = this.staffList.find(empl => empl.id === userId);
+    this.employee = imgResult;
     return imgResult ? imgResult.name + ' ' + imgResult.lastName : '-';
   }
 
@@ -158,7 +159,7 @@ export class MsgAdminComponent implements OnInit {
     }
     this.requestService.UpdateRequest(elem._id, elem)
       .subscribe((res) => {
-        this.UpdateCountRequest(elem)
+        this.checkPassedYearSinceFirstDate(elem);
         this.amountConfirmedRequestCurrentMonth(elem);
         this.getConfirmRequest();
         this.pendingRequest();
@@ -169,7 +170,8 @@ export class MsgAdminComponent implements OnInit {
   amountConfirmedRequestCurrentMonth(elem: Request) {
     if (elem.confirm) {
       if (elem.month == elem.endMonth) {
-        this.requestInOneMonth(elem);
+        this.requestInOneMonth(elem.date, elem.endDate);
+
         this.currentMonth = elem.date;
         this.amountConfirmedRequestMonthService.amountConfirmedRequestMonth({
           idEmployee: elem.idEmployee,
@@ -184,9 +186,8 @@ export class MsgAdminComponent implements OnInit {
           })
       } else {
         this.requestInDifferentMonth(elem)
+        console.log(this.workingDaysFirstMonth);
         this.currentMonth = elem.endDate;
-
-
         this.amountConfirmedRequestMonthService.amountConfirmedRequestMonth({
           idEmployee: elem.idEmployee,
           date: elem.date,
@@ -196,7 +197,10 @@ export class MsgAdminComponent implements OnInit {
           }
         })
           .subscribe((res) => {
+            console.log(res);
+
             if (res) {
+              console.log(this.workingDaysSecondMonth);
 
               this.amountConfirmedRequestMonthService.amountConfirmedRequestMonth({
                 idEmployee: elem.idEmployee,
@@ -207,7 +211,7 @@ export class MsgAdminComponent implements OnInit {
                 }
               })
                 .subscribe((res) => {
-                  // console.log(res);
+                  console.log(res);
 
                 })
             }
@@ -224,9 +228,66 @@ export class MsgAdminComponent implements OnInit {
   }
 
 
-  requestInOneMonth(elem: Request) {
-    let startDate = new Date(elem.date);
-    let endDate = new Date(elem.endDate);
+
+  checkPassedYearSinceFirstDate(elem: Request) {
+    this.logTimeVacationService.CheckPassedYearSinceFirstDate(elem)
+      .subscribe((res) => {
+        if (!res.yearPassed) {
+          this.updateCountRequest(elem);
+        }
+        if (res.yearPassed && res.startDateSuitable) {
+          this.checkUpdateLogTime = false;
+
+          this.requestInOneMonth(elem.date, res.counterUpdateDate)
+          this.saveCountRequestEmployee(elem);
+
+          this.requestInOneMonth(res.counterUpdateDate, elem.endDate)
+          this.createNewCounterUpdateDate(elem, elem.endDate);
+        }
+        if (res.yearPassed && !res.startDateSuitable) {
+          this.requestInOneMonth(elem.date, elem.endDate)
+          this.currentRequestByEmployeeIdStartDateAndEndDateNotSuitable(elem);
+        }
+      })
+  }
+
+  createNewCounterUpdateDate(elem: Request, date: string) {
+    if (elem.confirm && elem.type == 'Vacation') {
+      this.logTimeVacationService.CreateNewCounterUpdateDate({
+        sickLeave: 0,
+        idEmployee!: elem.idEmployee,
+        vacation!: this.workingDaysCurrentMonth,
+      }, date)
+        .subscribe((res) => {
+          console.log(res);
+        })
+    } else if (elem.confirm && elem.type == 'Sick Leave') {
+      this.logTimeVacationService.CreateNewCounterUpdateDate({
+        sickLeave: this.workingDaysCurrentMonth,
+        idEmployee!: elem.idEmployee,
+        vacation!: 0,
+      }, date)
+        .subscribe((res) => {
+        })
+    }
+  }
+
+  updateCountRequest(elem: Request) {
+    this.checkDifferentMonth(elem)
+    this.saveCountRequestEmployee(elem);
+  }
+
+  checkDifferentMonth(elem: Request) {
+    if (elem.month == elem.endMonth) {
+      this.requestInOneMonth(elem.date, elem.endDate);
+    } else {
+      this.requestInDifferentMonth(elem)
+    }
+  }
+
+  requestInOneMonth(startDate: any, endDate: any) {
+    endDate = endDate = new Date(endDate);
+    startDate = new Date(startDate);
     const msec = endDate.getTime() - startDate.getTime();
     let allDays = Math.floor(msec / (1000 * 60 * 60 * 24) % 30) + 1;
     this.workingDaysCurrentMonth = this.countWorkingDays(startDate, allDays)
@@ -260,37 +321,70 @@ export class MsgAdminComponent implements OnInit {
 
     this.workingDaysSecondMonth = this.countWorkingDays(startSecondMonthDate, dayReqNextMonth);
 
-    this.workingDaysCurrentMonth = workingDaysFirstMonth + dayReqNextMonth;
+    this.workingDaysCurrentMonth = this.workingDaysFirstMonth + this.workingDaysSecondMonth;
 
     if (this.workingDaysCurrentMonth < 0) {
       this.workingDaysCurrentMonth = 1
     }
   }
 
-  UpdateCountRequest(elem: Request) {
-    if (elem.month == elem.endMonth) {
-      this.requestInOneMonth(elem);
-    } else {
-      this.requestInDifferentMonth(elem)
+  currentRequestByEmployeeIdStartDateAndEndDateNotSuitable(elem: Request) {
+    if (elem.confirm && elem.type == 'Vacation') {
+      this.logTimeVacationService.currentRequestByEmployeeIdStartDateAndEndDateNotSuitable({
+        sickLeave: 0,
+        idEmployee!: elem.idEmployee,
+        vacation!: this.workingDaysCurrentMonth,
+      }, elem)
+        .subscribe((res) => {
+          if (res.counterUpdateDate) {
+            this.requestInOneMonth(elem.date, res.counterUpdateDate)
+            this.createNewCounterUpdateDate(elem, elem.date);
+            this.requestInOneMonth(res.counterUpdateDate, elem.endDate)
+            this.createNewCounterUpdateDate(elem, elem.endDate);
+          }
+
+        })
+    } else if (elem.confirm && elem.type == 'Sick Leave') {
+      this.logTimeVacationService.currentRequestByEmployeeIdStartDateAndEndDateNotSuitable({
+        sickLeave: this.workingDaysCurrentMonth,
+        idEmployee!: elem.idEmployee,
+        vacation!: 0,
+      }, elem)
+        .subscribe((res) => {
+          console.log(res);
+        })
     }
+    if (elem.decline) {
+      this.declineRequest(elem);
+
+    }
+  }
+
+  saveCountRequestEmployee(elem: Request) {
     if (elem.confirm && elem.type == 'Vacation') {
       this.logTimeVacationService.UpdateLogTimeCurrentVacationById({
         sickLeave: 0,
         idEmployee!: elem.idEmployee,
         vacation!: this.workingDaysCurrentMonth,
-      })
+      }, elem)
         .subscribe((res) => {
-          // console.log(res);
-        })
-    } else if (elem.confirm && elem.type == 'Sick Leave') {
+          // /          console.log('res');
+
+        }, (err) => console.log(err))
+    }
+    if (elem.confirm && elem.type == 'Sick Leave') {
+      console.log(this.workingDaysCurrentMonth);
+
       this.logTimeVacationService.UpdateLogTimeCurrentVacationById({
         sickLeave: this.workingDaysCurrentMonth,
         idEmployee!: elem.idEmployee,
         vacation!: 0,
-      })
+      }, elem)
         .subscribe((res) => {
-          // console.log(res);
-        })
+          // console.log('res');
+
+        }, (err) => console.log(err)
+        )
     }
     if (elem.decline) {
       this.declineRequest(elem);
