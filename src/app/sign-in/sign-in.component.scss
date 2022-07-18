@@ -1,0 +1,46 @@
+.app-container{
+    background: rgb(192,218,249);
+    background: linear-gradient(90deg, rgba(192,218,249,0.8842130602240896) 8%, rgba(211,230,247,0.8982186624649859) 27%, rgba(213,239,249,0.9318321078431373) 47%, rgba(222,241,245,0.8534007352941176) 60%, rgba(228,251,250,0.8702074579831933) 72%, rgba(232,252,251,0.9094231442577031) 76%, rgba(255,255,255,1) 100%);
+}
+img{
+    width: 80px;
+}
+h2, h3{
+    font-weight: 500;
+    // font-family: 'Edu QLD Beginner', cursive;
+    font-family: 'Inconsolata', monospace;
+    font-size: 30px;
+    margin-top: 10px;
+    color: rgb(21, 105, 126);
+    text-align: center;
+}
+
+p, input, mat-label{
+    color: rgb(53, 129, 139);
+    font-family: 'Inconsolata', monospace;
+    font-weight: 100;
+}
+p{
+    text-align: center;
+
+}
+
+input:-webkit-autofill {
+    box-shadow: 0 0 0px 100px #ddeffc inset !important;
+    margin-left: 10px;
+    width: 90%;
+    -webkit-text-fill-color: rgb(21, 37, 71);
+    font-weight: 300;
+}
+
+::ng-deep .cdk-text-field-autofilled{
+    color: rgb(53, 129, 139);
+
+}
+
+.w200{
+    width: 180px;
+    border-radius: 15px ;
+    background-color: rgb(62, 114, 134);
+}
+

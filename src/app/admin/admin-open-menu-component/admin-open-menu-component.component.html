@@ -29,6 +29,12 @@
   </div>
 
   <div class="sideMenu--item">
+    <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" [routerLink]="['/admin','setting']" matTooltip="Setting" matTooltipPosition="right">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
+
+  <div class="sideMenu--item">
     <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" matTooltip="Requests" matTooltipPosition="right"
       [routerLink]="['/admin','messageAdmin']">
       <mat-icon>message</mat-icon>

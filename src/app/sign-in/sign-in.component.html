@@ -1,20 +1,25 @@
 <div class="app-container h100">
-    <div fxLayout="column" fxLayoutAlign="center center" class="h100">
+    <div fxLayout="column" fxLayoutAlign="center center" class="h100 r">
+        <div>
+            <img src="../../assets/img/logo.png" alt="">
+        </div>
         <div class="loginBox">
-            <h2 class="mt24" mat-dialog-title>LOGIN</h2>
-            <div [formGroup]="employeeLoginForm" fxLayout="column" fxLayoutAlign="center center" mat-dialog-content>
-                <mat-form-field>
+            <h2 class="mt24" mat-dialog-title>Lvivity</h2>
+            <h3 class="mt24" mat-dialog-title>Welcome back</h3>
+            <p>Enter your credentials to access your account</p>
+            <div class="mt20" [formGroup]="employeeLoginForm" fxLayout="column" fxLayoutAlign="center center" mat-dialog-content>
+                <mat-form-field appearance="fill">
                     <mat-label>Email</mat-label>
                     <input type="email" placeholder="Enter email..." formControlName="email" name="description"
                         matInput />
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field appearance="fill">
                     <mat-label>Password</mat-label>
                     <input type="password" placeholder="Enter password..." formControlName="password" name="description"
                         matInput />
                 </mat-form-field>
-                <div class="mt24">
-                    <button (click)="loginEmployee()" class="btn h48 w155" mat-stroked-button>Login</button>
+                <div class="mt48">
+                    <button mat-flat-button (click)="loginEmployee()" class="btn h48 w200 fw700" mat-stroked-button>Login</button>
                 </div>
             </div>
         </div>

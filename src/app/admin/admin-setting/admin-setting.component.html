@@ -1,0 +1,26 @@
+<div class="admin-setting-container h100" fxLayout="row" fxLayoutAlign="center center" >
+    <div class="w96" fxLayoutAlign="space-between center">
+        <div class="settingBox" fxFlex="60%"></div>
+        <div class="settingBox" fxFlex="30%" fxLayoutAlign="center ">
+            <div fxFlex="80%" class="borderBottom">
+                <p class="fw500 fs21 mt24">House rules</p>
+                <div class="dffssb" fxLayoutAlign="end center">
+                    <button (click)="fileUpload.click()" type="file" class="btn-dashboard" mat-flat-button>
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                <input type="file" class="file-input" (change)="onFileSelected($event)" accept=".pdf,.doc" #fileUpload>
+                <div class="media-h100">
+                    <div class="uploadFileBox" *ngIf="houseRulesFile else noFile">
+                        <img src="../../../assets/img/cv.svg" alt="">
+                        <!-- <button (click)="deleteCV()" class="fileImg deleteBtn greyColor">x</button> -->
+                        <p (click)="getCV()" class="cvName">{{uploadFileName}}</p>
+                    </div>
+                    <ng-template #noFile>
+                        <p class="file-upload user-dashboard-grid__block--text center">No house rules uploaded yet</p>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

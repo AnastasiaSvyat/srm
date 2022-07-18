@@ -20,6 +20,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { AdminLogTimeDetailsComponent } from './admin-log-time/admin-log-time-details/admin-log-time-details.component';
+import { AdminSettingComponent } from './admin-setting/admin-setting.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -42,7 +43,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AdminLogTimeComponent,
     AdminAddStandartHoursComponent,
     AdminUpdatePasswordComponent,
-    AdminLogTimeDetailsComponent
+    AdminLogTimeDetailsComponent,
+    AdminSettingComponent
   ],
   imports: [
     CommonModule,

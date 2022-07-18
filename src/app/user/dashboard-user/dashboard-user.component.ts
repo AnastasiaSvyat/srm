@@ -19,6 +19,7 @@ import { UserAddTaskComponent } from '../user-add-task/user-add-task.component';
 import { ToDoList } from 'src/app/model/ToDoList';
 import { ToDoListService } from 'src/app/services/toToList/to-do-list.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HouseRulesService } from 'src/app/services/houseRules/house-rules.service';
 
 @Component({
   selector: 'app-dashboard-user',
@@ -57,7 +58,8 @@ export class DashboardUserComponent implements OnInit {
     private auth: AuthService,
     private eventService: EventService,
     private taskService: ToDoListService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private houseRulesService: HouseRulesService,
   ) {
   }
 
@@ -309,5 +311,18 @@ export class DashboardUserComponent implements OnInit {
         this.getAllTask();
       }
     });
+  }
+
+  openHouseRules(){
+      this.houseRulesService.getHouseRules()
+        .subscribe((res) => {
+          if (res != null) {
+            this.urlCV = res.imagePath;
+          }
+          const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
+          this.docPDF = window.open();
+          this.docPDF.document.write(iframe);
+          this.docPDF.document.close();
+        });
   }
 }

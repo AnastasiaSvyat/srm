@@ -7,6 +7,7 @@ import { AdminCalendarComponent } from './admin-calendar/admin-calendar.componen
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 import { MsgAdminComponent } from './msg-admin/msg-admin.component';
 import { AdminLogTimeComponent } from './admin-log-time/admin-log-time.component';
+import { AdminSettingComponent } from './admin-setting/admin-setting.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,7 @@ export const routes: Routes = [
       { path: 'messageAdmin', component: MsgAdminComponent },
       { path: 'dashboardAdmin', component: DashboardAdminComponent },
       { path: 'logTime', component: AdminLogTimeComponent },
+      { path: 'setting', component: AdminSettingComponent },
       { path: '', redirectTo: 'dashboardAdmin', pathMatch: 'full' },
       { path: '**', redirectTo: 'dashboardAdmin', },
     ]

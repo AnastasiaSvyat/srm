@@ -35,13 +35,20 @@
             </div>
 
             <div class="sideMenu--item">
+                <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" matTooltip="Setting"
+                    matTooltipPosition="right" [routerLink]="['/admin','setting']">
+                    <mat-icon>settings</mat-icon>
+                </button>
+            </div>
+
+            <div class="sideMenu--item">
                 <button mat-icon-button routerLinkActive="activeLink" class="navbar-button" matTooltip="Requests"
                     matTooltipPosition="right" [routerLink]="['/admin','messageAdmin']">
                     <mat-icon>message</mat-icon>
                     <span *ngIf='requestCount' class="circle-sms">{{requestCount}}</span>
                 </button>
             </div>
-
+            
             <div class="sideMenu--item">
                 <button (click)="logout()" mat-icon-button matTooltip="Logout" matTooltipPosition="right">
                     <mat-icon>exit_to_app</mat-icon>
