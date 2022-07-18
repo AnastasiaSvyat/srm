@@ -317,7 +317,7 @@ export class DashboardUserComponent implements OnInit {
       this.houseRulesService.getHouseRules()
         .subscribe((res) => {
           if (res != null) {
-            this.urlCV = res.imagePath;
+            this.urlCV = res.filePath;
           }
           const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
           this.docPDF = window.open();
