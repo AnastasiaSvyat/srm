@@ -11,6 +11,8 @@ import { UploadPhoto } from 'src/app/model/UploadPhoto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LogTimeVacationService } from 'src/app/services/LogTimeVacation/log-time-vacation.service';
 import { AdminUpdatePasswordComponent } from '../admin-update-password/admin-update-password.component';
+import { PositionListService } from 'src/app/services/positionList/position-list.service';
+import { PositionList } from 'src/app/model/positionList';
 
 @Component({
   selector: 'app-add-user',
@@ -31,6 +33,8 @@ export class AddUserComponent implements OnInit {
   docPDF!: any;
   duration = 5000;
 
+  positionList: PositionList[] = [];
+
   constructor(
     public formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
@@ -41,14 +45,14 @@ export class AddUserComponent implements OnInit {
     private logTimeVacationService: LogTimeVacationService,
     public dialog: MatDialog,
     private overlay: Overlay,
-
+    private positionListServise: PositionListService,
 
     @Inject(MAT_DIALOG_DATA) public dataUser: any,
 
-  ) 
-  { }
+  ) { }
 
   ngOnInit(): void {
+    this.getAllPosition();
     this.getPhotoEmployee();
     this.photoForm = new FormGroup({
       name: new FormControl(null),
@@ -107,14 +111,18 @@ export class AddUserComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getEmployee(employee: Employee, photo: UploadPhoto, cvFile: UploadFile) {
-    if (employee) {
+  getEmployee(employeeForm: FormGroup, photo: UploadPhoto, cvFile: UploadFile) {
+    if (employeeForm.valid) {
       if (this.dataUser.btn === 'ADD') {
-        this.addUser(employee, photo, cvFile);
+        this.addUser(employeeForm.value, photo, cvFile);
       }
       if (this.dataUser.btn === 'SAVE') {
-        this.updateUser(employee, photo, cvFile);
+        this.updateUser(employeeForm.value, photo, cvFile);
       }
+    } else {
+      this.snackBar.open('ERROR! Enter correct data!', '', {
+        duration: this.duration
+      });
     }
   }
 
@@ -140,7 +148,7 @@ export class AddUserComponent implements OnInit {
         this.dialogRef.close(employee);
 
         this.createLogTimeVacation(success);
-      
+
       },
         error =>
           this.snackBar.open(error.error.massage || 'ERROR! Try again.', '', {
@@ -150,20 +158,20 @@ export class AddUserComponent implements OnInit {
   }
 
 
-  createLogTimeVacation(employee: Employee){
+  createLogTimeVacation(employee: Employee) {
     this.logTimeVacationService.LogTimeVacation({
       idEmployee!: employee.id,
       date!: employee.startDate,
       vacation!: 0,
       sickLeave!: 0
     })
-    .subscribe((res) => {
-      // console.log(res);
-    })
+      .subscribe((res) => {
+        // console.log(res);
+      })
   }
 
   updateUser(employee: Employee, photo: UploadPhoto, cvFile: UploadFile) {
-    
+
     this.employeeService.updateEmployee(employee.id, employee)
       .subscribe(
         success => {
@@ -184,8 +192,8 @@ export class AddUserComponent implements OnInit {
           this.snackBar.open('Congratulations! Employee has been changed!', '', {
             duration: this.duration
           });
-          
-          if(!success.startDate){
+
+          if (!success.startDate) {
             this.createLogTimeVacation(employee)
           }
         },
@@ -200,7 +208,7 @@ export class AddUserComponent implements OnInit {
   getCV() {
     this.uploadFileService.getUplFileById(this.dataUser.changeUser)
       .subscribe((res) => {
-        if (res != null){
+        if (res != null) {
           this.urlCV = res.imagePath;
         }
         const iframe = '<iframe width=\'100%\' height=\'100%\' src=\'' + this.urlCV + '\'></iframe>';
@@ -296,4 +304,12 @@ export class AddUserComponent implements OnInit {
         }
       });
   }
+
+  getAllPosition() {
+    this.positionListServise.GetPositionList()
+      .subscribe((res) => {
+        this.positionList = res;
+      })
+  }
+
 }

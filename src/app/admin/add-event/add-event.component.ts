@@ -45,14 +45,18 @@ export class AddEventComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getEvent(event: Events) {
-    if (event) {
+  getEvent(eventForm: FormGroup) {
+    if (eventForm.valid) {
       if (this.data.btn === 'ADD') {
-        this.addEvent(event);
+        this.addEvent(eventForm.value);
       }
       if (this.data.btn === 'EDIT') {
-        this.updateEvent(event);
+        this.updateEvent(eventForm.value);
       }
+    } else {
+      this.snackBar.open('ERROR! Enter correct data!', '', {
+        duration: this.duration
+      });
     }
   }
 

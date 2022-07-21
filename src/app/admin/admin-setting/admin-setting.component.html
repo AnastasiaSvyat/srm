@@ -1,9 +1,67 @@
-<div class="admin-setting-container h100" fxLayout="row" fxLayoutAlign="center center" >
+<div class="admin-setting-container h100" fxLayout="row" fxLayoutAlign="center center">
     <div class="w96" fxLayoutAlign="space-between center">
-        <div class="settingBox" fxFlex="60%"></div>
+        <div class="settingBox" fxFlex="60%" fxLayoutAlign="center ">
+            <div fxFlex="80%" class="borderBottom">
+                <p class="fw500 fs21 mt40">List of position</p>
+                <div class="w100" fxLayout="row">
+                    <form [formGroup]="positionListForm" mat-dialog-content class="w96"
+                        fxLayoutAlign="space-between center">
+
+                        <!-- <div class="w96" fxLayoutAlign="space-between center"> -->
+
+                        <mat-form-field *ngIf='!createNewPosition' class="w47" appearance="outline" floatLabel="always" >
+                            <mat-label>Position(s)</mat-label>
+                            <mat-select formControlName="_id" placeholder="Choose position...">
+                                <mat-option *ngFor="let position of positionList" [value]="position._id" (click)="changePosition(position.positionName)">
+                                    {{position.positionName | titlecase}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field class="w47" *ngIf='positionListForm.value._id || createNewPosition'
+                            appearance="outline" floatLabel="always">
+                            <mat-label>Position name</mat-label>
+                            <input type="text" placeholder="Enter new position name..." formControlName="positionName"
+                                name="description" matInput />
+                        </mat-form-field>
+
+                        <div class="mt40 h50 ml8" fxLayout="column" fxLayoutAlign="space-between center">
+                            <div *ngIf='createNewPosition || positionListForm.value._id' (click)="actionWithPosition(positionListForm, positionListForm.value._id)" class="fontColorGreen actionImg">
+                                <img class="actionImg" src="../../../assets/img/okIcon.png" alt="">
+                            </div>
+                            <div *ngIf='positionListForm.value._id' (click)="deletePosition(positionListForm.value)" class="fontColorRed actionImg">
+                                <img class="actionImg" src="../../../assets/img/close.png" alt="">
+                            </div>
+                        </div>
+
+                        <div *ngIf='!createNewPosition' fxLayoutAlign="center center"
+                            class="w47 blueColor mt40 textCenter underline cursor h100"
+                            (click)='createNewPosition = !createNewPosition; positionListForm.reset()'>
+                            Сreate a new position
+                        </div>
+
+                        <div *ngIf='createNewPosition && !positionListForm.value._id' fxLayoutAlign="center center"
+                            class="w47 blueColor mt40 textCenter underline cursor h100"
+                            (click)='createNewPosition = !createNewPosition; positionListForm.reset()'>
+                            Сhange existing position
+                        </div>
+
+
+                        <!-- </div> -->
+
+                    </form>
+
+
+                    
+                </div>
+
+
+
+            </div>
+        </div>
         <div class="settingBox" fxFlex="30%" fxLayoutAlign="center ">
             <div fxFlex="80%" class="borderBottom">
-                <p class="fw500 fs21 mt24">House rules</p>
+                <p class="fw500 fs21 mt40">House rules</p>
                 <div class="dffssb" fxLayoutAlign="end center">
                     <button (click)="fileUpload.click()" type="file" class="btn-dashboard" mat-flat-button>
                         <mat-icon>add</mat-icon>

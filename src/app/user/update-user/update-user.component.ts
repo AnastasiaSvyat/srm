@@ -89,14 +89,14 @@ export class UpdateUserComponent implements OnInit {
             if (photo.name) {
               this.uploadPhotoService.uploadPhoto(photo.name, photo.image, employee.id)
                 .subscribe(res => {
-                  console.log(res);
+                  // console.log(res);
                 },
                   error => console.log(error));
             }
             if (cvFile.name) {
               this.uploadFileService.uploadFile(cvFile.name, cvFile.cv, employee.id)
                 .subscribe((res) => {
-                  console.log(res);
+                  // console.log(res);
                 });
             }
             this.dialogRef.close(employee);

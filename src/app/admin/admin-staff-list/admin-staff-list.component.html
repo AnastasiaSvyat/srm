@@ -39,9 +39,10 @@
             <ng-container matColumnDef="position">
                 <mat-header-cell *matHeaderCellDef>Position</mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <p class="text-truncate-ellipsis" [matTooltip]="element?.position"
+                    <p class="text-truncate-ellipsis" [matTooltip]="getPositionEmployee(element?.position)"
                         matTooltipClass="my-custom-tooltip">
-                        <span class="mobile-view">Position: </span>{{element?.position || '&#8212;'}}
+                        <span class="mobile-view">Position: </span>
+                        {{getPositionEmployee(element?.position)}}
                     </p>
                 </mat-cell>
             </ng-container>

@@ -60,8 +60,7 @@ export class AddRequestUserComponent implements OnInit {
   checkCorrectUpdateDate(){
     this.logTimeVacationService.checkCorrectUpdateDateOrCreateLogTimeVacation(this.data.employee.id)
     .subscribe((res) => {
-      console.log(res);
-      
+      // console.log(res);
     })
   }
 

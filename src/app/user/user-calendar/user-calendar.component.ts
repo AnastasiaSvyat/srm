@@ -73,7 +73,7 @@ export class UserCalendarComponent implements OnInit {
     }
     this.eventService.UpdateEvent(event._id, event)
       .subscribe((res) => {
-        console.log(res);
+        // console.log(res);
       });
   }
 
@@ -107,7 +107,7 @@ export class UserCalendarComponent implements OnInit {
   getAllEvent() {
     this.eventService.getEvents()
       .subscribe((res) => {
-        console.log(res);
+        // console.log(res);
       });
   }
 

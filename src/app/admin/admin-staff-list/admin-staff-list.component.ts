@@ -18,6 +18,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LogTimeVacationService } from 'src/app/services/LogTimeVacation/log-time-vacation.service';
 import * as moment from 'moment';
 import { LogTimeVacationInNewYer } from 'src/app/model/LogTimeVacationInNewYear';
+import { PositionListService } from 'src/app/services/positionList/position-list.service';
+import { PositionList } from 'src/app/model/positionList';
 
 export interface ParamsStaffPag {
   page: number;
@@ -44,6 +46,8 @@ export class AdminStaffListComponent implements OnInit {
   pageSize = 10;
   docPDF!: any;
   private unsubscribe = new Subject();
+
+  positionList: PositionList[] = [];
   
   @ViewChild('paginator') paginator!: MatPaginator;
 
@@ -59,7 +63,8 @@ export class AdminStaffListComponent implements OnInit {
     private snackBar: MatSnackBar,
     private overlay: Overlay,
     private authService: AuthService,
-    private logTimeVacationService: LogTimeVacationService
+    private logTimeVacationService: LogTimeVacationService,
+    private positionListServise: PositionListService
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +72,7 @@ export class AdminStaffListComponent implements OnInit {
     this.retrieveStaff();
     this.getPhotoEmployee();
     this.getCountVacation();
+    this.getAllPosition();
   }
 
   ngOnDesttroy() {
@@ -152,7 +158,7 @@ export class AdminStaffListComponent implements OnInit {
 
   addUser(): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
-      width: '398px',
+      width: '430px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       height: '890px',
       disableClose: true,
@@ -198,7 +204,7 @@ export class AdminStaffListComponent implements OnInit {
 
   editUser(event: Employee): void {
     const dialogRef = this.dialog.open(AddUserComponent, {
-      width: '398px',
+      width: '430px',
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
       height: '870px',
       disableClose: true,
@@ -221,5 +227,18 @@ export class AdminStaffListComponent implements OnInit {
         this.getEmployeePhoto(result.id);
       }
     });
+  }
+
+  getAllPosition(){
+    this.positionListServise.GetPositionList()
+    .subscribe((res) => {
+      this.positionList = res;
+    })
+  }
+
+
+  getPositionEmployee(id: string){
+      const result = this.positionList.find(req => req._id === id);
+      return result?.positionName ?? '-';
   }
 }

@@ -213,7 +213,6 @@ export class DashboardUserComponent implements OnInit {
         this.emoloyeeService.GetEmplBirthMonth()
           .subscribe((result) => {
             this.birthMonthList = result;
-            console.log(this.birthMonthList);
             // this.eventMonthList.forEach((element: any) => {
             //   this.birthMonthList.push(element);
             //   console.log(this.birthMonthList);
@@ -244,12 +243,12 @@ export class DashboardUserComponent implements OnInit {
     if (this.isChecked) {
       this.taskService.DeleteTask(task._id)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
         });
     } else {
       this.taskService.AddTask(task)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
         });
     }
   }

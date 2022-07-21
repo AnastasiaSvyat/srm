@@ -9,6 +9,8 @@ import { InfoAboutUserComponent } from '../info-about-user/info-about-user.compo
 import { Overlay } from '@angular/cdk/overlay';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { PositionListService } from 'src/app/services/positionList/position-list.service';
+import { PositionList } from 'src/app/model/positionList';
 
 @Component({
   selector: 'app-user-staff-list',
@@ -22,24 +24,29 @@ export class UserStaffListComponent implements OnInit {
   dataSource: MatTableDataSource<Employee> = new MatTableDataSource<Employee>();
   displayedColumns: string[] = ['photo', 'name', 'position', 'birthday', 'phone', 'email', 'skype', 'about'];
 
-  constructor(
-    private employeeService: EmployeeService,
-    private uploadPhotoService: UploadPhotoService,
-    private overlay: Overlay,
-    public dialog: MatDialog
-    ) { }
-
   staffList: Employee[] = [];
   photoEmployee: UploadPhoto[] = [];
   page = 0;
   count = 0;
   pageSize = 10;
   imagePath!: string;
+  positionList: PositionList[] = [];
+  
+  constructor(
+    private employeeService: EmployeeService,
+    private uploadPhotoService: UploadPhotoService,
+    private overlay: Overlay,
+    public dialog: MatDialog,
+    private positionListServise: PositionListService,
+    ) { }
+
+  
 
 
   ngOnInit(): void {
     this.retrieveStaff();
     this.getPhotoEmployee();
+    this.getAllPosition();
   }
 
   getPhotoEmployee() {
@@ -63,7 +70,7 @@ export class UserStaffListComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
         },
         error => {
-          console.log(error);
+          // console.log(error);
         });
   }
 
@@ -91,5 +98,18 @@ export class UserStaffListComponent implements OnInit {
   handlePageChange(event: any): void {
     this.page = event.pageIndex;
     this.retrieveStaff();
+  }
+
+  getAllPosition(){
+    this.positionListServise.GetPositionList()
+    .subscribe((res) => {
+      this.positionList = res;
+    })
+  }
+
+
+  getPositionEmployee(id: string){
+      const result = this.positionList.find(req => req._id === id);
+      return result?.positionName ?? '-';
   }
 }

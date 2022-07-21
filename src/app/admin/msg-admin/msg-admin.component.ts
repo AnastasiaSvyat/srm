@@ -186,7 +186,6 @@ export class MsgAdminComponent implements OnInit {
           })
       } else {
         this.requestInDifferentMonth(elem)
-        console.log(this.workingDaysFirstMonth);
         this.currentMonth = elem.endDate;
         this.amountConfirmedRequestMonthService.amountConfirmedRequestMonth({
           idEmployee: elem.idEmployee,
@@ -197,11 +196,7 @@ export class MsgAdminComponent implements OnInit {
           }
         })
           .subscribe((res) => {
-            console.log(res);
-
             if (res) {
-              console.log(this.workingDaysSecondMonth);
-
               this.amountConfirmedRequestMonthService.amountConfirmedRequestMonth({
                 idEmployee: elem.idEmployee,
                 date: this.currentMonth,
@@ -211,8 +206,7 @@ export class MsgAdminComponent implements OnInit {
                 }
               })
                 .subscribe((res) => {
-                  console.log(res);
-
+                  // console.log(res);
                 })
             }
 
@@ -259,7 +253,7 @@ export class MsgAdminComponent implements OnInit {
         vacation!: this.workingDaysCurrentMonth,
       }, date)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
         })
     } else if (elem.confirm && elem.type == 'Sick Leave') {
       this.logTimeVacationService.CreateNewCounterUpdateDate({
@@ -268,6 +262,7 @@ export class MsgAdminComponent implements OnInit {
         vacation!: 0,
       }, date)
         .subscribe((res) => {
+          // console.log(res);
         })
     }
   }
@@ -351,7 +346,7 @@ export class MsgAdminComponent implements OnInit {
         vacation!: 0,
       }, elem)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
         })
     }
     if (elem.decline) {
