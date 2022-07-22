@@ -1,7 +1,10 @@
 <div class="add-request-container">
+
     <h2 class="mt24" mat-dialog-title>Create request</h2>
-    <div [formGroup]="requestForm" mat-dialog-content>
-        <mat-form-field>
+
+    <form [formGroup]="requestForm" mat-dialog-content>
+
+        <mat-form-field appearance="outline" class="mt24">
             <mat-label>Type</mat-label>
             <mat-select formControlName="type">
                 <mat-option value="Sick Leave">Sick Leave</mat-option>
@@ -12,56 +15,58 @@
                 <mat-option value="Environment">Environment</mat-option>
                 <mat-option value="Other">Other</mat-option>
             </mat-select>
-            <mat-error *ngIf="type?.invalid && (type?.dirty || type?.touched)" class="helper-text red-text">
+
+            <mat-error class="helper-text red-text">
                 <span *ngIf="type?.errors?.required">Description is required.</span>
             </mat-error>
+
         </mat-form-field>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <div>
-                <mat-form-field class="mt44 calendarWidth"> 
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w100">
+
+            <mat-form-field class="w47" appearance="outline"> 
+                    <mat-label>Start</mat-label>
                     <input [matDatepickerFilter]="disableWeekendFromCalendar" [min]="today" formControlName="date" matInput [matDatepicker]="picker"
                         placeholder="Start day" (focus)="picker.open()" (click)="picker.open()" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
+                    <mat-error class="helper-text red-text">
                         <span *ngIf="date?.errors?.required">Start date is required.</span>
                     </mat-error>
                 </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field class="mr25 mt44 calendarWidth">
+
+                <mat-form-field class="w47" appearance="outline">
+                    <mat-label>End</mat-label>
                     <input [matDatepickerFilter]="disableWeekendFromCalendar" [min]="today" formControlName="endDate" matInput [matDatepicker]="picker1"
                         placeholder="End day" (focus)="picker1.open()" (click)="picker1.open()" readonly>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
-                    <mat-error *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)"
-                        class="helper-text mr24 red-text">
+                    <mat-error class="helper-text mr24 red-text">
                         <span *ngIf="endDate?.errors?.required">End date is required.</span>
                     </mat-error>
                 </mat-form-field>
-            </div>
+
         </div>
-        <!-- <div fxLayout="row" fxLayoutAlign="space-between center">
-            
-            
-        </div> -->
-        <mat-form-field>
+
+        <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
             <textarea formControlName="description" placeholder="Enter description..." name="description"
                 matInput></textarea>
-            <mat-error *ngIf="description?.invalid && (description?.dirty || description?.touched)"
-                class="helper-text red-text">
+            <mat-error class="helper-text red-text">
                 <span *ngIf="description?.errors?.required">Description is required.</span>
             </mat-error>
         </mat-form-field>
-        <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="mt24">
             <div>
                 <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button [disabled]="!requestForm.valid" (click)="getRequest(requestForm.value)" class="btn h48 w155"
-                    mat-stroked-button>Send</button>
+                <button (click)="getRequest(requestForm)" class="btn h48 w155"
+                    mat-stroked-button>Send
+                </button>
             </div>
         </div>
-    </div>
+
+    </form>
 </div>

@@ -64,19 +64,23 @@ export class AddRequestUserComponent implements OnInit {
     })
   }
 
-  getRequest(result: Request) {
-    if (result) {
-      this.requestService.AddRequest(result)
+  getRequest(resultForm: FormGroup) {
+    if (resultForm.valid) {
+      this.requestService.AddRequest(resultForm.value)
         .subscribe((res) => {
           this.snackBar.open('Congratulations! Request has been added!', '', {
             duration: this.duration
           });
-          this.dialogRef.close(result);
+          this.dialogRef.close(resultForm.value);
         }, (err) => {
           this.snackBar.open('ERROR! Try again.!', '', {
             duration: this.duration
           });
         });
+    }else {
+      this.snackBar.open('ERROR! Enter correct data!', '', {
+        duration: this.duration
+      });
     }
   }
 }

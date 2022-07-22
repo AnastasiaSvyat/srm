@@ -1,29 +1,30 @@
 <div class="add-event-container">
     <h2 class="mt24" mat-dialog-title>{{dataUser.head}}</h2>
     <form [formGroup]="photoForm" *ngIf="!imageData">
-        <div>
-            <div (click)="photoUpload.click()" class="addPhoto-box">
-                <input name="file" id="url" type="file" class="file-input" (change)="onPhotoSelected($event)"
+        <div class="w100" fxLayout="column" fxLayoutAlign=" center">
+            <div (click)="photoUpload.click()" class="addPhoto-box cursor">
+                <input name="file" id="url" type="file" class="file-input cursor" (change)="onPhotoSelected($event)"
                     #photoUpload>
                 add photo
             </div>
         </div>
     </form>
-    <div *ngIf="imageData">
+    <div *ngIf="imageData" class="w100" fxLayout="column" fxLayoutAlign=" center">
         <div class="photoBox">
             <div class="updatePhoto greyColor">
                 <div (click)="photoUpload.click()">
                     <input name="file" id="url" type="file" class="file-input" (change)="onPhotoSelected($event)"
                         #photoUpload>
-                    <img class="ml7 mt7" src="../../../assets/img/updatePhoto.png" alt="">
+                    <img class="ml7 mt7 cursor" src="../../../assets/img/updatePhoto.png" alt="">
                 </div>
             </div>
             <img class="photoBoxImg" [src]="imageData" [alt]="photoForm.value.name" />
         </div>
     </div>
+
     <form [formGroup]="addEmployeeForm" fxLayout="column" fxLayoutAlign=" center">
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="mt24">
             <mat-label>Name</mat-label>
             <input type="text" placeholder="Enter your name..." formControlName="name" name="name" matInput>
             <mat-error class="helper-text red-text">
@@ -132,7 +133,7 @@
 
         <form [formGroup]="cvForm">
             <input type="file" class="file-input" (change)="onFileSelected($event)" accept=".pdf,.doc" #fileUpload>
-            <div class="file-upload mt20">
+            <div class="file-upload mt20 w100">
                 <div class="uploadFileBox" *ngIf="uploadFileName">
                     <button (click)="deleteCV()" class="fileImg" class="deleteBtn greyColor">x</button>
                     <img src="../../../assets/img/cv.svg" alt="">
@@ -147,7 +148,12 @@
                     <button (click)='deleteEmployee(addEmployeeForm.value.id)' class="cvButton">Delete user</button>
                 </div>
             </div>
+           
         </form>
+
+        <button type="button" *ngIf="!dataUser.showPassword" class="changePass" (click)='updatePassword()'>
+            change password
+        </button>
 
         <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50 w100">
             <div>

@@ -1,13 +1,15 @@
 <div class="add-info-container">
     <h2 class="mt24" mat-dialog-title>Add information about youself!</h2>
+
     <form [formGroup]="infoAboutUserForm" mat-dialog-content class="h100pr">
-        <mat-form-field class="note" appearance="outline" floatLabel="always">
+
+        <mat-form-field class="note" appearance="outline">
             <mat-label>Description</mat-label>
             <textarea class="note" rows="8" placeholder="Enter description..." formControlName="infoUser"
                 name="description" matInput></textarea>
         </mat-form-field>
 
-        <div fxLayout="row" fxLayoutAlign="space-around center" class="mt20">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="mt20 w100">
             <div>
                 <button (click)='onNoClick()' class="w155 h48" mat-stroked-button>Cancel</button>
             </div>

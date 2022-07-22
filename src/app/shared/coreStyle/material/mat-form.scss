@@ -5,12 +5,10 @@
 .user-add-task-container,
 .app-add-info-user,
 .log-time-container,
-.admin-setting-container{
+.admin-setting-container,
+.admin-add-standart-hours-container{
    mat-form-field{
         width: 100%;
-        // height: 40px;
-        // margin-top: 25px;
-        // margin-left: 15px;
     }
 
     .mat-form-field-flex {
@@ -18,7 +16,7 @@
     }
 
     .mat-form-field-appearance-outline .mat-form-field-outline {
-        color: #193e81;
+        color: #0c3072;
     }
 
 }

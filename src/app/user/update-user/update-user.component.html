@@ -1,8 +1,8 @@
 <div class="add-event-container">
     <h2 class="mt24" mat-dialog-title>{{dataUser.head}}</h2>
     <div [formGroup]="photoForm" *ngIf="!imageData">
-        <div>
-            <div (click)="photoUpload.click()" class="addPhoto-box">
+        <div class="w100" fxLayout="column" fxLayoutAlign=" center">
+            <div (click)="photoUpload.click()" class="addPhoto-box cursor">
                 <input name="file" id="url" type="file" class="file-input" (change)="onPhotoSelected($event)"
                     #photoUpload>
                 add photo
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div *ngIf="imageData">
-        <div class="photoBox">
+        <div class="photoBox" class="w100" fxLayout="column" fxLayoutAlign=" center">
             <div class="updatePhoto greyColor">
                 <div (click)="photoUpload.click()">
                     <input name="file" id="url" type="file" class="file-input" (change)="onPhotoSelected($event)"
@@ -18,55 +18,56 @@
                     <img class="ml7 mt7" src="../../../assets/img/updatePhoto.png" alt="">
                 </div>
             </div>
-            <img class="photoBoxImg" [src]="imageData" [alt]="photoForm.value.name" />
+            <img class="photoBoxImg cursor" [src]="imageData" [alt]="photoForm.value.name" />
         </div>
     </div>
-    <div [formGroup]="addEmployeeForm">
-        <mat-form-field>
+    <form [formGroup]="addEmployeeForm">
+
+        <mat-form-field appearance="outline" class="mt24">
             <mat-label>Name</mat-label>
             <input placeholder="Enter description..." formControlName="name" name="description" matInput />
-            <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="helper-text red-text">
+            <mat-error class="helper-text red-text">
                 <span *ngIf="name?.errors?.required">Name is required.</span>
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <mat-label>Last name</mat-label>
             <input type="text" placeholder="Enter your last name..." formControlName="lastName" name="name" matInput>
-            <mat-error *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="helper-text red-text">
+            <mat-error class="helper-text red-text">
                 <span *ngIf="lastName?.errors?.required">Last name is required.</span>
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <mat-label>Birthday</mat-label>
             <input matInput formControlName="date" [matDatepicker]="picker" placeholder="Choose a date"
                 (focus)="picker.open()" (click)="picker.open()" readonly>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="helper-text red-text">
+            <mat-error class="helper-text red-text">
                 <span *ngIf="date?.errors?.required">Birthday is required.</span>
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <mat-label>Phone</mat-label>
             <input placeholder="Enter phone..." formControlName="phone" name="description" matInput />
-            <mat-error *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)" class="helper-text red-text">
+            <mat-error class="helper-text red-text">
                 <span *ngIf="phone?.errors?.required">Phone is required.</span>
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <mat-label>Skype</mat-label>
             <input type="skype" placeholder="Enter your skype" formControlName="skype" matInput />
         </mat-form-field>
 
-        <mat-form-field>
+        <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
             <input placeholder="Enter email..." formControlName="email" name="description" matInput />
-            <mat-error *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="helper-text red-text">
-                <span *ngIf="email?.errors?.required">Name is required.</span>
+            <mat-error class="helper-text red-text">
+                <span *ngIf="email?.errors?.required">Email is required.</span>
                 <span *ngIf="email?.errors?.email">Enter correct email.</span>
             </mat-error>
         </mat-form-field>
@@ -87,14 +88,15 @@
                 change password
             </button>
         </div>
-        <div fxLayout="row" fxLayoutAlign="space-around center" class="mt50">
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="mt50">
             <div>
                 <button (click)="onNoClick()" class="w155 h48 btnCancel" mat-stroked-button>Cancel</button>
             </div>
             <div>
-                <button (click)="updateUser(addEmployeeForm.value,photoForm.value, cvForm.value)" class="btn h48 w155"
+                <button (click)="updateUser(addEmployeeForm, photoForm.value, cvForm.value)" class="btn h48 w155"
                     mat-stroked-button>{{dataUser.btn}}</button>
             </div>
         </div>
-    </div>
+    </form>
 </div>

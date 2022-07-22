@@ -13,18 +13,18 @@
             <ng-container *ngFor="let logForm of logTimeList.controls; let i = index">
                 <div class="lesson-form-row" [formGroupName]="i" class="border" fxLayout="column"
                     fxLayoutAlign="center center">
-                    <mat-form-field class="w96">
+                    <mat-form-field class="w96 mt40" appearance="outline">
                         <mat-label>Project name</mat-label>
                         <input matInput formControlName="projectName" placeholder="Enter project name" matInput>
                     </mat-form-field>
 
                     <div fxLayout="row" fxLayoutAlign="space-around center" class="w96 mb20">
-                        <mat-form-field class="w47">
+                        <mat-form-field class="w47" appearance="outline">
                             <mat-label>Billable hours</mat-label>
                             <input type="number" matInput formControlName="billableTime" placeholder="Enter billable hours" matInput>
                         </mat-form-field>
 
-                        <mat-form-field class="w47">
+                        <mat-form-field class="w47" appearance="outline">
                             <mat-label>Unbillable hours</mat-label>
                             <input type="number" matInput formControlName="unbillableTime" placeholder="Enter unbillable hours"
                                 matInput>

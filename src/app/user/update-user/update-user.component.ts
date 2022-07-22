@@ -81,25 +81,25 @@ export class UpdateUserComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  updateUser(employee: Employee, photo: UploadPhoto, cvFile: UploadFile) {
-    if (employee) {
-      this.employeeService.updateEmployee(employee.id, employee)
+  updateUser(employeeForm: FormGroup, photo: UploadPhoto, cvFile: UploadFile) {
+    if (employeeForm.valid) {
+      this.employeeService.updateEmployee(employeeForm.value.id, employeeForm.value)
         .subscribe(
           success => {
             if (photo.name) {
-              this.uploadPhotoService.uploadPhoto(photo.name, photo.image, employee.id)
+              this.uploadPhotoService.uploadPhoto(photo.name, photo.image, employeeForm.value.id)
                 .subscribe(res => {
                   // console.log(res);
                 },
                   error => console.log(error));
             }
             if (cvFile.name) {
-              this.uploadFileService.uploadFile(cvFile.name, cvFile.cv, employee.id)
+              this.uploadFileService.uploadFile(cvFile.name, cvFile.cv, employeeForm.value.id)
                 .subscribe((res) => {
                   // console.log(res);
                 });
             }
-            this.dialogRef.close(employee);
+            this.dialogRef.close(employeeForm.value);
             this.snackBar.open('Congratulations! Employee has been changed!', '', {
               duration: this.duration
             });
@@ -109,6 +109,10 @@ export class UpdateUserComponent implements OnInit {
               duration: this.duration
             })
         );
+    }else {
+      this.snackBar.open('ERROR! Enter correct data!', '', {
+        duration: this.duration
+      });
     }
   }
 

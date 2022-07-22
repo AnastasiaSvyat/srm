@@ -1,0 +1,26 @@
+.user-msg-container,.admin-request-list-container {
+    padding: 16px;
+  }
+  
+  .button-container {
+    position: absolute;
+    right: 16px;
+    top: 24px;
+    z-index: 1;
+  }
+  
+  .btn-msg {
+    background-color: #2062A3;
+    color: white;
+    border-radius: 50% !important;
+    line-height: 0% !important;
+    padding: 4px !important;
+    min-width: auto !important;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .button-container {
+      top: 16px;
+    }
+  }
+    

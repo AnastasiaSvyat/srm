@@ -159,9 +159,11 @@ export class MsgAdminComponent implements OnInit {
     }
     this.requestService.UpdateRequest(elem._id, elem)
       .subscribe((res) => {
-        this.checkPassedYearSinceFirstDate(elem);
-        this.amountConfirmedRequestCurrentMonth(elem);
-        this.getConfirmRequest();
+        if(elem.confirm){
+          this.checkPassedYearSinceFirstDate(elem);
+          this.amountConfirmedRequestCurrentMonth(elem);
+          this.getConfirmRequest();
+        }
         this.pendingRequest();
       });
   }

@@ -50,15 +50,20 @@ export class UserAddTaskComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getTask(result: ToDoList) {
-    if (result) {
+  getTask(resultForm: FormGroup) {
+    if (resultForm.valid) {
       if (this.dataTask.btn === 'ADD') {
-        this.addTask(result);
+        this.addTask(resultForm.value);
       }
       if (this.dataTask.btn === 'EDIT') {
-        this.updateTask(result);
+        this.updateTask(resultForm.value);
       }
+    }else {
+      this.snackBar.open('ERROR! Enter correct data!', '', {
+        duration: this.duration
+      });
     }
+    
   }
 
   addTask(result: ToDoList) {
