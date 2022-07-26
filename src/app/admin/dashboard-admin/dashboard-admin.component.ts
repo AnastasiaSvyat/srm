@@ -120,6 +120,8 @@ export class DashboardAdminComponent implements OnInit {
     this.requestService.GetRequestConfirmMonth()
       .subscribe((res) => {
         this.vacationMonthList = res;
+        console.log(res);
+        
       });
   }
 

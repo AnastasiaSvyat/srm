@@ -27,7 +27,7 @@ export class AddRequestUserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.checkCorrectUpdateDate();
+    // this.checkCorrectUpdateDate();
     this.requestForm = new FormGroup({
       idEmployee: new FormControl(this.data.employee.id),
       type: new FormControl('', [Validators.required]),
@@ -60,7 +60,7 @@ export class AddRequestUserComponent implements OnInit {
   checkCorrectUpdateDate(){
     this.logTimeVacationService.checkCorrectUpdateDateOrCreateLogTimeVacation(this.data.employee.id)
     .subscribe((res) => {
-      // console.log(res);
+      console.log(res);
     })
   }
 

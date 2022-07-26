@@ -312,11 +312,11 @@ export class MsgAdminComponent implements OnInit {
 
 
     var endSecondMonthDate = new Date(elem.endDate);
-    let startSecondMonthDate = new Date(moment().format('yyyy-MM-1'));
+    let startSecondMonthDate = new Date(moment(elem.endDate).format('yyyy-MM-1'));
     const nextMonthsec = endSecondMonthDate.getTime() - startSecondMonthDate.getTime();
     var dayReqNextMonth = Math.floor(nextMonthsec / (1000 * 60 * 60 * 24) % 30);
 
-    this.workingDaysSecondMonth = this.countWorkingDays(startSecondMonthDate, dayReqNextMonth);
+    this.workingDaysSecondMonth = this.countWorkingDays(startSecondMonthDate, dayReqNextMonth) + 1;
 
     this.workingDaysCurrentMonth = this.workingDaysFirstMonth + this.workingDaysSecondMonth;
 

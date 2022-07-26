@@ -25,7 +25,7 @@ export class AdddRequestComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.checkCorrectUpdateDate();
+    // this.checkCorrectUpdateDate();
     this.requestForm = new FormGroup({
       idEmployee: new FormControl(this.data.employee.id),
       type: new FormControl('', [Validators.required]),
